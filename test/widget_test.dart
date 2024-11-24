@@ -1,5 +1,5 @@
-import 'package:debateseason_frontend_v1/view/chat_room_screen.dart';
-import 'package:debateseason_frontend_v1/view_model/chat_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
