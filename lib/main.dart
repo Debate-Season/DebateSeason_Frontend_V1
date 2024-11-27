@@ -2,6 +2,8 @@ import 'package:debateseason_frontend_v1/data/repositories/auth_repository.dart'
 import 'package:debateseason_frontend_v1/features/auth/view/login_screen.dart';
 import 'package:debateseason_frontend_v1/features/auth/view_model/auth_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/view/chat_topic_detail_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/view/home_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           //  '/': (context) => LoginScreen(),
+          '/home': (context) => HomeScreen(),
+          '/chat-topic': (context) => ChatTopicDetailScreen(topic: 'Topic111'),
           '/chat': (context) => ChatRoomScreen(),
         },
       ),
