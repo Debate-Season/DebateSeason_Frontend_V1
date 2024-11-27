@@ -16,6 +16,12 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat'); // 다음 화면으로 이동
+              },
+              child: Text('Skip to Chat (디버그용)'), // 디버그용 버튼
+            ),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(labelText: 'Username'),

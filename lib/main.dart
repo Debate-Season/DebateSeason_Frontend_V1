@@ -1,3 +1,6 @@
+import 'package:debateseason_frontend_v1/data/repositories/auth_repository.dart';
+import 'package:debateseason_frontend_v1/features/auth/view/login_screen.dart';
+import 'package:debateseason_frontend_v1/features/auth/view_model/auth_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +17,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ChatRoomViewModel()),
+        ChangeNotifierProvider<ChatRoomViewModel>(
+          create: (_) => ChatRoomViewModel(),
+        ),
+        ChangeNotifierProvider<AuthViewModel>(
+          create: (_) => AuthViewModel(AuthRepository()),
+        ),
       ],
       child: MaterialApp(
         title: '토론철',
         theme: ThemeData(
           primaryColor: Colors.purpleAccent,
         ),
-        home: ChatRoomScreen(),
+        home: LoginScreen(),
+        initialRoute: '/',
+        routes: {
+          //  '/': (context) => LoginScreen(),
+          '/chat': (context) => ChatRoomScreen(),
+        },
       ),
     );
   }
