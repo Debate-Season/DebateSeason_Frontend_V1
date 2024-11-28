@@ -2,6 +2,8 @@ import 'package:debateseason_frontend_v1/data/repositories/auth_repository.dart'
 import 'package:debateseason_frontend_v1/features/auth/view/login_screen.dart';
 import 'package:debateseason_frontend_v1/features/auth/view_model/auth_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/view/chat_topic_detail_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/view/home_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,24 +26,20 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthViewModel(AuthRepository()),
         ),
       ],
-      child: Consumer<AuthViewModel>(builder: (context, authViewModel, child) {
-        return MaterialApp(
-          title: '토론철',
-          theme: ThemeData(
-            primaryColor: Colors.purpleAccent,
-          ),
-          home: authViewModel.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator()) // ChatRoomScreen()
-              : authViewModel.isLoggedIn
-                  ? ChatRoomScreen()
-                  : LoginScreen(),
-          routes: {
-            //  '/': (context) => LoginScreen(),
-            '/chat': (context) => ChatRoomScreen(),
-          },
-        );
-      }),
+      child: MaterialApp(
+        title: '토론철',
+        theme: ThemeData(
+          primaryColor: Colors.purpleAccent,
+        ),
+        home: LoginScreen(),
+        initialRoute: '/',
+        routes: {
+          //  '/': (context) => LoginScreen(),
+          '/home': (context) => HomeScreen(),
+          '/chat-topic': (context) => ChatTopicDetailScreen(topic: 'Topic111'),
+          '/chat': (context) => ChatRoomScreen(),
+        },
+      ),
     );
   }
 }

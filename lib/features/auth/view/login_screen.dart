@@ -18,9 +18,9 @@ class LoginScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/chat'); // 다음 화면으로 이동
+                Navigator.pushNamed(context, '/home'); // 다음 화면으로 이동
               },
-              child: Text('Skip to Chat (디버그용)'), // 디버그용 버튼
+              child: Text('Skip to Home (디버그용)'), // 디버그용 버튼
             ),
             TextField(
               controller: _usernameController,
