@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthRepository {
   Future<bool> login(String username, String password) async {
@@ -14,6 +15,12 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final jwtToken = jsonResponse['token'];
+
+        final storage = FlutterSecureStorage();
+        await storage.write(key: 'jwtToken', value: jwtToken);
+
         return true; // 로그인 성공
       } else {
         return false; // 로그인 실패
