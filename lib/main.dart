@@ -24,18 +24,24 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthViewModel(AuthRepository()),
         ),
       ],
-      child: MaterialApp(
-        title: '토론철',
-        theme: ThemeData(
-          primaryColor: Colors.purpleAccent,
-        ),
-        home: LoginScreen(),
-        initialRoute: '/',
-        routes: {
-          //  '/': (context) => LoginScreen(),
-          '/chat': (context) => ChatRoomScreen(),
-        },
-      ),
+      child: Consumer<AuthViewModel>(builder: (context, authViewModel, child) {
+        return MaterialApp(
+          title: '토론철',
+          theme: ThemeData(
+            primaryColor: Colors.purpleAccent,
+          ),
+          home: authViewModel.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator()) // ChatRoomScreen()
+              : authViewModel.isLoggedIn
+                  ? ChatRoomScreen()
+                  : LoginScreen(),
+          routes: {
+            //  '/': (context) => LoginScreen(),
+            '/chat': (context) => ChatRoomScreen(),
+          },
+        );
+      }),
     );
   }
 }
