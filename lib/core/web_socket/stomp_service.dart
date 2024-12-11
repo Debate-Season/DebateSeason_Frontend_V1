@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
 import 'package:debateseason_frontend_v1/data/models/message_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
@@ -10,12 +11,10 @@ class StompService {
   void connect(String userId, Function(MessageModel) onMessageReceived) {
     stompClient = StompClient(
       config: StompConfig.sockJS(
-//        url: 'wss://localhost:8080/gs-guide-websocket',
-        url: 'wss://echo.websocket.events/',
+        url: "${AppConstants.baseUrl}/ws-stomp",
         onConnect: (StompFrame frame) {
           stompClient.subscribe(
-            //destination: '/issue/chat/messages',
-            destination: 'topic/message',
+            destination: '/topic/public',
             callback: (frame) {
               if (frame.body != null) {
                 var message = MessageModel.fromJson(jsonDecode(frame.body!));
@@ -32,8 +31,7 @@ class StompService {
 
   void sendMessage(MessageModel message) {
     stompClient.send(
-        //destination: '/app/chat~~~~~~ 메시지 전송 경로',
-        destination: '/app',
+        destination: '/app/chat.sendMessage',
         body: jsonEncode(message.toJson()));
   }
 
