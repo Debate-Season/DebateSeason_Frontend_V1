@@ -6,9 +6,11 @@ import 'package:debateseason_frontend_v1/features/chat/view/chat_topic_detail_sc
 import 'package:debateseason_frontend_v1/features/chat/view/home_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
