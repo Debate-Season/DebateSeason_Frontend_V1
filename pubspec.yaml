@@ -42,9 +42,6 @@ dependencies:
   connectivity_plus: ^6.1.0
   change_app_package_name: ^1.4.0
 
-  # 추후 삭제
-  provider: ^6.1.2
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
