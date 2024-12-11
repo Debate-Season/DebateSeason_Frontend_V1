@@ -1,4 +1,4 @@
-package com.example.debateseason_frontend_v1
+package com.rosyocean.debateseason
 
 import io.flutter.embedding.android.FlutterActivity
 
