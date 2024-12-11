@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:flutter/material.dart';
 
-TextStyle header = TextStyle(
+const TextStyle header = TextStyle(
   color: grey10,
   fontSize: 20,
   fontFamily: 'Pretendard',
@@ -10,7 +9,7 @@ TextStyle header = TextStyle(
   height: 1.4,
 );
 
-TextStyle title = TextStyle(
+const TextStyle title = TextStyle(
   color: grey10,
   fontSize: 18,
   fontFamily: 'Pretendard',
@@ -18,7 +17,7 @@ TextStyle title = TextStyle(
   height: 1.44444,
 );
 
-TextStyle body16Sb = TextStyle(
+const TextStyle body16Sb = TextStyle(
   color: grey10,
   fontSize: 16,
   fontFamily: 'Pretendard',
@@ -26,7 +25,7 @@ TextStyle body16Sb = TextStyle(
   height: 1.5,
 );
 
-TextStyle body16M = TextStyle(
+const TextStyle body16M = TextStyle(
   color: grey10,
   fontSize: 16,
   fontFamily: 'Pretendard',
@@ -34,7 +33,7 @@ TextStyle body16M = TextStyle(
   height: 1.5,
 );
 
-TextStyle body14Sb = TextStyle(
+const TextStyle body14Sb = TextStyle(
   color: grey10,
   fontSize: 14,
   fontFamily: 'Pretendard',
@@ -42,7 +41,7 @@ TextStyle body14Sb = TextStyle(
   height: 1.57142,
 );
 
-TextStyle body14M = TextStyle(
+const TextStyle body14M = TextStyle(
   color: grey10,
   fontSize: 14,
   fontFamily: 'Pretendard',
@@ -50,7 +49,7 @@ TextStyle body14M = TextStyle(
   height: 1.57142,
 );
 
-TextStyle body12M = TextStyle(
+const body12M = TextStyle(
   color: grey10,
   fontSize: 14,
   fontFamily: 'Pretendard',
