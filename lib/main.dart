@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: GetRouterName.login, // 추후 자동로그인 로직 필요.
       getPages: GetRouter.getPages,
     );
