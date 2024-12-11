@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/auth/data/repositories_impl/auth_repository.dart';
+import 'package:debateseason_frontend_v1/features/auth/data/repositories_impls/remote/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class AuthViewModel extends ChangeNotifier {

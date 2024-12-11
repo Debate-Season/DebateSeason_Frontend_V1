@@ -1,8 +1,4 @@
-import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'message_bubble.dart';
 
 class ChatRoomScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -15,19 +11,19 @@ class ChatRoomScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: Consumer<ChatRoomViewModel>(
-              builder: (context, viewModel, child) {
-                return ListView.builder(
-                  itemCount: viewModel.messages.length,
-                  itemBuilder: (context, index) {
-                    final message = viewModel.messages[index];
-                    return MessageBubble(message: message);
-                  },
-                );
-              },
-            ),
-          ),
+          // Expanded(
+          //   child: Consumer<ChatRoomViewModel>(
+          //     builder: (context, viewModel, child) {
+          //       return ListView.builder(
+          //         itemCount: viewModel.messages.length,
+          //         itemBuilder: (context, index) {
+          //           final message = viewModel.messages[index];
+          //           return MessageBubble(message: message);
+          //         },
+          //       );
+          //     },
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
@@ -42,9 +38,9 @@ class ChatRoomScreen extends StatelessWidget {
                   icon: Icon(Icons.send),
                   onPressed: () {
                     if (_controller.text.isNotEmpty) {
-                      context
-                          .read<ChatRoomViewModel>()
-                          .sendMessage(_controller.text);
+                      // context
+                      //     .read<ChatRoomViewModel>()
+                      //     .sendMessage(_controller.text);
                       _controller.clear();
                     }
                   },

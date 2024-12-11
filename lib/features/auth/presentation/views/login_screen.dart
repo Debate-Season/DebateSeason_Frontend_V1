@@ -1,14 +1,14 @@
-import 'package:debateseason_frontend_v1/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final authViewModel = Provider.of<AuthViewModel>(context);
+    // final authViewModel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
@@ -32,24 +32,24 @@ class LoginScreen extends StatelessWidget {
               obscureText: true,
             ),
             SizedBox(height: 20),
-            authViewModel.isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: () async {
-                      final success = await authViewModel.login(
-                        _usernameController.text,
-                        _passwordController.text,
-                      );
-                      if (success) {
-                        Navigator.pushNamed(context, '/chat');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Login failed')),
-                        );
-                      }
-                    },
-                    child: Text('Login'),
-                  ),
+            // authViewModel.isLoading
+            //     ? CircularProgressIndicator()
+            //     : ElevatedButton(
+            //         onPressed: () async {
+            //           final success = await authViewModel.login(
+            //             _usernameController.text,
+            //             _passwordController.text,
+            //           );
+            //           if (success) {
+            //             Navigator.pushNamed(context, '/chat');
+            //           } else {
+            //             ScaffoldMessenger.of(context).showSnackBar(
+            //               SnackBar(content: Text('Login failed')),
+            //             );
+            //           }
+            //         },
+            //         child: Text('Login'),
+            //       ),
           ],
         ),
       ),
