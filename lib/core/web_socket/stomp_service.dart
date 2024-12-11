@@ -11,7 +11,7 @@ class StompService {
   void connect(String userId, Function(MessageModel) onMessageReceived) {
     stompClient = StompClient(
       config: StompConfig.sockJS(
-        url: "${dotenv.get("BASE_URL")}/ws-stomp",
+        url: dotenv.get("WEB_SOCKET_BASE_URL"),
         onConnect: (StompFrame frame) {
           stompClient.subscribe(
             destination: '/topic/public',
