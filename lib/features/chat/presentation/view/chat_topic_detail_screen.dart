@@ -1,5 +1,6 @@
-import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'chat_room_screen.dart';
 
 class ChatTopicDetailScreen extends StatelessWidget {
   final String topic;

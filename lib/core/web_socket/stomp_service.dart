@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
-import 'package:debateseason_frontend_v1/data/models/message_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 

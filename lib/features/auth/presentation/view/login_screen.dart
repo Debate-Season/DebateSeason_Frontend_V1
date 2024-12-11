@@ -1,6 +1,6 @@
+import 'package:debateseason_frontend_v1/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:debateseason_frontend_v1/features/auth/view_model/auth_view_model.dart';
 
 class LoginScreen extends StatelessWidget {
   final _usernameController = TextEditingController();

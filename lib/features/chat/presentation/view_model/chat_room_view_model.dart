@@ -1,5 +1,5 @@
-import 'package:debateseason_frontend_v1/core/stomp/stomp_service.dart';
-import 'package:debateseason_frontend_v1/data/models/message_model.dart';
+import 'package:debateseason_frontend_v1/core/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomViewModel with ChangeNotifier {

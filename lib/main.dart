@@ -1,13 +1,14 @@
-import 'package:debateseason_frontend_v1/data/repositories/auth_repository.dart';
-import 'package:debateseason_frontend_v1/features/auth/view/login_screen.dart';
-import 'package:debateseason_frontend_v1/features/auth/view_model/auth_view_model.dart';
-import 'package:debateseason_frontend_v1/features/chat/view/chat_room_screen.dart';
-import 'package:debateseason_frontend_v1/features/chat/view/chat_topic_detail_screen.dart';
-import 'package:debateseason_frontend_v1/features/chat/view/home_screen.dart';
-import 'package:debateseason_frontend_v1/features/chat/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+
+import 'features/auth/data/repositories_impl/auth_repository.dart';
+import 'features/auth/presentation/view/login_screen.dart';
+import 'features/auth/presentation/view_model/auth_view_model.dart';
+import 'features/chat/presentation/view/chat_room_screen.dart';
+import 'features/chat/presentation/view/chat_topic_detail_screen.dart';
+import 'features/chat/presentation/view/home_screen.dart';
+import 'features/chat/presentation/view_model/chat_room_view_model.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
