@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-import 'features/auth/data/repositories_impl/auth_repository.dart';
-import 'features/auth/presentation/view/login_screen.dart';
-import 'features/auth/presentation/view_model/auth_view_model.dart';
+import 'features/auth/data/repositories_impls/remote/auth_repository.dart';
+import 'features/auth/presentation/view_models/auth_view_model.dart';
+import 'features/auth/presentation/views/login_screen.dart';
 import 'features/chat/presentation/view/chat_room_screen.dart';
 import 'features/chat/presentation/view/chat_topic_detail_screen.dart';
 import 'features/chat/presentation/view/home_screen.dart';
