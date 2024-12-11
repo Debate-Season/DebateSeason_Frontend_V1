@@ -16,8 +16,9 @@ class ChatRoomViewModel with ChangeNotifier {
   void sendMessage(String content) {
     var message = MessageModel(
       sender: 'your id',
+      category: 'category',
       content: content,
-      timestamp: DateTime.now(),
+      //timestamp: DateTime.now(),
     );
     _stompService.sendMessage(message);
     messages.add(message);
