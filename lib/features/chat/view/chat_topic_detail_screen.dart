@@ -29,11 +29,11 @@ class ChatTopicDetailScreen extends StatelessWidget {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatRoomScreen(),
-                  ),
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ChatRoomScreen(); // BottomSheet 내에 ChatRoomScreen 표시
+                  },
                 );
               },
               child: Text('Open BottomShet'),

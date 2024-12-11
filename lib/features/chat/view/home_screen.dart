@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('토론철')),
+      appBar: AppBar(title: Text('토론철 메인화면')),
       body: ListView.builder(
           itemCount: chatTopics.length,
           itemBuilder: (context, index) {
