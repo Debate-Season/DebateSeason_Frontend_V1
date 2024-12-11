@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthRepository {
   Future<bool> login(String username, String password) async {
-    final url = Uri.parse("${AppConstants.baseUrl}/auth/login");
+    final url = Uri.parse("${dotenv.get("BASE_URL")}/auth/login");
 
     try {
       final response = await http.post(

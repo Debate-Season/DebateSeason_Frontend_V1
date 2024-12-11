@@ -10,10 +10,8 @@ const grey90 = Color(0xFF2E2B34);
 const grey100 = Color(0xFF262226);
 const grey110 = Color(0xFF161416);
 const grey120 = Color(0xFF1D1A1D);
-
-const trans = Color(0x80000000); //<- 투명도 50%
-const brandTrans = Color(0xCC996BFA); //<- 투명도 80%
-
+const trans50 = Color(0x80000000);
+const brandTrans80 = Color(0xCC996BFA);
 const brandColor = Color(0xFF996BFA);
 const brandDark = Color(0xFF7E66B0);
 const brandDisable = Color(0xFFA590D0);

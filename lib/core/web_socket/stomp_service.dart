@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 class StompService {
@@ -11,7 +11,7 @@ class StompService {
   void connect(String userId, Function(MessageModel) onMessageReceived) {
     stompClient = StompClient(
       config: StompConfig.sockJS(
-        url: "${AppConstants.baseUrl}/ws-stomp",
+        url: dotenv.get("WEB_SOCKET_BASE_URL"),
         onConnect: (StompFrame frame) {
           stompClient.subscribe(
             destination: '/topic/public',
