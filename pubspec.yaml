@@ -38,6 +38,8 @@ dependencies:
   logger: ^2.5.0
   connectivity_plus: ^6.1.0
   change_app_package_name: ^1.4.0
+  kakao_flutter_sdk: ^1.9.6
+  sign_in_with_apple: ^6.1.4
 
 dev_dependencies:
   flutter_test:
