@@ -1,17 +1,13 @@
-import 'package:debateseason_frontend_v1/core/stomp/stomp_service.dart';
-import 'package:debateseason_frontend_v1/data/models/message_model.dart';
+import 'package:debateseason_frontend_v1/core/web_socket/stomp_service.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/models/response/message_model.dart';
 
 class ChatRoomViewModel with ChangeNotifier {
   final StompService _stompService = StompService();
   List<MessageModel> messages = [];
 
-  ChatRoomViewModel() {
-    _stompService.connect('your id', (message) {
-      messages.add(message);
-      notifyListeners();
-    });
-  }
+  ChatRoomViewModel();
 
   void sendMessage(String content) {
     var message = MessageModel(

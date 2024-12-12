@@ -1,5 +1,6 @@
-import 'package:debateseason_frontend_v1/data/models/message_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/models/response/message_model.dart';
 
 class MessageBubble extends StatelessWidget {
   final MessageModel message;

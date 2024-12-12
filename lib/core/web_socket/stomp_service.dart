@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:debateseason_frontend_v1/core/constants/app_constants.dart';
-import 'package:debateseason_frontend_v1/data/models/message_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 class StompService {
@@ -11,11 +10,13 @@ class StompService {
   void connect(String userId, Function(MessageModel) onMessageReceived) {
     stompClient = StompClient(
       config: StompConfig.sockJS(
-        url: "${AppConstants.baseUrl}/ws-stomp",
+        url: "ws://www.debate-season.click/ws-stomp",
+
         onConnect: (StompFrame frame) {
           stompClient.subscribe(
-            destination: '/topic/public',
+            destination: '/topic/room1',
             callback: (frame) {
+              log.d('커넥션');
               if (frame.body != null) {
                 var message = MessageModel.fromJson(jsonDecode(frame.body!));
                 onMessageReceived(message);
@@ -23,7 +24,7 @@ class StompService {
             },
           );
         },
-        onWebSocketError: (dynamic error) => debugPrint(error.toString()),
+        onWebSocketError: (dynamic error) => log.d(error.toString()),
       ),
     );
     stompClient.activate();

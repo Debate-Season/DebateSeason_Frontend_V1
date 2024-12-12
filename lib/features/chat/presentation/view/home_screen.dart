@@ -1,5 +1,6 @@
-import 'package:debateseason_frontend_v1/features/chat/view/chat_topic_detail_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'chat_topic_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<String> chatTopics = [
