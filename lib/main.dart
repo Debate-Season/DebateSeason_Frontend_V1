@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: GetRouterName.login, // 추후 자동로그인 로직 필요.
+      initialRoute: GetRouterName.auth, // 추후 자동로그인 로직 필요.
       getPages: GetRouter.getPages,
     );
   }
