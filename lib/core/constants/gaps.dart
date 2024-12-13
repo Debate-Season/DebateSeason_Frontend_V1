@@ -5,7 +5,8 @@ class Gaps {
   static const v8 = SizedBox(height: 8);
   static const v12 = SizedBox(height: 12);
   static const v14 = SizedBox(height: 14);
-  static const v18 = SizedBox(height: 16);
+  static const v16 = SizedBox(height: 16);
+  static const v18 = SizedBox(height: 18);
   static const v20 = SizedBox(height: 20);
   static const v24 = SizedBox(height: 24);
   static const v28 = SizedBox(height: 28);
@@ -17,7 +18,7 @@ class Gaps {
   static const h8 = SizedBox(width: 8);
   static const h12 = SizedBox(width: 12);
   static const h14 = SizedBox(width: 14);
-  static const h18 = SizedBox(width: 16);
+  static const h18 = SizedBox(width: 18);
   static const h20 = SizedBox(width: 20);
   static const h24 = SizedBox(width: 24);
   static const h28 = SizedBox(width: 28);
