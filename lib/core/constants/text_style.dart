@@ -30,7 +30,7 @@ const TextStyle title = TextStyle(
   fontSize: 18,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w600,
-  height: 1.44444,
+  height: 1.4,
 );
 
 const TextStyle body16Sb = TextStyle(
@@ -62,7 +62,7 @@ const TextStyle body14Sb = TextStyle(
   fontSize: 14,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w600,
-  height: 1.57142,
+  height: 1.5,
 );
 
 const TextStyle body14M = TextStyle(
@@ -70,7 +70,7 @@ const TextStyle body14M = TextStyle(
   fontSize: 14,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w500,
-  height: 1.57142,
+  height: 1.5,
 );
 
 const TextStyle body14R = TextStyle(
@@ -78,7 +78,7 @@ const TextStyle body14R = TextStyle(
   fontSize: 14,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w400,
-  height: 1.57142,
+  height: 1.5,
 );
 
 const body12SB = TextStyle(
