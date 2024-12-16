@@ -40,12 +40,18 @@ class AuthScreen extends GetView<AuthViewModel> {
                 ],
               ),
             ),
-            _widgetLoginBtn(
-              loginType: controller.kakaoLoginType,
+            GestureDetector(
+              onTap: () => controller.kakaoLogin(),
+              child: _widgetLoginBtn(
+                loginType: controller.kakaoLoginType,
+              ),
             ),
             Gaps.v8,
-            _widgetLoginBtn(
-              loginType: controller.appleLoginType,
+            GestureDetector(
+              onTap: () => controller.kakaoLogout(),
+              child: _widgetLoginBtn(
+                loginType: controller.appleLoginType,
+              ),
             ),
             Gaps.v16,
           ],
