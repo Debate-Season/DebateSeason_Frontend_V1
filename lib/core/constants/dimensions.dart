@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Dimensions {
-  static const EdgeInsets all16 = EdgeInsets.symmetric(horizontal: 16);
+  static const EdgeInsets all8 = EdgeInsets.all(8);
+  static const EdgeInsets all16 = EdgeInsets.all(16);
 
   static const EdgeInsets padding12x16 =
       EdgeInsets.symmetric(horizontal: 12, vertical: 16);
