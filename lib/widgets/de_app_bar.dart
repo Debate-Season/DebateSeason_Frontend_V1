@@ -22,24 +22,32 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: grey110,
-      leading: GestureDetector(
-        onTap: () => Get.back(),
-        child: Row(
-          children: [
-            Gaps.h12,
-            Padding(
-              padding: Dimensions.all8,
-              child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
-            ),
-            Gaps.h4,
-          ],
-        ),
-      ),
+      leading: isBack ? _backBtn() : null,
       title: Text(
         title,
         style: header,
       ),
       actions: actions,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      automaticallyImplyLeading: isBack,
+      titleSpacing: isBack ? 0 : 20,
+    );
+  }
+
+  Widget _backBtn() {
+    return GestureDetector(
+      onTap: () => Get.back(),
+      child: Row(
+        children: [
+          Gaps.h12,
+          Padding(
+            padding: Dimensions.all8,
+            child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+          ),
+          Gaps.h4,
+        ],
+      ),
     );
   }
 
