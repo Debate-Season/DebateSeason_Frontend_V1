@@ -24,3 +24,5 @@ const blueLight = Color(0xFF9397FF);
 const blue = Color(0xFF5A61FF);
 const blueDark = Color(0xFF3C3A51);
 const blueDarker = Color(0xFF242345);
+
+const kakao = Color(0xFFFEE500);
