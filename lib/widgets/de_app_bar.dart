@@ -31,7 +31,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
               padding: Dimensions.all8,
               child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
             ),
-            Gaps.h8,
+            Gaps.h4,
           ],
         ),
       ),
@@ -39,7 +39,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: header,
       ),
-      actions: [],
+      actions: actions,
     );
   }
 
