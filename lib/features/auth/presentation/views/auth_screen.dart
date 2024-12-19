@@ -3,7 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
-import 'package:debateseason_frontend_v1/widgets/debate_scaffold.dart';
+import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class AuthScreen extends GetView<AuthViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DebateScaffold(
+    return DeScaffold(
       body: SizedBox(
         width: double.infinity,
         child: Column(

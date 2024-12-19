@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
+class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isBack;
   final List<Widget>? actions;
 
-  const DebateAppBar({
+  const DeAppBar({
     super.key,
     required this.title,
     this.isBack = true,
