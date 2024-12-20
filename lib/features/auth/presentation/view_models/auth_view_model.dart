@@ -1,5 +1,4 @@
 import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -54,18 +53,21 @@ class AuthViewModel extends GetxController {
   }
 
   Future<void> appleLogin() async {
-    final AuthorizationCredentialAppleID appleCredential =
-        await SignInWithApple.getAppleIDCredential(scopes: [
+    await SignInWithApple.getAppleIDCredential(scopes: [
       AppleIDAuthorizationScopes.email,
       AppleIDAuthorizationScopes.fullName,
-    ]);
+    ]).then((user) {
+      log.d(user.userIdentifier);
+    }).onError((e, s) {
+      log.d('$e\n$s');
+    });
 
-    final firebase.OAuthCredential credential =
-        firebase.OAuthProvider('apple.com').credential(
-      idToken: appleCredential.identityToken,
-      accessToken: appleCredential.authorizationCode,
-    );
-
-    await firebase.FirebaseAuth.instance.signInWithCredential(credential);
+    // firebase code - 필요한지 모르겠음..
+    // final firebase.OAuthCredential credential =
+    //     firebase.OAuthProvider('apple.com').credential(
+    //   idToken: appleCredential.identityToken,
+    //   accessToken: appleCredential.authorizationCode,
+    // );
+    // await firebase.FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
