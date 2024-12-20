@@ -1,7 +1,9 @@
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
   final String kakaoLoginType = 'kakao';
@@ -27,7 +29,7 @@ class AuthViewModel extends GetxController {
       if (isInstalled) {
         await UserApi.instance.loginWithKakaoTalk();
       } else {
-         await UserApi.instance.loginWithKakaoAccount();
+        await UserApi.instance.loginWithKakaoAccount();
       }
 
       User user = await UserApi.instance.me();
@@ -49,5 +51,21 @@ class AuthViewModel extends GetxController {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<void> appleLogin() async {
+    final AuthorizationCredentialAppleID appleCredential =
+        await SignInWithApple.getAppleIDCredential(scopes: [
+      AppleIDAuthorizationScopes.email,
+      AppleIDAuthorizationScopes.fullName,
+    ]);
+
+    final firebase.OAuthCredential credential =
+        firebase.OAuthProvider('apple.com').credential(
+      idToken: appleCredential.identityToken,
+      accessToken: appleCredential.authorizationCode,
+    );
+
+    await firebase.FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
