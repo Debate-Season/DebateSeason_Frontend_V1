@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
