@@ -1,10 +1,17 @@
+import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../data/models/response/message_response.dart';
 import '../view_model/chat_room_view_model.dart';
+import 'message_bubble.dart';
 
 class ChatRoomScreen extends GetView<ChatRoomViewModel>{
+  final ChatRoomViewModel _viewModel = Get.find<ChatRoomViewModel>();
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController messageController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("토론방"),
@@ -13,15 +20,44 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel>{
         children: [
           Expanded(
             child: Obx(() => ListView.builder(
-            itemCount: controller.messages.length,
-            itemBuilder: (context, index){
-            return ListTile(title: Text(controller.messages[index]));
-          },)),),
-          TextField(
-            onSubmitted: (value) => controller.sendMessage(value),
-            decoration: InputDecoration(hintText: '의견을 입력하세요...'),
-          )
-        ],
+              itemCount: _viewModel.receivedMessages.length,
+              itemBuilder: (context, index){
+                MessageResponse messageResponse = _viewModel.receivedMessages[index];
+                MessageRequest messageRequest = MessageRequest(
+                  sender: messageResponse.sender,
+                  content: messageResponse.content,
+                );
+                return MessageBubble(message: messageRequest);
+              },
+            ),),),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: messageController,
+                    decoration: InputDecoration(labelText: "의견을 입력하세요..."),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    if (messageController.text.isNotEmpty) {
+                      String content = messageController.text;
+                      MessageRequest messageRequest = MessageRequest(
+                        sender: 'user_id',
+                        content: content,
+                      );
+                      _viewModel.sendMessage(messageRequest);
+                      messageController.clear();
+                    }
+                  },
+                ),
+              ]
+            ),
+          ),
+        ]
       ),
     );
   }

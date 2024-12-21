@@ -1,10 +1,10 @@
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
-  final MessageModel message;
+  final MessageRequest message;
 
-  const MessageBubble({super.key, required this.message});
+  const MessageBubble({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
