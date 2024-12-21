@@ -1,13 +1,13 @@
-class MessageModel {
+class MessageResponse {
   final String sender;
   final String content;
   final String category;
 
-  MessageModel(
+  MessageResponse(
       {required this.sender, required this.content, required this.category});
 
-  factory MessageModel.fromJson(Map<String, dynamic> json) {
-    return MessageModel(
+  factory MessageResponse.fromJson(Map<String, dynamic> json) {
+    return MessageResponse(
       sender: json['sender'],
       content: json['content'],
       category: json['category'],
