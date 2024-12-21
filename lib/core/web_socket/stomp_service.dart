@@ -1,38 +1,31 @@
-import 'dart:convert';
-
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_model.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 class StompService {
   late StompClient stompClient;
 
-  void connect(String userId, Function(MessageModel) onMessageReceived) {
+  void connect(String url, Function(StompFrame) onConnect, Function(dynamic) onError){
     stompClient = StompClient(
       config: StompConfig.sockJS(
-        url: dotenv.get("WEB_SOCKET_BASE_URL"),
-        onConnect: (StompFrame frame) {
-          stompClient.subscribe(
-            destination: '/topic/public',
-            callback: (frame) {
-              if (frame.body != null) {
-                var message = MessageModel.fromJson(jsonDecode(frame.body!));
-                onMessageReceived(message);
-              }
-            },
-          );
-        },
-        onWebSocketError: (dynamic error) => debugPrint(error.toString()),
+        url: url,
+        onConnect: onConnect,
+        onWebSocketError: onError,
       ),
     );
     stompClient.activate();
   }
 
-  void sendMessage(MessageModel message) {
+  void subscribe(String destination, Function(String) onMessage){
+    stompClient.subscribe(
+      destination: destination,
+      callback: (frame) => onMessage(frame.body!),
+    );
+  }
+
+  void sendMessage(String destination, String message) {
     stompClient.send(
-        destination: '/app/chat.sendMessage',
-        body: jsonEncode(message.toJson()));
+        destination: destination,
+        body: message,
+    );
   }
 
   void disconnect() {
