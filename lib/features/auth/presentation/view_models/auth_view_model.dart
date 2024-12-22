@@ -27,7 +27,7 @@ class AuthViewModel extends GetxController {
       if (isInstalled) {
         await UserApi.instance.loginWithKakaoTalk();
       } else {
-         await UserApi.instance.loginWithKakaoAccount();
+        await UserApi.instance.loginWithKakaoAccount();
       }
 
       User user = await UserApi.instance.me();

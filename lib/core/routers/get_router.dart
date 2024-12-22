@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/bindings/auth_binding.dart';
+import 'package:debateseason_frontend_v1/features/auth/presentation/bindings/auth_profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_profile_page.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
@@ -19,6 +20,6 @@ class GetRouter {
     GetPage(
         name: GetRouterName.authProfile,
         page: () => AuthProfilePage(),
-        binding: AuthBinding()),
+        binding: AuthProfileBinding()),
   ];
 }
