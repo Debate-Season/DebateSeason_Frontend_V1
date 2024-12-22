@@ -1,28 +1,48 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final MessageRequest message;
+  final String category;
 
-  const MessageBubble({Key? key, required this.message}) : super(key: key);
+  const MessageBubble({super.key, required this.message, required this. category});
 
   @override
   Widget build(BuildContext context) {
+    final isAgree = category == '찬성';
+    final alignment = isAgree ? Alignment.centerLeft : Alignment.centerRight;
+    final backgroundColor = isAgree ? redDark : blueDark;
+    final borderRadius = BorderRadius.only(
+      topLeft: isAgree ? Radius.circular(0.0) : Radius.circular(12.0),
+      topRight: isAgree ? Radius.circular(12.0) : Radius.circular(0.0),
+      bottomLeft: Radius.circular(12.0),
+      bottomRight: Radius.circular(12.0),
+    );
+
     return Align(
-      alignment: message.sender == 'user_id'
-          ? Alignment.centerRight
-          : Alignment.centerLeft,
+      alignment: alignment,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        padding: EdgeInsets.all(12.0),
+        width: 1,
+        height: 1,
+        padding: Dimensions.all12,
         decoration: BoxDecoration(
-          color: message.sender == 'user_id' ? Colors.blue : Colors.grey[300],
-          borderRadius: BorderRadius.circular(8.0),
+          color: backgroundColor,
+          borderRadius: borderRadius,
         ),
-        child: Text(
-          message.content,
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              message.content,
+              style: body14M,
+            ),
+          ],
+        )
       ),
     );
   }
