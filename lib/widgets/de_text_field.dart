@@ -69,12 +69,15 @@ class DeTextField extends StatelessWidget {
               fillColor: fillColor ?? grey80,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
               suffixIcon: controller.text.isNotEmpty
                   ? DeGestureDetector(
