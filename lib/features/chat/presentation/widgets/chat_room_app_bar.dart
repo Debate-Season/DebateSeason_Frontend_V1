@@ -14,32 +14,30 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: grey50,
+      backgroundColor: grey80,
       automaticallyImplyLeading: false,
-      title: Container(
-        width: double.infinity,
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                title,
-                style: body14Sb.copyWith(color: grey10),
-                overflow: TextOverflow.ellipsis,
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: body14Sb.copyWith(color: grey10),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Gaps.h12,
+          Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(3.14),
+            child: SizedBox(
+              width: 24.0,
+              height: 24.0,
+              child: SvgPicture.asset(
+                'assets/icons/settings.svg',
               ),
             ),
-            Gaps.h12,
-            Transform(
-              transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(3.14),
-              child: Container(
-                width: 24.0,
-                height: 24.0,
-                child: SvgPicture.asset(
-                  'assets/icons/settings.svg',
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message_list.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_room_app_bar.dart';
@@ -13,19 +14,24 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel>{
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
 
-    return Scaffold(
-      backgroundColor: grey80,
-      appBar: const ChatRoomAppBar(title: '토론철은 얼마나 대단한가'),
-      body: Column(
-        children: [
-          Expanded(
-            child: ChatMessageList(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey80,
+        body: Padding(
+          padding: Dimensions.all20,
+          child: Column(
+            children: [
+              const ChatRoomAppBar(title: '토론철은 얼마나 대단한가'),
+              Expanded(
+                child: ChatMessageList(),
+              ),
+              ChatInputField(
+                controller: messageController,
+                viewModel: _viewModel,
+              ),
+            ]
           ),
-          ChatInputField(
-              controller: messageController,
-              viewModel: _viewModel,
-          ),
-        ]
+        ),
       ),
     );
   }
