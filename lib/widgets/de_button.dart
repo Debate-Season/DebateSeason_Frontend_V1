@@ -16,7 +16,7 @@ class DeButton extends StatelessWidget {
       width: double.infinity,
       padding: Dimensions.vertical12,
       decoration: BoxDecoration(
-        color: enable ? brandColor : brandTrans80,
+        color: enable ? brandColor : brandDark,
         borderRadius: BorderRadius.circular(12),
       ),
       child: DeText(
