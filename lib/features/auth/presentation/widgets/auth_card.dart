@@ -4,19 +4,17 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:flutter/material.dart';
 
-class DeCard extends StatelessWidget {
+class AuthCard extends StatelessWidget {
   final String text;
   final String imagePath;
-  final double? imageWidth;
-  final double? imageHeight;
+  final bool isCommunity;
   final bool isSelected;
 
-  const DeCard(
+  const AuthCard(
     this.text, {
     super.key,
     this.imagePath = '',
-    this.imageWidth = 36,
-    this.imageHeight = 36,
+    this.isCommunity = false,
     this.isSelected = false,
   });
 
@@ -28,15 +26,23 @@ class DeCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: grey80,
         borderRadius: BorderRadius.circular(12),
-        border: isSelected ? Border.all(color: brandColor, width: 1) : null,
+        border: isSelected
+            ? Border.all(color: brandColor, width: 1)
+            : isCommunity
+                ? Border.all(color: grey70, width: 1)
+                : null,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (imagePath.isNotEmpty) ...[
             Container(
-              width: imageWidth,
-              height: imageHeight,
-              color: brandDark,
+              width: isCommunity ? 44 : 36,
+              height: isCommunity ? 44 : 36,
+              decoration: BoxDecoration(
+                color: brandDark,
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             Gaps.v4,
           ],
