@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,10 @@ class AuthScreen extends GetView<AuthViewModel> {
               ),
             ),
             GestureDetector(
-              onTap: () => controller.kakaoLogin(),
+              onTap: () {
+                Get.toNamed(GetRouterName.authProfile);
+                // controller.kakaoLogin();
+              },
               child: _widgetLoginBtn(
                 loginType: controller.kakaoLoginType,
               ),
