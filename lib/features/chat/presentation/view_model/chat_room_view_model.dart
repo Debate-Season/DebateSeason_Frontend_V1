@@ -20,7 +20,7 @@ class ChatRoomViewModel extends GetxController {
     log.d('1. init');
     _addDummyMessages();
     log.d('1-1. 더미데이터 호출');
-    print(receivedMessages);
+    log.d(receivedMessages);
 
     _stompService.connect(
       dotenv.get("WEB_SOCKET_BASE_URL"),
