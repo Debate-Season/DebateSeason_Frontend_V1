@@ -32,6 +32,7 @@ render.experimental.xml
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
+GoogleService-Info.plist
 
 # Android Profiling
 *.hprof
@@ -86,7 +87,6 @@ doc/api/
 ### Flutter ###
 # Flutter/Dart/Pub related
 **/doc/api/
-.fvm/flutter_sdk
 .pub-cache/
 .pub/
 coverage/
@@ -152,7 +152,6 @@ lib/generated_plugin_registrant.dart
 
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*
@@ -304,9 +303,6 @@ proguard/
 
 # Keystore files
 
-# Google Services (e.g. APIs or Firebase)
-# google-services.json
-
 # Android Patch
 
 # External native build folder generated in Android Studio 2.2 and later
@@ -383,3 +379,6 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,androidstudio,macos,firebase,android,swift
+
+# FVM Version Cache
+.fvm/
