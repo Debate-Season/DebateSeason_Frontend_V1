@@ -35,7 +35,7 @@ class ChatInputField extends StatelessWidget {
             decoration: BoxDecoration(),
             child: IconButton(
               icon: SvgPicture.asset(
-                'assets/icons/add.svg',
+                'assets/icons/ic_add.svg',
                 width: 24.0,
                 height: 24.0,
               ),
@@ -63,7 +63,7 @@ class ChatInputField extends StatelessWidget {
             ),
           child: IconButton(
             icon: SvgPicture.asset(
-              'assets/icons/arrow_upward.svg',
+              'assets/icons/ic_arrow_upward.svg',
               width: 24.0,
               height: 24.0,
             ),
