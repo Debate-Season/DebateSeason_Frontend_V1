@@ -33,7 +33,7 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
               width: 24.0,
               height: 24.0,
               child: SvgPicture.asset(
-                'assets/icons/settings.svg',
+                'assets/icons/ic_more_grey10.svg',
               ),
             ),
           )
