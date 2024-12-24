@@ -2,9 +2,9 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../data/models/request/message_request.dart';
-import '../../data/models/response/message_response.dart';
-import '../view/message_bubble.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
+import 'message_bubble.dart';
 
 class ChatMessageList extends StatelessWidget {
   const ChatMessageList({super.key});

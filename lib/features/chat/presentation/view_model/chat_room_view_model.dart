@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
-import '../../data/models/response/message_response.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
 
 class ChatRoomViewModel extends GetxController {
   final StompService _stompService = StompService();

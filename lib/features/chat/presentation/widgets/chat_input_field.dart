@@ -4,9 +4,9 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/c
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/constants/color.dart';
-import '../../../../core/constants/text_style.dart';
-import '../../data/models/request/message_request.dart';
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 
 class ChatInputField extends StatelessWidget {
   final TextEditingController controller;
