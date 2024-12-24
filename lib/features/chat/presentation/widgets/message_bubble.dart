@@ -30,18 +30,11 @@ class MessageBubble extends StatelessWidget {
           color: backgroundColor,
           borderRadius: borderRadius,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              message.content,
-              style: body14M,
-            ),
-          ],
-        )
-      ),
+        child: Text(
+          message.content,
+          style: body14M,
+        ),
+      )
     );
   }
 }
