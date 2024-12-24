@@ -25,8 +25,6 @@ class MessageBubble extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: Container(
-        width: 1,
-        height: 1,
         padding: Dimensions.all12,
         decoration: BoxDecoration(
           color: backgroundColor,
