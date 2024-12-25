@@ -54,9 +54,15 @@ class ChatRoomViewModel extends GetxController {
   void sendMessage(MessageRequest messageRequest) {
     // _stompService.sendMessage('/app/chat.sendMessage', message);
     String message = jsonEncode(messageRequest.toJson());
-    // _stompService.sendMessage('/app/chat.sendMessage', message);
     _stompService.sendMessage('/topic/room1', message);
     sentMessages.add(messageRequest);
+    receivedMessages.add(
+      MessageResponse(
+          sender: messageRequest.sender,
+          content: messageRequest.content,
+          category: '찬성' //나중에 수정
+      ),
+    );
   }
 
   @override
