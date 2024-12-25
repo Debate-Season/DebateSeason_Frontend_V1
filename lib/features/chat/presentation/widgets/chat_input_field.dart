@@ -16,71 +16,80 @@ class ChatInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: Dimensions.all2,
-      decoration: ShapeDecoration(
-          color: grey90,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          )),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            width: 48.0,
-            height: 48.0,
-            padding: Dimensions.all10,
-            decoration: BoxDecoration(),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        padding: Dimensions.all2,
+        decoration: ShapeDecoration(
+            color: grey90,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(26),
+            )),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              width: 48.0,
+              height: 48.0,
+              padding: Dimensions.all10,
+              decoration: BoxDecoration(),
+              child: IconButton(
+                icon: SvgPicture.asset(
+                  'assets/icons/ic_add_grey30.svg',
+                  width: 24.0,
+                  height: 24.0,
+                ),
+                onPressed: () {},
+              ),
+            ),
+            Gaps.h12,
+            Expanded(
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.multiline,
+                minLines: 1,
+                maxLines: 3,
+                style: body14Sb.copyWith(color: grey10),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '의견을 입력하세요...',
+                ),
+              ),
+            ),
+            Gaps.h12,
+            Container(
+              width: 48.0,
+              height: 48.0,
+              padding: Dimensions.all10,
+              decoration: BoxDecoration(
+                color: brandColor,
+                borderRadius: BorderRadius.circular(48.0),
+              ),
             child: IconButton(
               icon: SvgPicture.asset(
-                'assets/icons/ic_add_grey30.svg',
+                'assets/icons/ic_send_grey10.svg',
                 width: 24.0,
                 height: 24.0,
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (controller.text.isNotEmpty) {
+                  String content = controller.text;
+                  MessageRequest messageRequest = MessageRequest(
+                    sender: 'user_id',
+                    content: content,
+                  );
+                  viewModel.sendMessage(messageRequest);
+                  controller.clear();
+                }
+              },
             ),
-          ),
-          Gaps.h12,
-          Expanded(
-            child: TextField(
-              controller: controller,
-              style: body14Sb.copyWith(color: grey10),
-              decoration: const InputDecoration(
-                hintText: '의견을 입력하세요...',
-              ),
             ),
-          ),
-          Gaps.h12,
-          Container(
-            width: 48.0,
-            height: 48.0,
-            padding: Dimensions.all10,
-            decoration: BoxDecoration(
-              color: brandColor,
-              borderRadius: BorderRadius.circular(48.0),
-            ),
-          child: IconButton(
-            icon: SvgPicture.asset(
-              'assets/icons/ic_send_grey10.svg',
-              width: 24.0,
-              height: 24.0,
-            ),
-            onPressed: () {
-              if (controller.text.isNotEmpty) {
-                String content = controller.text;
-                MessageRequest messageRequest = MessageRequest(
-                  sender: 'user_id',
-                  content: content,
-                );
-                viewModel.sendMessage(messageRequest);
-                controller.clear();
-              }
-            },
-          ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
