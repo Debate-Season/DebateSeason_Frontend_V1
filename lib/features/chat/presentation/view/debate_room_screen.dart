@@ -40,7 +40,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           Gaps.v12,
           _widgetDebateTopic(),
-          SizedBox(height: 13),
+          Gaps.v12,
           _widgetDebateDetail(),
           Gaps.v20,
           _widgetDebateVote(),
