@@ -4,12 +4,13 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
+import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
 
 class ProfileScreen extends GetView<ProfileViewModel> {
   const ProfileScreen({super.key});
@@ -127,7 +128,13 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         Gaps.v16,
         DeGestureDetector(
           onTap: () {
-            // todo 로그아웃
+            DeDialog(
+              '로그아웃 하시겠습니까?',
+              doneText: '로그아웃',
+              onTapDone: () {
+                // todo 로그아웃
+              },
+            );
           },
           child: Row(
             children: [
