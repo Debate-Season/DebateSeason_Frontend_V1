@@ -22,14 +22,18 @@ class GetRouter {
       binding: ChatBinding(),
     ),
     GetPage(
-        name: GetRouterName.authProfile,
-        page: () => AuthProfilePage(),
-        binding: AuthProfileBinding()),
+      name: GetRouterName.authProfile,
+      page: () => AuthProfilePage(),
+      binding: AuthProfileBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.profile,
+      page: () => ProfileScreen(),
+      binding: ProfileBinding(),
+    ),
     GetPage(
         name: GetRouterName.issue,
         page: () => IssueRoomScreen(),
         binding: IssueBinding())
-
   ];
-
 }

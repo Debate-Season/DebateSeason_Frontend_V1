@@ -5,4 +5,5 @@ class GetRouterName {
   static const String chat = '/chat';
   static const String authProfile = '/auth_profile';
   static const String issue = '/issue';
+  static const String profile = '/profile';
 }
