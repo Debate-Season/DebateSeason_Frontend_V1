@@ -27,7 +27,10 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: header,
       ),
-      actions: actions,
+      actions: [
+        if (actions != null) ...actions!,
+        Gaps.h20, // 공백 추가
+      ],
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: isBack,
