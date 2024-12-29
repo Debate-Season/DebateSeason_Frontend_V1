@@ -6,7 +6,7 @@ import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/
 import 'package:debateseason_frontend_v1/features/auth/presentation/widgets/auth_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/widgets/de_button.dart';
+import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -56,8 +56,9 @@ class AuthProfilePage extends GetView<AuthProfileViewModel> {
                 Gaps.v32,
                 _widgetAge(),
                 Gaps.v40,
-                DeButton(
+                DeButtonLarge(
                   '선택하기',
+                  onPressed: () {},
                   enable: false,
                 ),
                 Gaps.v20,
@@ -257,8 +258,9 @@ class AuthProfilePage extends GetView<AuthProfileViewModel> {
           },
         ),
         Gaps.v16,
-        DeButton(
+        DeButtonLarge(
           '등록하기',
+          onPressed: () {},
           enable: false,
         ),
         Gaps.v16,
@@ -302,8 +304,9 @@ class AuthProfilePage extends GetView<AuthProfileViewModel> {
           },
         ),
         Gaps.v16,
-        DeButton(
+        DeButtonLarge(
           '선택하기',
+          onPressed: () {},
           enable: false,
         ),
         Gaps.v16,
