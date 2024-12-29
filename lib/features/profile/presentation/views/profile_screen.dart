@@ -1,4 +1,5 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
@@ -71,7 +72,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         ),
         Gaps.v16,
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: Dimensions.padding10x5,
           decoration: BoxDecoration(
             color: grey80,
             borderRadius: BorderRadius.circular(20),
