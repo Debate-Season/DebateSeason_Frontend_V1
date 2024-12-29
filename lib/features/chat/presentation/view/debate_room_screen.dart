@@ -1,7 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,10 @@ import 'package:get/get.dart';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/debate_room.dart';
+
+import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   // 디버그용 더미 데이터
@@ -22,14 +25,22 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: _appBar(),
-      body: _body(),
+    return Stack(
+      children: [
+        DeScaffold(
+          appBar: _appBar(),
+          body: _body(),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: _widgetDebateChat(),
+        )
+      ]
     );
   }
 
-  DeAppBar _appBar() {
-    return DeAppBar(title: room.title);
+  DebateAppBar _appBar() {
+    return DebateAppBar(title: room.title);
   }
 
   Widget _body() {
@@ -44,7 +55,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           _widgetDebateDetail(),
           Gaps.v20,
           _widgetDebateVote(),
-
         ],
       ),
     );
@@ -97,26 +107,41 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetVoteButton(final String data, String ratio) {
     final widgetColor = data == '찬성' ? redDark : blueDark;
 
-    return Container(
-      width: 120.0, //나중에 사이즈 다시 확인
-      height: 120.0,
-      padding: Dimensions.all16,
-      decoration: ShapeDecoration(
-        color: widgetColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+    return GestureDetector(
+      onTap: () => {log.d('voted')},
+      child: Container(
+        width: 120.0, //나중에 사이즈 다시 확인
+        height: 120.0,
+        padding: Dimensions.all16,
+        decoration: ShapeDecoration(
+          color: widgetColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DeText(data, style: cation12SB,),
+            DeText('$ratio%', style: header,),
+            DeText('투표하기', style: cation12M,),
+
+          ],
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DeText(data, style: cation12SB,),
-          DeText('$ratio%', style: header,),
-          DeText('투표하기', style: cation12M,),
+    );
+  }
 
-        ],
-      ),
+  // 이렇게해야 되는데 오버플로우 남. 사이즈 제한 등 정리해야할 듯
+  Widget _widgetDebateChat() {
+  //   if (!Get.isRegistered<ChatRoomViewModel>()) {
+  //     Get.put(ChatRoomViewModel());
+  //   }
+  //
+    return chatBottomSheet(
+  //       widget: ChatRoomScreen(),
+      widget: Text('text'),
     );
   }
 }
