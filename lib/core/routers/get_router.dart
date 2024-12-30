@@ -9,8 +9,14 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/bindings/
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
 import 'package:get/get.dart';
 
+import 'package:debateseason_frontend_v1/features/splash/splash_screen.dart';
+
 class GetRouter {
   static final getPages = [
+    GetPage(
+      name: GetRouterName.splash,
+      page: () => SplashScreen(),
+    ),
     GetPage(
       name: GetRouterName.auth,
       page: () => AuthScreen(),
