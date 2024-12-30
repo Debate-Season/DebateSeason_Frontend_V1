@@ -2,7 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_profile_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/widgets/auth_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
@@ -14,8 +14,8 @@ import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AuthProfilePage extends GetView<AuthProfileViewModel> {
-  const AuthProfilePage({super.key});
+class ProfileInputPage extends GetView<ProfileInputViewModel> {
+  const ProfileInputPage({super.key});
 
   @override
   Widget build(BuildContext context) {

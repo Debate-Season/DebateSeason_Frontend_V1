@@ -3,6 +3,6 @@ class GetRouterName {
   static const String auth = '/login';
   static const String home = '/home';
   static const String chat = '/chat';
-  static const String authProfile = '/auth_profile';
+  static const String profileInput = '/profile_input';
   static const String profile = '/profile';
 }
