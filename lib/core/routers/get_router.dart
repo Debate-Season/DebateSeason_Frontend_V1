@@ -1,5 +1,5 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
-import 'package:debateseason_frontend_v1/features/auth/presentation/bindings/auth_binding.dart';
+import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_screen.dart';
