@@ -10,6 +10,8 @@ class Dimensions {
 
   static const EdgeInsets padding8x10 =
       EdgeInsets.symmetric(horizontal: 8, vertical: 10);
+  static const EdgeInsets padding12x4 =
+  EdgeInsets.symmetric(horizontal: 12, vertical: 4);
   static const EdgeInsets padding12x16 =
       EdgeInsets.symmetric(horizontal: 12, vertical: 16);
   static const EdgeInsets padding20x16 =

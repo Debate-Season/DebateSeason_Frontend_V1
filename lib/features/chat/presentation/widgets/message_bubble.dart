@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_date.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -68,6 +69,7 @@ class MessageBubble extends StatelessWidget {
             alignment: alignment,
             child: msgBody(),
           ),
+          ChatDateLine(),
         ],
       ),
     );
