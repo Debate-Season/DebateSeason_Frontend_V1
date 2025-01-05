@@ -7,7 +7,7 @@ class DioInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (options.extra['auth'] != false) {
+    if (options.extra['access_token'] != true) {
       String accessToken = await SecureStorage().getAccessToken();
       if (accessToken.isNotEmpty) {
         options.headers['Authorization'] = accessToken;

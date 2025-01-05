@@ -20,4 +20,6 @@ class DioClient {
 
     dio.interceptors.add(DioInterceptor());
   }
+
+  Dio get dioInstance => dio;
 }
