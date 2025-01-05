@@ -88,11 +88,11 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SvgPicture.asset(
-                    'assets/icons/ic_exit_black.svg',
+                    'assets/icons/ic_exit_grey10.svg',
                     width: 24.0,
                     height: 24.0,
                   ),
-                  Gaps.v16,
+                  Gaps.h16,
                   Expanded(
                     child: DeText(
                       '토론 종료하기',
