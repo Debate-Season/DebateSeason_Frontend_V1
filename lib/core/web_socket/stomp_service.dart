@@ -28,6 +28,9 @@ class StompService {
         onWebSocketDone: () {
           log.d("WebSocket 연결 종료");
         },
+        stompConnectHeaders: {
+          'heart-beat': '5000,5000',
+        },
       ),
     );
     stompClient.activate();
