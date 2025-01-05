@@ -4,10 +4,10 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 
-class chatBottomSheet extends StatelessWidget {
+class ChatBottomSheet extends StatelessWidget {
   final Widget widget;
 
-  const chatBottomSheet({
+  const ChatBottomSheet({
     super.key,
     required this.widget,
   });

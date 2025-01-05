@@ -139,7 +139,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   //     Get.put(ChatRoomViewModel());
   //   }
   //
-    return chatBottomSheet(
+    return ChatBottomSheet(
   //       widget: ChatRoomScreen(),
       widget: Text('text'),
     );
