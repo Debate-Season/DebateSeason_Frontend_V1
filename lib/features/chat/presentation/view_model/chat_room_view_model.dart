@@ -25,7 +25,7 @@ class ChatRoomViewModel extends GetxController {
     _stompService.connect(
       dotenv.get("WEB_SOCKET_BASE_URL"),
       (frame) {
-        log.d('2. chat server 연결!: ${frame.headers}');
+        log.d('2. chat server 연결!: ${frame.headers}, ${frame.body}');
         _stompService.subscribe('/chat.room.1', (msg) {
           log.d('3. 서버에서 받은 메세지: $msg');
           try {
