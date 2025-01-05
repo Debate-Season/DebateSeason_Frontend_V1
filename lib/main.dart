@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: GetRouterName.chat, // 추후 자동로그인 로직 필요.
+      initialRoute: GetRouterName.debate, // 추후 자동로그인 로직 필요.
       getPages: GetRouter.getPages,
     );
   }

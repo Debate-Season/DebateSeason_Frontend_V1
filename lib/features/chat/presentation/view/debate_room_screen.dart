@@ -1,6 +1,8 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/widgets/de_button.dart';
+import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +143,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   //
     return ChatBottomSheet(
   //       widget: ChatRoomScreen(),
-      widget: Text('text'),
+      //widget: DeText('토론방 입장하기', style: body16M.copyWith(color: brandColor),),
+      widget: DeGestureDetector(
+        onTap: (){ Get.toNamed('/chat');},
+        child: DefaultTextStyle(
+            style: body16M,
+            child: DeButton(
+                '토론방 입장하기',
+                enable: true)),
+      ),
     );
   }
 }
