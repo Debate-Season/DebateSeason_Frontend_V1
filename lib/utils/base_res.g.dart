@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'base_response.dart';
+part of 'base_res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResponse<T> _$BaseResponseFromJson<T>(
+BaseRes<T> _$BaseResFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    BaseResponse<T>(
+    BaseRes<T>(
       status: (json['status'] as num).toInt(),
       code: json['code'] as String,
       message: json['message'] as String,
       data: _$nullableGenericFromJson(json['data'], fromJsonT),
     );
 
-Map<String, dynamic> _$BaseResponseToJson<T>(
-  BaseResponse<T> instance,
+Map<String, dynamic> _$BaseResToJson<T>(
+  BaseRes<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
