@@ -27,7 +27,7 @@ dependencies:
   fluttertoast: ^8.2.10
   flutter_svg: ^2.0.16
   # Login
-  firebase_auth: ^5.3.4
+  firebase_core: ^3.9.0
   kakao_flutter_sdk_user: ^1.9.6
   sign_in_with_apple: ^6.1.4
   # ETC..
@@ -44,7 +44,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
-  build_runner: ^2.4.13
+  build_runner: ^2.4.14
   retrofit_generator: ^9.1.5
   freezed: ^2.5.7
   json_serializable: ^6.9.0

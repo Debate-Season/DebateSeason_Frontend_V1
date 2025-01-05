@@ -10,7 +10,6 @@ import 'core/routers/get_router.dart';
 import 'features/chat/data/models/debate_room.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -22,18 +21,6 @@ void main() async {
   ));
 
   runApp(const MyApp());
-
-  ///////// 디버그용 더미 데이터
-  final DebateRoom testRoom = DebateRoom(
-    title: 'AI와 인간의 미래',
-    content: 'AI가 인간의 삶에 미치는 영향을 논의합니다.',
-  );
-
-  Get.toNamed(
-    GetRouterName.debate,
-    arguments: testRoom,
-  );
-  /////////
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: GetRouterName.debate, // 추후 자동로그인 로직 필요.
+      initialRoute: GetRouterName.splash, // 추후 자동로그인 로직 필요.
       getPages: GetRouter.getPages,
     );
   }

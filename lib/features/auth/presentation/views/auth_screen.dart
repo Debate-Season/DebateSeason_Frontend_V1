@@ -43,7 +43,7 @@ class AuthScreen extends GetView<AuthViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed(GetRouterName.authProfile);
+                Get.toNamed(GetRouterName.profile);
                 // controller.kakaoLogin();
               },
               child: _widgetLoginBtn(
