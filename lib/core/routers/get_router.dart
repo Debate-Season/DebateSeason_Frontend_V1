@@ -3,6 +3,8 @@ import 'package:debateseason_frontend_v1/features/auth/presentation/bindings/aut
 import 'package:debateseason_frontend_v1/features/auth/presentation/bindings/auth_profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_profile_page.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_screen.dart';
+import 'package:debateseason_frontend_v1/features/category/presentation/bindins/category_binding.dart';
+import 'package:debateseason_frontend_v1/features/category/presentation/views/category_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/chat_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/bindings/profile_binding.dart';
@@ -36,6 +38,11 @@ class GetRouter {
       name: GetRouterName.profile,
       page: () => ProfileScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.category,
+      page: () => CategoryScreen(),
+      binding: CategoryBinding(),
     ),
   ];
 }
