@@ -2,6 +2,6 @@ import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_log
 
 abstract class UsersLoginRepository {
   Future<bool> postUsersLogin({
-    required UsersLoginEntity requestBody,
+    required UsersLoginEntity entity,
   });
 }

@@ -7,13 +7,13 @@ class UsersLoginRes {
   String accessToken;
   String refreshToken;
   String socialType;
-  bool isRegistered;
+  bool profileStatus;
 
   UsersLoginRes({
     required this.accessToken,
     required this.refreshToken,
     required this.socialType,
-    required this.isRegistered,
+    required this.profileStatus,
   });
 
   factory UsersLoginRes.fromJson(Map<String, dynamic> json) =>

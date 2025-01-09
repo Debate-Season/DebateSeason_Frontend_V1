@@ -4,14 +4,12 @@ part 'users_login_req.g.dart';
 
 @JsonSerializable()
 class UsersLoginReq {
-  String externalId;
+  String identifier;
   String socialType;
-  String idToken;
 
   UsersLoginReq({
-    required this.externalId,
+    required this.identifier,
     required this.socialType,
-    required this.idToken,
   });
 
   toJson() => _$UsersLoginReqToJson(this);

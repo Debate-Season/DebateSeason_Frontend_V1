@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UsersLoginEntity {
-  String get externalId => throw _privateConstructorUsedError;
+  String get identifier => throw _privateConstructorUsedError;
   String get socialType => throw _privateConstructorUsedError;
-  String get idToken => throw _privateConstructorUsedError;
+  String get accessToken => throw _privateConstructorUsedError;
+  String get refreshToken => throw _privateConstructorUsedError;
+  bool get profileStatus => throw _privateConstructorUsedError;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +35,12 @@ abstract class $UsersLoginEntityCopyWith<$Res> {
           UsersLoginEntity value, $Res Function(UsersLoginEntity) then) =
       _$UsersLoginEntityCopyWithImpl<$Res, UsersLoginEntity>;
   @useResult
-  $Res call({String externalId, String socialType, String idToken});
+  $Res call(
+      {String identifier,
+      String socialType,
+      String accessToken,
+      String refreshToken,
+      bool profileStatus});
 }
 
 /// @nodoc
@@ -51,23 +58,33 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? externalId = null,
+    Object? identifier = null,
     Object? socialType = null,
-    Object? idToken = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? profileStatus = null,
   }) {
     return _then(_value.copyWith(
-      externalId: null == externalId
-          ? _value.externalId
-          : externalId // ignore: cast_nullable_to_non_nullable
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
               as String,
       socialType: null == socialType
           ? _value.socialType
           : socialType // ignore: cast_nullable_to_non_nullable
               as String,
-      idToken: null == idToken
-          ? _value.idToken
-          : idToken // ignore: cast_nullable_to_non_nullable
+      accessToken: null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
+      refreshToken: null == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileStatus: null == profileStatus
+          ? _value.profileStatus
+          : profileStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -80,7 +97,12 @@ abstract class _$$UsersLoginEntityImplCopyWith<$Res>
       __$$UsersLoginEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String externalId, String socialType, String idToken});
+  $Res call(
+      {String identifier,
+      String socialType,
+      String accessToken,
+      String refreshToken,
+      bool profileStatus});
 }
 
 /// @nodoc
@@ -96,23 +118,33 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? externalId = null,
+    Object? identifier = null,
     Object? socialType = null,
-    Object? idToken = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? profileStatus = null,
   }) {
     return _then(_$UsersLoginEntityImpl(
-      externalId: null == externalId
-          ? _value.externalId
-          : externalId // ignore: cast_nullable_to_non_nullable
+      identifier: null == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
               as String,
       socialType: null == socialType
           ? _value.socialType
           : socialType // ignore: cast_nullable_to_non_nullable
               as String,
-      idToken: null == idToken
-          ? _value.idToken
-          : idToken // ignore: cast_nullable_to_non_nullable
+      accessToken: null == accessToken
+          ? _value.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
               as String,
+      refreshToken: null == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileStatus: null == profileStatus
+          ? _value.profileStatus
+          : profileStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -121,20 +153,31 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
 
 class _$UsersLoginEntityImpl implements _UsersLoginEntity {
   _$UsersLoginEntityImpl(
-      {required this.externalId,
-      required this.socialType,
-      required this.idToken});
+      {this.identifier = '',
+      this.socialType = '',
+      this.accessToken = '',
+      this.refreshToken = '',
+      this.profileStatus = false});
 
   @override
-  final String externalId;
+  @JsonKey()
+  final String identifier;
   @override
+  @JsonKey()
   final String socialType;
   @override
-  final String idToken;
+  @JsonKey()
+  final String accessToken;
+  @override
+  @JsonKey()
+  final String refreshToken;
+  @override
+  @JsonKey()
+  final bool profileStatus;
 
   @override
   String toString() {
-    return 'UsersLoginEntity(externalId: $externalId, socialType: $socialType, idToken: $idToken)';
+    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, accessToken: $accessToken, refreshToken: $refreshToken, profileStatus: $profileStatus)';
   }
 
   @override
@@ -142,15 +185,21 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UsersLoginEntityImpl &&
-            (identical(other.externalId, externalId) ||
-                other.externalId == externalId) &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier) &&
             (identical(other.socialType, socialType) ||
                 other.socialType == socialType) &&
-            (identical(other.idToken, idToken) || other.idToken == idToken));
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.profileStatus, profileStatus) ||
+                other.profileStatus == profileStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, externalId, socialType, idToken);
+  int get hashCode => Object.hash(runtimeType, identifier, socialType,
+      accessToken, refreshToken, profileStatus);
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -164,16 +213,22 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
 
 abstract class _UsersLoginEntity implements UsersLoginEntity {
   factory _UsersLoginEntity(
-      {required final String externalId,
-      required final String socialType,
-      required final String idToken}) = _$UsersLoginEntityImpl;
+      {final String identifier,
+      final String socialType,
+      final String accessToken,
+      final String refreshToken,
+      final bool profileStatus}) = _$UsersLoginEntityImpl;
 
   @override
-  String get externalId;
+  String get identifier;
   @override
   String get socialType;
   @override
-  String get idToken;
+  String get accessToken;
+  @override
+  String get refreshToken;
+  @override
+  bool get profileStatus;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
