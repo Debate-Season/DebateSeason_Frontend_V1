@@ -155,6 +155,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return ChatBottomSheet(
       //widget: ChatRoomScreen(),
       //widget: DeText('토론방 입장하기', style: body16M.copyWith(color: brandColor),),
+      // widget: DeGestureDetector(onTap: (){ Get.toNamed('/chat');}, child: DefaultTextStyle(style: body16M,
+      //     child: DeButton('토론방 입장하기', enable: true)),
+      // 위처럼 해야 텍스트박스에 노란 밑줄 지워짐
       widget: DeButtonLarge(
         '토론방 입장하기',
         onPressed: () {
