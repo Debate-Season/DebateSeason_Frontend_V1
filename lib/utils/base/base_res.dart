@@ -7,13 +7,13 @@ class BaseRes<T> {
   final int status;
   final String code;
   final String message;
-  final T? data;
+  final T data;
 
   BaseRes({
     required this.status,
     required this.code,
     required this.message,
-    this.data,
+    required this.data,
   });
 
   factory BaseRes.fromJson(

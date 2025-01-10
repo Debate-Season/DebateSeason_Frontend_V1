@@ -14,7 +14,7 @@ BaseRes<T> _$BaseResFromJson<T>(
       status: (json['status'] as num).toInt(),
       code: json['code'] as String,
       message: json['message'] as String,
-      data: _$nullableGenericFromJson(json['data'], fromJsonT),
+      data: fromJsonT(json['data']),
     );
 
 Map<String, dynamic> _$BaseResToJson<T>(
@@ -25,17 +25,5 @@ Map<String, dynamic> _$BaseResToJson<T>(
       'status': instance.status,
       'code': instance.code,
       'message': instance.message,
-      'data': _$nullableGenericToJson(instance.data, toJsonT),
+      'data': toJsonT(instance.data),
     };
-
-T? _$nullableGenericFromJson<T>(
-  Object? input,
-  T Function(Object? json) fromJson,
-) =>
-    input == null ? null : fromJson(input);
-
-Object? _$nullableGenericToJson<T>(
-  T? input,
-  Object? Function(T value) toJson,
-) =>
-    input == null ? null : toJson(input);
