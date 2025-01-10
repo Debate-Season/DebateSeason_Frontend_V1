@@ -1,4 +1,3 @@
-import 'package:debateseason_frontend_v1/core/network/dio_client.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/utils/secure_storage.dart';
 import 'package:dio/dio.dart';
@@ -35,25 +34,26 @@ class DioInterceptor extends Interceptor {
         'Response Data: ${err.response?.data}\n'
         'Headers: ${err.response?.headers}');
 
-    final dio = DioClient().dio;
-    final isStatus401 = (err.response?.statusCode == 401);
-    final isPathRefresh = (options.path == '/users/login');
-
-    if (isStatus401 && !isPathRefresh) {
-      try {
-        // todo refresh token api 호출
-        final String accessToken = '';
-        await SecureStorage().setAccessToken(accessToken: accessToken);
-
-        options.headers['authorization'] = accessToken;
-
-        final newResponse = await dio.fetch(options);
-
-        return handler.resolve(newResponse);
-      } catch (e) {
-        return handler.reject(err);
-      }
-    }
+    // access token 만료 시 refresh token으로 재발급
+    // final dio = DioClient().dio;
+    // final isStatus401 = (err.response?.statusCode == 401);
+    // final isPathRefresh = (options.path == '/users/login');
+    //
+    // if (isStatus401 && !isPathRefresh) {
+    //   try {
+    //     // todo refresh token api 호출
+    //     final String accessToken = '';
+    //     await SecureStorage().setAccessToken(accessToken: accessToken);
+    //
+    //     options.headers['authorization'] = accessToken;
+    //
+    //     final newResponse = await dio.fetch(options);
+    //
+    //     return handler.resolve(newResponse);
+    //   } catch (e) {
+    //     return handler.reject(err);
+    //   }
+    // }
     return handler.reject(err);
   }
 }
