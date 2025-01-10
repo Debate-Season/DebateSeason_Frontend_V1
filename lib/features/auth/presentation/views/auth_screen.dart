@@ -49,9 +49,9 @@ class AuthScreen extends GetView<AuthViewModel> {
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동
-                          Get.toNamed(GetRouterName.profile);
+                          Get.toNamed(GetRouterName.profileInput);
                         } else {
-                          Get.toNamed(GetRouterName.profile);
+                          Get.toNamed(GetRouterName.profileInput);
                         }
                       },
                       failure: (msg) {
@@ -72,9 +72,9 @@ class AuthScreen extends GetView<AuthViewModel> {
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동
-                          Get.toNamed(GetRouterName.profile);
+                          Get.toNamed(GetRouterName.profileInput);
                         } else {
-                          Get.toNamed(GetRouterName.profile);
+                          Get.toNamed(GetRouterName.profileInput);
                         }
                       },
                       failure: (msg) {
