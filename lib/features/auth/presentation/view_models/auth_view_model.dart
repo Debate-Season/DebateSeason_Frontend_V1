@@ -1,3 +1,7 @@
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
+import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -5,6 +9,8 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
+  late final SecureStoreService _storage;
+  late final UsersLoginRepository _usersLoginRepository;
   final String kakaoLoginType = 'kakao';
   final String appleLoginType = 'apple';
 
@@ -12,6 +18,8 @@ class AuthViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    _storage = Get.find<SecureStoreService>();
+    _usersLoginRepository = Get.find<UsersLoginRepository>();
     _kakaoSdkInit();
   }
 
@@ -22,7 +30,7 @@ class AuthViewModel extends GetxController {
     );
   }
 
-  Future<bool> kakaoLogin() async {
+  Future<UiState<UsersLoginEntity>> kakaoLogin() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
       if (isInstalled) {
@@ -33,34 +41,45 @@ class AuthViewModel extends GetxController {
 
       User user = await UserApi.instance.me();
 
-      log.d(user.id);
+      final usersLoginEntity = await postUsersLogin(
+        identifier: user.id.toString(),
+        socialType: kakaoLoginType,
+      );
 
-      return true;
+      await Future.wait([
+        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
+        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
+      ]);
+
+      return UiState.success(usersLoginEntity);
     } catch (e) {
-      log.d('카카오 로그인 실패 $e');
-      return false;
+      log.d('카카오 로그인 실패\n$e');
+      return UiState.failure('카카오 로그인에 실패했습니다.');
     }
   }
 
-  Future<bool> kakaoLogout() async {
+  Future<UiState<UsersLoginEntity>> appleLogin() async {
     try {
-      await UserApi.instance.unlink();
-      log.d('카카오톡 로그아웃 성공');
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+      final user = await SignInWithApple.getAppleIDCredential(scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ]);
 
-  Future<void> appleLogin() async {
-    await SignInWithApple.getAppleIDCredential(scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName,
-    ]).then((user) {
-      log.d(user.userIdentifier);
-    }).onError((e, s) {
-      log.d('$e\n$s');
-    });
+      final usersLoginEntity = await postUsersLogin(
+        identifier: user.userIdentifier.toString(),
+        socialType: kakaoLoginType,
+      );
+
+      await Future.wait([
+        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
+        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
+      ]);
+
+      return UiState.success(usersLoginEntity);
+    } catch (e, stackTrace) {
+      log.d('애플 로그인 실패\n$e\n$stackTrace');
+      return UiState.failure('애플 로그인에 실패했습니다.');
+    }
 
     // firebase code - 필요한지 모르겠음..
     // final firebase.OAuthCredential credential =
@@ -69,5 +88,28 @@ class AuthViewModel extends GetxController {
     //   accessToken: appleCredential.authorizationCode,
     // );
     // await firebase.FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UsersLoginEntity> postUsersLogin({
+    required String identifier,
+    required String socialType,
+  }) async {
+    return await _usersLoginRepository.postUsersLogin(
+      entity: UsersLoginEntity(
+        identifier: identifier,
+        socialType: socialType,
+      ),
+    );
+  }
+
+  // todo 추후 내정보 화면으로 이동할 함수.
+  Future<bool> kakaoLogout() async {
+    try {
+      await UserApi.instance.unlink();
+      log.d('카카오톡 로그아웃 성공');
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

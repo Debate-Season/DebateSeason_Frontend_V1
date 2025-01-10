@@ -6,7 +6,7 @@ import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remot
 class UsersLoginRepositoryImpl implements UsersLoginRepository {
   final UsersLoginDataSource dataSource;
 
-  UsersLoginRepositoryImpl({required this.dataSource});
+  UsersLoginRepositoryImpl(this.dataSource);
 
   @override
   Future<UsersLoginEntity> postUsersLogin({
