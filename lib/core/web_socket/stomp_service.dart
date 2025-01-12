@@ -37,26 +37,26 @@ class StompService {
     log.d("STOMP 클라이언트 활성화...");
   }
 
-  void subscribe(String destination, Function(String) onMessage){
+  void subscribe(String destination, Function(String) onMessage) {
     log.d('* 구독 시도: $destination');
     try {
       stompClient.subscribe(
-          destination: destination,
-          //callback: (frame) => onMessage(frame.body!),
-          callback: (frame) {
-            log.d('* 구독 성공: $destination, 받은 메시지: ${frame.body}');
-            onMessage(frame.body ?? "");
-          }
+        destination: destination,
+        //callback: (frame) => onMessage(frame.body!),
+        callback: (frame) {
+          log.d('* 구독 성공: $destination, 받은 메시지: ${frame.body}');
+          onMessage(frame.body ?? "");
+        },
       );
-    } catch (e){
+    } catch (e) {
       log.d('* 구독 실패: $e');
     }
   }
 
   void sendMessage(String destination, String message) {
     stompClient.send(
-        destination: destination,
-        body: message,
+      destination: destination,
+      body: message,
     );
   }
 

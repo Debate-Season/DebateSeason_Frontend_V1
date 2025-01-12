@@ -33,9 +33,7 @@ class ChatBottomSheet extends StatelessWidget {
             ),
             Gaps.v16,
             Row(
-              children: [
-
-              ],
+              children: [],
             ),
             Gaps.v16,
             widget,

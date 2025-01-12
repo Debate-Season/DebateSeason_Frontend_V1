@@ -12,7 +12,7 @@ class MessageBubble extends StatelessWidget {
   final MessageRequest message;
   final String category;
 
-  const MessageBubble({super.key, required this.message, required this. category});
+  const MessageBubble({super.key, required this.message, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,8 @@ class MessageBubble extends StatelessWidget {
         children: [
           Align(
             alignment: alignment,
-            child: msgHeader(),),
+            child: msgHeader(),
+          ),
           Gaps.v4,
           Align(
             alignment: alignment,
@@ -82,19 +83,28 @@ class MessageBubble extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xFFE2B84C),
         borderRadius: BorderRadius.circular(50),
-      )
+      ),
     );
   }
 
   Widget _myId() {
-    return DeText('난중일기', style: cation12SB.copyWith(color: grey10),);
+    return DeText(
+      '난중일기',
+      style: cation12SB.copyWith(color: grey10),
+    );
   }
 
   Widget _myCommunity() {
-    return DeText('에펨코리아', style: cation12R.copyWith(color: grey30),);
+    return DeText(
+      '에펨코리아',
+      style: cation12R.copyWith(color: grey30),
+    );
   }
 
   Widget _sendTime() {
-    return DeText('20:05', style: cation12R.copyWith(color: grey30),);
+    return DeText(
+      '20:05',
+      style: cation12R.copyWith(color: grey30),
+    );
   }
 }

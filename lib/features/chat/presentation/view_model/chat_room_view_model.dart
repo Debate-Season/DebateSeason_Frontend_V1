@@ -32,7 +32,7 @@ class ChatRoomViewModel extends GetxController {
             MessageResponse messageResponse = MessageResponse.fromJson(jsonDecode(msg));
             receivedMessages.add(messageResponse);
             log.d('4. 구독 연결~');
-          } catch (e){
+          } catch (e) {
             log.d('4. 구독 실패: $e');
           }
         });
@@ -58,15 +58,15 @@ class ChatRoomViewModel extends GetxController {
     sentMessages.add(messageRequest);
     receivedMessages.add(
       MessageResponse(
-          sender: messageRequest.sender,
-          content: messageRequest.content,
-          category: '찬성' //나중에 수정
+        sender: messageRequest.sender,
+        content: messageRequest.content,
+        category: '찬성', //나중에 수정
       ),
     );
   }
 
   @override
-  void onClose(){
+  void onClose() {
     _stompService.disconnect();
     super.onClose();
   }

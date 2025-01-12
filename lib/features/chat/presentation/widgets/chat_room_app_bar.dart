@@ -10,8 +10,7 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 
-
-class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
+class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   const ChatRoomAppBar({super.key, required this.title});
@@ -40,12 +39,14 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => _widgetCloseDebate()
+                    builder: (context) => _widgetCloseDebate(),
                   );
                 },
                 child: Transform(
                   alignment: Alignment.center,
-                  transform: Matrix4.identity()..translate(0.0, 0.0)..rotateZ(3.14),
+                  transform: Matrix4.identity()
+                    ..translate(0.0, 0.0)
+                    ..rotateZ(3.14),
                   child: SizedBox(
                     width: 24.0,
                     height: 24.0,
@@ -70,8 +71,8 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
 
   _widgetCloseDebate() {
     return DeBottomSheet(
-        '토론 종료하기',
-        widget: _widgetCloseDebateBottomSheetBody(),
+      '토론 종료하기',
+      widget: _widgetCloseDebateBottomSheetBody(),
     );
   }
 
@@ -79,29 +80,29 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget{
     return Column(
       children: [
         GestureDetector(
-          onTap: (){
+          onTap: () {
             log.d('토론방 나가기');
           },
           child: Container(
             padding: Dimensions.padding20x16,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/ic_exit_grey10.svg',
-                    width: 24.0,
-                    height: 24.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/ic_exit_grey10.svg',
+                  width: 24.0,
+                  height: 24.0,
+                ),
+                Gaps.h16,
+                Expanded(
+                  child: DeText(
+                    '토론 종료하기',
+                    style: body16M.copyWith(color: grey10),
                   ),
-                  Gaps.h16,
-                  Expanded(
-                    child: DeText(
-                      '토론 종료하기',
-                      style: body16M.copyWith(color: grey10),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
         ),
       ],
     );

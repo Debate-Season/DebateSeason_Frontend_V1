@@ -22,11 +22,14 @@ class ChatDateLine extends StatelessWidget {
   Widget _date() {
     return Container(
       padding: Dimensions.padding12x4,
-      decoration:BoxDecoration(
+      decoration: BoxDecoration(
         color: grey90,
-        borderRadius: BorderRadius.circular(20.0)  
+        borderRadius: BorderRadius.circular(20.0),
       ),
-      child: DeText('오늘', style: cation12R.copyWith(color: grey50),),
+      child: DeText(
+        '오늘',
+        style: cation12R.copyWith(color: grey50),
+      ),
     );
   }
 }

@@ -39,16 +39,13 @@ class ChangePopup extends StatelessWidget {
             Gaps.v20,
             Row(
               children: [
-                TextButton(
-                  onPressed: () =>{log.d('btn1')},
-                  child: Text(btn1)
-                ),
+                TextButton(onPressed: () => {log.d('btn1')}, child: Text(btn1)),
                 ElevatedButton(
                   onPressed: onConfirm,
                   child: Text(btn2),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
