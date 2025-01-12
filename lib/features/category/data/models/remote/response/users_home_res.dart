@@ -1,23 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'users_res.g.dart';
+part 'users_home_res.g.dart';
 
 @JsonSerializable()
-class UsersRes {
+class UsersHomeRes {
   int issueId;
   String title;
   DateTime createdAt;
   int countChatRoom;
 
-  UsersRes({
+  UsersHomeRes({
     required this.issueId,
     required this.title,
     required this.createdAt,
     required this.countChatRoom,
   });
 
-  factory UsersRes.fromJson(Map<String, dynamic> json) =>
-      _$UsersResFromJson(json);
+  factory UsersHomeRes.fromJson(Map<String, dynamic> json) =>
+      _$UsersHomeResFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UsersResToJson(this);
+  Map<String, dynamic> toJson() => _$UsersHomeResToJson(this);
 }

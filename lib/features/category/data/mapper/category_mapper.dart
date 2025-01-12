@@ -1,8 +1,8 @@
-import 'package:debateseason_frontend_v1/features/category/data/models/remote/response/users_res.dart';
+import 'package:debateseason_frontend_v1/features/category/data/models/remote/response/users_home_res.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 
 class CategoryMapper {
-  CategoryEntity toEntity(UsersRes res) {
+  CategoryEntity toEntity(UsersHomeRes res) {
     return CategoryEntity(
       issueId: res.issueId,
       title: res.title,

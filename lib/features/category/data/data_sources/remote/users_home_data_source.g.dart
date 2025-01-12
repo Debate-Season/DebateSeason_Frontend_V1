@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'users_data_source.dart';
+part of 'users_home_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'users_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _UsersDataSource implements UsersDataSource {
-  _UsersDataSource(
+class _UsersHomeDataSource implements UsersHomeDataSource {
+  _UsersHomeDataSource(
     this._dio, {
     this.baseUrl,
     this.errorLogger,
@@ -22,19 +22,19 @@ class _UsersDataSource implements UsersDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BaseRes<List<UsersRes>>> getUsers() async {
+  Future<BaseRes<List<UsersHomeRes>>> getUsers() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BaseRes<List<UsersRes>>>(Options(
+    final _options = _setStreamType<BaseRes<List<UsersHomeRes>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/api/v1/users',
+          '/api/v1/users/home',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -44,14 +44,14 @@ class _UsersDataSource implements UsersDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BaseRes<List<UsersRes>> _value;
+    late BaseRes<List<UsersHomeRes>> _value;
     try {
-      _value = BaseRes<List<UsersRes>>.fromJson(
+      _value = BaseRes<List<UsersHomeRes>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<UsersRes>(
-                    (i) => UsersRes.fromJson(i as Map<String, dynamic>))
+                .map<UsersHomeRes>(
+                    (i) => UsersHomeRes.fromJson(i as Map<String, dynamic>))
                 .toList()
             : List.empty(),
       );

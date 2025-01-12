@@ -2,15 +2,17 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
 
 class CategoryScreen extends GetView<CategoryViewModel> {
   const CategoryScreen({super.key});
@@ -34,7 +36,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
       actions: [
         DeGestureDetector(
           onTap: () {
-            // todo Profile 화면전환
+            Get.toNamed(GetRouterName.profile);
           },
           child: Padding(
             padding: Dimensions.all8,
@@ -72,50 +74,52 @@ class CategoryScreen extends GetView<CategoryViewModel> {
   }
 
   Widget _categoryList() {
-    final categoryList = controller.categories;
+    return Obx(() {
+      final categoryList = controller.categories;
 
-    return categoryList.when(
-      loading: () {
-        return const Center(
-          child: CircularProgressIndicator.adaptive(),
-        );
-      },
-      empty: () {
-        return Center(
-          child: DeText(
-            '데이터가 없습니다.',
-            style: body16Sb.copyWith(color: grey50),
-          ),
-        );
-      },
-      success: (categoryList) {
-        return ListView.separated(
-          itemCount: categoryList.length,
-          itemBuilder: (context, index) {
-            final category = categoryList[index];
+      return categoryList.when(
+        loading: () {
+          return const Center(
+            child: DeProgressIndicator(),
+          );
+        },
+        empty: () {
+          return Center(
+            child: DeText(
+              '데이터가 없습니다.',
+              style: body16Sb.copyWith(color: grey50),
+            ),
+          );
+        },
+        success: (categoryList) {
+          return ListView.separated(
+            itemCount: categoryList.length,
+            itemBuilder: (context, index) {
+              final category = categoryList[index];
 
-            return _categoryItem(category: category);
-          },
-          separatorBuilder: (context, index) {
-            return Padding(
-              padding: Dimensions.vertical16,
-              child: Divider(
-                height: 1,
-                color: grey100,
-              ),
-            );
-          },
-        );
-      },
-      failure: (error) {
-        return Center(
-          child: DeText(
-            error,
-            style: body16Sb.copyWith(color: red),
-          ),
-        );
-      },
-    );
+              return _categoryItem(category: category);
+            },
+            separatorBuilder: (context, index) {
+              return Padding(
+                padding: Dimensions.vertical16,
+                child: Divider(
+                  height: 1,
+                  color: grey100,
+                ),
+              );
+            },
+          );
+        },
+        failure: (error) {
+          return Center(
+            child: DeText(
+              error,
+              style: body16Sb.copyWith(color: red),
+            ),
+          );
+        },
+      );
+    });
   }
 
   Widget _categoryItem({required CategoryEntity category}) {
