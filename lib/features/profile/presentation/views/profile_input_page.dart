@@ -58,8 +58,8 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 _widgetAge(),
                 Gaps.v40,
                 DeButtonLarge(
-                  '선택하기',
-                  onPressed: () {},
+                  '토론철 시작하기',
+                  onPressed: () => controller.postProfile(),
                   enable: false,
                 ),
                 Gaps.v20,
