@@ -25,6 +25,7 @@ class DeTextField extends StatelessWidget {
   final ValueChanged<String>? onSubmitted;
   final List<TextInputFormatter>? inputFormatters;
   final bool? enabled;
+  final bool isCleanIcon;
 
   const DeTextField({
     super.key,
@@ -46,6 +47,7 @@ class DeTextField extends StatelessWidget {
     this.onSubmitted,
     this.inputFormatters,
     this.enabled,
+    this.isCleanIcon = true,
   });
 
   @override
@@ -79,15 +81,18 @@ class DeTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
               ),
-              suffixIcon: controller.text.isNotEmpty
-                  ? DeGestureDetector(
-                      onTap: () => controller.clear(),
-                      child: Padding(
-                        padding: Dimensions.all10,
-                        child: SvgPicture.asset('assets/icons/ic_x_grey50.svg'),
-                      ),
-                    )
-                  : null,
+              suffixIcon: isCleanIcon
+                  ? (controller.text.isNotEmpty
+                      ? DeGestureDetector(
+                          onTap: () => controller.clear(),
+                          child: Padding(
+                            padding: Dimensions.all10,
+                            child: SvgPicture.asset(
+                                'assets/icons/ic_x_grey50.svg'),
+                          ),
+                        )
+                      : null)
+                  : SizedBox.shrink(),
             ),
         keyboardType: keyboardType,
         textInputAction: textInputAction,

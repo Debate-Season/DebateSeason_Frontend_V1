@@ -2,12 +2,13 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/auth/presentation/widgets/auth_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_input_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
@@ -112,7 +113,9 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           hintText: '사용할 닉네임을 입력해주세요.',
           controller: controller.profileController,
           onChanged: (text) {
-            controller.onTextChanged(text: text);
+            if (text.length > 3) {
+              controller.onChangedNickname(nickname: text);
+            }
           },
         ),
         Obx(() {
@@ -166,6 +169,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             hintText: '주로 활동하는 커뮤니티를 등록해 주세요.',
             controller: controller.communityController,
             enabled: false,
+            isCleanIcon: false,
           ),
         ),
       ],
@@ -173,6 +177,10 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
   }
 
   Widget _widgetGender() {
+    const genderMan = '남성';
+    const genderWomen = '여성';
+    const genderOther = '무응답';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -186,16 +194,43 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           style: cation12M.copyWith(color: grey50),
         ),
         Gaps.v8,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(child: AuthCard('남성', imagePath: '1')),
-            Gaps.h8,
-            Expanded(child: AuthCard('여성', imagePath: '2')),
-            Gaps.h8,
-            Expanded(child: AuthCard('무응답')),
-          ],
-        ),
+        Obx(() {
+          final profileAgeRange = controller.profile.gender;
+
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: DeGestureDetector(
+                    onTap: () => controller.setGender(gender: genderMan),
+                    child: ProfileInputCard(
+                      genderMan,
+                      imagePath: '1',
+                      isSelected: profileAgeRange == genderMan,
+                    )),
+              ),
+              Gaps.h8,
+              Expanded(
+                child: DeGestureDetector(
+                    onTap: () => controller.setGender(gender: genderWomen),
+                    child: ProfileInputCard(
+                      genderWomen,
+                      imagePath: '2',
+                      isSelected: profileAgeRange == genderWomen,
+                    )),
+              ),
+              Gaps.h8,
+              Expanded(
+                child: DeGestureDetector(
+                    onTap: () => controller.setGender(gender: genderOther),
+                    child: ProfileInputCard(
+                      genderOther,
+                      isSelected: profileAgeRange == genderOther,
+                    )),
+              ),
+            ],
+          );
+        }),
       ],
     );
   }
@@ -216,7 +251,6 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v8,
         DeGestureDetector(
           onTap: () {
-            // 나이대 선택 바텀시트
             if (Get.context != null) {
               showModalBottomSheet(
                 context: Get.context!,
@@ -235,6 +269,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             hintText: '나이대를 선택해주세요.',
             controller: controller.ageController,
             enabled: false,
+            isCleanIcon: false,
           ),
         ),
       ],
@@ -242,53 +277,107 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
   }
 
   Widget _widgetCommunityBottomSheetBody() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        DeTextField(
-          controller: controller.communitySearchController,
-          hintText: '내용을 입력해 주세요.',
-          fillColor: grey90,
-        ),
-        Gaps.v16,
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1,
-          ),
-          itemCount: 9,
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return AuthCard(
-                '무소속',
-                isCommunity: true,
-              );
-            }
+    return Obx(() {
+      final communities = controller.communities;
 
-            return AuthCard(
-              '커뮤니티명',
-              imagePath: '1',
-              isCommunity: true,
-            );
-          },
-        ),
-        Gaps.v16,
-        DeButtonLarge(
-          '등록하기',
-          onPressed: () {},
-          enable: false,
-        ),
-        Gaps.v16,
-      ],
-    );
+      return communities.when(
+        loading: () {
+          return const Center(
+            child: DeProgressIndicator(),
+          );
+        },
+        success: (communities) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DeTextField(
+                controller: controller.communitySearchController,
+                hintText: '내용을 입력해 주세요.',
+                fillColor: grey90,
+                onChanged: (searchWord) =>
+                    controller.onChangedCommunity(searchWord: searchWord),
+              ),
+              Gaps.v16,
+              SizedBox(
+                height: Get.mediaQuery.size.height * 0.3,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 1,
+                  ),
+                  itemCount: communities.length,
+                  itemBuilder: (context, index) {
+                    final community = communities[index];
+
+                    return DeGestureDetector(
+                      onTap: () {
+                        controller.setSelectedCommunityId(
+                          communityId: community.id,
+                        );
+                      },
+                      child: Obx(() {
+                        final selectedCommunityId =
+                            controller.selectedCommunityId;
+
+                        return ProfileInputCard(
+                          community.name,
+                          imagePath: community.iconUrl,
+                          isCommunity: true,
+                          isSelected: selectedCommunityId == community.id,
+                        );
+                      }),
+                    );
+                  },
+                ),
+              ),
+              Gaps.v16,
+              Obx(() {
+                final selectedCommunityId = controller.selectedCommunityId;
+
+                return DeButtonLarge(
+                  '등록하기',
+                  onPressed: () {
+                    controller.setCommunityId(
+                      communityId: selectedCommunityId,
+                    );
+                    Get.back();
+                  },
+                  enable: selectedCommunityId > 0,
+                );
+              }),
+              Gaps.v16,
+            ],
+          );
+        },
+        failure: (error) {
+          return Center(
+            child: DeText(
+              error,
+              style: body16Sb.copyWith(color: red),
+            ),
+          );
+        },
+      );
+    });
   }
 
   Widget _widgetAgeBottomSheetBody() {
+    final List<String> ageRange = [
+      '10대',
+      '20대',
+      '30대',
+      '40대',
+      '50대',
+      '60대',
+      '70대',
+      '80대',
+      '90대 이상',
+    ];
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -308,27 +397,37 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             mainAxisSpacing: 8,
             childAspectRatio: 1,
           ),
-          itemCount: 9,
+          itemCount: ageRange.length,
           itemBuilder: (context, index) {
-            if (index == 8) {
-              return AuthCard(
-                '90대 이상',
-                isCommunity: true,
-              );
-            }
+            final age = ageRange[index];
 
-            return AuthCard(
-              '${1 + index}0대',
-              isCommunity: true,
-            );
+            return Obx(() {
+              final selectedAge = controller.selectedAge;
+
+              return DeGestureDetector(
+                onTap: () => controller.setSelectedAge(selectedAge: age),
+                child: ProfileInputCard(
+                  age,
+                  isCommunity: true,
+                  isSelected: selectedAge == ageRange[index],
+                ),
+              );
+            });
           },
         ),
         Gaps.v16,
-        DeButtonLarge(
-          '선택하기',
-          onPressed: () {},
-          enable: false,
-        ),
+        Obx(() {
+          final selectedAge = controller.selectedAge;
+
+          return DeButtonLarge(
+            '선택하기',
+            onPressed: () {
+              controller.setAgeRange(ageRange: selectedAge);
+              Get.back();
+            },
+            enable: selectedAge.isNotEmpty,
+          );
+        }),
         Gaps.v16,
       ],
     );

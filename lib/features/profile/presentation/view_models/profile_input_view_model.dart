@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/repositories/re
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,16 +21,21 @@ class ProfileInputViewModel extends GetxController {
   late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
   Timer? _debounceTimer;
   final _profile = Rx<ProfileEntity>(
-    ProfileEntity(nickname: '', communityId: -1, gender: '', ageRange: ''),
-  );
+      ProfileEntity(nickname: '', communityId: -1, gender: '', ageRange: ''));
   final _nicknameError = ''.obs;
-  final _community = Rx<UiState<List<CommunityEntity>>>(UiState.loading());
+  final _communities = Rx<UiState<List<CommunityEntity>>>(UiState.loading());
+  final _selectedCommunityId = (-1).obs;
+  final _selectedAge = ''.obs;
 
   ProfileEntity get profile => _profile.value;
 
   String get nicknameError => _nicknameError.value;
 
-  UiState<List<CommunityEntity>> get community => _community.value;
+  UiState<List<CommunityEntity>> get communities => _communities.value;
+
+  int get selectedCommunityId => _selectedCommunityId.value;
+
+  String get selectedAge => _selectedAge.value;
 
   @override
   void onInit() {
@@ -62,14 +68,14 @@ class ProfileInputViewModel extends GetxController {
 
   Future<void> getCommunity() async {
     final result = await _communityRepository.getCommunities();
-    _community.value = result;
+    _communities.value = result;
   }
 
-  Future<void> getCommunitySearch(String searchWord) async {
+  Future<void> _getCommunitySearch({required String searchWord}) async {
     final result = await _communityRepository.getCommunitiesSearch(
       searchWord: searchWord,
     );
-    _community.value = result;
+    _communities.value = result;
   }
 
   Future<void> _getProfileNicknameCheck({required String nickname}) async {
@@ -98,13 +104,61 @@ class ProfileInputViewModel extends GetxController {
     );
   }
 
-  void onTextChanged({required String text}) {
+  void onChangedNickname({required String nickname}) {
     if (_debounceTimer != null) {
       _debounceTimer?.cancel();
     }
 
     _debounceTimer = Timer(Duration(milliseconds: 300), () {
-      _getProfileNicknameCheck(nickname: text);
+      _getProfileNicknameCheck(nickname: nickname);
     });
+  }
+
+  void setSelectedCommunityId({required int communityId}) {
+    _selectedCommunityId.value = communityId;
+  }
+
+  void setCommunityId({required int communityId}) {
+    _profile.value = _profile.value.copyWith(communityId: communityId);
+
+    _communities.value.when(
+      loading: () => log.d('커뮤니티 데이터를 로딩 중...'),
+      success: (data) {
+        final community = data.firstWhere(
+            (element) => element.id == communityId,
+            orElse: () => CommunityEntity(id: -1, name: '', iconUrl: ''));
+
+        if (community.id != -1) {
+          communityController.text = community.name;
+        } else {
+          log.d('해당 communityId에 해당하는 커뮤니티가 없습니다.');
+        }
+      },
+      failure: (message) => log.d('커뮤니티 데이터를 가져오는 데 실패했습니다: $message'),
+    );
+  }
+
+  void onChangedCommunity({required String searchWord}) {
+    if (_debounceTimer != null) {
+      _debounceTimer?.cancel();
+    }
+
+    _debounceTimer = Timer(Duration(milliseconds: 300), () {
+      _getCommunitySearch(searchWord: searchWord);
+    });
+  }
+
+  void setGender({required String gender}) {
+    _profile.value = _profile.value.copyWith(gender: gender);
+  }
+
+  void setAgeRange({required String ageRange}) {
+    _profile.value = _profile.value.copyWith(ageRange: ageRange);
+
+    ageController.text = ageRange;
+  }
+
+  void setSelectedAge({required String selectedAge}) {
+    _selectedAge.value = selectedAge;
   }
 }
