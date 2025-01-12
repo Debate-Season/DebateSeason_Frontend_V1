@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CategoryEntity {
   int get issueId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   int get countChatRoom => throw _privateConstructorUsedError;
 
   /// Create a copy of CategoryEntity
@@ -34,7 +34,7 @@ abstract class $CategoryEntityCopyWith<$Res> {
           CategoryEntity value, $Res Function(CategoryEntity) then) =
       _$CategoryEntityCopyWithImpl<$Res, CategoryEntity>;
   @useResult
-  $Res call({int issueId, String title, String createdAt, int countChatRoom});
+  $Res call({int issueId, String title, DateTime createdAt, int countChatRoom});
 }
 
 /// @nodoc
@@ -69,7 +69,7 @@ class _$CategoryEntityCopyWithImpl<$Res, $Val extends CategoryEntity>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       countChatRoom: null == countChatRoom
           ? _value.countChatRoom
           : countChatRoom // ignore: cast_nullable_to_non_nullable
@@ -86,7 +86,7 @@ abstract class _$$CategoryEntityImplCopyWith<$Res>
       __$$CategoryEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int issueId, String title, String createdAt, int countChatRoom});
+  $Res call({int issueId, String title, DateTime createdAt, int countChatRoom});
 }
 
 /// @nodoc
@@ -119,7 +119,7 @@ class __$$CategoryEntityImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       countChatRoom: null == countChatRoom
           ? _value.countChatRoom
           : countChatRoom // ignore: cast_nullable_to_non_nullable
@@ -142,7 +142,7 @@ class _$CategoryEntityImpl implements _CategoryEntity {
   @override
   final String title;
   @override
-  final String createdAt;
+  final DateTime createdAt;
   @override
   final int countChatRoom;
 
@@ -182,7 +182,7 @@ abstract class _CategoryEntity implements CategoryEntity {
   factory _CategoryEntity(
       {required final int issueId,
       required final String title,
-      required final String createdAt,
+      required final DateTime createdAt,
       required final int countChatRoom}) = _$CategoryEntityImpl;
 
   @override
@@ -190,7 +190,7 @@ abstract class _CategoryEntity implements CategoryEntity {
   @override
   String get title;
   @override
-  String get createdAt;
+  DateTime get createdAt;
   @override
   int get countChatRoom;
 

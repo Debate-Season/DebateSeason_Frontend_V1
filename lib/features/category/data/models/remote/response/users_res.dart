@@ -6,7 +6,7 @@ part 'users_res.g.dart';
 class UsersRes {
   int issueId;
   String title;
-  String createdAt;
+  DateTime createdAt;
   int countChatRoom;
 
   UsersRes({

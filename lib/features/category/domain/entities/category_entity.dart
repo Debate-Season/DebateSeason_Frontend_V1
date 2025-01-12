@@ -7,7 +7,7 @@ class CategoryEntity with _$CategoryEntity {
   factory CategoryEntity({
     required int issueId,
     required String title,
-    required String createdAt,
+    required DateTime createdAt,
     required int countChatRoom,
   }) = _CategoryEntity;
 }
