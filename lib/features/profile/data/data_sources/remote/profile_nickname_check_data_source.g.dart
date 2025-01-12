@@ -23,13 +23,13 @@ class _ProfileNicknameCheckDataSource
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NullableBaseRes<String>> getProfilesNicknameCheck(
+  Future<NullableBaseRes> getProfilesNicknameCheck(
       {required String nickname}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'query': nickname};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NullableBaseRes<String>>(Options(
+    final _options = _setStreamType<NullableBaseRes>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -46,12 +46,9 @@ class _ProfileNicknameCheckDataSource
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NullableBaseRes<String> _value;
+    late NullableBaseRes _value;
     try {
-      _value = NullableBaseRes<String>.fromJson(
-        _result.data!,
-        (json) => json as String,
-      );
+      _value = NullableBaseRes.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

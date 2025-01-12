@@ -19,15 +19,13 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200:
-        return UiState.success(
-          response.message,
-        );
+        return (UiState.success(response.message));
       default:
         if (response.message.isEmpty) {
-          UiState.failure('서버통신에 문제가 발생했습니다.');
+          (UiState.failure('서버통신에 문제가 발생했습니다.'));
         }
 
-        return UiState.failure(response.message);
+        return (UiState.failure(response.message));
     }
   }
 

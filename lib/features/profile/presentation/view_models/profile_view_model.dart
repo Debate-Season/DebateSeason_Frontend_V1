@@ -10,11 +10,11 @@ class ProfileViewModel extends GetxController {
   UiState<ProfileEntity> get profile => _profile.value;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
 
     _profileRepository = Get.find<ProfileRepository>();
-    await getProfile();
+    getProfile();
   }
 
   Future<void> getProfile() async {

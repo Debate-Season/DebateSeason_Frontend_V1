@@ -1,5 +1,5 @@
-import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
+import 'package:debateseason_frontend_v1/utils/base/nullable_base_res.dart';
 
 abstract class ProfileNicknameCheckRepository {
-  Future<UiState<String>> getProfileNicknameCheck({required String nickname});
+  Future<NullableBaseRes> getProfileNicknameCheck({required String nickname});
 }

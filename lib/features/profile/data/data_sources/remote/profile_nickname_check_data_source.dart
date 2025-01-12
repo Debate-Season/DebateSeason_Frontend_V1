@@ -10,7 +10,7 @@ abstract class ProfileNicknameCheckDataSource {
       _ProfileNicknameCheckDataSource;
 
   @GET('/api/v1/profiles/nickname/check')
-  Future<NullableBaseRes<String>> getProfilesNicknameCheck({
+  Future<NullableBaseRes> getProfilesNicknameCheck({
     @Query('query') required String nickname,
   });
 }

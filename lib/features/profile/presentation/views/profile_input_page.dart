@@ -2,8 +2,8 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/widgets/auth_card.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -111,7 +111,27 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           style: body16M,
           hintText: '사용할 닉네임을 입력해주세요.',
           controller: controller.profileController,
+          onChanged: (text) {
+            controller.onTextChanged(text: text);
+          },
         ),
+        Obx(() {
+          final error = controller.nicknameError;
+
+          if (error.isNotEmpty) {
+            return Column(
+              children: [
+                Gaps.v4,
+                DeText(
+                  error,
+                  style: cation12M.copyWith(color: red),
+                ),
+              ],
+            );
+          }
+
+          return SizedBox.shrink();
+        })
       ],
     );
   }
