@@ -11,4 +11,9 @@ abstract class CommunityDataSource {
 
   @GET('/api/v1/communities')
   Future<BaseRes<List<CommunityRes>>> getCommunities();
+
+  @GET('/api/v1/communities/search')
+  Future<BaseRes<List<CommunityRes>>> getCommunitiesSearch({
+    @Query('query') required String searchWord,
+  });
 }

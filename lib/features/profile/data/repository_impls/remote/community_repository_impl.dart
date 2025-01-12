@@ -26,7 +26,35 @@ class CommunityRepositoryImpl implements CommunityRepository {
         );
       default:
         if (response.message.isEmpty) {
-          UiState.failure('데이터를 불러오는데 에러가 발생했습니다.');
+          UiState.failure('데이터를 불러오지 못했습니다.');
+        }
+
+        return UiState.failure(response.message);
+    }
+  }
+
+  @override
+  Future<UiState<List<CommunityEntity>>> getCommunitiesSearch({
+    required String searchWord,
+  }) async {
+    final response = await dataSource.getCommunitiesSearch(
+      searchWord: searchWord,
+    );
+
+    switch (response.status) {
+      case 200:
+        if (response.data.isEmpty) {
+          return UiState.empty();
+        }
+
+        return UiState.success(
+          response.data
+              .map((res) => CommunityMapper.toEntity(res: res))
+              .toList(),
+        );
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('데이터를 불러오지 못했습니다.');
         }
 
         return UiState.failure(response.message);
