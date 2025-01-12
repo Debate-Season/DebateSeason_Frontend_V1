@@ -17,7 +17,6 @@ import 'package:debateseason_frontend_v1/features/splash/splash_screen.dart';
 
 import 'package:get/get.dart';
 
-
 class GetRouter {
   static final getPages = [
     GetPage(
@@ -45,6 +44,11 @@ class GetRouter {
       binding: ProfileBinding(),
     ),
     GetPage(
+        name: GetRouterName.issue,
+        page: () => IssueRoomScreen(),
+        binding: IssueBinding(),
+    ),
+    GetPage(
       name: GetRouterName.category,
       page: () => CategoryScreen(),
       binding: CategoryBinding(),
@@ -64,10 +68,5 @@ class GetRouter {
       page: () => ProfileScreen(),
       binding: ProfileBinding(),
     ),
-    GetPage(
-      name: GetRouterName.issue,
-      page: () => IssueRoomScreen(),
-      binding: IssueBinding(),
-    )
   ];
 }
