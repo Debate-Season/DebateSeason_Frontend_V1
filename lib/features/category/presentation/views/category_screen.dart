@@ -77,7 +77,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
     return categoryList.when(
       loading: () {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         );
       },
       empty: () {
