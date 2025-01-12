@@ -10,10 +10,15 @@ class AuthBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => SecureStoreService());
+
     Get.lazyPut<UsersLoginDataSource>(
-        () => UsersLoginDataSource(DioClient().dio));
+      () => UsersLoginDataSource(DioClient().dio),
+    );
+
     Get.lazyPut<UsersLoginRepository>(
-        () => UsersLoginRepositoryImpl(Get.find<UsersLoginDataSource>()));
+      () => UsersLoginRepositoryImpl(Get.find<UsersLoginDataSource>()),
+    );
+
     Get.lazyPut(() => AuthViewModel());
   }
 }
