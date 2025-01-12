@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/view_mode
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -67,10 +68,31 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           ),
         ),
         Gaps.v8,
-        DeText(
-          '승정원일기',
-          style: headerLarge,
-        ),
+        Obx(() {
+          final profile = controller.profile;
+
+          return profile.when(
+            loading: () {
+              return const Center(
+                child: DeProgressIndicator(),
+              );
+            },
+            success: (profile) {
+              return DeText(
+                profile.nickname,
+                style: headerLarge,
+              );
+            },
+            failure: (error) {
+              return Center(
+                child: DeText(
+                  error,
+                  style: body16Sb.copyWith(color: red),
+                ),
+              );
+            },
+          );
+        }),
         Gaps.v16,
         Container(
           padding: Dimensions.padding10x5,
