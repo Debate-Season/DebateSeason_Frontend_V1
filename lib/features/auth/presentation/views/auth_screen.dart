@@ -43,9 +43,12 @@ class AuthScreen extends GetView<AuthViewModel> {
             ),
             GestureDetector(
               onTap: () {
+                // todo 자동로그인시 전환될 화면
+                // Get.toNamed(GetRouterName.category);
                 controller.kakaoLogin().then((uiState) {
                   uiState.when(
                       loading: () {},
+                      empty: () {},
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동
@@ -69,6 +72,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                 controller.appleLogin().then((uiState) {
                   uiState.when(
                       loading: () {},
+                      empty: () {},
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동
