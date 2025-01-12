@@ -19,10 +19,11 @@ class ChatInputField extends StatelessWidget {
     return Container(
       padding: Dimensions.all2,
       decoration: ShapeDecoration(
-          color: grey90,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          )),
+        color: grey90,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(26.0),
+        ),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -46,8 +47,12 @@ class ChatInputField extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: controller,
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 3,
               style: body14Sb.copyWith(color: grey10),
               decoration: const InputDecoration(
+                border: InputBorder.none,
                 hintText: '의견을 입력하세요...',
               ),
             ),
@@ -61,24 +66,24 @@ class ChatInputField extends StatelessWidget {
               color: brandColor,
               borderRadius: BorderRadius.circular(48.0),
             ),
-          child: IconButton(
-            icon: SvgPicture.asset(
-              'assets/icons/ic_send_grey10.svg',
-              width: 24.0,
-              height: 24.0,
+            child: IconButton(
+              icon: SvgPicture.asset(
+                'assets/icons/ic_send_grey10.svg',
+                width: 24.0,
+                height: 24.0,
+              ),
+              onPressed: () {
+                if (controller.text.isNotEmpty) {
+                  String content = controller.text;
+                  MessageRequest messageRequest = MessageRequest(
+                    sender: 'user_id',
+                    content: content,
+                  );
+                  viewModel.sendMessage(messageRequest);
+                  controller.clear();
+                }
+              },
             ),
-            onPressed: () {
-              if (controller.text.isNotEmpty) {
-                String content = controller.text;
-                MessageRequest messageRequest = MessageRequest(
-                  sender: 'user_id',
-                  content: content,
-                );
-                viewModel.sendMessage(messageRequest);
-                controller.clear();
-              }
-            },
-          ),
           ),
         ],
       ),
