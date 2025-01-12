@@ -2,7 +2,9 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
+import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -70,26 +72,45 @@ class CategoryScreen extends GetView<CategoryViewModel> {
   }
 
   Widget _categoryList() {
-    // return ListView.separated(
-    //   itemCount: itemCount,
-    //   itemBuilder: (context, index) {
-    //     return _categoryItem();
-    //   },
-    //   separatorBuilder: (context, index) {
-    //     return Padding(
-    //       padding: Dimensions.vertical16,
-    //       child: Divider(
-    //         height: 1,
-    //         color: grey100,
-    //       ),
-    //     );
-    //   },
-    // );
+    final categoryList = controller.categories;
 
-    return _categoryItem();
+    return categoryList.when(
+      loading: () {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      success: (categoryList) {
+        return ListView.separated(
+          itemCount: categoryList.length,
+          itemBuilder: (context, index) {
+            final category = categoryList[index];
+
+            return _categoryItem(category: category);
+          },
+          separatorBuilder: (context, index) {
+            return Padding(
+              padding: Dimensions.vertical16,
+              child: Divider(
+                height: 1,
+                color: grey100,
+              ),
+            );
+          },
+        );
+      },
+      failure: (error) {
+        return Center(
+          child: DeText(
+            error,
+            style: body16Sb.copyWith(color: red),
+          ),
+        );
+      },
+    );
   }
 
-  Widget _categoryItem() {
+  Widget _categoryItem({required CategoryEntity category}) {
     return DeGestureDetector(
       onTap: () {
         // todo 이슈 상세 화면전환
@@ -102,7 +123,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DeText(
-                '이슈명',
+                category.title,
                 style: body16Sb,
               ),
               Gaps.v4,
@@ -114,7 +135,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                   ),
                   Gaps.h2,
                   DeText(
-                    '2024.6.11',
+                    DateFormatUtil.yyyyMD(dateTime: category.createdAt),
                     style: cation12M.copyWith(color: grey30),
                   ),
                   Gaps.h8,
@@ -124,7 +145,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                   ),
                   Gaps.h2,
                   DeText(
-                    '7',
+                    category.countChatRoom.toString(),
                     style: cation12M.copyWith(color: grey30),
                   ),
                 ],
