@@ -48,7 +48,6 @@ class AuthScreen extends GetView<AuthViewModel> {
                 controller.kakaoLogin().then((uiState) {
                   uiState.when(
                       loading: () {},
-                      empty: () {},
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동
@@ -72,7 +71,6 @@ class AuthScreen extends GetView<AuthViewModel> {
                 controller.appleLogin().then((uiState) {
                   uiState.when(
                       loading: () {},
-                      empty: () {},
                       success: (data) {
                         if (data.profileStatus) {
                           // todo 메인 홈으로 이동

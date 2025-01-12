@@ -16,9 +16,6 @@ class UsersHomeRepositoryImpl implements UsersHomeRepository {
 
     switch (response.status) {
       case 200:
-        if (response.data.isEmpty) {
-          return UiState.empty();
-        }
         return UiState.success(
           response.data.map((res) => CategoryMapper().toEntity(res)).toList(),
         );

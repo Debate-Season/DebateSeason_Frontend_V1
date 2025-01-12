@@ -83,15 +83,16 @@ class CategoryScreen extends GetView<CategoryViewModel> {
             child: DeProgressIndicator(),
           );
         },
-        empty: () {
-          return Center(
-            child: DeText(
-              '데이터가 없습니다.',
-              style: body16Sb.copyWith(color: grey50),
-            ),
-          );
-        },
         success: (categoryList) {
+          if (categoryList.isEmpty) {
+            return Center(
+              child: DeText(
+                '데이터가 없습니다.',
+                style: body16Sb.copyWith(color: grey50),
+              ),
+            );
+          }
+
           return ListView.separated(
             itemCount: categoryList.length,
             itemBuilder: (context, index) {

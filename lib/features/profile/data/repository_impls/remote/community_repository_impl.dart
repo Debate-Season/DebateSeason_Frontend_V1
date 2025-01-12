@@ -15,10 +15,6 @@ class CommunityRepositoryImpl implements CommunityRepository {
 
     switch (response.status) {
       case 200:
-        if (response.data.isEmpty) {
-          return UiState.empty();
-        }
-
         return UiState.success(
           response.data
               .map((res) => CommunityMapper.toEntity(res: res))
@@ -43,10 +39,6 @@ class CommunityRepositoryImpl implements CommunityRepository {
 
     switch (response.status) {
       case 200:
-        if (response.data.isEmpty) {
-          return UiState.empty();
-        }
-
         return UiState.success(
           response.data
               .map((res) => CommunityMapper.toEntity(res: res))
