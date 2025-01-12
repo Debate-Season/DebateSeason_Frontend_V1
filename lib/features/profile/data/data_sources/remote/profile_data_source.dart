@@ -12,12 +12,12 @@ abstract class ProfileDataSource {
   factory ProfileDataSource(Dio dio) = _ProfileDataSource;
 
   @POST('/api/v1/profiles')
-  Future<NullableBaseRes<ProfileRes>> postProfiles({
+  Future<NullableBaseRes> postProfiles({
     @Body() required ProfileReq body,
   });
 
   @PATCH('/api/v1/profiles')
-  Future<NullableBaseRes<ProfileRes>> patchProfiles();
+  Future<NullableBaseRes> patchProfiles();
 
   @GET('/api/v1/profiles/me')
   Future<BaseRes<ProfileRes>> getProfilesMe();

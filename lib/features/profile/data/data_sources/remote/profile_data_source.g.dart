@@ -22,14 +22,13 @@ class _ProfileDataSource implements ProfileDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NullableBaseRes<ProfileRes>> postProfiles(
-      {required ProfileReq body}) async {
+  Future<NullableBaseRes> postProfiles({required ProfileReq body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _options = _setStreamType<NullableBaseRes<ProfileRes>>(Options(
+    final _options = _setStreamType<NullableBaseRes>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -46,12 +45,9 @@ class _ProfileDataSource implements ProfileDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NullableBaseRes<ProfileRes> _value;
+    late NullableBaseRes _value;
     try {
-      _value = NullableBaseRes<ProfileRes>.fromJson(
-        _result.data!,
-        (json) => ProfileRes.fromJson(json as Map<String, dynamic>),
-      );
+      _value = NullableBaseRes.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -60,12 +56,12 @@ class _ProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<NullableBaseRes<ProfileRes>> patchProfiles() async {
+  Future<NullableBaseRes> patchProfiles() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NullableBaseRes<ProfileRes>>(Options(
+    final _options = _setStreamType<NullableBaseRes>(Options(
       method: 'PATCH',
       headers: _headers,
       extra: _extra,
@@ -82,12 +78,9 @@ class _ProfileDataSource implements ProfileDataSource {
           baseUrl,
         )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late NullableBaseRes<ProfileRes> _value;
+    late NullableBaseRes _value;
     try {
-      _value = NullableBaseRes<ProfileRes>.fromJson(
-        _result.data!,
-        (json) => ProfileRes.fromJson(json as Map<String, dynamic>),
-      );
+      _value = NullableBaseRes.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
