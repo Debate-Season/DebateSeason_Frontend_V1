@@ -10,8 +10,50 @@ class ProfileRepositoryImpl implements ProfileRepository {
   ProfileRepositoryImpl(this.dataSource);
 
   @override
-  Future<UiState<ProfileEntity>> postProfile() async {
-    final response = await dataSource.postProfiles();
+  Future<UiState<String>> postProfile({
+    required ProfileEntity entity,
+  }) async {
+    final response = await dataSource.postProfiles(
+      body: ProfileMapper.toReq(entity: entity),
+    );
+
+    switch (response.status) {
+      case 200:
+        return UiState.success(
+          response.message,
+        );
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('서버통신에 문제가 발생했습니다.');
+        }
+
+        return UiState.failure(response.message);
+    }
+  }
+
+  @override
+  Future<UiState<String>> patchProfile({required ProfileEntity entity}) async {
+    final response = await dataSource.postProfiles(
+      body: ProfileMapper.toReq(entity: entity),
+    );
+
+    switch (response.status) {
+      case 200:
+        return UiState.success(
+          response.message,
+        );
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('서버통신에 문제가 발생했습니다.');
+        }
+
+        return UiState.failure(response.message);
+    }
+  }
+
+  @override
+  Future<UiState<ProfileEntity>> getProfile() async {
+    final response = await dataSource.getProfilesMe();
 
     switch (response.status) {
       case 200:
@@ -20,7 +62,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         );
       default:
         if (response.message.isEmpty) {
-          UiState.failure('데이터를 불러오는데 에러가 발생했습니다.');
+          UiState.failure('서버통신에 문제가 발생했습니다.');
         }
 
         return UiState.failure(response.message);
