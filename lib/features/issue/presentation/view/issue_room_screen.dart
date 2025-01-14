@@ -11,7 +11,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation//view_model/issue_room_view_model.dart';
 
-class IssueRoomScreen extends GetView<IssueRoomViewModel>{
+class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
 
   @override
@@ -22,11 +22,11 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel>{
     );
   }
 
-  DeAppBar _appBar(){
+  DeAppBar _appBar() {
     return DeAppBar(
       title: '이슈',
       isBack: true,
-      );
+    );
   }
 
   Widget _body() {
@@ -40,13 +40,12 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel>{
           _joinedCommunities(),
           Gaps.v40,
           _debateList(),
-        ]
-
+        ],
       ),
     );
   }
 
-  Widget _newChatCount(){
+  Widget _newChatCount() {
     return Container(
       padding: Dimensions.vertical12,
       decoration: ShapeDecoration(
@@ -71,9 +70,8 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel>{
     );
   }
 
-  Widget _joinedCommunities(){
-
-    Widget _comm() {
+  Widget _joinedCommunities() {
+    Widget comm() {
       return Container(
         width: 36,
         height: 36,
@@ -85,38 +83,39 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel>{
       );
     }
 
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DeText('참여 커뮤니티', style: title,),
-          Gaps.v16,
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // 가로 스크롤 설정
-            child: Row(
-              children: [
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-                _comm(),
-              ],
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DeText(
+          '참여 커뮤니티',
+          style: title,
+        ),
+        Gaps.v16,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal, // 가로 스크롤 설정
+          child: Row(
+            children: [
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+              comm(),
+            ],
           ),
-        ]
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _debateList(){
+  Widget _debateList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
