@@ -78,7 +78,7 @@ class IssueCard extends StatelessWidget {
   }
 
   Widget _widgetBtn(String data) {
-    final widgetColor = data == '찬성' ? redDark : blueDark;
+    final widgetColor = data == '찬성' ? red : blue;
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -88,7 +88,7 @@ class IssueCard extends StatelessWidget {
       decoration: ShapeDecoration(
         color: widgetColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(11.32),
         ),
       ),
       child: Column(
