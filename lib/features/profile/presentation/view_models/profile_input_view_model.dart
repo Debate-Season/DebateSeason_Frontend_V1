@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-class AuthProfileViewModel extends GetxController {
+class ProfileInputViewModel extends GetxController {
   late TextEditingController profileController;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
