@@ -42,7 +42,9 @@ class IssueCard extends StatelessWidget {
   Widget _issueTitle() {
     return DeGestureDetector(
       onTap: () {
-        DeToast.showToast(msg: '아무거나',);
+        DeToast.showToast(
+          msg: '아무거나',
+        );
       },
       child: DeText(
         '우주 광물 채굴에 대한 정부 규제는 올바른가요?우주 광물 채굴에 대한 정부 규제는 올바른가요?',
