@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -9,8 +10,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
   late final UsersLoginRepository _usersLoginRepository;
-  final String kakaoLoginType = 'kakao';
-  final String appleLoginType = 'apple';
 
   @override
   void onInit() {
@@ -40,7 +39,7 @@ class AuthViewModel extends GetxController {
 
       final usersLoginEntity = await postUsersLogin(
         identifier: user.id.toString(),
-        socialType: kakaoLoginType,
+        socialType: AuthConstants.kakaoLoginType,
       );
 
       return UiState.success(usersLoginEntity);
@@ -59,7 +58,7 @@ class AuthViewModel extends GetxController {
 
       final usersLoginEntity = await postUsersLogin(
         identifier: user.userIdentifier.toString(),
-        socialType: appleLoginType,
+        socialType: AuthConstants.appleLoginType,
       );
 
       return UiState.success(usersLoginEntity);
