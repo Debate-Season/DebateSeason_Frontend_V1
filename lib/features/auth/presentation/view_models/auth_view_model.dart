@@ -1,5 +1,3 @@
-import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
-import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -10,9 +8,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
-  late final SecureStorageService _storage = SecureStorageService();
   late final UsersLoginRepository _usersLoginRepository;
-  final _pref = SharedPreferencesService();
   final String kakaoLoginType = 'kakao';
   final String appleLoginType = 'apple';
 
@@ -47,12 +43,6 @@ class AuthViewModel extends GetxController {
         socialType: kakaoLoginType,
       );
 
-      await Future.wait([
-        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
-        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
-        _pref.setSocialType(socialType: kakaoLoginType),
-      ]);
-
       return UiState.success(usersLoginEntity);
     } catch (e) {
       log.d('카카오 로그인 실패\n$e');
@@ -71,12 +61,6 @@ class AuthViewModel extends GetxController {
         identifier: user.userIdentifier.toString(),
         socialType: appleLoginType,
       );
-
-      await Future.wait([
-        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
-        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
-        _pref.setSocialType(socialType: appleLoginType),
-      ]);
 
       return UiState.success(usersLoginEntity);
     } catch (e, stackTrace) {

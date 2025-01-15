@@ -1,7 +1,5 @@
-import 'package:debateseason_frontend_v1/features/auth/domain/entities/auth_reissue_entity.dart';
-
 abstract class AuthReissueRepository {
-  Future<void> postAuthReissue({
-    required AuthReissueEntity entity,
+  Future<int> postAuthReissue({
+    required String refreshToken,
   });
 }

@@ -3,8 +3,8 @@ import 'package:debateseason_frontend_v1/features/auth/data/models/remote/respon
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/auth_reissue_entity.dart';
 
 class AuthReissueMapper {
-  static AuthReissueReq toRequest({required AuthReissueEntity entity}) {
-    return AuthReissueReq(refreshToken: entity.refreshToken);
+  static AuthReissueReq toRequest({required String refreshToken}) {
+    return AuthReissueReq(refreshToken: refreshToken);
   }
 
   static AuthReissueEntity toEntity({required AuthReissueRes res}) {

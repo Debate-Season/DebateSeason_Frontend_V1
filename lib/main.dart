@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialBinding: AuthBinding(),
       initialRoute: GetRouterName.splash, // 추후 자동로그인 로직 필요.
       getPages: GetRouter.getPages,
     );
