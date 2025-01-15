@@ -74,7 +74,6 @@ class AuthScreen extends GetView<AuthViewModel> {
                         loading: () {},
                         success: (data) {
                           if (data.profileStatus) {
-                            // todo 메인 홈으로 이동
                             Get.toNamed(GetRouterName.profileInput);
                           } else {
                             Get.toNamed(GetRouterName.profileInput);
