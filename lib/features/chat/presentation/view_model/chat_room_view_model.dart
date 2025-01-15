@@ -26,7 +26,7 @@ class ChatRoomViewModel extends GetxController {
       dotenv.get("WEB_SOCKET_BASE_URL"),
       (frame) {
         log.d('2. chat server 연결!: ${frame.headers}, ${frame.body}');
-        _stompService.subscribe('/chat.room.1', (msg) {
+        _stompService.subscribe('/topic/room1', (msg) {
           log.d('3. 서버에서 받은 메세지: $msg');
           try {
             MessageResponse messageResponse = MessageResponse.fromJson(jsonDecode(msg));
@@ -52,9 +52,8 @@ class ChatRoomViewModel extends GetxController {
   }
 
   void sendMessage(MessageRequest messageRequest) {
-    // _stompService.sendMessage('/app/chat.sendMessage', message);
     String message = jsonEncode(messageRequest.toJson());
-    _stompService.sendMessage('/topic/room1', message);
+    _stompService.sendMessage('/stomp/chat.room.1', message);
     sentMessages.add(messageRequest);
     receivedMessages.add(
       MessageResponse(

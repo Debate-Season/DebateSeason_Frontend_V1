@@ -7,10 +7,8 @@ class StompService {
 
   void connect(String url, Function(StompFrame) onConnect, Function(dynamic) onError){
     stompClient = StompClient(
-      config: StompConfig.sockJS(
+      config: StompConfig(
         url: url,
-        // onConnect: onConnect,
-        // onWebSocketError: onError,
         onConnect: (frame) {
           log.d("STOMP 연결 성공: ${frame.headers}");
           onConnect(frame);
