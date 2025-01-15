@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: AuthBinding(),
-      initialRoute: GetRouterName.splash, // 추후 자동로그인 로직 필요.
+      initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
     );
   }
