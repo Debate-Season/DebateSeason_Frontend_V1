@@ -83,7 +83,7 @@ const TextStyle body14R = TextStyle(
 
 const cation12SB = TextStyle(
   color: grey10,
-  fontSize: 14,
+  fontSize: 12,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w600,
   height: 1.5,
@@ -91,7 +91,7 @@ const cation12SB = TextStyle(
 
 const cation12M = TextStyle(
   color: grey10,
-  fontSize: 14,
+  fontSize: 12,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w500,
   height: 1.5,
@@ -99,7 +99,7 @@ const cation12M = TextStyle(
 
 const cation12R = TextStyle(
   color: grey10,
-  fontSize: 14,
+  fontSize: 12,
   fontFamily: 'Pretendard',
   fontWeight: FontWeight.w400,
   height: 1.5,

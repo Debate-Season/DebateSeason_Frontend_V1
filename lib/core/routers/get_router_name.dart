@@ -7,4 +7,5 @@ class GetRouterName {
   static const String profileInput = '/profile_input';
   static const String profile = '/profile';
   static const String category = '/category';
+  static const String debate = '/debate';
 }

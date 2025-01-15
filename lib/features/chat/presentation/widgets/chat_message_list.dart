@@ -13,19 +13,21 @@ class ChatMessageList extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChatRoomViewModel viewModel = Get.find<ChatRoomViewModel>();
 
-    return Obx(() => ListView.builder(
-      itemCount: viewModel.receivedMessages.length,
-      itemBuilder: (context, index){
-        MessageResponse messageResponse = viewModel.receivedMessages[index];
-        MessageRequest messageRequest = MessageRequest(
-          sender: messageResponse.sender,
-          content: messageResponse.content,
-        );
-        return MessageBubble(
-          message: messageRequest,
-          category: messageResponse.category,
-        );
-      },
-    ),);
+    return Obx(
+      () => ListView.builder(
+        itemCount: viewModel.receivedMessages.length,
+        itemBuilder: (context, index) {
+          MessageResponse messageResponse = viewModel.receivedMessages[index];
+          MessageRequest messageRequest = MessageRequest(
+            sender: messageResponse.sender,
+            content: messageResponse.content,
+          );
+          return MessageBubble(
+            message: messageRequest,
+            category: messageResponse.category,
+          );
+        },
+      ),
+    );
   }
 }

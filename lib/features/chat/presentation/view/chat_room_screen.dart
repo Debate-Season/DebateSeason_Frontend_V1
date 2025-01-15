@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 
-class ChatRoomScreen extends GetView<ChatRoomViewModel>{
+class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   final ChatRoomViewModel _viewModel = Get.find<ChatRoomViewModel>();
 
   @override
@@ -29,7 +29,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel>{
                 controller: messageController,
                 viewModel: _viewModel,
               ),
-            ]
+            ],
           ),
         ),
       ),

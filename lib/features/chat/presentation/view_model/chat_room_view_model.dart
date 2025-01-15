@@ -25,14 +25,14 @@ class ChatRoomViewModel extends GetxController {
     _stompService.connect(
       dotenv.get("WEB_SOCKET_BASE_URL"),
       (frame) {
-        log.d('2. chat server 연결!: ${frame.headers}');
+        log.d('2. chat server 연결!: ${frame.headers}, ${frame.body}');
         _stompService.subscribe('/chat.room.1', (msg) {
           log.d('3. 서버에서 받은 메세지: $msg');
           try {
             MessageResponse messageResponse = MessageResponse.fromJson(jsonDecode(msg));
             receivedMessages.add(messageResponse);
             log.d('4. 구독 연결~');
-          } catch (e){
+          } catch (e) {
             log.d('4. 구독 실패: $e');
           }
         });
@@ -54,13 +54,19 @@ class ChatRoomViewModel extends GetxController {
   void sendMessage(MessageRequest messageRequest) {
     // _stompService.sendMessage('/app/chat.sendMessage', message);
     String message = jsonEncode(messageRequest.toJson());
-    // _stompService.sendMessage('/app/chat.sendMessage', message);
     _stompService.sendMessage('/topic/room1', message);
     sentMessages.add(messageRequest);
+    receivedMessages.add(
+      MessageResponse(
+        sender: messageRequest.sender,
+        content: messageRequest.content,
+        category: '찬성', //나중에 수정
+      ),
+    );
   }
 
   @override
-  void onClose(){
+  void onClose() {
     _stompService.disconnect();
     super.onClose();
   }

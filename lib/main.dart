@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import 'core/constants/color.dart';
 import 'core/routers/get_router.dart';
+import 'features/chat/data/models/debate_room.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

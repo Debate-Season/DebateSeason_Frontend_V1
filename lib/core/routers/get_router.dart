@@ -4,7 +4,9 @@ import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_s
 import 'package:debateseason_frontend_v1/features/category/bindings/category_binding.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/views/category_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/chat_binding.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/debate_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/view/debate_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
@@ -42,6 +44,11 @@ class GetRouter {
       name: GetRouterName.category,
       page: () => CategoryScreen(),
       binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.debate,
+      page: () => DebateRoomScreen(),
+      binding: DebateBinding(),
     ),
   ];
 }
