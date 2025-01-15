@@ -10,7 +10,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
-  late final SecureStoreService _storage;
+  late final SecureStoreService _storage = SecureStoreService();
   late final UsersLoginRepository _usersLoginRepository;
   final _pref = SharedPreferencesService();
   final String kakaoLoginType = 'kakao';
@@ -20,7 +20,6 @@ class AuthViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
-    _storage = Get.find<SecureStoreService>();
     _usersLoginRepository = Get.find<UsersLoginRepository>();
     _kakaoSdkInit();
   }
