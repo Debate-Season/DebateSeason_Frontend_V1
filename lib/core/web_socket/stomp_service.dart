@@ -1,6 +1,6 @@
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
-import '../../utils/logger.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 
 class StompService {
   late StompClient stompClient;
