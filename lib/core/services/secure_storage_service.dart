@@ -1,15 +1,16 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStoreService {
-  static final SecureStoreService _instance = SecureStoreService._internal();
+class SecureStorageService {
+  static final SecureStorageService _instance =
+      SecureStorageService._internal();
 
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  factory SecureStoreService() {
+  factory SecureStorageService() {
     return _instance;
   }
 
-  SecureStoreService._internal();
+  SecureStorageService._internal();
 
   Future<String> getAccessToken() async {
     return await _storage.read(key: 'access_token') ?? '';
