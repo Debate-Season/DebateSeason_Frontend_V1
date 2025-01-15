@@ -69,7 +69,7 @@ class AuthScreen extends GetView<AuthViewModel> {
             Gaps.v8,
             GestureDetector(
               onTap: () {
-                controller.loginWithKakaoApple().then((uiState) {
+                controller.loginWithApple().then((uiState) {
                   uiState.when(
                       loading: () {},
                       success: (data) {

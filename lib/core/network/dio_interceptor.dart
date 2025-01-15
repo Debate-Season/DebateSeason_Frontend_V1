@@ -93,9 +93,9 @@ class DioInterceptor extends Interceptor {
       final authViewModel = getx.Get.find<AuthViewModel>();
 
       if (Platform.isAndroid) {
-        await authViewModel.kakaoLogin();
+        await authViewModel.loginWithKakao();
       } else if (Platform.isIOS) {
-        await authViewModel.appleLogin();
+        await authViewModel.loginWithApple();
       }
 
       final newAccessToken = await storage.getAccessToken();

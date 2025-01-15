@@ -26,7 +26,7 @@ class AuthViewModel extends GetxController {
     );
   }
 
-  Future<UiState<UsersLoginEntity>> kakaoLogin() async {
+  Future<UiState<UsersLoginEntity>> loginWithKakao() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
       if (isInstalled) {
@@ -49,7 +49,7 @@ class AuthViewModel extends GetxController {
     }
   }
 
-  Future<UiState<UsersLoginEntity>> appleLogin() async {
+  Future<UiState<UsersLoginEntity>> loginWithApple() async {
     try {
       final user = await SignInWithApple.getAppleIDCredential(scopes: [
         AppleIDAuthorizationScopes.email,
