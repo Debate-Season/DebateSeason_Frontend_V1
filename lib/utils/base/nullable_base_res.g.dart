@@ -6,20 +6,14 @@ part of 'nullable_base_res.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NullableBaseRes<T> _$NullableBaseResFromJson<T>(
-  Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) =>
-    NullableBaseRes<T>(
+NullableBaseRes _$NullableBaseResFromJson(Map<String, dynamic> json) =>
+    NullableBaseRes(
       status: (json['status'] as num).toInt(),
       code: json['code'] as String,
       message: json['message'] as String,
     );
 
-Map<String, dynamic> _$NullableBaseResToJson<T>(
-  NullableBaseRes<T> instance,
-  Object? Function(T value) toJsonT,
-) =>
+Map<String, dynamic> _$NullableBaseResToJson(NullableBaseRes instance) =>
     <String, dynamic>{
       'status': instance.status,
       'code': instance.code,

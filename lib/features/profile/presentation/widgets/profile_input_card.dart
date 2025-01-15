@@ -4,13 +4,13 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:flutter/material.dart';
 
-class AuthCard extends StatelessWidget {
+class ProfileInputCard extends StatelessWidget {
   final String text;
   final String imagePath;
   final bool isCommunity;
   final bool isSelected;
 
-  const AuthCard(
+  const ProfileInputCard(
     this.text, {
     super.key,
     this.imagePath = '',

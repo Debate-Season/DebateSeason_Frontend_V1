@@ -1,5 +1,5 @@
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:debateseason_frontend_v1/utils/secure_storage.dart';
 import 'package:dio/dio.dart';
 
 class DioInterceptor extends Interceptor {
@@ -7,7 +7,7 @@ class DioInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     if (options.extra['access_token'] != true) {
-      String accessToken = await SecureStorage().getAccessToken();
+      String accessToken = await SecureStoreService().getAccessToken();
       if (accessToken.isNotEmpty) {
         options.headers['Authorization'] = accessToken;
       }

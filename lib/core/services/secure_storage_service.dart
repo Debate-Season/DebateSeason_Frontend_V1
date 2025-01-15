@@ -11,16 +11,16 @@ class SecureStoreService {
 
   SecureStoreService._internal();
 
-  Future<void> getAccessToken() async {
-    await _storage.read(key: 'access_token');
+  Future<String> getAccessToken() async {
+    return await _storage.read(key: 'access_token') ?? '';
   }
 
   Future<void> setAccessToken({required String accessToken}) async {
     await _storage.write(key: 'access_token', value: accessToken);
   }
 
-  Future<void> getRefreshToken() async {
-    await _storage.read(key: 'refresh_token');
+  Future<String> getRefreshToken() async {
+    return await _storage.read(key: 'refresh_token') ?? '';
   }
 
   Future<void> setRefreshToken({required String refreshToken}) async {

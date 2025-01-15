@@ -2,8 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'nullable_base_res.g.dart';
 
-@JsonSerializable(genericArgumentFactories: true)
-class NullableBaseRes<T> {
+@JsonSerializable()
+class NullableBaseRes {
   final int status;
   final String code;
   final String message;
@@ -14,10 +14,8 @@ class NullableBaseRes<T> {
     required this.message,
   });
 
-  factory NullableBaseRes.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$NullableBaseResFromJson(json, fromJsonT);
+  factory NullableBaseRes.fromJson(Map<String, dynamic> json) =>
+      _$NullableBaseResFromJson(json);
 
-  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
-      _$NullableBaseResToJson(this, toJsonT);
+  Map<String, dynamic> toJson() => _$NullableBaseResToJson(this);
 }
