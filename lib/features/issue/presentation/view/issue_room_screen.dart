@@ -124,7 +124,12 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DeText('토론방', style: title),
-        Gaps.v16,
+        Gaps.v4,
+        DeText(
+          'AI가 생성한 본 이슈의 주요 토론 주제입니다.',
+          style: cation12M.copyWith(color: grey50),
+        ),
+        Gaps.v8,
         Expanded(child: _debateList()),
       ],
     );
