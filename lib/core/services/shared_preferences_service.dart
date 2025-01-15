@@ -22,6 +22,14 @@ class SharedPreferencesService {
     return _prefs.getString('social_type') ?? '';
   }
 
+  Future<void> setProfileStatus({required bool profileStatus}) async {
+    await _prefs.setBool('profile_status', profileStatus);
+  }
+
+  bool getProfileStatus() {
+    return _prefs.getBool('profile_status') ?? false;
+  }
+
   Future<void> clear() async {
     await _prefs.clear();
   }

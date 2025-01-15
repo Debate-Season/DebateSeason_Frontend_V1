@@ -24,6 +24,7 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
       storage.setAccessToken(accessToken: response.data.accessToken),
       storage.setRefreshToken(refreshToken: response.data.refreshToken),
       pref.setSocialType(socialType: entity.socialType),
+      pref.setProfileStatus(profileStatus: entity.profileStatus),
     ]);
 
     return UsersLoginMapper.toEntity(response.data);
