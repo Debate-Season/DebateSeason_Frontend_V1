@@ -24,7 +24,7 @@ class _UsersLoginDataSource implements UsersLoginDataSource {
   @override
   Future<BaseRes<UsersLoginRes>> postUsersLogin(
       {required UsersLoginReq requestBody}) async {
-    final _extra = <String, dynamic>{'access_token': 'true'};
+    final _extra = <String, dynamic>{'access_token': false};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

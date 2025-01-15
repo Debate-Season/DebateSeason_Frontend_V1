@@ -11,7 +11,7 @@ abstract class UsersLoginDataSource {
   factory UsersLoginDataSource(Dio dio) = _UsersLoginDataSource;
 
   @POST("/api/v1/users/login")
-  @Extra({'access_token': 'true'})
+  @Extra({'access_token': false})
   Future<BaseRes<UsersLoginRes>> postUsersLogin({
     @Body() required UsersLoginReq requestBody,
   });

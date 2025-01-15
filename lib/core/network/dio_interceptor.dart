@@ -6,7 +6,7 @@ class DioInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (options.extra['access_token'] != true) {
+    if (options.extra['access_token'] != false) {
       String accessToken = await SecureStoreService().getAccessToken();
       if (accessToken.isNotEmpty) {
         options.headers['Authorization'] = accessToken;
@@ -29,7 +29,6 @@ class DioInterceptor extends Interceptor {
     final options = err.requestOptions;
     log.e('Error: ${options.method} / ${options.uri}\n'
         'State Code : ${err.response?.statusCode}\n'
-        'Error Message : ${err.response?.statusMessage}\n'
         'Request Data: ${options.data}\n'
         'Response Data: ${err.response?.data}\n'
         'Headers: ${err.response?.headers}');
