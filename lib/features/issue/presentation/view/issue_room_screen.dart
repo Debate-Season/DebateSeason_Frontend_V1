@@ -27,6 +27,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return DeAppBar(
       title: '이슈',
       isBack: true,
+      isCenter: false,
     );
   }
 
