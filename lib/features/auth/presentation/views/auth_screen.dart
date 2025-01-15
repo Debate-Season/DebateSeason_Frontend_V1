@@ -23,25 +23,10 @@ class AuthScreen extends GetView<AuthViewModel> {
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '대한민국은 지금,',
-                    style: body16R,
-                  ),
-                  Gaps.v4,
-                  Text(
-                    '토론철',
-                    style: largest,
-                  ),
-                  Gaps.v12,
-                  Container(
-                    color: white,
-                    width: 210,
-                    height: 210,
-                  ),
-                ],
+              child: Image.asset(
+                'assets/images/img_auth_logo.png',
+                width: 160,
+                height: 160,
               ),
             ),
             if (Platform.isAndroid)
