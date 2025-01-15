@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
@@ -42,50 +44,51 @@ class AuthScreen extends GetView<AuthViewModel> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                controller.loginWithKakao().then((uiState) {
-                  uiState.when(
-                      loading: () {},
-                      success: (data) {
-                        if (data.profileStatus) {
-                          Get.toNamed(GetRouterName.home);
-                        } else {
-                          Get.toNamed(GetRouterName.profileInput);
-                        }
-                      },
-                      failure: (msg) {
-                        Get.snackbar('로그인 실패', msg);
-                      });
-                });
-              },
-              child: _widgetLoginBtn(
-                loginType: AuthConstants.kakaoLoginType,
+            if (Platform.isAndroid)
+              GestureDetector(
+                onTap: () {
+                  controller.loginWithKakao().then((uiState) {
+                    uiState.when(
+                        loading: () {},
+                        success: (data) {
+                          if (data.profileStatus) {
+                            Get.toNamed(GetRouterName.home);
+                          } else {
+                            Get.toNamed(GetRouterName.profileInput);
+                          }
+                        },
+                        failure: (msg) {
+                          Get.snackbar('로그인 실패', msg);
+                        });
+                  });
+                },
+                child: _widgetLoginBtn(
+                  loginType: AuthConstants.kakaoLoginType,
+                ),
               ),
-            ),
-            Gaps.v8,
-            GestureDetector(
-              onTap: () {
-                controller.loginWithApple().then((uiState) {
-                  uiState.when(
-                      loading: () {},
-                      success: (data) {
-                        if (data.profileStatus) {
-                          // todo 메인 홈으로 이동
-                          Get.toNamed(GetRouterName.profileInput);
-                        } else {
-                          Get.toNamed(GetRouterName.profileInput);
-                        }
-                      },
-                      failure: (msg) {
-                        Get.snackbar('로그인 실패', msg);
-                      });
-                });
-              },
-              child: _widgetLoginBtn(
-                loginType: AuthConstants.appleLoginType,
+            if (Platform.isIOS)
+              GestureDetector(
+                onTap: () {
+                  controller.loginWithApple().then((uiState) {
+                    uiState.when(
+                        loading: () {},
+                        success: (data) {
+                          if (data.profileStatus) {
+                            // todo 메인 홈으로 이동
+                            Get.toNamed(GetRouterName.profileInput);
+                          } else {
+                            Get.toNamed(GetRouterName.profileInput);
+                          }
+                        },
+                        failure: (msg) {
+                          Get.snackbar('로그인 실패', msg);
+                        });
+                  });
+                },
+                child: _widgetLoginBtn(
+                  loginType: AuthConstants.appleLoginType,
+                ),
               ),
-            ),
             Gaps.v16,
           ],
         ),
