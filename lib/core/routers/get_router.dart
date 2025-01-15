@@ -41,7 +41,7 @@ class GetRouter {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: GetRouterName.category,
+      name: GetRouterName.home,
       page: () => CategoryScreen(),
       binding: CategoryBinding(),
     ),
