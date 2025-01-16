@@ -27,4 +27,12 @@ class SecureStorageService {
   Future<String> getRefreshToken() async {
     return await _storage.read(key: 'refresh_token') ?? '';
   }
+
+  Future<void> setIdentifier({required String identifier}) async {
+    await _storage.write(key: 'identifier', value: identifier);
+  }
+
+  Future<String> getIdentifier() async {
+    return await _storage.read(key: 'identifier') ?? '';
+  }
 }
