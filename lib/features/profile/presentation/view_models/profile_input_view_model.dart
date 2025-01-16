@@ -5,6 +5,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,8 @@ class ProfileInputViewModel extends GetxController {
   late ProfileRepository _profileRepository;
   late CommunityRepository _communityRepository;
   late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
-  Timer? _debounceTimer;
+  Timer? _debounceNickname;
+  Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(
       ProfileEntity(nickname: '', communityId: -1, gender: '', ageRange: ''));
   final _nicknameError = ''.obs;
@@ -46,7 +48,8 @@ class ProfileInputViewModel extends GetxController {
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
     ageSearchController = TextEditingController();
-    _debounceTimer?.cancel();
+    _debounceNickname?.cancel();
+    _debounceCommunity?.cancel();
     _profileRepository = Get.find<ProfileRepository>();
     _communityRepository = Get.find<CommunityRepository>();
     _profileNicknameCheckRepository =
@@ -86,9 +89,14 @@ class ProfileInputViewModel extends GetxController {
 
     switch (response.status) {
       case 200:
-        Get.snackbar('닉네임', response.message);
+        Get.snackbar('', response.message);
+        _nicknameError.value = '';
+      case 400:
+        _nicknameError.value = ProfileConstants.validNickname;
+      case 409:
+        _nicknameError.value = ProfileConstants.validOverlapNickname;
       default:
-        _nicknameError.value = response.message;
+        _nicknameError.value = ProfileConstants.validNickname;
     }
   }
 
@@ -105,12 +113,12 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void onChangedNickname({required String nickname}) {
-    if (_debounceTimer != null) {
-      _debounceTimer?.cancel();
+    if (_debounceNickname != null) {
+      _debounceNickname?.cancel();
     }
 
-    _debounceTimer = Timer(Duration(milliseconds: 300), () {
-      _getProfileNicknameCheck(nickname: nickname);
+    _debounceNickname = Timer(Duration(milliseconds: 300), () async {
+      await _getProfileNicknameCheck(nickname: nickname);
     });
   }
 
@@ -139,11 +147,11 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void onChangedCommunity({required String searchWord}) {
-    if (_debounceTimer != null) {
-      _debounceTimer?.cancel();
+    if (_debounceCommunity != null) {
+      _debounceCommunity?.cancel();
     }
 
-    _debounceTimer = Timer(Duration(milliseconds: 300), () {
+    _debounceCommunity = Timer(Duration(milliseconds: 300), () {
       _getCommunitySearch(searchWord: searchWord);
     });
   }
@@ -160,5 +168,13 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedAge({required String selectedAge}) {
     _selectedAge.value = selectedAge;
+  }
+
+  bool isValidNickname(String nickname) {
+    if (nickname.length < 3 && nickname.length > 9) return false;
+
+    RegExp regex = RegExp(r'^[가-힣a-zA-Z]{1,8}$');
+
+    return regex.hasMatch(nickname);
   }
 }
