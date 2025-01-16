@@ -11,6 +11,7 @@ abstract class AuthReissueDataSource {
   factory AuthReissueDataSource(Dio dio) = _AuthReissueDataSource;
 
   @POST('/api/v1/auth/reissue')
+  @Extra({'access_token': false})
   Future<BaseRes<AuthReissueRes>> postAuthReissue({
     @Body() required AuthReissueReq body,
   });
