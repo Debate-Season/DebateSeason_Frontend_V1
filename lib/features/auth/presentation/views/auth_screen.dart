@@ -43,8 +43,23 @@ class AuthScreen extends GetView<AuthViewModel> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed(GetRouterName.profile);
-                // controller.kakaoLogin();
+                // todo 자동로그인시 전환될 화면
+                // Get.toNamed(GetRouterName.category);
+                controller.kakaoLogin().then((uiState) {
+                  uiState.when(
+                      loading: () {},
+                      success: (data) {
+                        if (data.profileStatus) {
+                          // todo 메인 홈으로 이동
+                          Get.toNamed(GetRouterName.profileInput);
+                        } else {
+                          Get.toNamed(GetRouterName.profileInput);
+                        }
+                      },
+                      failure: (msg) {
+                        Get.snackbar('로그인 실패', msg);
+                      });
+                });
               },
               child: _widgetLoginBtn(
                 loginType: controller.kakaoLoginType,
@@ -52,7 +67,23 @@ class AuthScreen extends GetView<AuthViewModel> {
             ),
             Gaps.v8,
             GestureDetector(
-              onTap: () => controller.appleLogin(),
+              onTap: () {
+                controller.appleLogin().then((uiState) {
+                  uiState.when(
+                      loading: () {},
+                      success: (data) {
+                        if (data.profileStatus) {
+                          // todo 메인 홈으로 이동
+                          Get.toNamed(GetRouterName.profileInput);
+                        } else {
+                          Get.toNamed(GetRouterName.profileInput);
+                        }
+                      },
+                      failure: (msg) {
+                        Get.snackbar('로그인 실패', msg);
+                      });
+                });
+              },
               child: _widgetLoginBtn(
                 loginType: controller.appleLoginType,
               ),
