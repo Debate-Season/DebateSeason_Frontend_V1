@@ -48,7 +48,7 @@ class DioInterceptor extends Interceptor {
     }
 
     if (err.response?.statusCode == 401 &&
-        options.path != '/api/v1/auth/reissue') {
+        options.path != '/api/v1/auth/user/login') {
       await _reissueRefreshTokens(err, handler, storage);
     }
 
