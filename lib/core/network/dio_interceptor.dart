@@ -97,7 +97,7 @@ class DioInterceptor extends Interceptor {
       }
 
       final newAccessToken = await storage.getAccessToken();
-      err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+      err.requestOptions.headers['Authorization'] = newAccessToken;
 
       final dio = DioClient().dio;
       final newResponse = await dio.fetch(err.requestOptions);
