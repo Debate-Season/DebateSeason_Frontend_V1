@@ -13,7 +13,7 @@ class SecureStorageService {
   SecureStorageService._internal();
 
   Future<void> setAccessToken({required String accessToken}) async {
-    await _storage.write(key: 'access_token', value: accessToken);
+    await _storage.write(key: 'access_token', value: 'Bearer $accessToken');
   }
 
   Future<String> getAccessToken() async {
@@ -21,10 +21,18 @@ class SecureStorageService {
   }
 
   Future<void> setRefreshToken({required String refreshToken}) async {
-    await _storage.write(key: 'refresh_token', value: refreshToken);
+    await _storage.write(key: 'refresh_token', value: 'Bearer $refreshToken');
   }
 
   Future<String> getRefreshToken() async {
     return await _storage.read(key: 'refresh_token') ?? '';
+  }
+
+  Future<void> setIdentifier({required String identifier}) async {
+    await _storage.write(key: 'identifier', value: identifier);
+  }
+
+  Future<String> getIdentifier() async {
+    return await _storage.read(key: 'identifier') ?? '';
   }
 }

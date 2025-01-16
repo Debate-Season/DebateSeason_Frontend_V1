@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/auth_reissue_repository.dart';
-import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
@@ -41,15 +41,18 @@ class DioInterceptor extends Interceptor {
         'Response Data: ${err.response?.data}\n'
         'Headers: ${options.headers}');
 
+    RequestOptions? retryRequest;
     final storage = SecureStorageService();
-    if (err.response?.statusCode == 401 &&
-        options.path != '/api/v1/auth/reissue') {
-      await _reissueAccessToken(err, handler, storage);
-    }
+    if (err.response?.statusCode == 401) {
+      if (options.path != '/api/v1/auth/reissue') {
+        retryRequest = options;
+        await _reissueAccessToken(err, handler, storage);
+        return;
+      }
 
-    if (err.response?.statusCode == 401 &&
-        options.path != '/api/v1/auth/user/login') {
-      await _reissueRefreshTokens(err, handler, storage);
+      if (options.path != '/api/v1/auth/user/login') {
+        await _reissueRefreshTokens(err, handler, storage, retryRequest);
+      }
     }
 
     return handler.reject(err);
@@ -86,21 +89,23 @@ class DioInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
     SecureStorageService storage,
+    RequestOptions? retryRequest,
   ) async {
     try {
-      final authViewModel = getx.Get.find<AuthViewModel>();
+      final prefs = SharedPreferencesService();
+      final userLoginRepository = getx.Get.find<UsersLoginRepository>();
 
-      if (Platform.isAndroid) {
-        await authViewModel.loginWithKakao();
-      } else if (Platform.isIOS) {
-        await authViewModel.loginWithApple();
-      }
+      await userLoginRepository.postUsersLogin(
+          entity: UsersLoginEntity(
+        identifier: await storage.getIdentifier(),
+        socialType: prefs.getSocialType(),
+      ));
 
       final newAccessToken = await storage.getAccessToken();
-      err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+      err.requestOptions.headers['Authorization'] = newAccessToken;
 
       final dio = DioClient().dio;
-      final newResponse = await dio.fetch(err.requestOptions);
+      final newResponse = await dio.fetch(retryRequest!);
 
       return handler.resolve(newResponse);
     } catch (e) {
