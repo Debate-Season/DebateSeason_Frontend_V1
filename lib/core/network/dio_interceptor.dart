@@ -39,7 +39,7 @@ class DioInterceptor extends Interceptor {
         'State Code: ${err.response?.statusCode}\n'
         'Request Data: ${options.data}\n'
         'Response Data: ${err.response?.data}\n'
-        'Headers: ${err.response?.headers}');
+        'Headers: ${options.headers}');
 
     final storage = SecureStorageService();
     if (err.response?.statusCode == 401 &&
@@ -48,7 +48,7 @@ class DioInterceptor extends Interceptor {
     }
 
     if (err.response?.statusCode == 401 &&
-        options.path != '/api/v1/auth/reissue') {
+        options.path != '/api/v1/auth/user/login') {
       await _reissueRefreshTokens(err, handler, storage);
     }
 
@@ -70,14 +70,12 @@ class DioInterceptor extends Interceptor {
 
       if (statusCode == 200) {
         final newAccessToken = await storage.getAccessToken();
-        err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+        err.requestOptions.headers['Authorization'] = newAccessToken;
 
         final dio = DioClient().dio;
         final newResponse = await dio.fetch(err.requestOptions);
 
         return handler.resolve(newResponse);
-      } else {
-        return handler.reject(err);
       }
     } catch (e) {
       return handler.reject(err);
