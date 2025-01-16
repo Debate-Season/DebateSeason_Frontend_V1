@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +20,7 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: splashDuration), () {
-      Get.offNamed(GetRouterName.auth);
+      autoLogin();
     });
   }
 
@@ -34,5 +36,23 @@ class SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> autoLogin() async {
+    final storage = SecureStorageService();
+    final pref = SharedPreferencesService();
+
+    final String accessToken = await storage.getAccessToken();
+    final bool profileStatus = pref.getProfileStatus();
+
+    if (accessToken.isNotEmpty) {
+      if (profileStatus) {
+        Get.offAllNamed(GetRouterName.home);
+      } else {
+        Get.offAllNamed(GetRouterName.profileInput);
+      }
+    } else {
+      Get.offAllNamed(GetRouterName.auth);
+    }
   }
 }
