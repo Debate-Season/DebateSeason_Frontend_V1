@@ -10,6 +10,7 @@ abstract class CommunityDataSource {
   factory CommunityDataSource(Dio dio) = _CommunityDataSource;
 
   @GET('/api/v1/communities')
+  @Extra({'access_token': false})
   Future<BaseRes<List<CommunityRes>>> getCommunities();
 
   @GET('/api/v1/communities/search')
