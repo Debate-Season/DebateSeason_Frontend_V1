@@ -19,7 +19,7 @@ class _CommunityDataSource implements CommunityDataSource {
 
   @override
   Future<BaseRes<List<CommunityRes>>> getCommunities() async {
-    final _extra = <String, dynamic>{'access_token': false};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
