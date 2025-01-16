@@ -113,7 +113,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           hintText: '사용할 닉네임을 입력해주세요.',
           controller: controller.profileController,
           onChanged: (text) {
-            if (text.length > 3) {
+            if (text.length > 3 && text.length < 9) {
               controller.onChangedNickname(nickname: text);
             }
           },
