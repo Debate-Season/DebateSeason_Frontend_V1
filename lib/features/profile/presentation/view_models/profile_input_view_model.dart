@@ -9,6 +9,7 @@ import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
@@ -89,7 +90,6 @@ class ProfileInputViewModel extends GetxController {
 
     switch (response.status) {
       case 200:
-        Get.snackbar('', response.message);
         _nicknameError.value = '';
       case 400:
         _nicknameError.value = ProfileConstants.validNickname;
@@ -117,7 +117,7 @@ class ProfileInputViewModel extends GetxController {
       _debounceNickname?.cancel();
     }
 
-    _debounceNickname = Timer(Duration(milliseconds: 300), () async {
+    _debounceNickname = Timer(Duration(milliseconds: 500), () async {
       await _getProfileNicknameCheck(nickname: nickname);
     });
   }
@@ -151,7 +151,7 @@ class ProfileInputViewModel extends GetxController {
       _debounceCommunity?.cancel();
     }
 
-    _debounceCommunity = Timer(Duration(milliseconds: 300), () {
+    _debounceCommunity = Timer(Duration(milliseconds: 500), () {
       _getCommunitySearch(searchWord: searchWord);
     });
   }
@@ -171,10 +171,23 @@ class ProfileInputViewModel extends GetxController {
   }
 
   bool isValidNickname(String nickname) {
-    if (nickname.length < 3 && nickname.length > 9) return false;
+    log.d(nickname);
+    log.d(nickname.length);
+    if (nickname.length < 2 || nickname.length > 8) {
+      log.d('$nickname : false');
+      _nicknameError.value = ProfileConstants.validNickname;
+      return false;
+    }
 
     RegExp regex = RegExp(r'^[가-힣a-zA-Z]{1,8}$');
-
-    return regex.hasMatch(nickname);
+    if (regex.hasMatch(nickname) == false) {
+      log.d('$nickname : false');
+      _nicknameError.value = ProfileConstants.validNickname;
+      return false;
+    } else {
+      log.d('$nickname : true');
+      Fluttertoast.showToast(msg: '사용가능한 닉네임입니다.');
+      return true;
+    }
   }
 }
