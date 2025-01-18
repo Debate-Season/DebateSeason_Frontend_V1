@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -9,16 +9,12 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthViewModel extends GetxController {
-  late final SecureStoreService _storage;
   late final UsersLoginRepository _usersLoginRepository;
-  final String kakaoLoginType = 'kakao';
-  final String appleLoginType = 'apple';
 
   @override
   void onInit() {
     super.onInit();
 
-    _storage = Get.find<SecureStoreService>();
     _usersLoginRepository = Get.find<UsersLoginRepository>();
     _kakaoSdkInit();
   }
@@ -30,7 +26,7 @@ class AuthViewModel extends GetxController {
     );
   }
 
-  Future<UiState<UsersLoginEntity>> kakaoLogin() async {
+  Future<UiState<UsersLoginEntity>> loginWithKakao() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
       if (isInstalled) {
@@ -43,13 +39,8 @@ class AuthViewModel extends GetxController {
 
       final usersLoginEntity = await postUsersLogin(
         identifier: user.id.toString(),
-        socialType: kakaoLoginType,
+        socialType: AuthConstants.kakaoLoginType,
       );
-
-      await Future.wait([
-        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
-        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
-      ]);
 
       return UiState.success(usersLoginEntity);
     } catch (e) {
@@ -58,7 +49,7 @@ class AuthViewModel extends GetxController {
     }
   }
 
-  Future<UiState<UsersLoginEntity>> appleLogin() async {
+  Future<UiState<UsersLoginEntity>> loginWithApple() async {
     try {
       final user = await SignInWithApple.getAppleIDCredential(scopes: [
         AppleIDAuthorizationScopes.email,
@@ -67,13 +58,8 @@ class AuthViewModel extends GetxController {
 
       final usersLoginEntity = await postUsersLogin(
         identifier: user.userIdentifier.toString(),
-        socialType: kakaoLoginType,
+        socialType: AuthConstants.appleLoginType,
       );
-
-      await Future.wait([
-        _storage.setAccessToken(accessToken: usersLoginEntity.accessToken),
-        _storage.setRefreshToken(refreshToken: usersLoginEntity.refreshToken),
-      ]);
 
       return UiState.success(usersLoginEntity);
     } catch (e, stackTrace) {

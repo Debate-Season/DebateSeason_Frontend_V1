@@ -1,29 +1,38 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStoreService {
-  static final SecureStoreService _instance = SecureStoreService._internal();
+class SecureStorageService {
+  static final SecureStorageService _instance =
+      SecureStorageService._internal();
 
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
-  factory SecureStoreService() {
+  factory SecureStorageService() {
     return _instance;
   }
 
-  SecureStoreService._internal();
+  SecureStorageService._internal();
+
+  Future<void> setAccessToken({required String accessToken}) async {
+    await _storage.write(key: 'access_token', value: 'Bearer $accessToken');
+  }
 
   Future<String> getAccessToken() async {
     return await _storage.read(key: 'access_token') ?? '';
   }
 
-  Future<void> setAccessToken({required String accessToken}) async {
-    await _storage.write(key: 'access_token', value: accessToken);
+  Future<void> setRefreshToken({required String refreshToken}) async {
+    await _storage.write(key: 'refresh_token', value: 'Bearer $refreshToken');
   }
 
   Future<String> getRefreshToken() async {
     return await _storage.read(key: 'refresh_token') ?? '';
   }
 
-  Future<void> setRefreshToken({required String refreshToken}) async {
-    await _storage.write(key: 'refresh_token', value: refreshToken);
+  Future<void> setIdentifier({required String identifier}) async {
+    await _storage.write(key: 'identifier', value: identifier);
+  }
+
+  Future<String> getIdentifier() async {
+    return await _storage.read(key: 'identifier') ?? '';
   }
 }

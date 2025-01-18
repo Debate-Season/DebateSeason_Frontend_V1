@@ -10,11 +10,7 @@ part of 'profile_nickname_check_data_source.dart';
 
 class _ProfileNicknameCheckDataSource
     implements ProfileNicknameCheckDataSource {
-  _ProfileNicknameCheckDataSource(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+  _ProfileNicknameCheckDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -23,28 +19,23 @@ class _ProfileNicknameCheckDataSource
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NullableBaseRes> getProfilesNicknameCheck(
-      {required String nickname}) async {
+  Future<NullableBaseRes> getProfilesNicknameCheck({
+    required String nickname,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'query': nickname};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<NullableBaseRes>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/v1/profiles/nickname/check',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<NullableBaseRes>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/v1/profiles/nickname/check',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late NullableBaseRes _value;
     try {
@@ -69,10 +60,7 @@ class _ProfileNicknameCheckDataSource
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }

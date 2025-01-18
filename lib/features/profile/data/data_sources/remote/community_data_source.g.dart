@@ -9,11 +9,7 @@ part of 'community_data_source.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _CommunityDataSource implements CommunityDataSource {
-  _CommunityDataSource(
-    this._dio, {
-    this.baseUrl,
-    this.errorLogger,
-  });
+  _CommunityDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -27,22 +23,16 @@ class _CommunityDataSource implements CommunityDataSource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BaseRes<List<CommunityRes>>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/v1/communities',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<BaseRes<List<CommunityRes>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/v1/communities',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late BaseRes<List<CommunityRes>> _value;
     try {
@@ -51,7 +41,8 @@ class _CommunityDataSource implements CommunityDataSource {
         (json) => json is List<dynamic>
             ? json
                 .map<CommunityRes>(
-                    (i) => CommunityRes.fromJson(i as Map<String, dynamic>))
+                  (i) => CommunityRes.fromJson(i as Map<String, dynamic>),
+                )
                 .toList()
             : List.empty(),
       );
@@ -63,28 +54,23 @@ class _CommunityDataSource implements CommunityDataSource {
   }
 
   @override
-  Future<BaseRes<List<CommunityRes>>> getCommunitiesSearch(
-      {required String searchWord}) async {
+  Future<BaseRes<List<CommunityRes>>> getCommunitiesSearch({
+    required String searchWord,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'query': searchWord};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BaseRes<List<CommunityRes>>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/api/v1/communities/search',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        )));
+    final _options = _setStreamType<BaseRes<List<CommunityRes>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/v1/communities/search',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late BaseRes<List<CommunityRes>> _value;
     try {
@@ -93,7 +79,8 @@ class _CommunityDataSource implements CommunityDataSource {
         (json) => json is List<dynamic>
             ? json
                 .map<CommunityRes>(
-                    (i) => CommunityRes.fromJson(i as Map<String, dynamic>))
+                  (i) => CommunityRes.fromJson(i as Map<String, dynamic>),
+                )
                 .toList()
             : List.empty(),
       );
@@ -117,10 +104,7 @@ class _CommunityDataSource implements CommunityDataSource {
     return requestOptions;
   }
 
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }
