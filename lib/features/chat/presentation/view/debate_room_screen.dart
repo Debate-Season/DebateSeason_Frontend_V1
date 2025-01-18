@@ -9,25 +9,32 @@ import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/debate_room.dart';
 
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
-  // 디버그용 더미 데이터
-  final DebateRoom room = Get.arguments as DebateRoom? ??
-      DebateRoom(
-        title: 'AI와 인간의 미래',
-        content:
-            'AI가 인간의 삶에 미치는 영향을 논의합니다. AI가 인간의 삶에 미치는 영향을 논의합니다.AI가 인간의 삶에 미치는 영향을 논의합니다.',
-      );
+  //디버그용 더미 데이터
+  // final DebateRoom room = Get.arguments as DebateRoom? ??
+  //     DebateRoom(
+  //       title: 'AI와 인간의 미래',
+  //       content:
+  //           'AI가 인간의 삶에 미치는 영향을 논의합니다. AI가 인간의 삶에 미치는 영향을 논의합니다.AI가 인간의 삶에 미치는 영향을 논의합니다.',
+  //     );
 
   //DebateRoomScreen({Key? key, required this.room}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final int chatroomId = (Get.arguments as int?) ?? 1;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchRoomData(chatroomId);
+    });
+    //여기서 room 데이터 가져오고 room 자체를 인자 값으로 넘기는 것 생각해보기
+    // final room = controller.roomData.value.;
+    // log.d(room);
+
     return Stack(children: [
       DeScaffold(
         appBar: _appBar(),
@@ -41,6 +48,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   DebateAppBar _appBar() {
+    final room = controller.roomData.value;
+    if (room == null) {
+      log.d(room);
+      return DebateAppBar(title: '로딩중...');
+    }
     return DebateAppBar(title: room.title);
   }
 
@@ -62,6 +74,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateTopic() {
+    final room = controller.roomData.value;
+    if (room == null) {
+      return const Text('로딩중...');
+    }
     return Container(
       padding: Dimensions.padding8x10,
       decoration: ShapeDecoration(
@@ -86,6 +102,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateDetail() {
+    final room = controller.roomData.value;
+    if (room == null) {
+      return const Text('로딩중...');
+    }
     return DeText(
       room.content,
       style: body14R,
