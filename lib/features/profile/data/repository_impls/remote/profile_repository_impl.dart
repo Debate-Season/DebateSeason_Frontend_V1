@@ -18,7 +18,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     );
 
     switch (response.status) {
-      case 200:
+      case 200 || 201:
         return (UiState.success(response.message));
       default:
         if (response.message.isEmpty) {
