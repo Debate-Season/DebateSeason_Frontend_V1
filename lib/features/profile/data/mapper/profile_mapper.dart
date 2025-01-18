@@ -7,7 +7,7 @@ class ProfileMapper {
   static ProfileReq toReq({required ProfileEntity entity}) {
     return ProfileReq(
       nickname: entity.nickname,
-      communityId: entity.communities.first.id,
+      communityId: entity.community.id,
       gender: entity.gender,
       ageRange: entity.ageRange,
     );
@@ -18,9 +18,7 @@ class ProfileMapper {
       nickname: res.nickname,
       gender: res.gender,
       ageRange: res.ageRange,
-      communities: res.community.map((community) {
-        return CommunityMapper.toEntity(res: community);
-      }).toList(),
+      community: CommunityMapper.toEntity(res: res.community),
     );
   }
 }

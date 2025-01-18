@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/profile_data_source.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/mapper/profile_mapper.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
@@ -15,6 +16,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200:
+        final pref = SharedPreferencesService();
+        pref.setProfileStatus(profileStatus: true);
         return UiState.success(
           ProfileMapper.toEntity(res: response.data),
         );

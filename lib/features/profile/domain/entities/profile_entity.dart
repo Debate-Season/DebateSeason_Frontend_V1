@@ -9,6 +9,6 @@ class ProfileEntity with _$ProfileEntity {
     required String nickname,
     required String gender,
     required String ageRange,
-    required List<CommunityEntity> communities,
+    required CommunityEntity community,
   }) = _ProfileEntity;
 }

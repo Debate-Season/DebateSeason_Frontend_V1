@@ -9,7 +9,7 @@ class ProfileRes {
   String nickname;
   String gender;
   String ageRange;
-  List<CommunityRes> community;
+  CommunityRes community;
 
   ProfileRes({
     required this.nickname,

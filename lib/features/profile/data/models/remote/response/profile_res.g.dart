@@ -10,9 +10,8 @@ ProfileRes _$ProfileResFromJson(Map<String, dynamic> json) => ProfileRes(
       nickname: json['nickname'] as String,
       gender: json['gender'] as String,
       ageRange: json['ageRange'] as String,
-      community: (json['community'] as List<dynamic>)
-          .map((e) => CommunityRes.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      community:
+          CommunityRes.fromJson(json['community'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ProfileResToJson(ProfileRes instance) =>

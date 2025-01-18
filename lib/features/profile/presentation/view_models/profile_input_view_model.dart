@@ -14,7 +14,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
-  final _pref = SharedPreferencesService();
   late TextEditingController profileController;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
@@ -26,7 +25,7 @@ class ProfileInputViewModel extends GetxController {
   Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(ProfileEntity(
     nickname: '',
-    communities: [CommunityEntity(id: -1, name: '', iconUrl: '')],
+    community: CommunityEntity(id: -1, name: '', iconUrl: ''),
     gender: '',
     ageRange: '',
   ));
@@ -154,7 +153,7 @@ class ProfileInputViewModel extends GetxController {
         final community = data.firstWhere(
             (element) => element.id == communityId,
             orElse: () => CommunityEntity(id: -1, name: '', iconUrl: ''));
-        _profile.value = _profile.value.copyWith(communities: [community]);
+        _profile.value = _profile.value.copyWith(community: community);
 
         if (community.id != -1) {
           communityController.text = community.name;
@@ -201,15 +200,13 @@ class ProfileInputViewModel extends GetxController {
   }
 
   bool isValidStartBtn() {
-    log.d(_profile.value);
     if (_profile.value.nickname.isNotEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
-        _profile.value.communities.first.id != -1) {
+        _profile.value.community.id != -1) {
       log.d(true);
       return true;
     }
-    log.d(false);
     return false;
   }
 }
