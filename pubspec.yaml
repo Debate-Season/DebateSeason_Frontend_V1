@@ -29,6 +29,9 @@ dependencies:
   flutter_native_splash: ^2.4.4
   fluttertoast: ^8.2.10
   flutter_svg: ^2.0.17
+  flutter_inappwebview: ^6.1.5
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
   # Login
   firebase_core: ^3.10.0
   kakao_flutter_sdk_user: ^1.9.6
@@ -39,7 +42,6 @@ dependencies:
   logger: ^2.5.0
   connectivity_plus: ^6.1.2
   change_app_package_name: ^1.4.0
-  flutter_inappwebview: ^6.1.5
 
 dev_dependencies:
   flutter_test:
