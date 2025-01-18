@@ -27,12 +27,9 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeGestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: DeScaffold(
-        appBar: _appBar(),
-        body: _body(),
-      ),
+    return DeScaffold(
+      appBar: _appBar(),
+      body: _body(),
     );
   }
 
