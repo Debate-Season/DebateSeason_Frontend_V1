@@ -54,9 +54,9 @@ class DioInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
+    final storage = SecureStorageService();
+    final prefs = SharedPreferencesService();
     try {
-      final storage = SecureStorageService();
-      final prefs = SharedPreferencesService();
       final refreshToken = await storage.getRefreshToken();
       final authReissueRepository = getx.Get.find<AuthReissueRepository>();
 
@@ -73,14 +73,16 @@ class DioInterceptor extends Interceptor {
 
         return handler.resolve(newResponse);
       }
-      if (statusCode == 401) {
-        await Future.wait([
-          storage.clear(),
-          prefs.clear(),
-        ]);
-        getx.Get.offAllNamed(GetRouterName.auth);
-      }
     } catch (e) {
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          await Future.wait([
+            storage.clear(),
+            prefs.clear(),
+          ]);
+          getx.Get.offAllNamed(GetRouterName.auth);
+        }
+      }
       return handler.reject(err);
     }
   }
