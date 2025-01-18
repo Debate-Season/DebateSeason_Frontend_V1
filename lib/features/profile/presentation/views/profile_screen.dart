@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
+import 'package:debateseason_frontend_v1/widgets/de_cached_imgae.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
@@ -136,8 +137,8 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                profile.community.iconUrl,
+              child: DeCachedImage(
+                 profile.community.iconUrl,
                 width: 44,
                 height: 44,
               ),

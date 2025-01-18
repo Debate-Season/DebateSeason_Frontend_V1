@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/widgets/de_cached_imgae.dart';
 import 'package:flutter/material.dart';
 
 class ProfileCommunityCard extends StatelessWidget {
@@ -32,7 +33,7 @@ class ProfileCommunityCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
+            child: DeCachedImage(
               imagePath,
               width: 44,
               height: 44,
