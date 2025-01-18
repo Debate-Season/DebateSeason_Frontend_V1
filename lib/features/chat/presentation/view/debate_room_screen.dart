@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
+import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -168,22 +169,21 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   // 이렇게해야 되는데 오버플로우 남. 사이즈 제한 등 정리해야할 듯
   Widget _widgetDebateChat() {
-    //   if (!Get.isRegistered<ChatRoomViewModel>()) {
-    //     Get.put(ChatRoomViewModel());
-    //   }
-    //
     return ChatBottomSheet(
-      //widget: ChatRoomScreen(),
-      //widget: DeText('토론방 입장하기', style: body16M.copyWith(color: brandColor),),
-      // widget: DeGestureDetector(onTap: (){ Get.toNamed('/chat');}, child: DefaultTextStyle(style: body16M,
-      //     child: DeButton('토론방 입장하기', enable: true)),
-      // 위처럼 해야 텍스트박스에 노란 밑줄 지워짐
-      widget: DeButtonLarge(
-        '토론방 입장하기',
-        onPressed: () {
-          Get.toNamed('/chat');
-        },
-        enable: true,
+      // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
+      widget: DeGestureDetector(
+        onTap: () {},
+        child: DefaultTextStyle(
+          style: body16M,
+          child: DeButtonLarge(
+            '토론방 입장하기',
+            onPressed: () {
+              Get.toNamed('/chat',
+                  arguments: {controller.roomData.value?.chatRoomId});
+            },
+            enable: true,
+          ),
+        ),
       ),
     );
   }
