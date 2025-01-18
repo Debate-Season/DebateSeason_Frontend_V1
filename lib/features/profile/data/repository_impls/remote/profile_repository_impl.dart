@@ -10,6 +10,24 @@ class ProfileRepositoryImpl implements ProfileRepository {
   ProfileRepositoryImpl(this.dataSource);
 
   @override
+  Future<UiState<ProfileEntity>> getProfile() async {
+    final response = await dataSource.getProfilesMe();
+
+    switch (response.status) {
+      case 200:
+        return UiState.success(
+          ProfileMapper.toEntity(res: response.data),
+        );
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('서버통신에 문제가 발생했습니다.');
+        }
+
+        return UiState.failure(response.message);
+    }
+  }
+
+  @override
   Future<UiState<String>> postProfile({
     required ProfileEntity entity,
   }) async {
@@ -39,24 +57,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
       case 200:
         return UiState.success(
           response.message,
-        );
-      default:
-        if (response.message.isEmpty) {
-          UiState.failure('서버통신에 문제가 발생했습니다.');
-        }
-
-        return UiState.failure(response.message);
-    }
-  }
-
-  @override
-  Future<UiState<ProfileEntity>> getProfile() async {
-    final response = await dataSource.getProfilesMe();
-
-    switch (response.status) {
-      case 200:
-        return UiState.success(
-          ProfileMapper.toEntity(res: response.data),
         );
       default:
         if (response.message.isEmpty) {

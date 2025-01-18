@@ -24,8 +24,12 @@ class ProfileInputViewModel extends GetxController {
   late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
   Timer? _debounceNickname;
   Timer? _debounceCommunity;
-  final _profile = Rx<ProfileEntity>(
-      ProfileEntity(nickname: '', communityId: -1, gender: '', ageRange: ''));
+  final _profile = Rx<ProfileEntity>(ProfileEntity(
+    nickname: '',
+    communities: [CommunityEntity(id: -1, name: '', iconUrl: '')],
+    gender: '',
+    ageRange: '',
+  ));
   final _nicknameError = ''.obs;
   final _communities = Rx<UiState<List<CommunityEntity>>>(UiState.loading());
   final _selectedCommunityId = (-1).obs;
@@ -144,14 +148,13 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void setCommunityId({required int communityId}) {
-    _profile.value = _profile.value.copyWith(communityId: communityId);
-
     _communities.value.when(
       loading: () => log.d('커뮤니티 데이터를 로딩 중...'),
       success: (data) {
         final community = data.firstWhere(
             (element) => element.id == communityId,
             orElse: () => CommunityEntity(id: -1, name: '', iconUrl: ''));
+        _profile.value = _profile.value.copyWith(communities: [community]);
 
         if (community.id != -1) {
           communityController.text = community.name;
@@ -202,7 +205,7 @@ class ProfileInputViewModel extends GetxController {
     if (_profile.value.nickname.isNotEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
-        _profile.value.communityId != -1) {
+        _profile.value.communities.first.id != -1) {
       log.d(true);
       return true;
     }

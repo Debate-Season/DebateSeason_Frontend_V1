@@ -1,19 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'community_res.dart';
+
 part 'profile_res.g.dart';
 
 @JsonSerializable()
 class ProfileRes {
   String nickname;
-  int communityId;
   String gender;
   String ageRange;
+  List<CommunityRes> community;
 
   ProfileRes({
     required this.nickname,
-    required this.communityId,
     required this.gender,
     required this.ageRange,
+    required this.community,
   });
 
   factory ProfileRes.fromJson(Map<String, dynamic> json) =>
