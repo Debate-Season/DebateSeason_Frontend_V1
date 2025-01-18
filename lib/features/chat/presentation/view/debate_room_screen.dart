@@ -110,60 +110,95 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateVote() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _widgetVoteButton('찬성', '78'), //변수 가져오기
-        DeText(
-          'VS',
-          style: body14M.copyWith(color: grey50),
-        ),
-        _widgetVoteButton('반대', '22'),
-      ],
-    );
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      int agree = room.agree;
+      int disagree = room.disagree;
+      int total = agree + disagree;
+      double agreeRatio = agree / total;
+      double disagreeRatio = disagree / total;
+      // 찬성 비율 표시
+      String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
+      String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _widgetVoteButton('찬성', agreeRatioText),
+          DeText(
+            'VS',
+            style: body14M.copyWith(color: grey50),
+          ),
+          _widgetVoteButton('반대', disagreeRatioText),
+        ],
+      );
+    });
   }
 
   Widget _widgetVoteButton(final String data, String ratio) {
-    final widgetColor = data == '찬성' ? redDark : blueDark;
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
 
-    return GestureDetector(
-      onTap: () => {log.d('voted')},
-      child: Container(
-        width: 120.0,
-        //나중에 사이즈 다시 확인
-        height: 120.0,
-        padding: Dimensions.all16,
-        decoration: ShapeDecoration(
-          color: widgetColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+      String opinion = room.opinion;
+      int agree = room.agree;
+      int disagree = room.disagree;
+
+      var widgetColor = data == '찬성' ? redDark : blueDark;
+      if (opinion == 'agree') {
+        widgetColor = data == '찬성' ? red : blueDark;
+      } else if (opinion == 'disagree') {
+        widgetColor = data == '찬성' ? redDark : blue;
+      }
+
+      String detail = '투표하기';
+      if (opinion != 'none') {
+        detail = data == '찬성' ? '$agree표' : '$disagree표';
+      }
+
+      return GestureDetector(
+        onTap: () => {log.d('voted')},
+        child: Container(
+          width: 120.0,
+          //나중에 사이즈 다시 확인
+          height: 120.0,
+          padding: Dimensions.all16,
+          decoration: ShapeDecoration(
+            color: widgetColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DeText(
+                data,
+                style: cation12SB,
+              ),
+              DeText(
+                '$ratio%',
+                style: header,
+              ),
+              DeText(
+                detail,
+                style: cation12M,
+              ),
+            ],
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DeText(
-              data,
-              style: cation12SB,
-            ),
-            DeText(
-              '$ratio%',
-              style: header,
-            ),
-            DeText(
-              '투표하기',
-              style: cation12M,
-            ),
-          ],
-        ),
-      ),
-    );
+      );
+    });
   }
 
-  // 이렇게해야 되는데 오버플로우 남. 사이즈 제한 등 정리해야할 듯
   Widget _widgetDebateChat() {
     return ChatBottomSheet(
       // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
