@@ -52,6 +52,20 @@ dev_dependencies:
   retrofit_generator: ^9.1.7
   freezed: ^2.5.8
   json_serializable: ^6.9.3
+  icons_launcher: ^3.0.0
+
+icons_launcher:
+  image_path: 'assets/images/ic_debate.png'
+  platforms:
+    android:
+      enable: true
+      adaptive_background_color: '#161416'
+      adaptive_foreground_image: 'assets/images/ic_debate.png'
+
+    ios:
+      enable: true
+      image_path: 'assets/images/ic_debate.png'
+      adaptive_background_color: '#161416'
 
 flutter:
   uses-material-design: true
