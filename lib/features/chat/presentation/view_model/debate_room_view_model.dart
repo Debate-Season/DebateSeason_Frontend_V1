@@ -9,16 +9,12 @@ class DebateRoomViewModel extends GetxController {
 
   RoomRes? get roomData => _roomData.value;
 
-  //RxInt agreeCount = 0.obs;
-  //RxInt disagreeCount = 0.obs;
-
   @override
   void onInit() {
     super.onInit();
     _roomDataSource = Get.find<RoomDataSource>();
 
     final int chatroomId = (Get.arguments as int?) ?? 1;
-    log.d('fetchRoomData 호출');
     fetchRoomData(chatroomId);
   }
 
@@ -26,8 +22,6 @@ class DebateRoomViewModel extends GetxController {
     try {
       final response = await _roomDataSource.getRoom(chatroomId: chatroomId);
       _roomData.value = response.data;
-      log.d(response);
-      log.d(response.data.title);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
