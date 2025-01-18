@@ -16,22 +16,8 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
-  //디버그용 더미 데이터
-  // final DebateRoom room = Get.arguments as DebateRoom? ??
-  //     DebateRoom(
-  //       title: 'AI와 인간의 미래',
-  //       content:
-  //           'AI가 인간의 삶에 미치는 영향을 논의합니다. AI가 인간의 삶에 미치는 영향을 논의합니다.AI가 인간의 삶에 미치는 영향을 논의합니다.',
-  //     );
-
-  //DebateRoomScreen({Key? key, required this.room}):super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    //여기서 room 데이터 가져오고 room 자체를 인자 값으로 넘기는 것 생각해보기
-    // final room = controller.roomData.value.;
-    // log.d(room);
-
     return Stack(children: [
       DeScaffold(
         appBar: _appBar(),
