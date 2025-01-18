@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/p
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_community_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_gender_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_text_card.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -185,7 +186,14 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                     widget: ProfileCommunityBottomSheet(),
                   );
                 },
-              );
+              ).whenComplete(() {
+                if (controller.selectedCommunityId !=
+                    controller.profile.community.id) {
+                  controller.setSelectedCommunityId(
+                      communityId: controller.profile.community.id);
+                }
+                controller.communitySearchController.clear();
+              });
             }
           },
           child: DeTextField(

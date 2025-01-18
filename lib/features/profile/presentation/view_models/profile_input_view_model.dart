@@ -30,6 +30,8 @@ class ProfileInputViewModel extends GetxController {
   ));
   final _nicknameError = ''.obs;
   final _communities = Rx<UiState<List<CommunityEntity>>>(UiState.loading());
+  final _selectedCommunities =
+      Rx<UiState<List<CommunityEntity>>>(UiState.loading());
   final _selectedCommunityId = (-1).obs;
   final _selectedAge = ''.obs;
   final _isApiLoading = false.obs;
@@ -39,6 +41,9 @@ class ProfileInputViewModel extends GetxController {
   String get nicknameError => _nicknameError.value;
 
   UiState<List<CommunityEntity>> get communities => _communities.value;
+
+  UiState<List<CommunityEntity>> get selectedCommunities =>
+      _selectedCommunities.value;
 
   int get selectedCommunityId => _selectedCommunityId.value;
 
@@ -113,7 +118,7 @@ class ProfileInputViewModel extends GetxController {
     final result = await _communityRepository.getCommunitiesSearch(
       searchWord: searchWord,
     );
-    _communities.value = result;
+    _selectedCommunities.value = result;
   }
 
   Future<UiState<String>> postProfile() async =>
