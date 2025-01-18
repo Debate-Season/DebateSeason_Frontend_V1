@@ -1,9 +1,9 @@
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
 import 'message_bubble.dart';
 
 class ChatMessageList extends StatelessWidget {
@@ -17,14 +17,14 @@ class ChatMessageList extends StatelessWidget {
       () => ListView.builder(
         itemCount: viewModel.receivedMessages.length,
         itemBuilder: (context, index) {
-          MessageResponse messageResponse = viewModel.receivedMessages[index];
+          MsgRes msgRes = viewModel.receivedMessages[index];
           MessageRequest messageRequest = MessageRequest(
-            sender: messageResponse.sender,
-            content: messageResponse.content,
+            sender: msgRes.sender,
+            content: msgRes.content,
           );
           return MessageBubble(
             message: messageRequest,
-            category: messageResponse.category,
+            category: msgRes.opinionType,
           );
         },
       ),
