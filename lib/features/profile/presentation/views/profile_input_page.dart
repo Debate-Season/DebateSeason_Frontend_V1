@@ -9,15 +9,7 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/p
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_gender_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_text_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
-import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';

@@ -6,13 +6,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
-import 'package:debateseason_frontend_v1/widgets/de_cached_imgae.dart';
-import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -138,7 +132,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: DeCachedImage(
-                 profile.community.iconUrl,
+                profile.community.iconUrl,
                 width: 44,
                 height: 44,
               ),
