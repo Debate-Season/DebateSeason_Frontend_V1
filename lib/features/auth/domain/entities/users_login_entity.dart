@@ -10,5 +10,6 @@ class UsersLoginEntity with _$UsersLoginEntity {
     @Default('') String accessToken,
     @Default('') String refreshToken,
     @Default(false) bool profileStatus,
+    @Default(500) int statusCode,
   }) = _UsersLoginEntity;
 }

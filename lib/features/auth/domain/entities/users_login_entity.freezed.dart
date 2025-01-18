@@ -21,6 +21,7 @@ mixin _$UsersLoginEntity {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
   bool get profileStatus => throw _privateConstructorUsedError;
+  int get statusCode => throw _privateConstructorUsedError;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -40,7 +41,8 @@ abstract class $UsersLoginEntityCopyWith<$Res> {
       String socialType,
       String accessToken,
       String refreshToken,
-      bool profileStatus});
+      bool profileStatus,
+      int statusCode});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? profileStatus = null,
+    Object? statusCode = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -85,6 +88,10 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
               as bool,
+      statusCode: null == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -102,7 +109,8 @@ abstract class _$$UsersLoginEntityImplCopyWith<$Res>
       String socialType,
       String accessToken,
       String refreshToken,
-      bool profileStatus});
+      bool profileStatus,
+      int statusCode});
 }
 
 /// @nodoc
@@ -123,6 +131,7 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
     Object? accessToken = null,
     Object? refreshToken = null,
     Object? profileStatus = null,
+    Object? statusCode = null,
   }) {
     return _then(_$UsersLoginEntityImpl(
       identifier: null == identifier
@@ -145,6 +154,10 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
               as bool,
+      statusCode: null == statusCode
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -157,7 +170,8 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
       this.socialType = '',
       this.accessToken = '',
       this.refreshToken = '',
-      this.profileStatus = false});
+      this.profileStatus = false,
+      this.statusCode = 500});
 
   @override
   @JsonKey()
@@ -174,10 +188,13 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
   @override
   @JsonKey()
   final bool profileStatus;
+  @override
+  @JsonKey()
+  final int statusCode;
 
   @override
   String toString() {
-    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, accessToken: $accessToken, refreshToken: $refreshToken, profileStatus: $profileStatus)';
+    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, accessToken: $accessToken, refreshToken: $refreshToken, profileStatus: $profileStatus, statusCode: $statusCode)';
   }
 
   @override
@@ -194,12 +211,14 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
             (identical(other.profileStatus, profileStatus) ||
-                other.profileStatus == profileStatus));
+                other.profileStatus == profileStatus) &&
+            (identical(other.statusCode, statusCode) ||
+                other.statusCode == statusCode));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, identifier, socialType,
-      accessToken, refreshToken, profileStatus);
+      accessToken, refreshToken, profileStatus, statusCode);
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -217,7 +236,8 @@ abstract class _UsersLoginEntity implements UsersLoginEntity {
       final String socialType,
       final String accessToken,
       final String refreshToken,
-      final bool profileStatus}) = _$UsersLoginEntityImpl;
+      final bool profileStatus,
+      final int statusCode}) = _$UsersLoginEntityImpl;
 
   @override
   String get identifier;
@@ -229,6 +249,8 @@ abstract class _UsersLoginEntity implements UsersLoginEntity {
   String get refreshToken;
   @override
   bool get profileStatus;
+  @override
+  int get statusCode;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
