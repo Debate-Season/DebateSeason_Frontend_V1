@@ -31,5 +31,6 @@ class Dimensions {
   static const EdgeInsets vertical12 = EdgeInsets.symmetric(vertical: 12);
   static const EdgeInsets vertical16 = EdgeInsets.symmetric(vertical: 16);
   static const EdgeInsets vertical20 = EdgeInsets.symmetric(vertical: 20);
+  static const EdgeInsets vertical28 = EdgeInsets.symmetric(vertical: 28);
   static const EdgeInsets vertical40 = EdgeInsets.symmetric(vertical: 40);
 }
