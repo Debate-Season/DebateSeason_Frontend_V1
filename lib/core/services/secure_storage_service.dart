@@ -35,4 +35,8 @@ class SecureStorageService {
   Future<String> getIdentifier() async {
     return await _storage.read(key: 'identifier') ?? '';
   }
+
+  Future<void> clear() async {
+    await _storage.deleteAll();
+  }
 }
