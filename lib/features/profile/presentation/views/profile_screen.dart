@@ -12,6 +12,7 @@ import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends GetView<ProfileViewModel> {
@@ -160,7 +161,13 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               '로그아웃 하시겠습니까?',
               doneText: '로그아웃',
               onTapDone: () {
-                // todo 로그아웃
+                controller.logout().then((isSuccess) {
+                  if (isSuccess) {
+                    Get.offAllNamed(GetRouterName.auth);
+                  } else {
+                    Fluttertoast.showToast(msg: '로그아웃에 실패했습니다.');
+                  }
+                });
               },
             );
           },

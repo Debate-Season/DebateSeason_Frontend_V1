@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
@@ -29,13 +31,25 @@ class ProfileViewModel extends GetxController {
     _profile.refresh();
   }
 
+  Future<bool> logout() async {
+    await Future.wait([
+      _storage.clear(),
+      _pref.clear(),
+    ]);
+
+    if (Platform.isAndroid) {
+      return await kakaoLogout();
+    } else if (Platform.isIOS) {
+      // iOS는 따로 로그아웃이 필요 없음.
+      return true;
+    }
+
+    return false;
+  }
+
   Future<bool> kakaoLogout() async {
     try {
       await UserApi.instance.unlink();
-      await Future.wait([
-        _storage.clear(),
-        _pref.clear(),
-      ]);
       log.d('카카오톡 로그아웃 성공');
       return true;
     } catch (e) {
