@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -11,6 +12,7 @@ import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -196,8 +198,10 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         ),
         Gaps.v16,
         DeGestureDetector(
-          onTap: () {
-            // todo 복사
+          onTap: () async {
+            await Clipboard.setData(
+              ClipboardData(text: ProfileConstants.profileSupportEmail),
+            );
           },
           child: Row(
             children: [
