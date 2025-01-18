@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
@@ -44,9 +45,34 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: Column(
               children: [
-                _profile(),
-                Gaps.v40,
-                _myCommunity(),
+                Obx(() {
+                  final profile = controller.profile;
+
+                  return profile.when(
+                    loading: () {
+                      return const Center(
+                        child: DeProgressIndicator(),
+                      );
+                    },
+                    success: (profile) {
+                      return Column(
+                        children: [
+                          _profile(profile: profile),
+                          Gaps.v40,
+                          _myCommunity(profile: profile),
+                        ],
+                      );
+                    },
+                    failure: (error) {
+                      return Center(
+                        child: DeText(
+                          error,
+                          style: body16Sb.copyWith(color: red),
+                        ),
+                      );
+                    },
+                  );
+                }),
                 Gaps.v40,
                 _account(),
                 Gaps.v40,
@@ -59,66 +85,45 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     );
   }
 
-  Widget _profile() {
-    return Obx(() {
-      final profile = controller.profile;
-
-      return profile.when(
-        loading: () {
-          return const Center(
-            child: DeProgressIndicator(),
-          );
-        },
-        success: (profile) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: red,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              Gaps.v8,
-              DeText(
-                profile.nickname,
-                style: headerLarge,
-              ),
-              Gaps.v16,
-              DeGestureDetector(
-                onTap: () {
-                  Get.toNamed(GetRouterName.profileInput, arguments: profile);
-                },
-                child: Container(
-                  padding: Dimensions.padding10x5,
-                  decoration: BoxDecoration(
-                    color: grey80,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: DeText(
-                    '프로필 수정',
-                    style: cation12M,
-                  ),
-                ),
-              )
-            ],
-          );
-        },
-        failure: (error) {
-          return Center(
-            child: DeText(
-              error,
-              style: body16Sb.copyWith(color: red),
+  Widget _profile({required ProfileEntity profile}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            color: red,
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        Gaps.v8,
+        DeText(
+          profile.nickname,
+          style: headerLarge,
+        ),
+        Gaps.v16,
+        DeGestureDetector(
+          onTap: () {
+            Get.toNamed(GetRouterName.profileInput, arguments: profile);
+          },
+          child: Container(
+            padding: Dimensions.padding10x5,
+            decoration: BoxDecoration(
+              color: grey80,
+              borderRadius: BorderRadius.circular(20),
             ),
-          );
-        },
-      );
-    });
+            child: DeText(
+              '프로필 수정',
+              style: cation12M,
+            ),
+          ),
+        )
+      ],
+    );
   }
 
-  Widget _myCommunity() {
+  Widget _myCommunity({required ProfileEntity profile}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -129,17 +134,17 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         Gaps.v8,
         Row(
           children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: brandDark,
-                borderRadius: BorderRadius.circular(12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.network(
+                profile.community.iconUrl,
+                width: 44,
+                height: 44,
               ),
             ),
             Gaps.h12,
             DeText(
-              '커뮤니티명',
+              profile.community.name,
               style: body16Sb,
             ),
           ],
