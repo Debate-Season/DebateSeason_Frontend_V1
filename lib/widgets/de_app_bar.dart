@@ -11,12 +11,14 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isBack;
   final List<Widget>? actions;
+  final bool isCenter;
 
   const DeAppBar({
     super.key,
     required this.title,
     this.isBack = true,
     this.actions,
+    this.isCenter = true,
   });
 
   @override
@@ -36,6 +38,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: isBack,
       titleSpacing: isBack ? 0 : 20,
+      centerTitle: isCenter,
     );
   }
 
