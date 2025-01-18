@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/services/shared_preferences_servic
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/auth_reissue_repository.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' as getx;
 
 import 'dio_client.dart';
@@ -76,6 +77,8 @@ class DioInterceptor extends Interceptor {
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 401) {
+          Fluttertoast.showToast(msg: '인증정보가 만료되었습니다. 다시 로그인해주세요.');
+
           await Future.wait([
             storage.clear(),
             prefs.clear(),
