@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
@@ -56,57 +57,62 @@ class ProfileScreen extends GetView<ProfileViewModel> {
   }
 
   Widget _profile() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: red,
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        Gaps.v8,
-        Obx(() {
-          final profile = controller.profile;
+    return Obx(() {
+      final profile = controller.profile;
 
-          return profile.when(
-            loading: () {
-              return const Center(
-                child: DeProgressIndicator(),
-              );
-            },
-            success: (profile) {
-              return DeText(
+      return profile.when(
+        loading: () {
+          return const Center(
+            child: DeProgressIndicator(),
+          );
+        },
+        success: (profile) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: red,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              Gaps.v8,
+              DeText(
                 profile.nickname,
                 style: headerLarge,
-              );
-            },
-            failure: (error) {
-              return Center(
-                child: DeText(
-                  error,
-                  style: body16Sb.copyWith(color: red),
+              ),
+              Gaps.v16,
+              DeGestureDetector(
+                onTap: () {
+                  Get.toNamed(GetRouterName.profileInput, arguments: profile);
+                },
+                child: Container(
+                  padding: Dimensions.padding10x5,
+                  decoration: BoxDecoration(
+                    color: grey80,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: DeText(
+                    '프로필 수정',
+                    style: cation12M,
+                  ),
                 ),
-              );
-            },
+              )
+            ],
           );
-        }),
-        Gaps.v16,
-        Container(
-          padding: Dimensions.padding10x5,
-          decoration: BoxDecoration(
-            color: grey80,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: DeText(
-            '프로필 수정',
-            style: cation12M,
-          ),
-        )
-      ],
-    );
+        },
+        failure: (error) {
+          return Center(
+            child: DeText(
+              error,
+              style: body16Sb.copyWith(color: red),
+            ),
+          );
+        },
+      );
+    });
   }
 
   Widget _myCommunity() {

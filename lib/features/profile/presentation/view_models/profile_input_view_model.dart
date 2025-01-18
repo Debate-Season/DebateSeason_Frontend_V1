@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
@@ -64,9 +63,15 @@ class ProfileInputViewModel extends GetxController {
 
     getCommunity();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _profile.refresh(); // 빌드 완료 후 상태 리셋
-    });
+    final receivedData = Get.arguments;
+
+    if (receivedData != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final previousProfile = Get.arguments as ProfileEntity;
+        _profile.value = previousProfile;
+        _profile.refresh();
+      });
+    }
   }
 
   @override
