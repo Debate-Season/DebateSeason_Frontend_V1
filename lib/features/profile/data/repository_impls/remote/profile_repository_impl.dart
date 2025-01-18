@@ -52,7 +52,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<UiState<String>> patchProfile({required ProfileEntity entity}) async {
-    final response = await dataSource.postProfiles(
+    final response = await dataSource.patchProfiles(
       body: ProfileMapper.toReq(entity: entity),
     );
 

@@ -46,11 +46,12 @@ class _ProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<NullableBaseRes> patchProfiles() async {
+  Future<NullableBaseRes> patchProfiles({required ProfileReq body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(

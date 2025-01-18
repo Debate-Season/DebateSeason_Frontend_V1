@@ -60,7 +60,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         children: [
           _categoryTitle(),
           Gaps.v12,
-          _categoryList(),
+          // _categoryList(),
         ],
       ),
     );

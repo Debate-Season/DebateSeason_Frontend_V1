@@ -13,7 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
-  late TextEditingController profileController;
+  late TextEditingController nicknameController;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
   late TextEditingController ageController;
@@ -28,17 +28,22 @@ class ProfileInputViewModel extends GetxController {
     gender: '',
     ageRange: '',
   ));
-  final _nicknameError = ''.obs;
+
+  final _previousNickname = ''.obs;
+  final _nicknameErrorText = ''.obs;
   final _communities = Rx<UiState<List<CommunityEntity>>>(UiState.loading());
   final _selectedCommunities =
       Rx<UiState<List<CommunityEntity>>>(UiState.loading());
   final _selectedCommunityId = (-1).obs;
   final _selectedAge = ''.obs;
+  final _isCreateScreen = true.obs;
   final _isApiLoading = false.obs;
 
   ProfileEntity get profile => _profile.value;
 
-  String get nicknameError => _nicknameError.value;
+  String get previousNickname => _previousNickname.value;
+
+  String get nicknameErrorText => _nicknameErrorText.value;
 
   UiState<List<CommunityEntity>> get communities => _communities.value;
 
@@ -49,13 +54,15 @@ class ProfileInputViewModel extends GetxController {
 
   String get selectedAge => _selectedAge.value;
 
+  bool get isCreateScreen => _isCreateScreen.value;
+
   bool get isApiLoading => _isApiLoading.value;
 
   @override
   void onInit() {
     super.onInit();
 
-    profileController = TextEditingController();
+    nicknameController = TextEditingController();
     communityController = TextEditingController();
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
@@ -74,6 +81,13 @@ class ProfileInputViewModel extends GetxController {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final previousProfile = Get.arguments as ProfileEntity;
         _profile.value = previousProfile;
+        _previousNickname.value = _profile.value.nickname;
+        nicknameController.text = previousProfile.nickname;
+        communityController.text = previousProfile.community.name;
+        _selectedCommunityId.value = previousProfile.community.id;
+        ageController.text = previousProfile.ageRange;
+        _selectedAge.value = previousProfile.ageRange;
+        _isCreateScreen.value = false;
         _profile.refresh();
       });
     }
@@ -81,7 +95,7 @@ class ProfileInputViewModel extends GetxController {
 
   @override
   void dispose() {
-    profileController.dispose();
+    nicknameController.dispose();
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
@@ -98,14 +112,16 @@ class ProfileInputViewModel extends GetxController {
     switch (response.status) {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
-        _nicknameError.value = '';
+        _nicknameErrorText.value = '';
         Fluttertoast.showToast(msg: '사용가능한 닉네임입니다.');
       case 400:
-        _nicknameError.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.validNickname;
       case 409:
-        _nicknameError.value = ProfileConstants.validOverlapNickname;
+        if (_previousNickname.value != nickname) {
+          _nicknameErrorText.value = ProfileConstants.validOverlapNickname;
+        }
       default:
-        _nicknameError.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.validNickname;
     }
   }
 
@@ -126,13 +142,17 @@ class ProfileInputViewModel extends GetxController {
         entity: _profile.value,
       );
 
-  Future<void> patchProfile() async {
-    final result = await _profileRepository.patchProfile(
-      entity: _profile.value,
-    );
-  }
+  Future<UiState<String>> patchProfile() async =>
+      await _profileRepository.patchProfile(
+        entity: _profile.value,
+      );
 
   void onChangedNickname({required String nickname}) {
+    if (nickname == _previousNickname.value) {
+      _nicknameErrorText.value = '';
+      return;
+    }
+
     if (_debounceNickname != null) {
       _debounceNickname?.cancel();
     }
@@ -195,14 +215,13 @@ class ProfileInputViewModel extends GetxController {
 
   bool isValidNickname(String nickname) {
     if (nickname.length < 2 || nickname.length > 8) {
-      log.d('$nickname : false');
-      _nicknameError.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.validNickname;
       return false;
     }
 
     RegExp regex = RegExp(r'^[가-힣a-zA-Z]{1,8}$');
     if (regex.hasMatch(nickname) == false) {
-      _nicknameError.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.validNickname;
       return false;
     } else {
       return true;
@@ -211,12 +230,13 @@ class ProfileInputViewModel extends GetxController {
 
   bool isValidStartBtn() {
     if (_profile.value.nickname.isNotEmpty &&
+        _nicknameErrorText.value.isEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
         _profile.value.community.id != -1) {
-      log.d(true);
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 }

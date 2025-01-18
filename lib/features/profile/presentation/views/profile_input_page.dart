@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/p
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_community_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_gender_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_text_card.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
@@ -37,8 +38,10 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
 
   DeAppBar _appBar() {
     return DeAppBar(
-      title: '프로필 입력하기',
-      isBack: false,
+      title: controller.isCreateScreen
+          ? ProfileConstants.profileCreateAppbarText
+          : ProfileConstants.profileModifyAppbarText,
+      isBack: true,
     );
   }
 
@@ -72,18 +75,32 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v40,
                 Obx(() {
                   return DeButtonLarge(
-                    '토론철 시작하기',
-                    onPressed: () => controller.postProfile().then((result) {
-                      result.when(loading: () {
-                        controller.setApiLoading(isApiLoading: true);
-                      }, success: (message) {
-                        controller.setApiLoading(isApiLoading: false);
-                        Get.offAllNamed(GetRouterName.home);
-                      }, failure: (msg) {
-                        controller.setApiLoading(isApiLoading: false);
-                        Fluttertoast.showToast(msg: msg);
-                      });
-                    }),
+                    controller.isCreateScreen
+                        ? ProfileConstants.profileCreateBtnText
+                        : ProfileConstants.profileModifyBtnText,
+                    onPressed: controller.isCreateScreen
+                        ? () => controller.postProfile().then((result) {
+                              result.when(loading: () {
+                                controller.setApiLoading(isApiLoading: true);
+                              }, success: (message) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Get.offAllNamed(GetRouterName.home);
+                              }, failure: (msg) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Fluttertoast.showToast(msg: msg);
+                              });
+                            })
+                        : () => controller.patchProfile().then((result) {
+                              result.when(loading: () {
+                                controller.setApiLoading(isApiLoading: true);
+                              }, success: (message) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Get.back();
+                              }, failure: (msg) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Fluttertoast.showToast(msg: msg);
+                              });
+                            }),
                     enable: controller.isValidStartBtn(),
                   );
                 }),
@@ -136,7 +153,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         DeTextField(
           style: body16M,
           hintText: '사용할 닉네임을 입력해주세요.',
-          controller: controller.profileController,
+          controller: controller.nicknameController,
           autofocus: false,
           onChanged: (nickname) {
             if (controller.isValidNickname(nickname)) {
@@ -145,13 +162,13 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           },
         ),
         Obx(() {
-          final error = controller.nicknameError;
-          if (error.isNotEmpty) {
+          final nicknameErrorText = controller.nicknameErrorText;
+          if (nicknameErrorText.isNotEmpty) {
             return Column(
               children: [
                 Gaps.v4,
                 DeText(
-                  error,
+                  nicknameErrorText,
                   style: cation12M.copyWith(color: red),
                 ),
               ],
