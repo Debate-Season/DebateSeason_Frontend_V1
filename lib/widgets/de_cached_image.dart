@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/utils/cache_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DeCachedImage extends StatelessWidget {
   final String imageUrl;
@@ -19,15 +20,17 @@ class DeCachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fullImageUrl = '${dotenv.get('IMAGE_BASE_URL')}imageUrl';
+
     return CachedNetworkImage(
-      imageUrl: imageUrl,
+      imageUrl: fullImageUrl,
       width: width,
       height: height,
       fit: fit,
       cacheManager: ImageCacheManager(),
       imageBuilder: (context, imageProvider) => Image(
         image: CachedNetworkImageProvider(
-          imageUrl,
+          fullImageUrl,
           cacheManager: ImageCacheManager(),
         ),
         fit: fit,
