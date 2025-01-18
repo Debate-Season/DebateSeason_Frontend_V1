@@ -7,6 +7,8 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/cha
 import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/debate_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/debate_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/bindings/issue_binding.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/view/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
@@ -26,11 +28,6 @@ class GetRouter {
       binding: AuthBinding(),
     ),
     GetPage(
-      name: GetRouterName.chat,
-      page: () => ChatRoomScreen(),
-      binding: ChatBinding(),
-    ),
-    GetPage(
       name: GetRouterName.profileInput,
       page: () => ProfileInputPage(),
       binding: ProfileInputBinding(),
@@ -39,6 +36,21 @@ class GetRouter {
       name: GetRouterName.profile,
       page: () => ProfileScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.chat,
+      page: () => ChatRoomScreen(),
+      binding: ChatBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.profile,
+      page: () => ProfileScreen(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.issue,
+      page: () => IssueRoomScreen(),
+      binding: IssueBinding(),
     ),
     GetPage(
       name: GetRouterName.home,
