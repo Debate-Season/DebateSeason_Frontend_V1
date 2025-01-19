@@ -106,7 +106,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int total = agree + disagree;
       double agreeRatio = agree / total;
       double disagreeRatio = disagree / total;
-      // 찬성 비율 표시
+
+      if (total == 0) {
+        agreeRatio = 0;
+        disagreeRatio = 0;
+      }
       String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
       String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
 
