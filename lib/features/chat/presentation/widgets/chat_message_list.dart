@@ -7,7 +7,10 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/request/messa
 import 'message_bubble.dart';
 
 class ChatMessageList extends StatelessWidget {
-  const ChatMessageList({super.key});
+  const ChatMessageList({
+    super.key,
+    required int chatRoomId,
+  });
 
   @override
   Widget build(BuildContext context) {
