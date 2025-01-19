@@ -186,22 +186,40 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateChat() {
-    return ChatBottomSheet(
-      // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
-      widget: DeGestureDetector(
-        onTap: () {},
-        child: DefaultTextStyle(
-          style: body16M,
-          child: DeButtonLarge(
-            '토론방 입장하기',
-            onPressed: () {
-              Get.toNamed('/chat',
-                  arguments: {controller.roomData?.chatRoomId});
-            },
-            enable: true,
+    return Obx(() {
+      final room = controller.roomData;
+      log.d(room);
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      var crId = room.chatRoomId;
+      var crTitle = room.title;
+      return ChatBottomSheet(
+        // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
+        widget: DeGestureDetector(
+          onTap: () {},
+          child: DefaultTextStyle(
+            style: body16M,
+            child: DeButtonLarge(
+              '토론방 입장하기',
+              onPressed: () {
+                Get.toNamed(
+                  '/chat',
+                  arguments: {
+                    'chatRoomId': crId,
+                    'chatRoomTitle': crTitle,
+                  },
+                );
+                log.d('chatRoomId: $crId');
+                log.d('chatRoomTitle: $crTitle');
+                log.d(crId);
+                log.d(crTitle);
+              },
+              enable: true,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

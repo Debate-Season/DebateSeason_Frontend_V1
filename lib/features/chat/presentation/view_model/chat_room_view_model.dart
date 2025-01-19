@@ -13,9 +13,20 @@ class ChatRoomViewModel extends GetxController {
   var receivedMessages = <MsgRes>[].obs;
   var sentMessages = <MessageRequest>[].obs;
 
+  var chatRoomId = 1.obs;
+  var chatRoomTitle = ''.obs;
+
+  // 값 설정 메서드
+  void setChatRoomDetails(int roomId, String title) {
+    chatRoomId.value = roomId;
+    chatRoomTitle.value = title;
+  }
+
   @override
   void onInit() {
     super.onInit();
+
+
     log.d('1. init');
     _addDummyMessages();
     log.d('1-1. 더미데이터 호출');
