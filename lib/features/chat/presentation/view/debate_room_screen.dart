@@ -51,6 +51,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     );
   }
 
+  // todo api 연결 끝나면 하단 코드 위젯파일로 분리하기
+  //-----------------------------------------------------------------------------
   Widget _widgetDebateTopic() {
     return Container(
       padding: Dimensions.padding8x10,
