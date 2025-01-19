@@ -150,7 +150,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       }
 
       return GestureDetector(
-        onTap: () => {log.d('voted')},
+        onTap: () => {
+          controller.postVoteData(data, room.chatRoomId),
+        },
         child: Container(
           width: 120.0,
           //나중에 사이즈 다시 확인
