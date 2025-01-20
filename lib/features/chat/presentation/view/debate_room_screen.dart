@@ -16,6 +16,8 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
+  const DebateRoomScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
