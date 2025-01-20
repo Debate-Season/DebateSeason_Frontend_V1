@@ -57,7 +57,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         children: [
           _categoryTitle(),
           Gaps.v12,
-          // _categoryList(),
+          _categoryList(),
         ],
       ),
     );
@@ -90,22 +90,25 @@ class CategoryScreen extends GetView<CategoryViewModel> {
             );
           }
 
-          return ListView.separated(
-            itemCount: categoryList.length,
-            itemBuilder: (context, index) {
-              final category = categoryList[index];
+          return Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: categoryList.length,
+              itemBuilder: (context, index) {
+                final category = categoryList[index];
 
-              return _categoryItem(category: category);
-            },
-            separatorBuilder: (context, index) {
-              return Padding(
-                padding: Dimensions.vertical16,
-                child: Divider(
-                  height: 1,
-                  color: grey100,
-                ),
-              );
-            },
+                return _categoryItem(category: category);
+              },
+              separatorBuilder: (context, index) {
+                return Padding(
+                  padding: Dimensions.vertical16,
+                  child: Divider(
+                    height: 1,
+                    color: grey100,
+                  ),
+                );
+              },
+            ),
           );
         },
         failure: (error) {
@@ -129,38 +132,40 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DeText(
-                category.title,
-                style: body16Sb,
-              ),
-              Gaps.v4,
-              Row(
-                children: [
-                  DeText(
-                    '생성일',
-                    style: cation12M.copyWith(color: grey50),
-                  ),
-                  Gaps.h2,
-                  DeText(
-                    DateFormatUtil.yyyyMD(dateTime: category.createdAt),
-                    style: cation12M.copyWith(color: grey30),
-                  ),
-                  Gaps.h8,
-                  DeText(
-                    '토론주제',
-                    style: cation12M.copyWith(color: grey50),
-                  ),
-                  Gaps.h2,
-                  DeText(
-                    category.countChatRoom.toString(),
-                    style: cation12M.copyWith(color: grey30),
-                  ),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DeText(
+                  category.title,
+                  style: body16Sb,
+                ),
+                Gaps.v4,
+                Row(
+                  children: [
+                    DeText(
+                      '생성일',
+                      style: cation12M.copyWith(color: grey50),
+                    ),
+                    Gaps.h2,
+                    DeText(
+                      DateFormatUtil.yyyyMD(dateTime: category.createdAt),
+                      style: cation12M.copyWith(color: grey30),
+                    ),
+                    Gaps.h8,
+                    DeText(
+                      '토론주제',
+                      style: cation12M.copyWith(color: grey50),
+                    ),
+                    Gaps.h2,
+                    DeText(
+                      category.countChatRoom.toString(),
+                      style: cation12M.copyWith(color: grey30),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: Dimensions.all8,
