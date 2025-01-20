@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ProfileEntity {
   String get nickname => throw _privateConstructorUsedError;
-  int get communityId => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get ageRange => throw _privateConstructorUsedError;
+  CommunityEntity get community => throw _privateConstructorUsedError;
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +34,13 @@ abstract class $ProfileEntityCopyWith<$Res> {
           ProfileEntity value, $Res Function(ProfileEntity) then) =
       _$ProfileEntityCopyWithImpl<$Res, ProfileEntity>;
   @useResult
-  $Res call({String nickname, int communityId, String gender, String ageRange});
+  $Res call(
+      {String nickname,
+      String gender,
+      String ageRange,
+      CommunityEntity community});
+
+  $CommunityEntityCopyWith<$Res> get community;
 }
 
 /// @nodoc
@@ -53,19 +59,15 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
   @override
   $Res call({
     Object? nickname = null,
-    Object? communityId = null,
     Object? gender = null,
     Object? ageRange = null,
+    Object? community = null,
   }) {
     return _then(_value.copyWith(
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      communityId: null == communityId
-          ? _value.communityId
-          : communityId // ignore: cast_nullable_to_non_nullable
-              as int,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -74,7 +76,21 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
           ? _value.ageRange
           : ageRange // ignore: cast_nullable_to_non_nullable
               as String,
+      community: null == community
+          ? _value.community
+          : community // ignore: cast_nullable_to_non_nullable
+              as CommunityEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of ProfileEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CommunityEntityCopyWith<$Res> get community {
+    return $CommunityEntityCopyWith<$Res>(_value.community, (value) {
+      return _then(_value.copyWith(community: value) as $Val);
+    });
   }
 }
 
@@ -86,7 +102,14 @@ abstract class _$$ProfileEntityImplCopyWith<$Res>
       __$$ProfileEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String nickname, int communityId, String gender, String ageRange});
+  $Res call(
+      {String nickname,
+      String gender,
+      String ageRange,
+      CommunityEntity community});
+
+  @override
+  $CommunityEntityCopyWith<$Res> get community;
 }
 
 /// @nodoc
@@ -103,19 +126,15 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? nickname = null,
-    Object? communityId = null,
     Object? gender = null,
     Object? ageRange = null,
+    Object? community = null,
   }) {
     return _then(_$ProfileEntityImpl(
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      communityId: null == communityId
-          ? _value.communityId
-          : communityId // ignore: cast_nullable_to_non_nullable
-              as int,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -124,6 +143,10 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
           ? _value.ageRange
           : ageRange // ignore: cast_nullable_to_non_nullable
               as String,
+      community: null == community
+          ? _value.community
+          : community // ignore: cast_nullable_to_non_nullable
+              as CommunityEntity,
     ));
   }
 }
@@ -133,22 +156,22 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
 class _$ProfileEntityImpl implements _ProfileEntity {
   _$ProfileEntityImpl(
       {required this.nickname,
-      required this.communityId,
       required this.gender,
-      required this.ageRange});
+      required this.ageRange,
+      required this.community});
 
   @override
   final String nickname;
   @override
-  final int communityId;
-  @override
   final String gender;
   @override
   final String ageRange;
+  @override
+  final CommunityEntity community;
 
   @override
   String toString() {
-    return 'ProfileEntity(nickname: $nickname, communityId: $communityId, gender: $gender, ageRange: $ageRange)';
+    return 'ProfileEntity(nickname: $nickname, gender: $gender, ageRange: $ageRange, community: $community)';
   }
 
   @override
@@ -158,16 +181,16 @@ class _$ProfileEntityImpl implements _ProfileEntity {
             other is _$ProfileEntityImpl &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
-            (identical(other.communityId, communityId) ||
-                other.communityId == communityId) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.ageRange, ageRange) ||
-                other.ageRange == ageRange));
+                other.ageRange == ageRange) &&
+            (identical(other.community, community) ||
+                other.community == community));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, nickname, communityId, gender, ageRange);
+      Object.hash(runtimeType, nickname, gender, ageRange, community);
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -181,18 +204,18 @@ class _$ProfileEntityImpl implements _ProfileEntity {
 abstract class _ProfileEntity implements ProfileEntity {
   factory _ProfileEntity(
       {required final String nickname,
-      required final int communityId,
       required final String gender,
-      required final String ageRange}) = _$ProfileEntityImpl;
+      required final String ageRange,
+      required final CommunityEntity community}) = _$ProfileEntityImpl;
 
   @override
   String get nickname;
   @override
-  int get communityId;
-  @override
   String get gender;
   @override
   String get ageRange;
+  @override
+  CommunityEntity get community;
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.

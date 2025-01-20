@@ -3,49 +3,43 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class ProfileInputCard extends StatelessWidget {
+class ProfileGenderCard extends StatelessWidget {
   final String text;
   final String imagePath;
-  final bool isCommunity;
   final bool isSelected;
 
-  const ProfileInputCard(
+  const ProfileGenderCard(
     this.text, {
     super.key,
-    this.imagePath = '',
-    this.isCommunity = false,
+    required this.imagePath,
     this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          imagePath.isEmpty ? Dimensions.vertical40 : Dimensions.vertical20,
+      padding: Dimensions.vertical28,
       decoration: BoxDecoration(
         color: grey80,
         borderRadius: BorderRadius.circular(12),
         border: isSelected
             ? Border.all(color: brandColor, width: 1)
-            : isCommunity
-                ? Border.all(color: grey70, width: 1)
-                : null,
+            : Border.all(color: grey70, width: 1),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (imagePath.isNotEmpty) ...[
-            Container(
-              width: isCommunity ? 44 : 36,
-              height: isCommunity ? 44 : 36,
-              decoration: BoxDecoration(
-                color: brandDark,
-                borderRadius: BorderRadius.circular(12),
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: SvgPicture.asset(
+              imagePath,
+              width: 12,
+              height: 20,
             ),
-            Gaps.v4,
-          ],
+          ),
+          Gaps.v4,
           Text(
             text,
             style: body14M,

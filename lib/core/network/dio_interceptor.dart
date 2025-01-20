@@ -1,10 +1,10 @@
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/auth_reissue_repository.dart';
-import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' as getx;
 
 import 'dio_client.dart';
@@ -41,17 +41,10 @@ class DioInterceptor extends Interceptor {
         'Response Data: ${err.response?.data}\n'
         'Headers: ${options.headers}');
 
-    RequestOptions? retryRequest;
-    final storage = SecureStorageService();
     if (err.response?.statusCode == 401) {
       if (options.path != '/api/v1/auth/reissue') {
-        retryRequest = options;
-        await _reissueAccessToken(err, handler, storage);
+        await _reissueAccessToken(err, handler);
         return;
-      }
-
-      if (options.path != '/api/v1/auth/user/login') {
-        await _reissueRefreshTokens(err, handler, storage, retryRequest);
       }
     }
 
@@ -61,8 +54,9 @@ class DioInterceptor extends Interceptor {
   Future<void> _reissueAccessToken(
     DioException err,
     ErrorInterceptorHandler handler,
-    SecureStorageService storage,
   ) async {
+    final storage = SecureStorageService();
+    final prefs = SharedPreferencesService();
     try {
       final refreshToken = await storage.getRefreshToken();
       final authReissueRepository = getx.Get.find<AuthReissueRepository>();
@@ -81,34 +75,17 @@ class DioInterceptor extends Interceptor {
         return handler.resolve(newResponse);
       }
     } catch (e) {
-      return handler.reject(err);
-    }
-  }
+      if (e is DioException) {
+        if (e.response?.statusCode == 401) {
+          Fluttertoast.showToast(msg: '인증정보가 만료되었습니다. 다시 로그인해주세요.');
 
-  Future<void> _reissueRefreshTokens(
-    DioException err,
-    ErrorInterceptorHandler handler,
-    SecureStorageService storage,
-    RequestOptions? retryRequest,
-  ) async {
-    try {
-      final prefs = SharedPreferencesService();
-      final userLoginRepository = getx.Get.find<UsersLoginRepository>();
-
-      await userLoginRepository.postUsersLogin(
-          entity: UsersLoginEntity(
-        identifier: await storage.getIdentifier(),
-        socialType: prefs.getSocialType(),
-      ));
-
-      final newAccessToken = await storage.getAccessToken();
-      err.requestOptions.headers['Authorization'] = newAccessToken;
-
-      final dio = DioClient().dio;
-      final newResponse = await dio.fetch(retryRequest!);
-
-      return handler.resolve(newResponse);
-    } catch (e) {
+          await Future.wait([
+            storage.clear(),
+            prefs.clear(),
+          ]);
+          getx.Get.offAllNamed(GetRouterName.auth);
+        }
+      }
       return handler.reject(err);
     }
   }

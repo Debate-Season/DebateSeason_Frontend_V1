@@ -66,14 +66,6 @@ class AuthViewModel extends GetxController {
       log.d('애플 로그인 실패\n$e\n$stackTrace');
       return UiState.failure('애플 로그인에 실패했습니다.');
     }
-
-    // firebase code - 필요한지 모르겠음..
-    // final firebase.OAuthCredential credential =
-    //     firebase.OAuthProvider('apple.com').credential(
-    //   idToken: appleCredential.identityToken,
-    //   accessToken: appleCredential.authorizationCode,
-    // );
-    // await firebase.FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   Future<UsersLoginEntity> postUsersLogin({
@@ -86,16 +78,5 @@ class AuthViewModel extends GetxController {
         socialType: socialType,
       ),
     );
-  }
-
-  // todo 추후 내정보 화면으로 이동할 함수.
-  Future<bool> kakaoLogout() async {
-    try {
-      await UserApi.instance.unlink();
-      log.d('카카오톡 로그아웃 성공');
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 }

@@ -7,7 +7,8 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -34,17 +35,20 @@ class AuthScreen extends GetView<AuthViewModel> {
                 onTap: () {
                   controller.loginWithKakao().then((uiState) {
                     uiState.when(
-                        loading: () {},
-                        success: (data) {
-                          if (data.profileStatus) {
-                            Get.offNamed(GetRouterName.home);
-                          } else {
-                            Get.offNamed(GetRouterName.profileInput);
-                          }
-                        },
-                        failure: (msg) {
-                          Get.snackbar('로그인 실패', msg);
-                        });
+                      loading: () {
+                        log.d('로딩중...');
+                      },
+                      success: (data) {
+                        if (data.profileStatus) {
+                          Get.offNamed(GetRouterName.home);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
+                      },
+                      failure: (msg) {
+                        Get.snackbar('로그인 실패', msg);
+                      },
+                    );
                   });
                 },
                 child: _widgetLoginBtn(
@@ -56,17 +60,20 @@ class AuthScreen extends GetView<AuthViewModel> {
                 onTap: () {
                   controller.loginWithApple().then((uiState) {
                     uiState.when(
-                        loading: () {},
-                        success: (data) {
-                          if (data.profileStatus) {
-                            Get.offNamed(GetRouterName.profileInput);
-                          } else {
-                            Get.offNamed(GetRouterName.profileInput);
-                          }
-                        },
-                        failure: (msg) {
-                          Get.snackbar('로그인 실패', msg);
-                        });
+                      loading: () {
+                        log.d('로딩중...');
+                      },
+                      success: (data) {
+                        if (data.profileStatus) {
+                          Get.offNamed(GetRouterName.profileInput);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
+                      },
+                      failure: (msg) {
+                        Get.snackbar('로그인 실패', msg);
+                      },
+                    );
                   });
                 },
                 child: _widgetLoginBtn(

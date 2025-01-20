@@ -6,10 +6,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -60,7 +57,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         children: [
           _categoryTitle(),
           Gaps.v12,
-          _categoryList(),
+          // _categoryList(),
         ],
       ),
     );

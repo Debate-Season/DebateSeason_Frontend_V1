@@ -11,14 +11,14 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isBack;
   final List<Widget>? actions;
-  final bool isCenter;
+  final bool? isCenter;
 
   const DeAppBar({
     super.key,
     required this.title,
     this.isBack = true,
     this.actions,
-    this.isCenter = true,
+    this.isCenter,
   });
 
   @override

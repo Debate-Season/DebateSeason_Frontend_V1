@@ -2,17 +2,16 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_input_card.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
-import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_age_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_community_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_gender_card.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputPage extends GetView<ProfileInputViewModel> {
@@ -20,23 +19,29 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeGestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: DeScaffold(
-        appBar: _appBar(),
-        body: _body(),
-      ),
+    return DeScaffold(
+      appBar: _appBar(),
+      body: _body(),
     );
   }
 
   DeAppBar _appBar() {
     return DeAppBar(
-      title: '프로필 입력하기',
-      isBack: false,
+      title: controller.isCreateScreen
+          ? ProfileConstants.profileCreateAppbarText
+          : ProfileConstants.profileModifyAppbarText,
+      isBack: true,
     );
   }
 
   Widget _body() {
+    Obx(() {
+      if (controller.isApiLoading) {
+        return DeProgressIndicator();
+      }
+      return SizedBox();
+    });
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,11 +62,37 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v32,
                 _widgetAge(),
                 Gaps.v40,
-                DeButtonLarge(
-                  '토론철 시작하기',
-                  onPressed: () => controller.postProfile(),
-                  enable: false,
-                ),
+                Obx(() {
+                  return DeButtonLarge(
+                    controller.isCreateScreen
+                        ? ProfileConstants.profileCreateBtnText
+                        : ProfileConstants.profileModifyBtnText,
+                    onPressed: controller.isCreateScreen
+                        ? () => controller.postProfile().then((result) {
+                              result.when(loading: () {
+                                controller.setApiLoading(isApiLoading: true);
+                              }, success: (message) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Get.offAllNamed(GetRouterName.home);
+                              }, failure: (msg) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Fluttertoast.showToast(msg: msg);
+                              });
+                            })
+                        : () => controller.patchProfile().then((result) {
+                              result.when(loading: () {
+                                controller.setApiLoading(isApiLoading: true);
+                              }, success: (message) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Get.back();
+                              }, failure: (msg) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Fluttertoast.showToast(msg: msg);
+                              });
+                            }),
+                    enable: controller.isValidStartBtn(),
+                  );
+                }),
                 Gaps.v20,
               ],
             ),
@@ -111,22 +142,22 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         DeTextField(
           style: body16M,
           hintText: '사용할 닉네임을 입력해주세요.',
-          controller: controller.profileController,
-          onChanged: (text) {
-            if (text.length > 3) {
-              controller.onChangedNickname(nickname: text);
+          controller: controller.nicknameController,
+          autofocus: false,
+          onChanged: (nickname) {
+            if (controller.isValidNickname(nickname)) {
+              controller.onChangedNickname(nickname: nickname);
             }
           },
         ),
         Obx(() {
-          final error = controller.nicknameError;
-
-          if (error.isNotEmpty) {
+          final nicknameErrorText = controller.nicknameErrorText;
+          if (nicknameErrorText.isNotEmpty) {
             return Column(
               children: [
                 Gaps.v4,
                 DeText(
-                  error,
+                  nicknameErrorText,
                   style: cation12M.copyWith(color: red),
                 ),
               ],
@@ -158,10 +189,17 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 builder: (context) {
                   return DeBottomSheet(
                     '소속 커뮤니티',
-                    widget: _widgetCommunityBottomSheetBody(),
+                    widget: ProfileCommunityBottomSheet(),
                   );
                 },
-              );
+              ).whenComplete(() {
+                if (controller.selectedCommunityId !=
+                    controller.profile.community.id) {
+                  controller.setSelectedCommunityId(
+                      communityId: controller.profile.community.id);
+                }
+                controller.communitySearchController.clear();
+              });
             }
           },
           child: DeTextField(
@@ -202,31 +240,34 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             children: [
               Expanded(
                 child: DeGestureDetector(
-                    onTap: () => controller.setGender(gender: genderMan),
-                    child: ProfileInputCard(
-                      genderMan,
-                      imagePath: '1',
-                      isSelected: profileAgeRange == genderMan,
-                    )),
+                  onTap: () => controller.setGender(gender: genderMan),
+                  child: ProfileGenderCard(
+                    genderMan,
+                    imagePath: 'assets/icons/ic_men.svg',
+                    isSelected: profileAgeRange == genderMan,
+                  ),
+                ),
               ),
               Gaps.h8,
               Expanded(
                 child: DeGestureDetector(
-                    onTap: () => controller.setGender(gender: genderWomen),
-                    child: ProfileInputCard(
-                      genderWomen,
-                      imagePath: '2',
-                      isSelected: profileAgeRange == genderWomen,
-                    )),
+                  onTap: () => controller.setGender(gender: genderWomen),
+                  child: ProfileGenderCard(
+                    genderWomen,
+                    imagePath: 'assets/icons/ic_women.svg',
+                    isSelected: profileAgeRange == genderWomen,
+                  ),
+                ),
               ),
               Gaps.h8,
               Expanded(
                 child: DeGestureDetector(
-                    onTap: () => controller.setGender(gender: genderOther),
-                    child: ProfileInputCard(
-                      genderOther,
-                      isSelected: profileAgeRange == genderOther,
-                    )),
+                  onTap: () => controller.setGender(gender: genderOther),
+                  child: ProfileTextCard(
+                    genderOther,
+                    isSelected: profileAgeRange == genderOther,
+                  ),
+                ),
               ),
             ],
           );
@@ -258,7 +299,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 builder: (context) {
                   return DeBottomSheet(
                     '나이대',
-                    widget: _widgetAgeBottomSheetBody(),
+                    widget: ProfileAgeBottomSheet(),
                   );
                 },
               );
@@ -272,163 +313,6 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             isCleanIcon: false,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _widgetCommunityBottomSheetBody() {
-    return Obx(() {
-      final communities = controller.communities;
-
-      return communities.when(
-        loading: () {
-          return const Center(
-            child: DeProgressIndicator(),
-          );
-        },
-        success: (communities) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DeTextField(
-                controller: controller.communitySearchController,
-                hintText: '내용을 입력해 주세요.',
-                fillColor: grey90,
-                onChanged: (searchWord) =>
-                    controller.onChangedCommunity(searchWord: searchWord),
-              ),
-              Gaps.v16,
-              SizedBox(
-                height: Get.mediaQuery.size.height * 0.3,
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: 1,
-                  ),
-                  itemCount: communities.length,
-                  itemBuilder: (context, index) {
-                    final community = communities[index];
-
-                    return DeGestureDetector(
-                      onTap: () {
-                        controller.setSelectedCommunityId(
-                          communityId: community.id,
-                        );
-                      },
-                      child: Obx(() {
-                        final selectedCommunityId =
-                            controller.selectedCommunityId;
-
-                        return ProfileInputCard(
-                          community.name,
-                          imagePath: community.iconUrl,
-                          isCommunity: true,
-                          isSelected: selectedCommunityId == community.id,
-                        );
-                      }),
-                    );
-                  },
-                ),
-              ),
-              Gaps.v16,
-              Obx(() {
-                final selectedCommunityId = controller.selectedCommunityId;
-
-                return DeButtonLarge(
-                  '등록하기',
-                  onPressed: () {
-                    controller.setCommunityId(
-                      communityId: selectedCommunityId,
-                    );
-                    Get.back();
-                  },
-                  enable: selectedCommunityId > 0,
-                );
-              }),
-              Gaps.v16,
-            ],
-          );
-        },
-        failure: (error) {
-          return Center(
-            child: DeText(
-              error,
-              style: body16Sb.copyWith(color: red),
-            ),
-          );
-        },
-      );
-    });
-  }
-
-  Widget _widgetAgeBottomSheetBody() {
-    final List<String> ageRange = [
-      '10대',
-      '20대',
-      '30대',
-      '40대',
-      '50대',
-      '60대',
-      '70대',
-      '80대',
-      '90대 이상',
-    ];
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        DeTextField(
-          controller: controller.ageSearchController,
-          hintText: '내용을 입력해 주세요.',
-          fillColor: grey90,
-        ),
-        Gaps.v16,
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1,
-          ),
-          itemCount: ageRange.length,
-          itemBuilder: (context, index) {
-            final age = ageRange[index];
-
-            return Obx(() {
-              final selectedAge = controller.selectedAge;
-
-              return DeGestureDetector(
-                onTap: () => controller.setSelectedAge(selectedAge: age),
-                child: ProfileInputCard(
-                  age,
-                  isCommunity: true,
-                  isSelected: selectedAge == ageRange[index],
-                ),
-              );
-            });
-          },
-        ),
-        Gaps.v16,
-        Obx(() {
-          final selectedAge = controller.selectedAge;
-
-          return DeButtonLarge(
-            '선택하기',
-            onPressed: () {
-              controller.setAgeRange(ageRange: selectedAge);
-              Get.back();
-            },
-            enable: selectedAge.isNotEmpty,
-          );
-        }),
-        Gaps.v16,
       ],
     );
   }
