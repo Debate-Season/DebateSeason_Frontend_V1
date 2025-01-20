@@ -8,7 +8,7 @@ import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 
 class ChatRoomScreen extends GetView<ChatRoomViewModel> {
-  final ChatRoomViewModel _viewModel = Get.find<ChatRoomViewModel>();
+  const ChatRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +24,16 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
               Obx(() {
                 return ChatRoomAppBar(
                     title:
-                    _viewModel.chatRoomTitle.value.isNotEmpty ? _viewModel.chatRoomTitle.value : '토론방 로딩 중');
+                    controller.chatRoomTitle.value.isNotEmpty ? controller.chatRoomTitle.value : '토론방 로딩 중');
               }),
               Obx(() {
                 return Expanded(
-                  child: ChatMessageList(chatRoomId: _viewModel.chatRoomId.value),
+                  child: ChatMessageList(chatRoomId: controller.chatRoomId.value),
                 );
               }),
               ChatInputField(
                 controller: messageController,
-                viewModel: _viewModel,
+                viewModel: controller,
               ),
             ],
           ),
