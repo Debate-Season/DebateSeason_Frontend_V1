@@ -5,13 +5,10 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_age_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_community_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_gender_card.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputPage extends GetView<ProfileInputViewModel> {
@@ -76,7 +73,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                                 Get.offAllNamed(GetRouterName.home);
                               }, failure: (msg) {
                                 controller.setApiLoading(isApiLoading: false);
-                                Fluttertoast.showToast(msg: msg);
+                                deSnackBar(msg);
                               });
                             })
                         : () => controller.patchProfile().then((result) {
@@ -87,7 +84,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                                 Get.back();
                               }, failure: (msg) {
                                 controller.setApiLoading(isApiLoading: false);
-                                Fluttertoast.showToast(msg: msg);
+                                deSnackBar(msg);
                               });
                             }),
                     enable: controller.isValidStartBtn(),

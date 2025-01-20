@@ -7,9 +7,9 @@ import 'package:debateseason_frontend_v1/features/profile/domain/repositories/re
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
@@ -113,7 +113,7 @@ class ProfileInputViewModel extends GetxController {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
-        Fluttertoast.showToast(msg: '사용가능한 닉네임입니다.');
+        deSnackBar('사용가능한 닉네임입니다.');
       case 400:
         _nicknameErrorText.value = ProfileConstants.validNickname;
       case 409:
