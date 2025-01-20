@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -214,16 +215,12 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               '토론방 입장하기',
               onPressed: () {
                 Get.toNamed(
-                  '/chat',
+                  GetRouterName.chat,
                   arguments: {
-                    'chatRoomId': crId,
-                    'chatRoomTitle': crTitle,
+                    'chat_room_id': crId,
+                    'chat_room_title': crTitle,
                   },
                 );
-                log.d('chatRoomId: $crId');
-                log.d('chatRoomTitle: $crTitle');
-                log.d(crId);
-                log.d(crTitle);
               },
               enable: true,
             ),
