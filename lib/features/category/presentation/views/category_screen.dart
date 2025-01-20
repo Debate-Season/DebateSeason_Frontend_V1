@@ -126,7 +126,9 @@ class CategoryScreen extends GetView<CategoryViewModel> {
   Widget _categoryItem({required CategoryEntity category}) {
     return DeGestureDetector(
       onTap: () {
-        // todo 이슈 상세 화면전환
+        Get.toNamed(GetRouterName.issue, arguments: {
+          'issue_id': category.issueId,
+        });
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
