@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,16 +58,20 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         children: [
           _categoryTitle(),
           Gaps.v12,
-          // _categoryList(),
+          _categoryList(),
         ],
       ),
     );
   }
 
   Widget _categoryTitle() {
-    return DeText(
-      '전체',
-      style: headerLarge,
+    return DeGestureDetector(
+      onTap: () {
+      },
+      child: DeText(
+        '전체',
+        style: headerLarge,
+      ),
     );
   }
 
@@ -90,22 +95,25 @@ class CategoryScreen extends GetView<CategoryViewModel> {
             );
           }
 
-          return ListView.separated(
-            itemCount: categoryList.length,
-            itemBuilder: (context, index) {
-              final category = categoryList[index];
+          return Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: categoryList.length,
+              itemBuilder: (context, index) {
+                final category = categoryList[index];
 
-              return _categoryItem(category: category);
-            },
-            separatorBuilder: (context, index) {
-              return Padding(
-                padding: Dimensions.vertical16,
-                child: Divider(
-                  height: 1,
-                  color: grey100,
-                ),
-              );
-            },
+                return _categoryItem(category: category);
+              },
+              separatorBuilder: (context, index) {
+                return Padding(
+                  padding: Dimensions.vertical16,
+                  child: Divider(
+                    height: 1,
+                    color: grey100,
+                  ),
+                );
+              },
+            ),
           );
         },
         failure: (error) {
@@ -123,44 +131,48 @@ class CategoryScreen extends GetView<CategoryViewModel> {
   Widget _categoryItem({required CategoryEntity category}) {
     return DeGestureDetector(
       onTap: () {
-        // todo 이슈 상세 화면전환
+        Get.toNamed(GetRouterName.issue, arguments: {
+          'issue_id': category.issueId,
+        });
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DeText(
-                category.title,
-                style: body16Sb,
-              ),
-              Gaps.v4,
-              Row(
-                children: [
-                  DeText(
-                    '생성일',
-                    style: cation12M.copyWith(color: grey50),
-                  ),
-                  Gaps.h2,
-                  DeText(
-                    DateFormatUtil.yyyyMD(dateTime: category.createdAt),
-                    style: cation12M.copyWith(color: grey30),
-                  ),
-                  Gaps.h8,
-                  DeText(
-                    '토론주제',
-                    style: cation12M.copyWith(color: grey50),
-                  ),
-                  Gaps.h2,
-                  DeText(
-                    category.countChatRoom.toString(),
-                    style: cation12M.copyWith(color: grey30),
-                  ),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DeText(
+                  category.title,
+                  style: body16Sb,
+                ),
+                Gaps.v4,
+                Row(
+                  children: [
+                    DeText(
+                      '생성일',
+                      style: cation12M.copyWith(color: grey50),
+                    ),
+                    Gaps.h2,
+                    DeText(
+                      DateFormatUtil.yyyyMD(dateTime: category.createdAt),
+                      style: cation12M.copyWith(color: grey30),
+                    ),
+                    Gaps.h8,
+                    DeText(
+                      '토론주제',
+                      style: cation12M.copyWith(color: grey50),
+                    ),
+                    Gaps.h2,
+                    DeText(
+                      category.countChatRoom.toString(),
+                      style: cation12M.copyWith(color: grey30),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: Dimensions.all8,

@@ -5,14 +5,16 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
+  late ProfileViewModel _profileViewModel;
   late TextEditingController nicknameController;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
@@ -79,6 +81,7 @@ class ProfileInputViewModel extends GetxController {
 
     if (receivedData != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        _profileViewModel = Get.find<ProfileViewModel>();
         final previousProfile = Get.arguments as ProfileEntity;
         _profile.value = previousProfile;
         _previousNickname.value = _profile.value.nickname;
@@ -113,7 +116,7 @@ class ProfileInputViewModel extends GetxController {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
-        Fluttertoast.showToast(msg: '사용가능한 닉네임입니다.');
+        deSnackBar('사용가능한 닉네임입니다.');
       case 400:
         _nicknameErrorText.value = ProfileConstants.validNickname;
       case 409:
@@ -142,10 +145,13 @@ class ProfileInputViewModel extends GetxController {
         entity: _profile.value,
       );
 
-  Future<UiState<String>> patchProfile() async =>
-      await _profileRepository.patchProfile(
-        entity: _profile.value,
-      );
+  Future<UiState<String>> patchProfile() async {
+    _profileViewModel.updateProfile(profile: _profile.value);
+
+    return await _profileRepository.patchProfile(
+      entity: _profile.value,
+    );
+  }
 
   void onChangedNickname({required String nickname}) {
     if (nickname == _previousNickname.value) {
