@@ -1,16 +1,20 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation//view_model/issue_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
 
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
@@ -66,7 +70,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           ),
           Gaps.v12,
           DeText(
-            '300개',
+            '-개',
             style: body16Sb.copyWith(color: grey10),
           ),
         ],
@@ -146,11 +150,30 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   }
 
   Widget _debateItem() {
-    return DeGestureDetector(
-      onTap: () {
-        // todo 토론방 상세화면으로 이동
-      },
-      child: IssueCard(),
+    return Obx((){
+      final issue = controller.issueData;
+      final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
+
+      log.d(issue);
+      log.d(chatRooms);
+      final chatroom = chatRooms?[1];
+      final crId = chatroom?.chatRoomId;
+      log.d(crId);
+
+      if(issue == null){
+          return const Text('dddd');
+        }
+
+        return DeGestureDetector(
+          onTap: () {
+            Get.toNamed(
+              GetRouterName.debate,
+              //arguments: 'chat_room_id',
+            );
+          },
+          child: IssueCard(),
+        );
+      }
     );
   }
 }
