@@ -91,36 +91,21 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DeText(
-          '참여 커뮤니티',
-          style: title,
-        ),
-        Gaps.v16,
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal, // 가로 스크롤 설정
-          child: Row(
-            children: [
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-              comm(),
-            ],
-          ),
-        ),
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      DeText(
+        '참여 커뮤니티',
+        style: title,
+      ),
+      Gaps.v16,
+      // ListView.separated(
+      //   itemBuilder: (context, index) {
+      //     return comm();
+      //   },
+      //   separatorBuilder: (context, index) => Gaps.h8,
+      //   itemCount: 10,
+      //   scrollDirection: Axis.horizontal, // 가로 스크롤 설정
+      // ),
+    ]);
   }
 
   Widget _debateView() {
