@@ -46,7 +46,7 @@ class SplashScreenState extends State<SplashScreen> {
     final String accessToken = await storage.getAccessToken();
     final bool profileStatus = pref.getProfileStatus();
 
-    log.d('AccessToken : Bearer $accessToken\n'
+    log.d('AccessToken : $accessToken\n'
         'ProfileStatus : $profileStatus');
 
     if (accessToken.isNotEmpty) {
