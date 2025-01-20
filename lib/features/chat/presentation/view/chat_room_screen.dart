@@ -2,7 +2,6 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message_list.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_room_app_bar.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
@@ -14,20 +13,6 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   @override
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
-
-    //WidgetsBinding.instance.addPostFrameCallback((_) {
-    Future.delayed(Duration(milliseconds: 50), (){
-        //get.argument로 chatid랑 title 받아오기
-      final Map<String, dynamic> arguments = Get.arguments;
-      final int chatRoomId = arguments['chatRoomId'] ?? 1;
-      final String chatRoomTitle = arguments['title'] ?? '';
-      log.d(chatRoomId);
-      log.d(chatRoomTitle);
-
-      _viewModel.setChatRoomDetails(chatRoomId, chatRoomTitle);
-      log.d(chatRoomId);
-      log.d(chatRoomTitle);
-    });
 
     return SafeArea(
       child: Scaffold(
