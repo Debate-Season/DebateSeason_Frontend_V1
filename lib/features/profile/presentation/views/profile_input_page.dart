@@ -43,7 +43,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gaps.v40,
+          Gaps.v12,
           // todo MVP 구현
           // _widgetProfileColor(),
           // Gaps.v32,
