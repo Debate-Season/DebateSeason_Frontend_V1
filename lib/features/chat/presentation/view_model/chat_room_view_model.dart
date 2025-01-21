@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:debateseason_frontend_v1/core/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_new_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_res.dart';
