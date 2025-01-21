@@ -25,9 +25,9 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       title: controller.isCreateScreen
-          ? ProfileConstants.profileCreateAppbarText
-          : ProfileConstants.profileModifyAppbarText,
-      isBack: true,
+          ? ProfileConstants.profileModifyAppbarText
+          : ProfileConstants.profileCreateAppbarText,
+      isBack: controller.isCreateScreen,
     );
   }
 
@@ -140,6 +140,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           style: body16M,
           hintText: '사용할 닉네임을 입력해주세요.',
           controller: controller.nicknameController,
+          focusNode: controller.nicknameFocusNode,
           autofocus: false,
           onChanged: (nickname) {
             if (controller.isValidNickname(nickname)) {
@@ -196,6 +197,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                       communityId: controller.profile.community.id);
                 }
                 controller.communitySearchController.clear();
+                controller.nicknameFocusNode.unfocus();
               });
             }
           },
@@ -299,7 +301,9 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                     widget: ProfileAgeBottomSheet(),
                   );
                 },
-              );
+              ).whenComplete(() {
+                controller.nicknameFocusNode.unfocus();
+              });
             }
           },
           child: DeTextField(
