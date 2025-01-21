@@ -199,32 +199,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         Gaps.v8,
         DeGestureDetector(
           onTap: () {
-            DeDialog(
-              dialogTitle: '회원 탈퇴 신청',
-              dialogText: '회원 탈퇴를 신청하면 계정이 로그아웃되고 5일 뒤 회원 정보가 완전히 삭제됩니다.\n'
-                  '삭제 전 다시 로그인하면 탈퇴를 취소할 수 있습니다.\n'
-                  '탈퇴를 신청하시겠습니까?',
-              cancelText: '탈퇴 취소',
-              doneText: '탈퇴 신청하기',
-              onTapDone: () {
-                controller.postWithdraw().then((result) {
-                  result.when(
-                    loading: () {},
-                    success: (msg) {
-                      if (Platform.isAndroid) {
-                        controller.kakaoLogout().then((_) {
-                          Get.offAllNamed(GetRouterName.auth);
-                          deSnackBar('회원탈퇴 되었습니다.');
-                        });
-                      }
-                    },
-                    failure: (msg) {
-                      deSnackBar(msg);
-                    },
-                  );
-                });
-              },
-            );
+            Get.toNamed(GetRouterName.profileWithdraw);
           },
           child: Row(
             children: [
