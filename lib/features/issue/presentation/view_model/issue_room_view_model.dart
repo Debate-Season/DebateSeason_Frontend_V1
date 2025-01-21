@@ -13,7 +13,8 @@ class IssueRoomViewModel extends GetxController {
     super.onInit();
     _issueDataSource = Get.find<IssueDataSource>();
 
-    final int issueId = (Get.arguments) ?? 1;
+    final arguments = Get.arguments as Map<String, int>;
+    final int issueId = arguments['issue_id'] ?? -1;
     log.d('issueId : $issueId');
     fetchIssueData(issueId);
   }
