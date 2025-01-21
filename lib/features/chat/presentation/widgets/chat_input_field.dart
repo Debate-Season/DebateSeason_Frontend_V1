@@ -1,5 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_msg_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_new_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,7 +14,8 @@ class ChatInputField extends StatelessWidget {
   final TextEditingController controller;
   final ChatRoomViewModel viewModel;
 
-  const ChatInputField({super.key, required this.controller, required this.viewModel});
+  const ChatInputField(
+      {super.key, required this.controller, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class ChatInputField extends StatelessWidget {
             height: 48.0,
             padding: Dimensions.all10,
             decoration: BoxDecoration(
-              color: brandColor,
+              color: (controller.text.isNotEmpty ? brandColor : grey90),
               borderRadius: BorderRadius.circular(48.0),
             ),
             child: IconButton(
@@ -74,12 +77,12 @@ class ChatInputField extends StatelessWidget {
               ),
               onPressed: () {
                 if (controller.text.isNotEmpty) {
-                  String content = controller.text;
-                  MessageRequest messageRequest = MessageRequest(
-                    sender: 'user_id',
-                    content: content,
-                  );
-                  viewModel.sendMessage(messageRequest);
+                  // String content = controller.text;
+                  // MessageRequest messageRequest = MessageRequest(
+                  //   sender: 'user_id',
+                  //   content: content,
+                  // );
+                  //viewModel.sendMessage(messageRequest);
                   controller.clear();
                 }
               },
