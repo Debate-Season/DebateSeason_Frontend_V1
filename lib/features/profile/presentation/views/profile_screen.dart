@@ -166,7 +166,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 controller.logout().then((isSuccess) {
                   if (isSuccess) {
                     Get.offAllNamed(GetRouterName.auth);
-                    Fluttertoast.showToast(msg: '로그아웃되었습니다.');
+                    deSnackBar('로그아웃되었습니다.');
                   } else {
                     deSnackBar('로그아웃에 실패했습니다.');
                   }
