@@ -16,18 +16,20 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: _appBar(),
-      body: _body(),
-    );
+    return Obx(() {
+      return DeScaffold(
+        appBar: _appBar(isModifyScreen: controller.isModifyScreen),
+        body: _body(),
+      );
+    });
   }
 
-  DeAppBar _appBar() {
+  DeAppBar _appBar({required bool isModifyScreen}) {
     return DeAppBar(
-      title: controller.isCreateScreen
+      title: isModifyScreen
           ? ProfileConstants.profileModifyAppbarText
           : ProfileConstants.profileCreateAppbarText,
-      isBack: controller.isCreateScreen,
+      isBack: isModifyScreen,
     );
   }
 
@@ -61,27 +63,27 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v40,
                 Obx(() {
                   return DeButtonLarge(
-                    controller.isCreateScreen
-                        ? ProfileConstants.profileCreateBtnText
-                        : ProfileConstants.profileModifyBtnText,
-                    onPressed: controller.isCreateScreen
-                        ? () => controller.postProfile().then((result) {
-                              result.when(loading: () {
-                                controller.setApiLoading(isApiLoading: true);
-                              }, success: (message) {
-                                controller.setApiLoading(isApiLoading: false);
-                                Get.offAllNamed(GetRouterName.home);
-                              }, failure: (msg) {
-                                controller.setApiLoading(isApiLoading: false);
-                                deSnackBar(msg);
-                              });
-                            })
-                        : () => controller.patchProfile().then((result) {
+                    controller.isModifyScreen
+                        ? ProfileConstants.profileModifyBtnText
+                        : ProfileConstants.profileCreateBtnText,
+                    onPressed: controller.isModifyScreen
+                        ? () => controller.patchProfile().then((result) {
                               result.when(loading: () {
                                 controller.setApiLoading(isApiLoading: true);
                               }, success: (message) {
                                 controller.setApiLoading(isApiLoading: false);
                                 Get.back();
+                              }, failure: (msg) {
+                                controller.setApiLoading(isApiLoading: false);
+                                deSnackBar(msg);
+                              });
+                            })
+                        : () => controller.postProfile().then((result) {
+                              result.when(loading: () {
+                                controller.setApiLoading(isApiLoading: true);
+                              }, success: (message) {
+                                controller.setApiLoading(isApiLoading: false);
+                                Get.offAllNamed(GetRouterName.home);
                               }, failure: (msg) {
                                 controller.setApiLoading(isApiLoading: false);
                                 deSnackBar(msg);

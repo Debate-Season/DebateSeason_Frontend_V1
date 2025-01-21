@@ -56,7 +56,7 @@ class ProfileInputViewModel extends GetxController {
 
   String get selectedAge => _selectedAge.value;
 
-  bool get isCreateScreen => _isModifyScreen.value;
+  bool get isModifyScreen => _isModifyScreen.value;
 
   bool get isApiLoading => _isApiLoading.value;
 
