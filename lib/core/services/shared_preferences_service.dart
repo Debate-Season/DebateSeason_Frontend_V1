@@ -14,23 +14,15 @@ class SharedPreferencesService {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> setSocialType({required String socialType}) async {
-    await _prefs.setString('social_type', socialType);
-  }
+  Future<void> setSocialType({required String socialType}) async =>
+      await _prefs.setString('social_type', socialType);
 
-  String getSocialType() {
-    return _prefs.getString('social_type') ?? '';
-  }
+  String getSocialType() => _prefs.getString('social_type') ?? '';
 
-  Future<void> setProfileStatus({required bool profileStatus}) async {
-    await _prefs.setBool('profile_status', profileStatus);
-  }
+  Future<void> setProfileStatus({required bool profileStatus}) async =>
+      await _prefs.setBool('profile_status', profileStatus);
 
-  bool getProfileStatus() {
-    return _prefs.getBool('profile_status') ?? false;
-  }
+  bool getProfileStatus() => _prefs.getBool('profile_status') ?? false;
 
-  Future<void> clear() async {
-    await _prefs.clear();
-  }
+  Future<void> clear() async => await _prefs.clear();
 }

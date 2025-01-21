@@ -17,7 +17,9 @@ abstract class ProfileDataSource {
   });
 
   @PATCH('/api/v1/profiles')
-  Future<NullableBaseRes> patchProfiles();
+  Future<NullableBaseRes> patchProfiles({
+    @Body() required ProfileReq body,
+  });
 
   @GET('/api/v1/profiles/me')
   Future<BaseRes<ProfileRes>> getProfilesMe();
