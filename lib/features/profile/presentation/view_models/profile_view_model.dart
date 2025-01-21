@@ -33,17 +33,8 @@ class ProfileViewModel extends GetxController {
     _profile.refresh();
   }
 
-  Future<bool> postLogout() async {
-    await _usersLogoutRepository.postUsersLogout();
-
-    if (Platform.isAndroid) {
-      return await kakaoLogout();
-    } else if (Platform.isIOS) {
-      // iOS는 따로 로그아웃이 필요 없음.
-      return true;
-    }
-
-    return false;
+  Future<UiState<String>> postLogout() async {
+    return await _usersLogoutRepository.postUsersLogout();
   }
 
   Future<bool> postWithdraw() async {

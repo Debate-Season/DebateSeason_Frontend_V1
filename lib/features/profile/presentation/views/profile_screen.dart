@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
@@ -164,13 +166,21 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               doneText: '로그아웃',
               cancelText: '취소',
               onTapDone: () {
-                controller.postLogout().then((isSuccess) {
-                  if (isSuccess) {
-                    Get.offAllNamed(GetRouterName.auth);
-                    deSnackBar('로그아웃되었습니다.');
-                  } else {
-                    deSnackBar('로그아웃에 실패했습니다.');
-                  }
+                controller.postLogout().then((result) {
+                  result.when(
+                    loading: () {},
+                    success: (msg) {
+                      if (Platform.isAndroid) {
+                        controller.kakaoLogout().then((_) {
+                          Get.offAllNamed(GetRouterName.auth);
+                          deSnackBar('로그아웃되었습니다.');
+                        });
+                      }
+                    },
+                    failure: (msg) {
+                      deSnackBar(msg);
+                    },
+                  );
                 });
               },
             );
