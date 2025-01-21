@@ -1,13 +1,21 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/utils/de_toast.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class IssueCard extends StatelessWidget {
-  const IssueCard({super.key});
+  final ChatRoomRes? chatroom;
+
+  const IssueCard({
+    super.key,
+    required this.chatroom,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueDate() {
     return DeText(
-      'YYYY.m.dd',
+      chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
       style: cation12M.copyWith(color: grey50),
     );
   }
@@ -42,12 +50,12 @@ class IssueCard extends StatelessWidget {
   Widget _issueTitle() {
     return DeGestureDetector(
       onTap: () {
-        DeToast.showToast(
-          msg: '아무거나',
-        );
+        Get.toNamed(GetRouterName.debate, arguments: {
+          'chatroom_id': chatroom?.chatRoomId,
+        });
       },
       child: DeText(
-        '우주 광물 채굴에 대한 정부 규제는 올바른가요?우주 광물 채굴에 대한 정부 규제는 올바른가요?',
+        chatroom!.title,
         style: body16Sb.copyWith(
           color: Color(0xFFF3F0F4),
         ),
@@ -58,7 +66,8 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueRecent() {
     return DeText(
-      '3분 전 대화',
+      //'3분 전 대화', todo: 대화 시간 표시
+      '최근',
       style: cation12M.copyWith(color: brandColor),
     );
   }
@@ -82,6 +91,19 @@ class IssueCard extends StatelessWidget {
   Widget _widgetBtn(String data) {
     final widgetColor = data == '찬성' ? red : blue;
 
+    int agree = chatroom?.agree ?? 0;
+    int disagree = chatroom?.disagree ?? 0;
+    int total = agree + disagree;
+    double agreeRatio = agree / total;
+    double disagreeRatio = disagree / total;
+
+    if (total == 0) {
+      agreeRatio = 0;
+      disagreeRatio = 0;
+    }
+    String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
+    String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 18,
@@ -102,11 +124,11 @@ class IssueCard extends StatelessWidget {
             style: cation12SB,
           ),
           DeText(
-            '50%',
+            data == '찬성' ? agreeRatioText : disagreeRatioText,
             style: header,
           ),
           DeText(
-            '4,321표',
+            data == '찬성' ? '$agree표' : '$disagree표',
             style: cation12M,
           ),
         ],

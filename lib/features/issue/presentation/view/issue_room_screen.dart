@@ -127,38 +127,34 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   Widget _debateList() {
     return ListView.separated(
       itemBuilder: (context, index) {
-        return _debateItem();
+        return _debateItem(index);
       },
       separatorBuilder: (context, index) => Gaps.v12,
       itemCount: 10,
     );
   }
 
-  Widget _debateItem() {
-    return Obx((){
+  Widget _debateItem(int index) {
+    return Obx(() {
       final issue = controller.issueData;
       final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
 
-      log.d(issue);
-      log.d(chatRooms);
-      final chatroom = chatRooms?[1];
-      final crId = chatroom?.chatRoomId;
-      log.d(crId);
+      final chatroom = chatRooms?[index];
+      log.d(chatroom.runtimeType);
 
-      if(issue == null){
-          return const Text('dddd');
-        }
-
-        return DeGestureDetector(
-          onTap: () {
-            Get.toNamed(
-              GetRouterName.debate,
-              //arguments: 'chat_room_id',
-            );
-          },
-          child: IssueCard(),
-        );
+      if (chatRooms == null) {
+        return const Text('채팅방이 개설되지 않았습니다.');
       }
-    );
+
+      return DeGestureDetector(
+        onTap: () {
+          Get.toNamed(
+            GetRouterName.debate,
+            //arguments: 'chat_room_id',
+          );
+        },
+        child: IssueCard(chatroom: chatroom),
+      );
+    });
   }
 }
