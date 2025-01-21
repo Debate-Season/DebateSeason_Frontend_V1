@@ -7,14 +7,16 @@ import 'package:flutter/material.dart';
 
 class DeButtonSmall extends StatelessWidget {
   final String text;
-  final void Function() onPressed;
+  final Color? textColor;
   final Color? backgroundColor;
+  final void Function() onPressed;
 
   const DeButtonSmall(
     this.text, {
     super.key,
-    required this.onPressed,
+    this.textColor,
     this.backgroundColor,
+    required this.onPressed,
   });
 
   @override
@@ -36,7 +38,7 @@ class DeButtonSmall extends StatelessWidget {
         ),
         child: DeText(
           text,
-          style: body14M,
+          style: body14M.copyWith(color: textColor ?? grey10),
           textAlign: TextAlign.center,
         ),
       ),
