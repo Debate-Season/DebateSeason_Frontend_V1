@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_new_res.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_res.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 class ChatRoomViewModel extends GetxController {
@@ -89,13 +87,13 @@ class ChatRoomViewModel extends GetxController {
       MsgNewRes(
         date: messageRequest.date,
         chatMsgRes: [
-          id: messageRequest.id, // todo 메시지 ID 이거 왜 에러나지
-          messageType: messageRequest.messageType,
-          sender: messageRequest.sender,
-          content: messageRequest.content,
-          opinionType: messageRequest.opinionType,
-          userCommunity: messageRequest.userCommunity,
-          timeStamp: messageRequest.DateTime.timestamp(),
+          // id: messageRequest.id, // todo 메시지 ID 이거 왜 에러나지
+          // messageType: messageRequest.messageType,
+          // sender: messageRequest.sender,
+          // content: messageRequest.content,
+          // opinionType: messageRequest.opinionType,
+          // userCommunity: messageRequest.userCommunity,
+          // timeStamp: messageRequest.DateTime.timestamp(),
         ],
       ),
     );
