@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/repositories/re
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/users_withdraw_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
@@ -41,6 +42,7 @@ class ProfileViewModel extends GetxController {
 
   Future<bool> kakaoLogout() async {
     try {
+      _kakaoSdkInit();
       await UserApi.instance.unlink();
       log.d('카카오톡 로그아웃 성공');
       return true;
@@ -52,5 +54,12 @@ class ProfileViewModel extends GetxController {
 
   void updateProfile({required ProfileEntity profile}) {
     _profile.value = UiState.success(profile);
+  }
+
+  void _kakaoSdkInit() {
+    KakaoSdk.init(
+      nativeAppKey: dotenv.get('KAKAO_APP_KEY'),
+      loggingEnabled: true,
+    );
   }
 }
