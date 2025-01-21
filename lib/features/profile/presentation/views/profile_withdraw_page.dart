@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
@@ -41,45 +42,45 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
         children: [
           Gaps.v12,
           DeText(
-            '탈퇴 정책 안내',
+            ProfileConstants.profileWithdrawPolicyTitle,
             style: header,
           ),
           Gaps.v8,
           DeText(
-            '탈퇴 정책 안내',
+            ProfileConstants.profileWithdrawPolicyDescription,
             style: cation12M.copyWith(color: grey30),
           ),
           Gaps.v20,
           DeText(
-            '절차',
+            ProfileConstants.profileWithdrawProcedureTitle,
             style: header,
           ),
           Gaps.v8,
           DeText(
-            '회원 탈퇴를 신청하면 계정이 로그아웃되고 5일 뒤 탈퇴가 진행됩니다. 삭제 전 다시 로그인하면 탈퇴를 취소할 수 있습니다.',
+            ProfileConstants.profileWithdrawProcedureDescription,
             style: body14M.copyWith(color: grey30),
           ),
           DeText(
-            '탈퇴가 완료될 경우, 해당 아이는 복구가 불가능합니다.',
+            ProfileConstants.profileWithdrawWarning,
             style: body14M.copyWith(color: red),
           ),
           Gaps.v20,
           DeText(
-            '삭제되는 정보',
+            ProfileConstants.profileWithdrawDeletedInfoTitle,
             style: header,
           ),
           Gaps.v8,
           Text.rich(
             TextSpan(
-              text: '탈퇴가 완료되면 ',
+              text: ProfileConstants.profileWithdrawDeletedInfoDescription1,
               style: body14M.copyWith(color: grey30),
               children: [
                 TextSpan(
-                  text: '고유아이디, 닉네임, 성별 정보',
+                  text: ProfileConstants.profileWithdrawDeletedInfoDescription2,
                   style: body14M.copyWith(color: brandColor),
                 ),
                 TextSpan(
-                  text: '가 삭제됩니다. 내가 선택한 진영과 작성한 대화는 삭제되지 않습니다.',
+                  text: ProfileConstants.profileWithdrawDeletedInfoDescription3,
                   style: body14M.copyWith(color: grey30),
                 ),
               ],
@@ -89,12 +90,10 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           DeGestureDetector(
             onTap: () {
               DeDialog(
-                dialogTitle: '회원 탈퇴 신청',
-                dialogText: '회원 탈퇴를 신청하면 계정이 로그아웃되고 5일 뒤 회원 정보가 완전히 삭제됩니다.\n'
-                    '삭제 전 다시 로그인하면 탈퇴를 취소할 수 있습니다.\n'
-                    '탈퇴를 신청하시겠습니까?',
-                cancelText: '탈퇴 취소',
-                doneText: '탈퇴 신청하기',
+                dialogTitle: ProfileConstants.profileWithdrawDialogTitle,
+                dialogText: ProfileConstants.profileWithdrawDialogDescription,
+                cancelText: ProfileConstants.profileWithdrawDialogCancelText,
+                doneText: ProfileConstants.profileWithdrawDoneText,
                 onTapDone: () {
                   controller.postWithdraw().then((result) {
                     result.when(
@@ -103,7 +102,8 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                         if (Platform.isAndroid) {
                           controller.kakaoLogout().then((_) {
                             Get.offAllNamed(GetRouterName.auth);
-                            deSnackBar('회원탈퇴 되었습니다.');
+                            deSnackBar(
+                                ProfileConstants.profileWithdrawSuccessMessage);
                           });
                         }
                       },
@@ -124,7 +124,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               ),
               child: Center(
                   child: DeText(
-                '탈퇴 신청하기',
+                ProfileConstants.profileWithdrawDoneText,
                 style: body16M,
               )),
             ),
