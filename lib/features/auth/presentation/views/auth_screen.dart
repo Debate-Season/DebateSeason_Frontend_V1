@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                         }
                       },
                       failure: (msg) {
-                        Get.snackbar('로그인 실패', msg);
+                        deSnackBar('로그인실패 : $msg');
                       },
                     );
                   });
@@ -71,7 +72,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                         }
                       },
                       failure: (msg) {
-                        Get.snackbar('로그인 실패', msg);
+                        deSnackBar('로그인실패 : $msg');
                       },
                     );
                   });

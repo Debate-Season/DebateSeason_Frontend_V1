@@ -6,11 +6,11 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends GetView<ProfileViewModel> {
@@ -168,7 +168,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                     Get.offAllNamed(GetRouterName.auth);
                     Fluttertoast.showToast(msg: '로그아웃되었습니다.');
                   } else {
-                    Fluttertoast.showToast(msg: '로그아웃에 실패했습니다.');
+                    deSnackBar('로그아웃에 실패했습니다.');
                   }
                 });
               },

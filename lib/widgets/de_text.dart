@@ -25,6 +25,7 @@ class DeText extends StatelessWidget {
       style: style,
       textScaler: textScaler ?? TextScaler.noScaling,
       textAlign: textAlign,
+      softWrap: true,
       overflow: overflow,
       maxLines: maxLines,
     );
