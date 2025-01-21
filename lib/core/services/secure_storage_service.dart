@@ -21,7 +21,7 @@ class SecureStorageService {
   }
 
   Future<void> setRefreshToken({required String refreshToken}) async {
-    await _storage.write(key: 'refresh_token', value: 'Bearer $refreshToken');
+    await _storage.write(key: 'refresh_token', value: refreshToken);
   }
 
   Future<String> getRefreshToken() async {
