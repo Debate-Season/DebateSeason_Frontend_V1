@@ -57,4 +57,8 @@ class ProfileViewModel extends GetxController {
       return false;
     }
   }
+
+  void updateProfile({required ProfileEntity profile}) {
+    _profile.value = UiState.success(profile);
+  }
 }
