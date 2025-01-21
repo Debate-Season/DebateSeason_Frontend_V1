@@ -12,13 +12,13 @@ class UsersLogoutRepositoryImpl implements UsersLogoutRepository {
   @override
   Future<String> postUsersLogout() async {
     final storage = SecureStorageService();
-    final pref = SharedPreferencesService();
     final refreshToken = await storage.getRefreshToken();
 
     final response = await dataSource.postUsersLogout(
       body: UsersLogoutReq(refreshToken: refreshToken),
     );
 
+    final pref = SharedPreferencesService();
     switch (response.status) {
       case 200:
         await Future.wait([
