@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +45,9 @@ class SplashScreenState extends State<SplashScreen> {
 
     final String accessToken = await storage.getAccessToken();
     final bool profileStatus = pref.getProfileStatus();
+
+    log.d('AccessToken : $accessToken\n'
+        'ProfileStatus : $profileStatus');
 
     if (accessToken.isNotEmpty) {
       if (profileStatus) {
