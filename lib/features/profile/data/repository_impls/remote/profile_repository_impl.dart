@@ -18,6 +18,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       case 200:
         final pref = SharedPreferencesService();
         pref.setProfileStatus(profileStatus: true);
+
         return UiState.success(
           ProfileMapper.toEntity(res: response.data),
         );
@@ -40,6 +41,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200 || 201:
+        final pref = SharedPreferencesService();
+        pref.setProfileStatus(profileStatus: true);
+
         return (UiState.success(response.message));
       default:
         if (response.message.isEmpty) {

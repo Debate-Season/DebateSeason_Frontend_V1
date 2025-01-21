@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
@@ -160,15 +162,25 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGestureDetector(
           onTap: () {
             DeDialog(
-              '로그아웃 하시겠습니까?',
+              dialogTitle: '로그아웃 하시겠습니까?',
               doneText: '로그아웃',
+              cancelText: '취소',
               onTapDone: () {
-                controller.logout().then((isSuccess) {
-                  if (isSuccess) {
-                    Get.offAllNamed(GetRouterName.auth);
-                  } else {
-                    deSnackBar('로그아웃에 실패했습니다.');
-                  }
+                controller.postLogout().then((result) {
+                  result.when(
+                    loading: () {},
+                    success: (msg) {
+                      if (Platform.isAndroid) {
+                        controller.kakaoLogout().then((_) {
+                          Get.offAllNamed(GetRouterName.auth);
+                          deSnackBar('로그아웃되었습니다.');
+                        });
+                      }
+                    },
+                    failure: (msg) {
+                      deSnackBar(msg);
+                    },
+                  );
                 });
               },
             );
@@ -183,7 +195,23 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
             ],
           ),
-        )
+        ),
+        Gaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            Get.toNamed(GetRouterName.profileWithdraw);
+          },
+          child: Row(
+            children: [
+              DeText(
+                '회원탈퇴',
+                style: body14M.copyWith(color: grey50),
+              ),
+              Gaps.h4,
+              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+            ],
+          ),
+        ),
       ],
     );
   }
