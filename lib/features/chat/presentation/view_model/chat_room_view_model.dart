@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:debateseason_frontend_v1/core/web_socket/stomp_service.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_new_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/msg_res.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
@@ -10,8 +11,8 @@ import 'package:get/get.dart';
 class ChatRoomViewModel extends GetxController {
   final StompService _stompService = StompService();
 
-  var receivedMessages = <MsgRes>[].obs;
-  var sentMessages = <MessageRequest>[].obs;
+  var receivedMessages = <MsgNewRes>[].obs;
+  var sentMessages = <MsgNewRes>[].obs;
 
   var chatRoomId = (-1).obs;
   var chatRoomTitle = ''.obs;
@@ -33,19 +34,17 @@ class ChatRoomViewModel extends GetxController {
       log.d('에러: $e');
     }
 
-    log.d('1. init');
     _addDummyMessages();
-    log.d('1-1. 더미데이터 호출');
     log.d(receivedMessages);
 
     _stompService.connect(
       dotenv.get("WEB_SOCKET_BASE_URL"),
-      (frame) {
+          (frame) {
         log.d('2. chat server 연결!: ${frame.headers}, ${frame.body}');
-        _stompService.subscribe('/topic/room1', (msg) {
+        _stompService.subscribe('/topic/room$chatRoomId', (msg) {
           log.d('3. 서버에서 받은 메세지: $msg');
           try {
-            MsgRes msgRes = MsgRes.fromJson(jsonDecode(msg));
+            MsgNewRes msgRes = MsgNewRes.fromJson(jsonDecode(msg));
             receivedMessages.add(msgRes);
             log.d('4. 구독 연결~');
           } catch (e) {
@@ -53,60 +52,51 @@ class ChatRoomViewModel extends GetxController {
           }
         });
       },
-      (error) => log.d('2. chat server 에러: $error'),
+          (error) => log.d('2. chat server 에러: $error'),
     );
   }
 
-  // 메세지 리스트 출력을 위한 더미 데이터
-  // void _addDummyMessages() {
-  //   receivedMessages.addAll([
-  //     MessageResponse(sender: '지니어스', content: '안녕!', category: '찬성'),
-  //     MessageResponse(sender: '도도', content: '하이!', category: '반대'),
-  //     MessageResponse(sender: '지니어스', content: '아아아아안녕', category: '찬성'),
-  //     MessageResponse(sender: '도도', content: 'ㅎㅎㅎㅎㅎㅎㅎ!', category: '반대'),
-  //   ]);
-  // }
   void _addDummyMessages() {
-    receivedMessages.addAll([
-      MsgRes(
-        roomId: 1,
-        type: 'message',
-        content: '안녕!',
-        sender: '지니어스',
-        opinionType: '찬성',
-        userCommunity: 'user',
-        timeStamp: '2025-01-19T12:00:00Z',
-      ),
-      MsgRes(
-        roomId: 1,
-        type: 'message',
-        content: '하이!',
-        sender: '도도',
-        opinionType: '반대',
-        userCommunity: 'guest',
-        timeStamp: '2025-01-19T12:01:00Z',
-      ),
-    ]);
+    // receivedMessages.add(
+    //   MsgNewRes(
+    //     date: '2025-01-19',
+    //     chatMsgRes: [
+    //       id: 1, // todo 메시지 ID 이거 왜 에러나지
+    //       messageType: "CHAT",
+    //       sender: "홍길동",
+    //       content: "안녕하세요, 토론에 참여하게 되어 반갑습니다.",
+    //       opinionType: "AGREE",
+    //       userCommunity: "에펨코리아",
+    //       timeStamp: [
+    //         2025,
+    //         1,
+    //         19,
+    //         17,
+    //         43,
+    //         0,
+    //         893435000
+    //       ]
+    //     ],
+    //   ),
+    // );
   }
 
-  void sendMessage(MessageRequest messageRequest) {
+  void sendMessage(MsgNewRes messageRequest) {
     String message = jsonEncode(messageRequest.toJson());
-    _stompService.sendMessage('/stomp/chat.room.1', message);
+    _stompService.sendMessage('/stomp/chat.room.$chatRoomId', message);
     sentMessages.add(messageRequest);
     receivedMessages.add(
-      // MessageResponse(
-      //   sender: messageRequest.sender,
-      //   content: messageRequest.content,
-      //   category: '찬성', //나중에 수정
-      // ),
-      MsgRes(
-        roomId: 1,
-        type: 'chat',
-        content: messageRequest.content,
-        sender: messageRequest.sender,
-        opinionType: '반대',
-        userCommunity: 'user',
-        timeStamp: DateTime.now().toIso8601String(), //시간포맷 물어보기
+      MsgNewRes(
+        date: messageRequest.date,
+        chatMsgRes: [
+          id: messageRequest.id, // todo 메시지 ID 이거 왜 에러나지
+          messageType: messageRequest.messageType,
+          sender: messageRequest.sender,
+          content: messageRequest.content,
+          opinionType: messageRequest.opinionType,
+          userCommunity: messageRequest.userCommunity,
+          timeStamp: messageRequest.DateTime.timestamp(),
+        ],
       ),
     );
   }
