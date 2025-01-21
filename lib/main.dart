@@ -18,10 +18,7 @@ void main() async {
   await prefsService.init();
   await dotenv.load(fileName: '.env');
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: grey110,
-    statusBarIconBrightness: Brightness.light,
-  ));
+  _initUiSettings();
 
   runApp(const MyApp());
 }
@@ -36,6 +33,30 @@ class MyApp extends StatelessWidget {
       initialBinding: AuthBinding(),
       initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
+      builder: (context, widget) {
+        // 시스템 폰트 영향 제거
+        return MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(1.0)),
+          child: widget!,
+        );
+      },
     );
   }
+}
+
+void _initUiSettings() {
+  // 시스템 상태바 색상 변경
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: grey110,
+    statusBarIconBrightness: Brightness.light,
+  ));
+
+  // 세로 방향 고정
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(MyApp());
+  });
 }
