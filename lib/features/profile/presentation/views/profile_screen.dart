@@ -160,10 +160,11 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGestureDetector(
           onTap: () {
             DeDialog(
-              '로그아웃 하시겠습니까?',
+              dialogTitle: '로그아웃 하시겠습니까?',
               doneText: '로그아웃',
+              cancelText: '취소',
               onTapDone: () {
-                controller.logout().then((isSuccess) {
+                controller.postLogout().then((isSuccess) {
                   if (isSuccess) {
                     Get.offAllNamed(GetRouterName.auth);
                     deSnackBar('로그아웃되었습니다.');
@@ -184,7 +185,40 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
             ],
           ),
-        )
+        ),
+        Gaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            DeDialog(
+              dialogTitle: '회원 탈퇴 신청',
+              dialogText: '회원 탈퇴를 신청하면 계정이 로그아웃되고 5일 뒤 회원 정보가 완전히 삭제됩니다.\n'
+                  '삭제 전 다시 로그인하면 탈퇴를 취소할 수 있습니다.\n'
+                  '탈퇴를 신청하시겠습니까?',
+              cancelText: '탈퇴 취소',
+              doneText: '탈퇴 신청하기',
+              onTapDone: () {
+                controller.postWithdraw().then((isSuccess) {
+                  if (isSuccess) {
+                    Get.offAllNamed(GetRouterName.auth);
+                    deSnackBar('회원탈퇴되었습니다.');
+                  } else {
+                    deSnackBar('회원탈퇴에 실패했습니다.');
+                  }
+                });
+              },
+            );
+          },
+          child: Row(
+            children: [
+              DeText(
+                '회원탈퇴',
+                style: body14M.copyWith(color: grey50),
+              ),
+              Gaps.h4,
+              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+            ],
+          ),
+        ),
       ],
     );
   }
