@@ -19,9 +19,10 @@ class UsersLogoutRepositoryImpl implements UsersLogoutRepository {
       body: UsersLogoutReq(refreshToken: refreshToken),
     );
 
-    final pref = SharedPreferencesService();
     switch (response.status) {
       case 200:
+        final pref = SharedPreferencesService();
+
         await Future.wait([
           storage.clear(),
           pref.clear(),

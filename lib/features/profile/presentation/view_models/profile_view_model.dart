@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/users_logout_repository.dart';
@@ -37,17 +35,8 @@ class ProfileViewModel extends GetxController {
     return await _usersLogoutRepository.postUsersLogout();
   }
 
-  Future<bool> postWithdraw() async {
-    await _usersWithdrawRepository.postUsersWithdraw();
-
-    if (Platform.isAndroid) {
-      return await kakaoLogout();
-    } else if (Platform.isIOS) {
-      // iOS는 따로 로그아웃/회원탈퇴가 필요 없음.
-      return true;
-    }
-
-    return false;
+  Future<UiState<String>> postWithdraw() async {
+    return await _usersWithdrawRepository.postUsersWithdraw();
   }
 
   Future<bool> kakaoLogout() async {

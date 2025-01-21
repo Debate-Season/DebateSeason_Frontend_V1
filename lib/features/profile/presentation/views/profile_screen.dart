@@ -207,13 +207,21 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               cancelText: '탈퇴 취소',
               doneText: '탈퇴 신청하기',
               onTapDone: () {
-                controller.postWithdraw().then((isSuccess) {
-                  if (isSuccess) {
-                    Get.offAllNamed(GetRouterName.auth);
-                    deSnackBar('회원탈퇴되었습니다.');
-                  } else {
-                    deSnackBar('회원탈퇴에 실패했습니다.');
-                  }
+                controller.postWithdraw().then((result) {
+                  result.when(
+                    loading: () {},
+                    success: (msg) {
+                      if (Platform.isAndroid) {
+                        controller.kakaoLogout().then((_) {
+                          Get.offAllNamed(GetRouterName.auth);
+                          deSnackBar('회원탈퇴 되었습니다.');
+                        });
+                      }
+                    },
+                    failure: (msg) {
+                      deSnackBar(msg);
+                    },
+                  );
                 });
               },
             );
