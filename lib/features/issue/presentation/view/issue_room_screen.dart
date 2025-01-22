@@ -4,7 +4,6 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/cupertino.dart';
@@ -146,7 +145,6 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       // final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
       final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
       final chatroom = chatRooms?[index];
-      log.d(chatroom.runtimeType);
 
       if (chatRooms == null) {
         return const Text('채팅방이 개설되지 않았습니다.');
@@ -156,7 +154,9 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         onTap: () {
           Get.toNamed(
             GetRouterName.debate,
-            //arguments: 'chat_room_id',
+            arguments: {
+              'chatroom_id': chatroom?.chatRoomId,
+            },
           );
         },
         child: IssueCard(chatroom: chatroom),
