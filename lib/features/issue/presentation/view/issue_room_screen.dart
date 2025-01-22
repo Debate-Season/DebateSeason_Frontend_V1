@@ -125,20 +125,26 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   }
 
   Widget _debateList() {
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        return _debateItem(index);
-      },
-      separatorBuilder: (context, index) => Gaps.v12,
-      itemCount: 10,
-    );
+    return Obx(() {
+      final issue = controller.issueData;
+      final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
+      final int len = chatRooms?.length ?? 0;
+
+      return ListView.separated(
+        itemBuilder: (context, index) {
+          return _debateItem(index);
+        },
+        separatorBuilder: (context, index) => Gaps.v12,
+        itemCount: len,
+      );
+    });
   }
 
   Widget _debateItem(int index) {
     return Obx(() {
-      final issue = controller.issueData;
-      final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
-
+      // final issue = controller.issueData;
+      // final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
+      final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
       final chatroom = chatRooms?[index];
       log.d(chatroom.runtimeType);
 
