@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chat_message_entity.freezed.dart';
-
 part 'chat_message_entity.g.dart';
 
 @freezed
@@ -13,6 +12,7 @@ class ChatMessageEntity with _$ChatMessageEntity {
     required String sender,
     required String opinionType,
     required String userCommunity,
+    required DateTime timeStamp,
   }) = _ChatMessageEntity;
 
   factory ChatMessageEntity.fromJson(Map<String, dynamic> json) =>

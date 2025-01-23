@@ -25,6 +25,7 @@ mixin _$ChatMessageEntity {
   String get sender => throw _privateConstructorUsedError;
   String get opinionType => throw _privateConstructorUsedError;
   String get userCommunity => throw _privateConstructorUsedError;
+  DateTime get timeStamp => throw _privateConstructorUsedError;
 
   /// Serializes this ChatMessageEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $ChatMessageEntityCopyWith<$Res> {
       String content,
       String sender,
       String opinionType,
-      String userCommunity});
+      String userCommunity,
+      DateTime timeStamp});
 }
 
 /// @nodoc
@@ -70,6 +72,7 @@ class _$ChatMessageEntityCopyWithImpl<$Res, $Val extends ChatMessageEntity>
     Object? sender = null,
     Object? opinionType = null,
     Object? userCommunity = null,
+    Object? timeStamp = null,
   }) {
     return _then(_value.copyWith(
       messageType: null == messageType
@@ -92,6 +95,10 @@ class _$ChatMessageEntityCopyWithImpl<$Res, $Val extends ChatMessageEntity>
           ? _value.userCommunity
           : userCommunity // ignore: cast_nullable_to_non_nullable
               as String,
+      timeStamp: null == timeStamp
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -109,7 +116,8 @@ abstract class _$$ChatMessageEntityImplCopyWith<$Res>
       String content,
       String sender,
       String opinionType,
-      String userCommunity});
+      String userCommunity,
+      DateTime timeStamp});
 }
 
 /// @nodoc
@@ -130,6 +138,7 @@ class __$$ChatMessageEntityImplCopyWithImpl<$Res>
     Object? sender = null,
     Object? opinionType = null,
     Object? userCommunity = null,
+    Object? timeStamp = null,
   }) {
     return _then(_$ChatMessageEntityImpl(
       messageType: null == messageType
@@ -152,6 +161,10 @@ class __$$ChatMessageEntityImplCopyWithImpl<$Res>
           ? _value.userCommunity
           : userCommunity // ignore: cast_nullable_to_non_nullable
               as String,
+      timeStamp: null == timeStamp
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$ChatMessageEntityImpl implements _ChatMessageEntity {
       required this.content,
       required this.sender,
       required this.opinionType,
-      required this.userCommunity});
+      required this.userCommunity,
+      required this.timeStamp});
 
   factory _$ChatMessageEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatMessageEntityImplFromJson(json);
@@ -180,10 +194,12 @@ class _$ChatMessageEntityImpl implements _ChatMessageEntity {
   final String opinionType;
   @override
   final String userCommunity;
+  @override
+  final DateTime timeStamp;
 
   @override
   String toString() {
-    return 'ChatMessageEntity(messageType: $messageType, content: $content, sender: $sender, opinionType: $opinionType, userCommunity: $userCommunity)';
+    return 'ChatMessageEntity(messageType: $messageType, content: $content, sender: $sender, opinionType: $opinionType, userCommunity: $userCommunity, timeStamp: $timeStamp)';
   }
 
   @override
@@ -198,13 +214,15 @@ class _$ChatMessageEntityImpl implements _ChatMessageEntity {
             (identical(other.opinionType, opinionType) ||
                 other.opinionType == opinionType) &&
             (identical(other.userCommunity, userCommunity) ||
-                other.userCommunity == userCommunity));
+                other.userCommunity == userCommunity) &&
+            (identical(other.timeStamp, timeStamp) ||
+                other.timeStamp == timeStamp));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, messageType, content, sender, opinionType, userCommunity);
+  int get hashCode => Object.hash(runtimeType, messageType, content, sender,
+      opinionType, userCommunity, timeStamp);
 
   /// Create a copy of ChatMessageEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -229,7 +247,8 @@ abstract class _ChatMessageEntity implements ChatMessageEntity {
       required final String content,
       required final String sender,
       required final String opinionType,
-      required final String userCommunity}) = _$ChatMessageEntityImpl;
+      required final String userCommunity,
+      required final DateTime timeStamp}) = _$ChatMessageEntityImpl;
 
   factory _ChatMessageEntity.fromJson(Map<String, dynamic> json) =
       _$ChatMessageEntityImpl.fromJson;
@@ -244,6 +263,8 @@ abstract class _ChatMessageEntity implements ChatMessageEntity {
   String get opinionType;
   @override
   String get userCommunity;
+  @override
+  DateTime get timeStamp;
 
   /// Create a copy of ChatMessageEntity
   /// with the given fields replaced by the non-null parameter values.

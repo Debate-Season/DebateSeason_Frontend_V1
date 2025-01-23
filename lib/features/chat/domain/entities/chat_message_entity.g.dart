@@ -14,6 +14,7 @@ _$ChatMessageEntityImpl _$$ChatMessageEntityImplFromJson(
       sender: json['sender'] as String,
       opinionType: json['opinion_type'] as String,
       userCommunity: json['user_community'] as String,
+      timeStamp: DateTime.parse(json['time_stamp'] as String),
     );
 
 Map<String, dynamic> _$$ChatMessageEntityImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$ChatMessageEntityImplToJson(
       'sender': instance.sender,
       'opinion_type': instance.opinionType,
       'user_community': instance.userCommunity,
+      'time_stamp': instance.timeStamp.toIso8601String(),
     };
