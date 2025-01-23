@@ -19,6 +19,11 @@ class StompService {
   Stream<ChatMessageEntity> get chatStream => _chatStream.stream;
 
   void connectStomp({required int chatRoomId}) {
+    if (stompClient.isActive) {
+      log.d("STOMP 클라이언트가 이미 활성화되어 있습니다.");
+      return;
+    }
+
     stompClient = StompClient(
       config: StompConfig(
         url: dotenv.get("WEB_SOCKET_BASE_URL"),
@@ -83,6 +88,7 @@ class StompService {
   void disconnect() {
     try {
       stompClient.deactivate();
+      _chatStream.close();
     } catch (e, stack) {
       log.d('$e \n $stack');
     }
