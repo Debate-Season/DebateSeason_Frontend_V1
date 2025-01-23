@@ -42,7 +42,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
     switch (response.status) {
       case 200 || 201:
         final pref = SharedPreferencesService();
-        pref.setProfileStatus(profileStatus: true);
+        await Future.wait([
+          pref.setProfileStatus(profileStatus: true),
+          pref.setNickname(nickname: entity.nickname),
+          pref.setCommunity(community: entity.community.name),
+        ]);
 
         return (UiState.success(response.message));
       default:
@@ -62,6 +66,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200:
+        final pref = SharedPreferencesService();
+        await Future.wait([
+          pref.setNickname(nickname: entity.nickname),
+          pref.setCommunity(community: entity.community.name),
+        ]);
+
         return UiState.success(
           response.message,
         );
