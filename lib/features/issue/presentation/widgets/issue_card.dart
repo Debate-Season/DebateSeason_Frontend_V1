@@ -7,7 +7,6 @@ import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class IssueCard extends StatelessWidget {
   final ChatRoomRes? chatroom;
