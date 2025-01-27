@@ -66,8 +66,7 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueRecent() {
     return DeText(
-      //'3분 전 대화', todo: 대화 시간 표시
-      '최근',
+      '최근', //'3분 전 대화', todo: 대화 시간 표시
       style: cation12M.copyWith(color: brandColor),
     );
   }
@@ -105,6 +104,7 @@ class IssueCard extends StatelessWidget {
     String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
 
     return Container(
+      width: 80,
       padding: EdgeInsets.symmetric(
         horizontal: 18,
         vertical: 10,
