@@ -5,12 +5,12 @@ import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
 class DebateRoomViewModel extends GetxController {
-  late final RoomDataSource _roomDataSource;
+  late RoomDataSource _roomDataSource; // todo 여기 final 쓰면 오류 발생
   final Rx<RoomRes?> _roomData = Rx<RoomRes?>(null);
 
   RoomRes? get roomData => _roomData.value;
 
-  late final VoteDataSource _voteDataSource;
+  late VoteDataSource _voteDataSource;
   final Rx<String?> _voteData = Rx<String?>(null);
 
   String? get voteData => _voteData.value;
