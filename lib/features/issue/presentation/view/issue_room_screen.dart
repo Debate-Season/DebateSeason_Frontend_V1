@@ -78,11 +78,24 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   }
 
   Widget _joinedCommunities() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DeText(
+          '참여 커뮤니티',
+          style: title,
+        ),
+        Gaps.v16,
+        _commItem(),
+      ],
+    );
+  }
+
+  Widget _commItem() {
     Widget comm() {
       return Container(
         width: 36,
         height: 36,
-        margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
         decoration: ShapeDecoration(
           color: brandColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -90,21 +103,22 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       );
     }
 
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      DeText(
-        '참여 커뮤니티',
-        style: title,
-      ),
-      Gaps.v16,
-      // ListView.separated(
-      //   itemBuilder: (context, index) {
-      //     return comm();
-      //   },
-      //   separatorBuilder: (context, index) => Gaps.h8,
-      //   itemCount: 10,
-      //   scrollDirection: Axis.horizontal, // 가로 스크롤 설정
-      // ),
-    ]);
+    return Obx(() {
+      final communities = controller.issueData?.map.keys.toList();
+      final int len = communities?.length ?? 0;
+
+      return SizedBox(
+        height: 36,
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            return comm();
+          },
+          separatorBuilder: (context, index) => Gaps.h8,
+          itemCount: len,
+          scrollDirection: Axis.horizontal,
+        ),
+      );
+    });
   }
 
   Widget _debateView() {
@@ -141,8 +155,6 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateItem(int index) {
     return Obx(() {
-      // final issue = controller.issueData;
-      // final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
       final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
       final chatroom = chatRooms?[index];
 
