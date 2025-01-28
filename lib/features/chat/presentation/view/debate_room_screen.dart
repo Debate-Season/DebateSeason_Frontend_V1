@@ -2,7 +2,9 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
+import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -160,7 +162,24 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
       return GestureDetector(
         onTap: () => {
-          controller.postVoteData(data, room.chatRoomId),
+          if(opinion == 'none') {
+            controller.postVoteData(data, room.chatRoomId),
+            deSnackBar('내 입장을 $data(으)로 투표했습니다.'),
+          }
+          else if (opinion == data){
+          }
+          else {
+            DeDialog(
+              dialogTitle: '입장 변경',
+              dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
+              doneText: '변경하기',
+              cancelText: '유지',
+              onTapDone: () {
+                controller.postVoteData(data, room.chatRoomId);
+                deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+              }
+            )
+          }
         },
         child: Container(
           width: 120.0,
