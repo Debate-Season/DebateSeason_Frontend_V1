@@ -1,12 +1,9 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class IssueCard extends StatelessWidget {
   final ChatRoomRes? chatroom;
@@ -47,19 +44,12 @@ class IssueCard extends StatelessWidget {
   }
 
   Widget _issueTitle() {
-    return DeGestureDetector(
-      onTap: () {
-        Get.toNamed(GetRouterName.debate, arguments: {
-          'chatroom_id': chatroom?.chatRoomId,
-        });
-      },
-      child: DeText(
-        chatroom!.title,
-        style: body16Sb.copyWith(
-          color: Color(0xFFF3F0F4),
-        ),
-        textAlign: TextAlign.center,
+    return DeText(
+      chatroom!.title,
+      style: body16Sb.copyWith(
+        color: Color(0xFFF3F0F4),
       ),
+      textAlign: TextAlign.center,
     );
   }
 
