@@ -1,73 +1,98 @@
-import 'dart:convert';
-
-import 'package:debateseason_frontend_v1/core/web_socket/stomp_service.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/message_response.dart';
-
 class ChatRoomViewModel extends GetxController {
-  final StompService _stompService = StompService();
+  late StompService _stompService;
+  late SharedPreferencesService _pref;
 
-  var receivedMessages = <MessageResponse>[].obs;
-  var sentMessages = <MessageRequest>[].obs;
+  final _chatMessages = <ChatMessageEntity>[].obs;
+
+  final _chatRoomId = (-1).obs;
+  final _chatRoomTitle = ''.obs;
+
+  List<ChatMessageEntity> get chatMessages => _chatMessages;
+
+  int get chatRoomId => _chatRoomId.value;
+
+  String get chatRoomTitle => _chatRoomTitle.value;
 
   @override
   void onInit() {
     super.onInit();
-    log.d('1. init');
-    _addDummyMessages();
-    log.d('1-1. 더미데이터 호출');
-    log.d(receivedMessages);
 
-    _stompService.connect(
-      dotenv.get("WEB_SOCKET_BASE_URL"),
-      (frame) {
-        log.d('2. chat server 연결!: ${frame.headers}, ${frame.body}');
-        _stompService.subscribe('/chat.room.1', (msg) {
-          log.d('3. 서버에서 받은 메세지: $msg');
-          try {
-            MessageResponse messageResponse = MessageResponse.fromJson(jsonDecode(msg));
-            receivedMessages.add(messageResponse);
-            log.d('4. 구독 연결~');
-          } catch (e) {
-            log.d('4. 구독 실패: $e');
-          }
-        });
-      },
-      (error) => log.d('2. chat server 에러: $error'),
-    );
-  }
+    _stompService = StompService();
+    _pref = SharedPreferencesService();
 
-  // 메세지 리스트 출력을 위한 더미 데이터
-  void _addDummyMessages() {
-    receivedMessages.addAll([
-      MessageResponse(sender: '지니어스', content: '안녕!', category: '찬성'),
-      MessageResponse(sender: '도도', content: '하이!', category: '반대'),
-      MessageResponse(sender: '지니어스', content: '아아아아안녕', category: '찬성'),
-      MessageResponse(sender: '도도', content: 'ㅎㅎㅎㅎㅎㅎㅎ!', category: '반대'),
-    ]);
-  }
+    try {
+      final Map<String, dynamic> arguments = Get.arguments;
+      final int roomId = arguments['chat_room_id'] ?? -1;
+      final String roomTitle = arguments['chat_room_title'] ?? '';
+      final String opinionType = arguments['opinion_type'] ?? 'AGREE';
+      setChatRoomDetails(roomId, roomTitle);
+    } catch (e) {
+      log.d('에러: $e');
+    }
 
-  void sendMessage(MessageRequest messageRequest) {
-    // _stompService.sendMessage('/app/chat.sendMessage', message);
-    String message = jsonEncode(messageRequest.toJson());
-    _stompService.sendMessage('/topic/room1', message);
-    sentMessages.add(messageRequest);
-    receivedMessages.add(
-      MessageResponse(
-        sender: messageRequest.sender,
-        content: messageRequest.content,
-        category: '찬성', //나중에 수정
-      ),
-    );
+    _initStompConnect();
+    _subscribeMessage();
   }
 
   @override
   void onClose() {
     _stompService.disconnect();
     super.onClose();
+  }
+
+  void _initStompConnect() {
+    _stompService.connectStomp(chatRoomId: _chatRoomId.value);
+  }
+
+  void _subscribeMessage() {
+    _stompService.chatStream.listen(
+      (chatMessage) {
+        try {
+          _chatMessages.add(chatMessage);
+        } catch (e) {
+          log.d("메시지 처리 오류: $e");
+        }
+      },
+      onError: (error) {
+        log.d("Error subscribe: $error");
+      },
+      onDone: () {
+        log.d("Stream closed.");
+      },
+      cancelOnError: false,
+    );
+  }
+
+  void sendMessage({required String content}) {
+    try {
+      final chatMessage = ChatMessageEntity(
+        messageType: 'CHAT',
+        content: content,
+        sender: _pref.getNickname(),
+        opinionType: 'AGREE',
+        userCommunity: _pref.getCommunity(),
+        timeStamp: DateTime.now(),
+      );
+
+      _stompService.sendStomp(
+        chatRoomId: _chatRoomId.value,
+        chatMessage: chatMessage,
+      );
+
+      _chatMessages.add(chatMessage);
+    } catch (e) {
+      log.d("메시지 전송 중 오류 발생: $e");
+    }
+  }
+
+  void setChatRoomDetails(int roomId, String title) {
+    _chatRoomId.value = roomId;
+    _chatRoomTitle.value = title;
   }
 }

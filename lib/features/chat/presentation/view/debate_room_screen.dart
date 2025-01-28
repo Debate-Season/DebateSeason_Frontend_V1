@@ -1,7 +1,9 @@
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
+import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -9,22 +11,13 @@ import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/debate_room.dart';
 
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
-  // 디버그용 더미 데이터
-  final DebateRoom room = Get.arguments as DebateRoom? ??
-      DebateRoom(
-        title: 'AI와 인간의 미래',
-        content:
-            'AI가 인간의 삶에 미치는 영향을 논의합니다. AI가 인간의 삶에 미치는 영향을 논의합니다.AI가 인간의 삶에 미치는 영향을 논의합니다.',
-      );
-
-  //DebateRoomScreen({Key? key, required this.room}):super(key: key);
+  const DebateRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +34,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   DebateAppBar _appBar() {
-    return DebateAppBar(title: room.title);
+    return DebateAppBar(title: 'ㅁㄴㅇㄹ');
   }
 
   Widget _body() {
@@ -61,6 +54,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     );
   }
 
+  // todo api 연결 끝나면 하단 코드 위젯파일로 분리하기
+  //-----------------------------------------------------------------------------
   Widget _widgetDebateTopic() {
     return Container(
       padding: Dimensions.padding8x10,
@@ -76,95 +71,162 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             '토론주제',
             style: cation12M.copyWith(color: brandColor),
           ),
-          DeText(
-            room.title,
-            style: body14M,
-          ),
+          Obx(() {
+            final room = controller.roomData;
+            log.d(room);
+            if (room == null) {
+              return const Text('로딩중...');
+            }
+            return DeText(
+              room.title,
+              style: body14M,
+            );
+          }),
         ],
       ),
     );
   }
 
   Widget _widgetDebateDetail() {
-    return DeText(
-      room.content,
-      style: body14R,
-    );
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      return DeText(
+        room.content,
+        style: body14R,
+      );
+    });
   }
 
   Widget _widgetDebateVote() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _widgetVoteButton('찬성', '78'), //변수 가져오기
-        DeText(
-          'VS',
-          style: body14M.copyWith(color: grey50),
-        ),
-        _widgetVoteButton('반대', '22'),
-      ],
-    );
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      int agree = room.agree;
+      int disagree = room.disagree;
+      int total = agree + disagree;
+      double agreeRatio = agree / total;
+      double disagreeRatio = disagree / total;
+
+      if (total == 0) {
+        agreeRatio = 0;
+        disagreeRatio = 0;
+      }
+      String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
+      String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _widgetVoteButton('찬성', agreeRatioText),
+          DeText(
+            'VS',
+            style: body14M.copyWith(color: grey50),
+          ),
+          _widgetVoteButton('반대', disagreeRatioText),
+        ],
+      );
+    });
   }
 
   Widget _widgetVoteButton(final String data, String ratio) {
-    final widgetColor = data == '찬성' ? redDark : blueDark;
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
 
-    return GestureDetector(
-      onTap: () => {log.d('voted')},
-      child: Container(
-        width: 120.0,
-        //나중에 사이즈 다시 확인
-        height: 120.0,
-        padding: Dimensions.all16,
-        decoration: ShapeDecoration(
-          color: widgetColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+      String opinion = room.opinion;
+      int agree = room.agree;
+      int disagree = room.disagree;
+
+      var widgetColor = data == '찬성' ? redDark : blueDark;
+      if (opinion == 'agree') {
+        widgetColor = data == '찬성' ? red : blueDark;
+      } else if (opinion == 'disagree') {
+        widgetColor = data == '찬성' ? redDark : blue;
+      }
+
+      String detail = '투표하기';
+      if (opinion != 'none') {
+        detail = data == '찬성' ? '$agree표' : '$disagree표';
+      }
+
+      return GestureDetector(
+        onTap: () => {
+          controller.postVoteData(data, room.chatRoomId),
+        },
+        child: Container(
+          width: 120.0,
+          //나중에 사이즈 다시 확인
+          height: 120.0,
+          padding: Dimensions.all16,
+          decoration: ShapeDecoration(
+            color: widgetColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DeText(
+                data,
+                style: cation12SB,
+              ),
+              DeText(
+                '$ratio%',
+                style: header,
+              ),
+              DeText(
+                detail,
+                style: cation12M,
+              ),
+            ],
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DeText(
-              data,
-              style: cation12SB,
-            ),
-            DeText(
-              '$ratio%',
-              style: header,
-            ),
-            DeText(
-              '투표하기',
-              style: cation12M,
-            ),
-          ],
-        ),
-      ),
-    );
+      );
+    });
   }
 
-  // 이렇게해야 되는데 오버플로우 남. 사이즈 제한 등 정리해야할 듯
   Widget _widgetDebateChat() {
-    //   if (!Get.isRegistered<ChatRoomViewModel>()) {
-    //     Get.put(ChatRoomViewModel());
-    //   }
-    //
-    return ChatBottomSheet(
-      //widget: ChatRoomScreen(),
-      //widget: DeText('토론방 입장하기', style: body16M.copyWith(color: brandColor),),
-      // widget: DeGestureDetector(onTap: (){ Get.toNamed('/chat');}, child: DefaultTextStyle(style: body16M,
-      //     child: DeButton('토론방 입장하기', enable: true)),
-      // 위처럼 해야 텍스트박스에 노란 밑줄 지워짐
-      widget: DeButtonLarge(
-        '토론방 입장하기',
-        onPressed: () {
-          Get.toNamed('/chat');
-        },
-        enable: true,
-      ),
-    );
+    return Obx(() {
+      final room = controller.roomData;
+      log.d(room);
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      var crId = room.chatRoomId;
+      var crTitle = room.title;
+      return ChatBottomSheet(
+        // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
+        widget: DeGestureDetector(
+          onTap: () {},
+          child: DefaultTextStyle(
+            style: body16M,
+            child: DeButtonLarge(
+              '토론방 입장하기',
+              onPressed: () {
+                Get.toNamed(
+                  GetRouterName.chat,
+                  arguments: {
+                    'chat_room_id': crId,
+                    'chat_room_title': crTitle,
+                  },
+                );
+              },
+              enable: true,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }

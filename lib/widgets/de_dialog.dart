@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeDialog {
-  final String text;
+  final String dialogTitle;
+  final String dialogText;
+  final String cancelText;
   final String doneText;
   final void Function() onTapDone;
 
-  DeDialog(
-    this.text, {
+  DeDialog({
+    required this.dialogTitle,
+    this.dialogText = '',
+    required this.cancelText,
     required this.doneText,
     required this.onTapDone,
   }) {
@@ -32,27 +36,36 @@ class DeDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               DeText(
-                text,
+                dialogTitle,
                 style: title,
               ),
+              if (dialogText.isNotEmpty) ...[
+                Gaps.v8,
+                DeText(
+                  dialogText,
+                  style: body14M.copyWith(color: grey30),
+                  textAlign: TextAlign.center,
+                ),
+              ],
               Gaps.v20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
                     child: DeButtonSmall(
-                      '취소',
+                      cancelText,
                       onPressed: () {
                         Get.back();
                       },
+                      textColor: red,
                     ),
                   ),
                   Gaps.h8,
                   Expanded(
                     child: DeButtonSmall(
                       doneText,
+                      textColor: brandColor,
                       onPressed: onTapDone,
-                      backgroundColor: brandColor,
                     ),
                   ),
                 ],

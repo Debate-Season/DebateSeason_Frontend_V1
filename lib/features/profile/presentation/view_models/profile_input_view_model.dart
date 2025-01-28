@@ -8,7 +8,6 @@ import 'package:debateseason_frontend_v1/features/profile/domain/repositories/re
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
-import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +15,7 @@ import 'package:get/get.dart';
 class ProfileInputViewModel extends GetxController {
   late ProfileViewModel _profileViewModel;
   late TextEditingController nicknameController;
+  late FocusNode nicknameFocusNode;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
   late TextEditingController ageController;
@@ -38,7 +38,7 @@ class ProfileInputViewModel extends GetxController {
       Rx<UiState<List<CommunityEntity>>>(UiState.loading());
   final _selectedCommunityId = (-1).obs;
   final _selectedAge = ''.obs;
-  final _isCreateScreen = true.obs;
+  final _isModifyScreen = false.obs;
   final _isApiLoading = false.obs;
 
   ProfileEntity get profile => _profile.value;
@@ -56,7 +56,7 @@ class ProfileInputViewModel extends GetxController {
 
   String get selectedAge => _selectedAge.value;
 
-  bool get isCreateScreen => _isCreateScreen.value;
+  bool get isModifyScreen => _isModifyScreen.value;
 
   bool get isApiLoading => _isApiLoading.value;
 
@@ -65,6 +65,7 @@ class ProfileInputViewModel extends GetxController {
     super.onInit();
 
     nicknameController = TextEditingController();
+    nicknameFocusNode = FocusNode();
     communityController = TextEditingController();
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
@@ -90,7 +91,7 @@ class ProfileInputViewModel extends GetxController {
         _selectedCommunityId.value = previousProfile.community.id;
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
-        _isCreateScreen.value = false;
+        _isModifyScreen.value = true;
         _profile.refresh();
       });
     }
@@ -99,6 +100,7 @@ class ProfileInputViewModel extends GetxController {
   @override
   void dispose() {
     nicknameController.dispose();
+    nicknameFocusNode.dispose();
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
@@ -116,7 +118,6 @@ class ProfileInputViewModel extends GetxController {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
-        deSnackBar('사용가능한 닉네임입니다.');
       case 400:
         _nicknameErrorText.value = ProfileConstants.validNickname;
       case 409:

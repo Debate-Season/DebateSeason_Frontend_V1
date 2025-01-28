@@ -1,18 +1,17 @@
-import 'dart:io';
-
-import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
-import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/users_logout_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/users_withdraw_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class ProfileViewModel extends GetxController {
-  final _storage = SecureStorageService();
-  final _pref = SharedPreferencesService();
   late final ProfileRepository _profileRepository;
+  late final UsersLogoutRepository _usersLogoutRepository;
+  late final UsersWithdrawRepository _usersWithdrawRepository;
   final _profile = Rx<UiState<ProfileEntity>>(const UiState.loading());
 
   UiState<ProfileEntity> get profile => _profile.value;
@@ -22,6 +21,8 @@ class ProfileViewModel extends GetxController {
     super.onInit();
 
     _profileRepository = Get.find<ProfileRepository>();
+    _usersLogoutRepository = Get.find<UsersLogoutRepository>();
+    _usersWithdrawRepository = Get.find<UsersWithdrawRepository>();
     getProfile();
   }
 
@@ -31,24 +32,17 @@ class ProfileViewModel extends GetxController {
     _profile.refresh();
   }
 
-  Future<bool> logout() async {
-    await Future.wait([
-      _storage.clear(),
-      _pref.clear(),
-    ]);
+  Future<UiState<String>> postLogout() async {
+    return await _usersLogoutRepository.postUsersLogout();
+  }
 
-    if (Platform.isAndroid) {
-      return await kakaoLogout();
-    } else if (Platform.isIOS) {
-      // iOS는 따로 로그아웃이 필요 없음.
-      return true;
-    }
-
-    return false;
+  Future<UiState<String>> postWithdraw() async {
+    return await _usersWithdrawRepository.postUsersWithdraw();
   }
 
   Future<bool> kakaoLogout() async {
     try {
+      _kakaoSdkInit();
       await UserApi.instance.unlink();
       log.d('카카오톡 로그아웃 성공');
       return true;
@@ -60,5 +54,12 @@ class ProfileViewModel extends GetxController {
 
   void updateProfile({required ProfileEntity profile}) {
     _profile.value = UiState.success(profile);
+  }
+
+  void _kakaoSdkInit() {
+    KakaoSdk.init(
+      nativeAppKey: dotenv.get('KAKAO_APP_KEY'),
+      loggingEnabled: true,
+    );
   }
 }
