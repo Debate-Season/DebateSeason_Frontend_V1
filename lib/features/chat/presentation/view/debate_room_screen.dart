@@ -162,24 +162,26 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
       return GestureDetector(
         onTap: () => {
-          if(opinion == 'none') {
-            controller.postVoteData(data, room.chatRoomId),
-            deSnackBar('내 입장을 $data(으)로 투표했습니다.'),
-          }
-          else if (opinion == data){
-          }
-          else {
-            DeDialog(
-              dialogTitle: '입장 변경',
-              dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
-              doneText: '변경하기',
-              cancelText: '유지',
-              onTapDone: () {
-                controller.postVoteData(data, room.chatRoomId);
-                deSnackBar('내 입장을 $data(으)로 변경했습니다.');
-              }
-            )
-          }
+          if (opinion == 'none')
+            {
+              controller.postVoteData(data, room.chatRoomId),
+              deSnackBar('내 입장을 $data(으)로 투표했습니다.'),
+            }
+          else if (opinion == data)
+            {}
+          else
+            {
+              DeDialog(
+                dialogTitle: '입장 변경',
+                dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
+                doneText: '변경하기',
+                cancelText: '유지',
+                onTapDone: () {
+                  controller.postVoteData(data, room.chatRoomId);
+                  deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                },
+              )
+            }
         },
         child: Container(
           width: 120.0,
@@ -218,7 +220,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateChat() {
     return Obx(() {
       final room = controller.roomData;
-      log.d(room);
       if (room == null) {
         return const Text('로딩중...');
       }
@@ -235,7 +236,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             child: DeButtonLarge(
               '토론방 입장하기',
               onPressed: () {
-                if(opinion == 'none') {
+                if (opinion == 'none') {
                   deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
                   return;
                 }
