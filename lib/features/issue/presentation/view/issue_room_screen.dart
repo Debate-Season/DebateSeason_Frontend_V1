@@ -167,7 +167,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           Get.toNamed(
             GetRouterName.debate,
             arguments: {
-              'chatroom_id': chatroom?.chatRoomId,
+              'chatroom_id': chatroom?.chatRoomId ?? -1,
             },
           );
         },

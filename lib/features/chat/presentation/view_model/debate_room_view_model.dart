@@ -22,7 +22,9 @@ class DebateRoomViewModel extends GetxController {
     _roomDataSource = Get.find<RoomDataSource>();
     _voteDataSource = Get.find<VoteDataSource>();
 
-    final int chatroomId = (Get.arguments as int?) ?? 1;
+    final arguments = Get.arguments as Map<String, int>;
+    final int chatroomId = arguments['chatroom_id'] ?? -1;
+    log.d('chatroomId : $chatroomId');
     fetchRoomData(chatroomId);
   }
 
