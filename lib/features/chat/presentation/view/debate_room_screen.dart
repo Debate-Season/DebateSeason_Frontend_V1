@@ -147,9 +147,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int disagree = room.disagree;
 
       var widgetColor = data == '찬성' ? redDark : blueDark;
-      if (opinion == 'agree') {
+      if (opinion == '찬성') {
         widgetColor = data == '찬성' ? red : blueDark;
-      } else if (opinion == 'disagree') {
+      } else if (opinion == '반대') {
         widgetColor = data == '찬성' ? redDark : blue;
       }
 
