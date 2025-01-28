@@ -1,23 +1,42 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
+import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/request/message_request.dart';
+class ChatInputField extends StatefulWidget {
+  final ChatRoomViewModel chatRoomViewModel;
 
-class ChatInputField extends StatelessWidget {
-  final TextEditingController controller;
-  final ChatRoomViewModel viewModel;
+  const ChatInputField({
+    super.key,
+    required this.chatRoomViewModel,
+  });
 
-  const ChatInputField({super.key, required this.controller, required this.viewModel});
+  @override
+  State<ChatInputField> createState() => _ChatInputFieldState();
+}
+
+class _ChatInputFieldState extends State<ChatInputField> {
+  late TextEditingController _textController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _textController = TextEditingController();
+    _textController.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: Dimensions.all2,
+      padding: Dimensions.vertical2,
       decoration: ShapeDecoration(
         color: grey90,
         shape: RoundedRectangleBorder(
@@ -26,7 +45,6 @@ class ChatInputField extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
@@ -45,12 +63,12 @@ class ChatInputField extends StatelessWidget {
           ),
           Gaps.h12,
           Expanded(
-            child: TextField(
-              controller: controller,
+            child: DeTextField(
+              controller: _textController,
               keyboardType: TextInputType.multiline,
+              style: body14Sb.copyWith(color: grey10),
               minLines: 1,
               maxLines: 3,
-              style: body14Sb.copyWith(color: grey10),
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: '의견을 입력하세요...',
@@ -58,31 +76,28 @@ class ChatInputField extends StatelessWidget {
             ),
           ),
           Gaps.h12,
-          Container(
-            width: 48.0,
-            height: 48.0,
-            padding: Dimensions.all10,
-            decoration: BoxDecoration(
-              color: brandColor,
-              borderRadius: BorderRadius.circular(48.0),
-            ),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/ic_send_grey10.svg',
+          DeGestureDetector(
+            onTap: () {
+              if (_textController.text.isNotEmpty) {
+                widget.chatRoomViewModel.sendMessage(
+                  content: _textController.text,
+                );
+                _textController.clear();
+              }
+            },
+            child: Container(
+              padding: Dimensions.all12,
+              decoration: BoxDecoration(
+                color: _textController.text.isEmpty ? grey90 : brandColor,
+                borderRadius: BorderRadius.circular(48.0),
+              ),
+              child: SvgPicture.asset(
+                _textController.text.isEmpty
+                    ? 'assets/icons/ic_send_grey70.svg'
+                    : 'assets/icons/ic_send_grey10.svg',
                 width: 24.0,
                 height: 24.0,
               ),
-              onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  String content = controller.text;
-                  MessageRequest messageRequest = MessageRequest(
-                    sender: 'user_id',
-                    content: content,
-                  );
-                  viewModel.sendMessage(messageRequest);
-                  controller.clear();
-                }
-              },
             ),
           ),
         ],

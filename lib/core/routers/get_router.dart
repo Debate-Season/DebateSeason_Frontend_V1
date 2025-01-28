@@ -3,11 +3,11 @@ import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dar
 import 'package:debateseason_frontend_v1/features/auth/presentation/views/auth_screen.dart';
 import 'package:debateseason_frontend_v1/features/category/bindings/category_binding.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/views/category_screen.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/chat_binding.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/bindings/debate_binding.dart';
+import 'package:debateseason_frontend_v1/features/chat/bindings/chat_binding.dart';
+import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view/debate_room_screen.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation/bindings/issue_binding.dart';
+import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
