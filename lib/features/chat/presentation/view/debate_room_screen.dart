@@ -224,6 +224,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       }
       var crId = room.chatRoomId;
       var crTitle = room.title;
+      String opinion = room.opinion;
+
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
         widget: DeGestureDetector(
@@ -233,6 +235,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             child: DeButtonLarge(
               '토론방 입장하기',
               onPressed: () {
+                if(opinion == 'none') {
+                  deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
+                  return;
+                }
                 Get.toNamed(
                   GetRouterName.chat,
                   arguments: {
