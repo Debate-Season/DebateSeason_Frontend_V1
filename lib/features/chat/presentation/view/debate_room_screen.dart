@@ -9,6 +9,7 @@ import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
@@ -36,7 +37,19 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   DebateAppBar _appBar() {
-    return DebateAppBar(title: 'ㅁㄴㅇㄹ');
+    return DebateAppBar(
+      title: 'ㅁㄴㅇㄹ',
+      actions: [
+        DeGestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: Dimensions.all8,
+            child: SvgPicture.asset(''),
+          ),
+        ),
+        Gaps.h20,
+      ],
+    );
   }
 
   Widget _body() {
