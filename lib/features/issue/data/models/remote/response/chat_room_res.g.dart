@@ -13,6 +13,7 @@ ChatRoomRes _$ChatRoomResFromJson(Map<String, dynamic> json) => ChatRoomRes(
       agree: (json['agree'] as num).toInt(),
       disagree: (json['disagree'] as num).toInt(),
       createdAt: json['createdAt'] as String,
+      opinion: json['opinion'] as String,
     );
 
 Map<String, dynamic> _$ChatRoomResToJson(ChatRoomRes instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$ChatRoomResToJson(ChatRoomRes instance) =>
       'agree': instance.agree,
       'disagree': instance.disagree,
       'createdAt': instance.createdAt,
+      'opinion': instance.opinion,
     };
