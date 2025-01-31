@@ -5,6 +5,8 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/widgets/de_cached_image.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,26 +91,39 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   }
 
   Widget _commItem() {
-    Widget comm() {
-      return Container(
-        width: 36,
-        height: 36,
-        decoration: ShapeDecoration(
-          color: brandColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      );
-    }
-
     return Obx(() {
       final communities = controller.issueData?.map.keys.toList();
       final int len = communities?.length ?? 0;
+      log.d(communities);
+
+      Widget comm(imagePath) {
+        if (imagePath == null) {
+          return Container(
+            width: 36,
+            height: 36,
+            decoration: ShapeDecoration(
+              color: brandColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          );
+        }
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: DeCachedImage(
+            imagePath,
+            width: 36,
+            height: 36,
+          ),
+        );
+      }
 
       return SizedBox(
         height: 36,
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return comm();
+            return comm(communities?[index]);
           },
           separatorBuilder: (context, index) => Gaps.h8,
           itemCount: len,
