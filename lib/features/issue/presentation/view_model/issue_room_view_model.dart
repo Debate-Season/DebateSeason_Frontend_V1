@@ -8,6 +8,8 @@ class IssueRoomViewModel extends GetxController {
   final Rx<IssueRes?> _issueData = Rx<IssueRes?>(null);
   IssueRes? get issueData => _issueData.value;
 
+  var issuetitle = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -23,7 +25,7 @@ class IssueRoomViewModel extends GetxController {
     try {
       final response = await _issueDataSource.getIssue(issueId: issueId);
       _issueData.value = response.data;
-      log.d(_issueData.value);
+      issuetitle.value = response.data.title;
     } catch (e) {
       log.d(e);
     }

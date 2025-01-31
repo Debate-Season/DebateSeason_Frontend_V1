@@ -3,8 +3,8 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +18,16 @@ import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
 
+  String get issuetitle => controller.issuetitle.value;
+
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
-      appBar: _appBar(),
+      appBar: IssueAppBar(
+        title: Obx(() => Text(issuetitle, style: title)),
+        isCenter: false,
+      ),
       body: _body(),
-    );
-  }
-
-  DeAppBar _appBar() {
-    return DeAppBar(
-      title: '이슈',
-      isBack: true,
-      isCenter: false,
     );
   }
 
