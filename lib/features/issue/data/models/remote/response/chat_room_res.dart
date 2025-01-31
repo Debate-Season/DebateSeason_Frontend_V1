@@ -10,7 +10,7 @@ class ChatRoomRes {
   int agree;
   int disagree;
   String createdAt;
-  String opinion;
+  String? opinion;
 
   ChatRoomRes({
     required this.chatRoomId,
