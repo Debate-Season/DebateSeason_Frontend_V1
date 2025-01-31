@@ -38,7 +38,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   DebateAppBar _appBar() {
     return DebateAppBar(
-      title: 'ㅁㄴㅇㄹ',
+      title: '이슈명',
       actions: [
         DeGestureDetector(
           onTap: () {},
