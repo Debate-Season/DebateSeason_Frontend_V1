@@ -25,7 +25,7 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: grey110,
       leading: isBack ? _backBtn() : null,
-      title: _title(),
+      title: _title(title),
       actions: actions,
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -50,14 +50,14 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _title() {
+  Widget _title(String title) {
     return Row(
       children: [
         Gaps.h12,
         Expanded(
           child: Column(
             children: [
-              DeText('이슈이슈이슈이', style: cation12SB.copyWith(color: grey10)),
+              DeText(title, style: cation12SB.copyWith(color: grey10)),
               DeText('토론방', style: cation12M.copyWith(color: grey50)),
             ],
           ),
