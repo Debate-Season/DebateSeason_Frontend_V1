@@ -157,7 +157,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         return const Text('로딩중...');
       }
 
-      String opinion = room.opinion;
+      String opinion = controller.voteStatus.value;
       int agree = room.agree;
       int disagree = room.disagree;
 
@@ -238,7 +238,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       }
       var crId = room.chatRoomId;
       var crTitle = room.title;
-      String opinion = room.opinion;
+      String opinion = controller.voteStatus.value;
 
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
@@ -261,7 +261,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   },
                 );
               },
-              enable: true,
+              enable: opinion != 'none',
             ),
           ),
         ),
