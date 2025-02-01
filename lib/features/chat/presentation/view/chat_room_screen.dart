@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatRoomScreen extends GetView<ChatRoomViewModel> {
-  const ChatRoomScreen({super.key});
+  ChatRoomScreen({super.key});
+
+  final _chatScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +47,18 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
     return Obx(() {
       var chatMessages = controller.chatMessages;
 
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_chatScrollController.hasClients) {
+          _chatScrollController
+              .jumpTo(_chatScrollController.position.maxScrollExtent);
+        }
+      });
+
       return ListView.separated(
+        controller: _chatScrollController,
         itemCount: chatMessages.length,
         shrinkWrap: true,
+        padding: Dimensions.vertical20,
         itemBuilder: (context, index) {
           final chatMessage = chatMessages[index];
 

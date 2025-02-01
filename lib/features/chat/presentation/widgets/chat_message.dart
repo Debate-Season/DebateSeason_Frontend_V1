@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,10 +16,9 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // todo DateLine 분기 처리 필요.
-    // if() {
-    //   return _dateline();
-    // }
+    if (message.messageType == ChatMessageType.date.value) {
+      return _dateline();
+    }
 
     switch (message.opinionType) {
       case ChatConstants.chatAgree:
@@ -131,16 +131,21 @@ class ChatMessage extends StatelessWidget {
   }
 
   Widget _dateline() {
-    return Container(
-      padding: Dimensions.padding12x4,
-      decoration: BoxDecoration(
-        color: grey90,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: DeText(
-        '오늘',
-        style: cation12R.copyWith(color: grey50),
-      ),
+    return Wrap(
+      alignment: WrapAlignment.center,
+      children: [
+        Container(
+          padding: Dimensions.padding12x4,
+          decoration: BoxDecoration(
+            color: grey90,
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: DeText(
+            message.content,
+            style: cation12R.copyWith(color: grey50),
+          ),
+        ),
+      ],
     );
   }
 

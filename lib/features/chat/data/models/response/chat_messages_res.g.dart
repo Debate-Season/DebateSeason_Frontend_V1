@@ -1,22 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chat_msg_res.dart';
+part of 'chat_messages_res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatMsgRes _$ChatMsgResFromJson(Map<String, dynamic> json) => ChatMsgRes(
+ChatMessagesRes _$ChatMessagesResFromJson(Map<String, dynamic> json) =>
+    ChatMessagesRes(
       id: (json['id'] as num).toInt(),
       messageType: json['messageType'] as String,
       sender: json['sender'] as String,
       content: json['content'] as String,
       opinionType: json['opinionType'] as String,
       userCommunity: json['userCommunity'] as String,
-      timeStamp: ChatMsgRes._dateTimeFromJson(json['timeStamp'] as List),
+      timeStamp: json['timeStamp'] as String,
     );
 
-Map<String, dynamic> _$ChatMsgResToJson(ChatMsgRes instance) =>
+Map<String, dynamic> _$ChatMessagesResToJson(ChatMessagesRes instance) =>
     <String, dynamic>{
       'id': instance.id,
       'messageType': instance.messageType,
@@ -24,5 +25,5 @@ Map<String, dynamic> _$ChatMsgResToJson(ChatMsgRes instance) =>
       'content': instance.content,
       'opinionType': instance.opinionType,
       'userCommunity': instance.userCommunity,
-      'timeStamp': ChatMsgRes._dateTimeToJson(instance.timeStamp),
+      'timeStamp': instance.timeStamp,
     };
