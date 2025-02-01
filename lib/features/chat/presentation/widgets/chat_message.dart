@@ -144,7 +144,11 @@ class ChatMessage extends StatelessWidget {
     );
   }
 
-  String _formatMessageTime({required DateTime time}) {
+  String _formatMessageTime({required DateTime? time}) {
+    if (time == null) {
+      return '';
+    }
+
     return '${time.hour}:${time.minute.toString().padLeft(2, '0')}';
   }
 }

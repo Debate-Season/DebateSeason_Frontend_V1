@@ -27,15 +27,12 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
         children: [
           Obx(() {
             return ChatRoomAppBar(
-                title: controller.chatRoomTitle.isNotEmpty
-                    ? controller.chatRoomTitle
-                    : '토론방 로딩 중');
-          }),
-          Obx(() {
-            return Expanded(
-              child: _chatMessages(),
+              title: controller.chatRoomTitle.isNotEmpty
+                  ? controller.chatRoomTitle
+                  : '토론방 로딩 중',
             );
           }),
+          Expanded(child: _chatMessages()),
           ChatInputField(
             chatRoomViewModel: controller,
           ),
@@ -46,60 +43,11 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
 
   Widget _chatMessages() {
     return Obx(() {
-      final chatMessages = controller.chatMessages;
-      // 더미데이터
-      // final chatMessages = [
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕1',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕2',
-      //     sender: '홍건적',
-      //     opinionType: 'DISAGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕3',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕4',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕5',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕6',
-      //     sender: '홍건적',
-      //     opinionType: 'DISAGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      // ];
+      var chatMessages = controller.chatMessages;
+
       return ListView.separated(
         itemCount: chatMessages.length,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           final chatMessage = chatMessages[index];
 

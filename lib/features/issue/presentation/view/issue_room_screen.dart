@@ -1,16 +1,16 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation//view_model/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
+import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation//view_model/issue_room_view_model.dart';
 
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
@@ -149,6 +149,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return DeGestureDetector(
       onTap: () {
         // todo 토론방 상세화면으로 이동
+        Get.toNamed(GetRouterName.debate);
       },
       child: IssueCard(),
     );

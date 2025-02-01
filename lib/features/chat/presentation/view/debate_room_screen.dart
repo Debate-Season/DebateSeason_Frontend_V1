@@ -1,20 +1,18 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-
-import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   const DebateRoomScreen({super.key});
@@ -73,7 +71,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            log.d(room);
             if (room == null) {
               return const Text('로딩중...');
             }
@@ -197,36 +194,27 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateChat() {
-    return Obx(() {
-      final room = controller.roomData;
-      log.d(room);
-      if (room == null) {
-        return const Text('로딩중...');
-      }
-      var crId = room.chatRoomId;
-      var crTitle = room.title;
-      return ChatBottomSheet(
-        // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
-        widget: DeGestureDetector(
-          onTap: () {},
-          child: DefaultTextStyle(
-            style: body16M,
-            child: DeButtonLarge(
-              '토론방 입장하기',
-              onPressed: () {
-                Get.toNamed(
-                  GetRouterName.chat,
-                  arguments: {
-                    'chat_room_id': crId,
-                    'chat_room_title': crTitle,
-                  },
-                );
-              },
-              enable: true,
-            ),
+    return ChatBottomSheet(
+      // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
+      widget: DeGestureDetector(
+        onTap: () {},
+        child: DefaultTextStyle(
+          style: body16M,
+          child: DeButtonLarge(
+            '토론방 입장하기',
+            onPressed: () {
+              Get.toNamed(
+                GetRouterName.chat,
+                arguments: {
+                  'chat_room_id': 1,
+                  'chat_room_title': '토론 제목',
+                },
+              );
+            },
+            enable: true,
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

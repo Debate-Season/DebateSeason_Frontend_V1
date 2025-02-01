@@ -36,6 +36,57 @@ class ChatRoomViewModel extends GetxController {
       log.d('에러: $e');
     }
 
+    _chatMessages.value = [
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕1',
+        sender: '홍건적',
+        opinionType: 'AGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕2',
+        sender: '홍건적',
+        opinionType: 'DISAGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕3',
+        sender: '홍건적',
+        opinionType: 'AGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕4',
+        sender: '홍건적',
+        opinionType: 'AGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕5',
+        sender: '홍건적',
+        opinionType: 'AGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+      ChatMessageEntity(
+        messageType: 'CHAT',
+        content: '안녕6',
+        sender: '홍건적',
+        opinionType: 'DISAGREE',
+        userCommunity: '에펨코리아',
+        timeStamp: DateTime.now(),
+      ),
+    ];
+
     _initStompConnect();
     _subscribeMessage();
   }
@@ -77,7 +128,6 @@ class ChatRoomViewModel extends GetxController {
         sender: _pref.getNickname(),
         opinionType: 'AGREE',
         userCommunity: _pref.getCommunity(),
-        timeStamp: DateTime.now(),
       );
 
       _stompService.sendStomp(
@@ -85,7 +135,7 @@ class ChatRoomViewModel extends GetxController {
         chatMessage: chatMessage,
       );
 
-      _chatMessages.add(chatMessage);
+      _chatMessages.add(chatMessage.copyWith(timeStamp: DateTime.now()));
     } catch (e) {
       log.d("메시지 전송 중 오류 발생: $e");
     }

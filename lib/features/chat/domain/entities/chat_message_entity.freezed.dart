@@ -25,7 +25,7 @@ mixin _$ChatMessageEntity {
   String get sender => throw _privateConstructorUsedError;
   String get opinionType => throw _privateConstructorUsedError;
   String get userCommunity => throw _privateConstructorUsedError;
-  DateTime get timeStamp => throw _privateConstructorUsedError;
+  DateTime? get timeStamp => throw _privateConstructorUsedError;
 
   /// Serializes this ChatMessageEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $ChatMessageEntityCopyWith<$Res> {
       String sender,
       String opinionType,
       String userCommunity,
-      DateTime timeStamp});
+      DateTime? timeStamp});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$ChatMessageEntityCopyWithImpl<$Res, $Val extends ChatMessageEntity>
     Object? sender = null,
     Object? opinionType = null,
     Object? userCommunity = null,
-    Object? timeStamp = null,
+    Object? timeStamp = freezed,
   }) {
     return _then(_value.copyWith(
       messageType: null == messageType
@@ -95,10 +95,10 @@ class _$ChatMessageEntityCopyWithImpl<$Res, $Val extends ChatMessageEntity>
           ? _value.userCommunity
           : userCommunity // ignore: cast_nullable_to_non_nullable
               as String,
-      timeStamp: null == timeStamp
+      timeStamp: freezed == timeStamp
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -117,7 +117,7 @@ abstract class _$$ChatMessageEntityImplCopyWith<$Res>
       String sender,
       String opinionType,
       String userCommunity,
-      DateTime timeStamp});
+      DateTime? timeStamp});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$$ChatMessageEntityImplCopyWithImpl<$Res>
     Object? sender = null,
     Object? opinionType = null,
     Object? userCommunity = null,
-    Object? timeStamp = null,
+    Object? timeStamp = freezed,
   }) {
     return _then(_$ChatMessageEntityImpl(
       messageType: null == messageType
@@ -161,17 +161,17 @@ class __$$ChatMessageEntityImplCopyWithImpl<$Res>
           ? _value.userCommunity
           : userCommunity // ignore: cast_nullable_to_non_nullable
               as String,
-      timeStamp: null == timeStamp
+      timeStamp: freezed == timeStamp
           ? _value.timeStamp
           : timeStamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$ChatMessageEntityImpl implements _ChatMessageEntity {
   const _$ChatMessageEntityImpl(
       {required this.messageType,
@@ -179,7 +179,7 @@ class _$ChatMessageEntityImpl implements _ChatMessageEntity {
       required this.sender,
       required this.opinionType,
       required this.userCommunity,
-      required this.timeStamp});
+      this.timeStamp});
 
   factory _$ChatMessageEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatMessageEntityImplFromJson(json);
@@ -195,7 +195,7 @@ class _$ChatMessageEntityImpl implements _ChatMessageEntity {
   @override
   final String userCommunity;
   @override
-  final DateTime timeStamp;
+  final DateTime? timeStamp;
 
   @override
   String toString() {
@@ -248,7 +248,7 @@ abstract class _ChatMessageEntity implements ChatMessageEntity {
       required final String sender,
       required final String opinionType,
       required final String userCommunity,
-      required final DateTime timeStamp}) = _$ChatMessageEntityImpl;
+      final DateTime? timeStamp}) = _$ChatMessageEntityImpl;
 
   factory _ChatMessageEntity.fromJson(Map<String, dynamic> json) =
       _$ChatMessageEntityImpl.fromJson;
@@ -264,7 +264,7 @@ abstract class _ChatMessageEntity implements ChatMessageEntity {
   @override
   String get userCommunity;
   @override
-  DateTime get timeStamp;
+  DateTime? get timeStamp;
 
   /// Create a copy of ChatMessageEntity
   /// with the given fields replaced by the non-null parameter values.
