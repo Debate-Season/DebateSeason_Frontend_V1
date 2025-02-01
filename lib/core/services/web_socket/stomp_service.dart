@@ -49,9 +49,9 @@ class StompService {
   void _subscribeStomp({required int chatRoomId}) {
     try {
       stompClient.subscribe(
-        destination: '/topic/room$chatRoomId',
+        destination: '/stomp/chat.room.$chatRoomId',
         callback: (frame) {
-          log.d('[Stomp Receive] : $chatRoomId\n${frame.body}');
+          log.d('[Stomp Receive]\nroomId : $chatRoomId\n${frame.body}');
           if (frame.body != null) {
             final chatMessage = ChatMessageEntity.fromJson(
               jsonDecode(frame.body!),
@@ -70,10 +70,11 @@ class StompService {
     required ChatMessageEntity chatMessage,
   }) {
     try {
-      log.d('[Stomp Send] : $chatRoomId\n$chatMessage');
+      final jsonChatMessage = jsonEncode(chatMessage.toJson());
+      log.d('[Stomp Send]\nroomId : $chatRoomId\n$jsonChatMessage');
       stompClient.send(
-        destination: '/topic/room$chatRoomId',
-        body: jsonEncode(chatMessage.toJson()),
+        destination: '/stomp/chat.room.$chatRoomId',
+        body: jsonChatMessage,
       );
     } catch (e, stack) {
       log.d('$e \n $stack');
