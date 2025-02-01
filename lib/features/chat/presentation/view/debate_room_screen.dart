@@ -236,8 +236,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       if (room == null) {
         return const Text('로딩중...');
       }
-      var crId = room.chatRoomId;
-      var crTitle = room.title;
       String opinion = controller.voteStatus.value;
 
       return ChatBottomSheet(
@@ -256,8 +254,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 Get.toNamed(
                   GetRouterName.chat,
                   arguments: {
-                    'chat_room_id': crId,
-                    'chat_room_title': crTitle,
+                    'room': room,
                   },
                 );
               },
@@ -268,4 +265,16 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       );
     });
   }
+}
+
+class ChatData {
+  final int chatRoomId;
+  final String chatRoomTitle;
+  final String opinion;
+
+  ChatData({
+    required this.chatRoomId,
+    required this.chatRoomTitle,
+    required this.opinion,
+  });
 }
