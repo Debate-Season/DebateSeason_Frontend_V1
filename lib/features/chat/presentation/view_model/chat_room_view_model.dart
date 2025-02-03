@@ -94,8 +94,6 @@ class ChatRoomViewModel extends GetxController {
         chatRoomId: _room.value.chatRoomId,
         chatMessage: chatMessage,
       );
-
-      _chatMessages.add(chatMessage.copyWith(timeStamp: DateTime.now()));
     } catch (e) {
       log.d("메시지 전송 중 오류 발생: $e");
     }
