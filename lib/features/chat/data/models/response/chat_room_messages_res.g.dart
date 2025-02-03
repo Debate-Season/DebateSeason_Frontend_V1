@@ -12,7 +12,7 @@ ChatRoomsMessagesRes _$ChatRoomsMessagesResFromJson(
       messagesByDates: (json['messagesByDates'] as List<dynamic>)
           .map((e) => MessagesByDates.fromJson(e as Map<String, dynamic>))
           .toList(),
-      nextCursor: json['nextCursor'] as String,
+      nextCursor: json['nextCursor'] as String?,
     );
 
 Map<String, dynamic> _$ChatRoomsMessagesResToJson(

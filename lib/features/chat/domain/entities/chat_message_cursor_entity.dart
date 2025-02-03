@@ -7,6 +7,6 @@ part 'chat_message_cursor_entity.freezed.dart';
 class ChatMessageCursorEntity with _$ChatMessageCursorEntity {
   factory ChatMessageCursorEntity({
     required List<ChatRoomMessageEntity> chatRoomMessages,
-    required String nextCursor,
+    required String? nextCursor,
   }) = _ChatMessageCursorEntity;
 }

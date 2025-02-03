@@ -7,7 +7,7 @@ part 'chat_room_messages_res.g.dart';
 @JsonSerializable()
 class ChatRoomsMessagesRes {
   final List<MessagesByDates> messagesByDates;
-  final String nextCursor;
+  final String? nextCursor;
 
   ChatRoomsMessagesRes({
     required this.messagesByDates,

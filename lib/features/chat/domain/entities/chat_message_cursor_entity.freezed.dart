@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChatMessageCursorEntity {
   List<ChatRoomMessageEntity> get chatRoomMessages =>
       throw _privateConstructorUsedError;
-  String get nextCursor => throw _privateConstructorUsedError;
+  String? get nextCursor => throw _privateConstructorUsedError;
 
   /// Create a copy of ChatMessageCursorEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $ChatMessageCursorEntityCopyWith<$Res> {
           $Res Function(ChatMessageCursorEntity) then) =
       _$ChatMessageCursorEntityCopyWithImpl<$Res, ChatMessageCursorEntity>;
   @useResult
-  $Res call({List<ChatRoomMessageEntity> chatRoomMessages, String nextCursor});
+  $Res call({List<ChatRoomMessageEntity> chatRoomMessages, String? nextCursor});
 }
 
 /// @nodoc
@@ -53,17 +53,17 @@ class _$ChatMessageCursorEntityCopyWithImpl<$Res,
   @override
   $Res call({
     Object? chatRoomMessages = null,
-    Object? nextCursor = null,
+    Object? nextCursor = freezed,
   }) {
     return _then(_value.copyWith(
       chatRoomMessages: null == chatRoomMessages
           ? _value.chatRoomMessages
           : chatRoomMessages // ignore: cast_nullable_to_non_nullable
               as List<ChatRoomMessageEntity>,
-      nextCursor: null == nextCursor
+      nextCursor: freezed == nextCursor
           ? _value.nextCursor
           : nextCursor // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -77,7 +77,7 @@ abstract class _$$ChatMessageCursorEntityImplCopyWith<$Res>
       __$$ChatMessageCursorEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ChatRoomMessageEntity> chatRoomMessages, String nextCursor});
+  $Res call({List<ChatRoomMessageEntity> chatRoomMessages, String? nextCursor});
 }
 
 /// @nodoc
@@ -96,17 +96,17 @@ class __$$ChatMessageCursorEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? chatRoomMessages = null,
-    Object? nextCursor = null,
+    Object? nextCursor = freezed,
   }) {
     return _then(_$ChatMessageCursorEntityImpl(
       chatRoomMessages: null == chatRoomMessages
           ? _value._chatRoomMessages
           : chatRoomMessages // ignore: cast_nullable_to_non_nullable
               as List<ChatRoomMessageEntity>,
-      nextCursor: null == nextCursor
+      nextCursor: freezed == nextCursor
           ? _value.nextCursor
           : nextCursor // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -129,7 +129,7 @@ class _$ChatMessageCursorEntityImpl implements _ChatMessageCursorEntity {
   }
 
   @override
-  final String nextCursor;
+  final String? nextCursor;
 
   @override
   String toString() {
@@ -164,12 +164,12 @@ class _$ChatMessageCursorEntityImpl implements _ChatMessageCursorEntity {
 abstract class _ChatMessageCursorEntity implements ChatMessageCursorEntity {
   factory _ChatMessageCursorEntity(
       {required final List<ChatRoomMessageEntity> chatRoomMessages,
-      required final String nextCursor}) = _$ChatMessageCursorEntityImpl;
+      required final String? nextCursor}) = _$ChatMessageCursorEntityImpl;
 
   @override
   List<ChatRoomMessageEntity> get chatRoomMessages;
   @override
-  String get nextCursor;
+  String? get nextCursor;
 
   /// Create a copy of ChatMessageCursorEntity
   /// with the given fields replaced by the non-null parameter values.
