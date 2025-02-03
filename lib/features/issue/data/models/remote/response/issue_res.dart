@@ -5,10 +5,12 @@ part 'issue_res.g.dart';
 
 @JsonSerializable()
 class IssueRes {
+  final String title;
   final Map<String, int> map;
   final List<ChatRoomRes> chatRoomMap;
 
   IssueRes({
+    required this.title,
     required this.map,
     required this.chatRoomMap,
 });

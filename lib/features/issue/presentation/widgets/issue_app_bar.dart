@@ -1,23 +1,22 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-
-class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+class IssueAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final Widget title;
   final bool isBack;
   final List<Widget>? actions;
+  final bool? isCenter;
 
-  const DebateAppBar({
+  const IssueAppBar({
     super.key,
     required this.title,
     this.isBack = true,
     this.actions,
+    this.isCenter,
   });
 
   @override
@@ -25,12 +24,16 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: grey110,
       leading: isBack ? _backBtn() : null,
-      title: _title(title),
-      actions: actions,
+      title: title,
+      actions: [
+        if (actions != null) ...actions!,
+        Gaps.h20,
+      ],
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: isBack,
       titleSpacing: isBack ? 0 : 20,
+      centerTitle: isCenter,
     );
   }
 
@@ -47,28 +50,6 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
           Gaps.h4,
         ],
       ),
-    );
-  }
-
-  Widget _title(String title) {
-    return Row(
-      children: [
-        Gaps.h12,
-        Expanded(
-          child: Column(
-            children: [
-              DeText(title, style: cation12SB.copyWith(color: grey10)),
-              DeText('토론방', style: cation12M.copyWith(color: grey50)),
-            ],
-          ),
-        ),
-        Gaps.h12,
-        Padding(
-          padding: Dimensions.all8,
-          child: SvgPicture.asset(''),
-        ),
-        Gaps.h12,
-      ],
     );
   }
 

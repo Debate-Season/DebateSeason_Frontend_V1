@@ -10,6 +10,7 @@ class ChatRoomRes {
   int agree;
   int disagree;
   String createdAt;
+  String? opinion;
 
   ChatRoomRes({
     required this.chatRoomId,
@@ -18,6 +19,7 @@ class ChatRoomRes {
     required this.agree,
     required this.disagree,
     required this.createdAt,
+    required this.opinion,
   });
 
   factory ChatRoomRes.fromJson(Map<String, dynamic> json) =>
