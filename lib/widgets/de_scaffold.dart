@@ -8,6 +8,7 @@ class DeScaffold extends StatelessWidget {
   final Color? backgroundColor;
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
+  final bool? resizeToAvoidBottomInset;
 
   const DeScaffold({
     super.key,
@@ -16,6 +17,7 @@ class DeScaffold extends StatelessWidget {
     this.backgroundColor,
     this.bottomNavigationBar,
     this.bottomSheet,
+    this.resizeToAvoidBottomInset,
   });
 
   @override
@@ -29,6 +31,7 @@ class DeScaffold extends StatelessWidget {
           bottomNavigationBar: bottomNavigationBar,
           backgroundColor: backgroundColor ?? grey110,
           bottomSheet: bottomSheet,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         ),
       ),
     );

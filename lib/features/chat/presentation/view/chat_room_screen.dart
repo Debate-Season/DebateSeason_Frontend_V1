@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_room_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChatRoomScreen extends GetView<ChatRoomViewModel> {
@@ -17,25 +18,44 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Row(
+            children: [
+              Gaps.h12,
+              Padding(
+                padding: Dimensions.all8,
+                child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+              ),
+              Gaps.h4,
+            ],
+          ),
+        ),
+        title: Obx(() {
+          return ChatRoomAppBar(title: controller.room.title);
+        }),
+        titleSpacing: 0,
+        backgroundColor: grey80,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: true,
+      ),
       body: _body(),
       backgroundColor: grey80,
+      resizeToAvoidBottomInset: true,
     );
   }
 
   Widget _body() {
-    return Padding(
-      padding: Dimensions.all20,
-      child: Column(
-        children: [
-          Obx(() {
-            return ChatRoomAppBar(title: controller.room.title);
-          }),
-          Expanded(child: _chatMessages()),
-          ChatInputField(
-            chatRoomViewModel: controller,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: _chatMessages(),
+        ),
+        ChatInputField(
+          chatRoomViewModel: controller,
+        ),
+      ],
     );
   }
 
@@ -46,22 +66,28 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_chatScrollController.hasClients) {
           _chatScrollController.jumpTo(
-            _chatScrollController.position.maxScrollExtent + 30,
+            _chatScrollController.position.minScrollExtent,
           );
         }
       });
 
-      return ListView.separated(
-        controller: _chatScrollController,
-        itemCount: chatMessages.length,
-        shrinkWrap: true,
-        padding: Dimensions.vertical20,
-        itemBuilder: (context, index) {
-          final chatMessage = chatMessages[index];
+      final chattingMessageList = chatMessages.reversed.toList();
 
-          return ChatMessage(message: chatMessage);
-        },
-        separatorBuilder: (context, index) => Gaps.v16,
+      return Align(
+        alignment: Alignment.topCenter,
+        child: ListView.separated(
+          controller: _chatScrollController,
+          itemCount: chattingMessageList.length,
+          shrinkWrap: true,
+          reverse: true,
+          padding: Dimensions.all20,
+          itemBuilder: (context, index) {
+            final chatMessage = chattingMessageList[index];
+
+            return ChatMessage(message: chatMessage);
+          },
+          separatorBuilder: (context, index) => Gaps.v16,
+        ),
       );
     });
   }

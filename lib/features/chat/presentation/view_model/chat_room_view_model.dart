@@ -18,13 +18,13 @@ class ChatRoomViewModel extends GetxController {
   final _chatMessages = <ChatMessageEntity>[].obs;
   final _room = Rx<RoomRes>(
     RoomRes(
-      chatRoomId: 32,
-      title: '1',
-      agree: 1,
+      chatRoomId: -1,
+      title: '',
       content: '',
-      createdAt: '',
-      disagree: 1,
       opinion: '',
+      agree: 0,
+      disagree: 0,
+      createdAt: '',
     ),
   );
 
