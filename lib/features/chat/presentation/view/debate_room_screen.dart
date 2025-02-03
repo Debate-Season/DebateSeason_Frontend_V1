@@ -266,15 +266,3 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     });
   }
 }
-
-class ChatData {
-  final int chatRoomId;
-  final String chatRoomTitle;
-  final String opinion;
-
-  ChatData({
-    required this.chatRoomId,
-    required this.chatRoomTitle,
-    required this.opinion,
-  });
-}
