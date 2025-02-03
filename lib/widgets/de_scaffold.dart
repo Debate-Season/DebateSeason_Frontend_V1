@@ -5,28 +5,30 @@ import 'package:flutter/material.dart';
 class DeScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? body;
+  final Color? backgroundColor;
   final Widget? bottomNavigationBar;
+  final Widget? bottomSheet;
 
   const DeScaffold({
     super.key,
     this.appBar,
     this.body,
+    this.backgroundColor,
     this.bottomNavigationBar,
+    this.bottomSheet,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: grey110,
-      child: SafeArea(
-        child: DeGestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            appBar: appBar,
-            body: body,
-            bottomNavigationBar: bottomNavigationBar,
-            backgroundColor: grey110,
-          ),
+    return SafeArea(
+      child: DeGestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: appBar,
+          body: body,
+          bottomNavigationBar: bottomNavigationBar,
+          backgroundColor: backgroundColor ?? grey110,
+          bottomSheet: bottomSheet,
         ),
       ),
     );
