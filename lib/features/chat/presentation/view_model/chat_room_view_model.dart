@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
@@ -14,15 +15,21 @@ class ChatRoomViewModel extends GetxController {
   late ChatRoomsMessagesRepository _chatRoomsMessagesRepository;
 
   final _chatMessages = <ChatMessageEntity>[].obs;
-  final _chatRoomId = (-1).obs;
-  final _chatRoomTitle = ''.obs;
-  String? _lastAddedChatDate;
+  final _room = Rx<RoomRes>(
+    RoomRes(
+      chatRoomId: 32,
+      title: '1',
+      agree: 1,
+      content: '',
+      createdAt: '',
+      disagree: 1,
+      opinion: '',
+    ),
+  );
 
   List<ChatMessageEntity> get chatMessages => _chatMessages;
 
-  int get chatRoomId => _chatRoomId.value;
-
-  String get chatRoomTitle => _chatRoomTitle.value;
+  RoomRes get room => _room.value;
 
   @override
   void onInit() {
@@ -34,10 +41,8 @@ class ChatRoomViewModel extends GetxController {
 
     try {
       final Map<String, dynamic> arguments = Get.arguments;
-      final int roomId = arguments['chat_room_id'] ?? -1;
-      final String roomTitle = arguments['chat_room_title'] ?? '';
-      final String opinionType = arguments['opinion_type'] ?? 'AGREE';
-      setChatRoomDetails(roomId, roomTitle);
+      final RoomRes room = arguments['room'];
+      _room.value = room;
     } catch (e) {
       log.d('에러: $e');
     }
@@ -53,7 +58,7 @@ class ChatRoomViewModel extends GetxController {
   }
 
   void _initStompConnect() {
-    _stompService.connectStomp(chatRoomId: _chatRoomId.value);
+    _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
   }
 
   void _subscribeMessage() {
@@ -86,7 +91,7 @@ class ChatRoomViewModel extends GetxController {
       );
 
       _stompService.sendStomp(
-        chatRoomId: _chatRoomId.value,
+        chatRoomId: _room.value.chatRoomId,
         chatMessage: chatMessage,
       );
 
@@ -98,7 +103,7 @@ class ChatRoomViewModel extends GetxController {
 
   void _getChatRoomMessages({String? nextCursor}) async {
     final result = await _chatRoomsMessagesRepository.getChatRoomsMessages(
-      roomId: _chatRoomId.value,
+      roomId: _room.value.chatRoomId,
       nextCursor: nextCursor,
     );
 
@@ -146,10 +151,5 @@ class ChatRoomViewModel extends GetxController {
         deSnackBar(msg);
       },
     );
-  }
-
-  void setChatRoomDetails(int roomId, String title) {
-    _chatRoomId.value = roomId;
-    _chatRoomTitle.value = title;
   }
 }
