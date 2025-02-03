@@ -28,11 +28,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
       child: Column(
         children: [
           Obx(() {
-            return ChatRoomAppBar(
-              title: controller.room.title.isNotEmpty
-                  ? controller.room.title
-                  : '토론방 로딩 중',
-            );
+            return ChatRoomAppBar(title: controller.room.title);
           }),
           Expanded(child: _chatMessages()),
           ChatInputField(
