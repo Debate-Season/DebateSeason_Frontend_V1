@@ -113,7 +113,7 @@ class IssueCard extends StatelessWidget {
             style: cation12SB,
           ),
           DeText(
-            data == '찬성' ? agreeRatioText : disagreeRatioText,
+            data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
             style: header,
           ),
           DeText(

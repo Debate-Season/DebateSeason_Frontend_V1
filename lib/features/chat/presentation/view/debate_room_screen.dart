@@ -9,6 +9,7 @@ import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
@@ -36,7 +37,19 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   DebateAppBar _appBar() {
-    return DebateAppBar(title: 'ㅁㄴㅇㄹ');
+    return DebateAppBar(
+      title: '이슈명',
+      actions: [
+        DeGestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: Dimensions.all8,
+            child: SvgPicture.asset(''),
+          ),
+        ),
+        Gaps.h20,
+      ],
+    );
   }
 
   Widget _body() {
@@ -144,7 +157,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         return const Text('로딩중...');
       }
 
-      String opinion = room.opinion;
+      String opinion = controller.voteStatus.value;
       int agree = room.agree;
       int disagree = room.disagree;
 
@@ -223,9 +236,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       if (room == null) {
         return const Text('로딩중...');
       }
-      var crId = room.chatRoomId;
-      var crTitle = room.title;
-      String opinion = room.opinion;
+      String opinion = controller.voteStatus.value;
 
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
@@ -243,16 +254,27 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 Get.toNamed(
                   GetRouterName.chat,
                   arguments: {
-                    'chat_room_id': crId,
-                    'chat_room_title': crTitle,
+                    'room': room,
                   },
                 );
               },
-              enable: true,
+              enable: opinion != 'none',
             ),
           ),
         ),
       );
     });
   }
+}
+
+class ChatData {
+  final int chatRoomId;
+  final String chatRoomTitle;
+  final String opinion;
+
+  ChatData({
+    required this.chatRoomId,
+    required this.chatRoomTitle,
+    required this.opinion,
+  });
 }
