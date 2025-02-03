@@ -49,7 +49,7 @@ class StompService {
   void _subscribeStomp({required int chatRoomId}) {
     try {
       stompClient.subscribe(
-        destination: '/stomp/chat.room.$chatRoomId',
+        destination: '/topic/room$chatRoomId',
         callback: (frame) {
           log.d('[Stomp Receive]\nroomId : $chatRoomId\n${frame.body}');
           if (frame.body != null) {
