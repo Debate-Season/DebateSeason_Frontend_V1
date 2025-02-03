@@ -33,7 +33,7 @@ class StompService {
           log.d("STOMP 프로토콜 에러: ${frame.body}");
         },
         onDisconnect: (frame) {
-          log.d("STOMP 연결 해제: ${frame.headers}");
+          log.d('STOMP 연결 해제');
         },
         onWebSocketDone: () {
           log.d("WebSocket 연결 종료");
