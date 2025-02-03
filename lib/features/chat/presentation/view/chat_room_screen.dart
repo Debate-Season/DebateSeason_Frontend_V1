@@ -49,8 +49,9 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_chatScrollController.hasClients) {
-          _chatScrollController
-              .jumpTo(_chatScrollController.position.maxScrollExtent);
+          _chatScrollController.jumpTo(
+            _chatScrollController.position.maxScrollExtent + 30,
+          );
         }
       });
 
