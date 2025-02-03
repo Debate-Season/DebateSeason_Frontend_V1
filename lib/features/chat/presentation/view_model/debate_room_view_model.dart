@@ -15,6 +15,12 @@ class DebateRoomViewModel extends GetxController {
 
   String? get voteData => _voteData.value;
 
+  var voteStatus = ''.obs;
+
+  void updateVoteStatus(String newOpinion) {
+    voteStatus.value = newOpinion;
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -31,6 +37,7 @@ class DebateRoomViewModel extends GetxController {
     try {
       final response = await _roomDataSource.getRoom(chatroomId: chatroomId);
       _roomData.value = response.data;
+      voteStatus.value = response.data.opinion;
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
@@ -39,6 +46,7 @@ class DebateRoomViewModel extends GetxController {
   Future<void> postVoteData(String opinion, int chatroomId) async {
     try {
       _voteDataSource.postVote(opinion: opinion, chatroomId: chatroomId);
+      updateVoteStatus(opinion);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }

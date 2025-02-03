@@ -5,8 +5,10 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation//view_model/issue_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/widgets/de_cached_image.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -17,19 +19,16 @@ import 'package:get/get.dart';
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
 
+  String get issuetitle => controller.issuetitle.value;
+
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
-      appBar: _appBar(),
+      appBar: IssueAppBar(
+        title: Obx(() => Text(issuetitle, style: title)),
+        isCenter: false,
+      ),
       body: _body(),
-    );
-  }
-
-  DeAppBar _appBar() {
-    return DeAppBar(
-      title: '이슈',
-      isBack: true,
-      isCenter: false,
     );
   }
 
@@ -91,26 +90,39 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   }
 
   Widget _commItem() {
-    Widget comm() {
-      return Container(
-        width: 36,
-        height: 36,
-        decoration: ShapeDecoration(
-          color: brandColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      );
-    }
-
     return Obx(() {
       final communities = controller.issueData?.map.keys.toList();
       final int len = communities?.length ?? 0;
+      log.d(communities);
+
+      Widget comm(imagePath) {
+        if (imagePath == null) {
+          return Container(
+            width: 36,
+            height: 36,
+            decoration: ShapeDecoration(
+              color: brandColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          );
+        }
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: DeCachedImage(
+            imagePath,
+            width: 36,
+            height: 36,
+          ),
+        );
+      }
 
       return SizedBox(
         height: 36,
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return comm();
+            return comm(communities?[index]);
           },
           separatorBuilder: (context, index) => Gaps.h8,
           itemCount: len,
