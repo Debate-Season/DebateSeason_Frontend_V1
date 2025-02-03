@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/response/room
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -82,11 +83,21 @@ class ChatRoomViewModel extends GetxController {
 
   void sendMessage({required String content}) {
     try {
+      String formatOpinion = '';
+      switch (_room.value.opinion) {
+        case '찬성':
+          formatOpinion = OpinionType.agree.value;
+        case '반대':
+          formatOpinion = OpinionType.disagree.value;
+        default:
+          formatOpinion = OpinionType.neutral.value;
+      }
+
       final chatMessage = ChatMessageEntity(
         messageType: ChatMessageType.chat.value,
         content: content,
         sender: _pref.getNickname(),
-        opinionType: 'AGREE',
+        opinionType: formatOpinion,
         userCommunity: _pref.getCommunity(),
       );
 
