@@ -6,8 +6,9 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
+import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -144,9 +145,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int disagree = room.disagree;
 
       var widgetColor = data == '찬성' ? redDark : blueDark;
-      if (opinion == 'agree') {
+      if (opinion == '찬성') {
         widgetColor = data == '찬성' ? red : blueDark;
-      } else if (opinion == 'disagree') {
+      } else if (opinion == '반대') {
         widgetColor = data == '찬성' ? redDark : blue;
       }
 
@@ -157,7 +158,26 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
       return GestureDetector(
         onTap: () => {
-          controller.postVoteData(data, room.chatRoomId),
+          if (opinion == 'none')
+            {
+              controller.postVoteData(data, room.chatRoomId),
+              deSnackBar('내 입장을 $data(으)로 투표했습니다.'),
+            }
+          else if (opinion == data)
+            {}
+          else
+            {
+              DeDialog(
+                dialogTitle: '입장 변경',
+                dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
+                doneText: '변경하기',
+                cancelText: '유지',
+                onTapDone: () {
+                  controller.postVoteData(data, room.chatRoomId);
+                  deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                },
+              )
+            }
         },
         child: Container(
           width: 120.0,
@@ -194,27 +214,41 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _widgetDebateChat() {
-    return ChatBottomSheet(
-      // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
-      widget: DeGestureDetector(
-        onTap: () {},
-        child: DefaultTextStyle(
-          style: body16M,
-          child: DeButtonLarge(
-            '토론방 입장하기',
-            onPressed: () {
-              Get.toNamed(
-                GetRouterName.chat,
-                arguments: {
-                  'chat_room_id': 1,
-                  'chat_room_title': '토론 제목',
-                },
-              );
-            },
-            enable: true,
+    return Obx(() {
+      final room = controller.roomData;
+      if (room == null) {
+        return const Text('로딩중...');
+      }
+      var crId = room.chatRoomId;
+      var crTitle = room.title;
+      String opinion = room.opinion;
+
+      return ChatBottomSheet(
+        // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
+        widget: DeGestureDetector(
+          onTap: () {},
+          child: DefaultTextStyle(
+            style: body16M,
+            child: DeButtonLarge(
+              '토론방 입장하기',
+              onPressed: () {
+                if (opinion == 'none') {
+                  deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
+                  return;
+                }
+                Get.toNamed(
+                  GetRouterName.chat,
+                  arguments: {
+                    'chat_room_id': crId,
+                    'chat_room_title': crTitle,
+                  },
+                );
+              },
+              enable: true,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
