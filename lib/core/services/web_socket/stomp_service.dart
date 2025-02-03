@@ -84,7 +84,6 @@ class StompService {
   void disconnect() {
     try {
       stompClient.deactivate();
-      _chatStream.close();
     } catch (e, stack) {
       log.d('$e \n $stack');
     }
