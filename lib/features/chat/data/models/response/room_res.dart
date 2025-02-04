@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'room_res.g.dart';
@@ -10,7 +11,8 @@ class RoomRes {
   int agree;
   int disagree;
   String createdAt;
-  String opinion;
+  OpinionType opinion;
+  //String opinion;
 
    RoomRes({
     required this.chatRoomId,

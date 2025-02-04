@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/room_data_source.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/vote_data_source.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
@@ -15,12 +16,12 @@ class DebateRoomViewModel extends GetxController {
 
   String? get voteData => _voteData.value;
 
-  var voteStatus = ''.obs;
+  var voteStatus = OpinionType.neutral.obs;
   final _issueTitle = ''.obs;
 
   String? get issueTitle => _issueTitle.value;
 
-  void updateVoteStatus(String newOpinion) {
+  void updateVoteStatus(OpinionType newOpinion) {
     voteStatus.value = newOpinion;
   }
 
@@ -41,16 +42,38 @@ class DebateRoomViewModel extends GetxController {
     try {
       final response = await _roomDataSource.getRoom(chatroomId: chatroomId);
       _roomData.value = response.data;
-      voteStatus.value = response.data.opinion;
+      // var tempVoteStatus = response.data.opinion;
+      // if(tempVoteStatus == '찬성'){
+      //   voteStatus.value = OpinionType.agree;
+      // } else if(tempVoteStatus == '반대'){
+      //   voteStatus.value = OpinionType.disagree;
+      // } else {
+      //   voteStatus.value = OpinionType.neutral;
+      // }
+
+      // if(response.data.opinion == 'none'){
+      //   voteStatus.value = OpinionType.neutral;
+      // }
+      // else{
+      //   voteStatus.value = response.data.opinion;
+      // }
+      try {
+        voteStatus.value = response.data.opinion;
+      } catch (e) {
+        voteStatus.value = OpinionType.neutral;
+      }
+      log.d(voteStatus.value);
+      log.d(response.data.opinion);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
   }
 
-  Future<void> postVoteData(String opinion, int chatroomId) async {
+  Future<void> postVoteData(OpinionType opinion, int chatroomId) async {
     try {
       _voteDataSource.postVote(opinion: opinion, chatroomId: chatroomId);
       updateVoteStatus(opinion);
+      log.d(opinion.value);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }

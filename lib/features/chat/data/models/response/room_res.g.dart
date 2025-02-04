@@ -13,7 +13,7 @@ RoomRes _$RoomResFromJson(Map<String, dynamic> json) => RoomRes(
       agree: (json['agree'] as num).toInt(),
       disagree: (json['disagree'] as num).toInt(),
       createdAt: json['createdAt'] as String,
-      opinion: json['opinion'] as String,
+      opinion: $enumDecode(_$OpinionTypeEnumMap, json['opinion']),
     );
 
 Map<String, dynamic> _$RoomResToJson(RoomRes instance) => <String, dynamic>{
@@ -23,5 +23,11 @@ Map<String, dynamic> _$RoomResToJson(RoomRes instance) => <String, dynamic>{
       'agree': instance.agree,
       'disagree': instance.disagree,
       'createdAt': instance.createdAt,
-      'opinion': instance.opinion,
+      'opinion': _$OpinionTypeEnumMap[instance.opinion]!,
     };
+
+const _$OpinionTypeEnumMap = {
+  OpinionType.agree: 'agree',
+  OpinionType.disagree: 'disagree',
+  OpinionType.neutral: 'neutral',
+};

@@ -4,10 +4,10 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -185,30 +185,35 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         return DeProgressIndicator();
       }
 
-      String opinion = controller.voteStatus.value;
+      var opinion = controller.voteStatus.value;
       int agree = room.agree;
       int disagree = room.disagree;
 
       var widgetColor = data == '찬성' ? redDark : blueDark;
-      if (opinion == '찬성') {
+      if (opinion == OpinionType.agree) {
         widgetColor = data == '찬성' ? red : blueDark;
-      } else if (opinion == '반대') {
+      } else if (opinion == OpinionType.disagree) {
         widgetColor = data == '찬성' ? redDark : blue;
       }
 
       String detail = '투표하기';
-      if (opinion != 'none') {
+      if (opinion != OpinionType.neutral) {
         detail = data == '찬성' ? '$agree표' : '$disagree표';
       }
 
       return GestureDetector(
         onTap: () => {
-          if (opinion == 'none')
+          if (opinion == OpinionType.neutral)
             {
-              controller.postVoteData(data, room.chatRoomId),
+              if (data == '찬성')
+                {controller.postVoteData(OpinionType.agree, room.chatRoomId)}
+              else if (data == '반대')
+                {
+                  controller.postVoteData(OpinionType.disagree, room.chatRoomId)
+                },
               deSnackBar('내 입장을 $data(으)로 투표했습니다.'),
             }
-          else if (opinion == data)
+          else if (opinion.value == data)
             {}
           else
             {
@@ -218,7 +223,14 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 doneText: '변경하기',
                 cancelText: '유지',
                 onTapDone: () async {
-                  await controller.postVoteData(data, room.chatRoomId);
+                  if (data == '찬성') {
+                    await controller.postVoteData(
+                        OpinionType.agree, room.chatRoomId);
+                  } else if (data == '반대') {
+                    await controller.postVoteData(
+                        OpinionType.disagree, room.chatRoomId);
+                  }
+                  //await controller.postVoteData(data, room.chatRoomId);
                   if (Get.isDialogOpen ?? true) {
                     deSnackBar('내 입장을 $data(으)로 변경했습니다.');
                   }
@@ -266,7 +278,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       if (room == null) {
         return DeProgressIndicator();
       }
-      String opinion = controller.voteStatus.value;
+      OpinionType opinion = controller.voteStatus.value;
 
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
@@ -279,7 +291,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 child: DeButtonLarge(
                   '토론방 입장하기',
                   onPressed: () {
-                    if (opinion == 'none') {
+                    if (opinion.value == 'none') {
                       deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
                       return;
                     }
@@ -299,7 +311,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                       },
                     );
                   },
-                  enable: opinion != 'none',
+                  enable: opinion.value != 'none',
                 ),
               ),
               Gaps.v20,
