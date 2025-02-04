@@ -137,7 +137,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         return DeProgressIndicator();
       }
       return DeText(
-        room.content,
+        room.content,  // todo 3줄 초과 시 더보기 버튼 추가
         style: body14R,
       );
     });
