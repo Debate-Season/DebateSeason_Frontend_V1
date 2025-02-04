@@ -54,6 +54,11 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   Widget _body() {
     return Column(
       children: [
+        // todo 바텀시트 생성되면 하단 Container 삭제. (앱바 하단 구분선 스크린 쪽으로 이동)
+        Container(
+          height: 1,
+          color: grey70,
+        ),
         Expanded(
           child: _chatMessages(),
         ),
