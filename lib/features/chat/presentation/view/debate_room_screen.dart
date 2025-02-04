@@ -271,33 +271,38 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
         widget: DeGestureDetector(
           onTap: () {},
-          child: DefaultTextStyle(
-            style: body16M,
-            child: DeButtonLarge(
-              '토론방 입장하기',
-              onPressed: () {
-                if (opinion == 'none') {
-                  deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
-                  return;
-                }
-                final newRoom = RoomRes(
-                  chatRoomId: room.chatRoomId,
-                  title: room.title,
-                  content: room.content,
-                  agree: room.agree,
-                  disagree: room.disagree,
-                  createdAt: room.createdAt,
-                  opinion: opinion,
-                );
-                Get.toNamed(
-                  GetRouterName.chat,
-                  arguments: {
-                    'room': newRoom,
+          child: Column(
+            children: [
+              DefaultTextStyle(
+                style: body16M,
+                child: DeButtonLarge(
+                  '토론방 입장하기',
+                  onPressed: () {
+                    if (opinion == 'none') {
+                      deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
+                      return;
+                    }
+                    final newRoom = RoomRes(
+                      chatRoomId: room.chatRoomId,
+                      title: room.title,
+                      content: room.content,
+                      agree: room.agree,
+                      disagree: room.disagree,
+                      createdAt: room.createdAt,
+                      opinion: opinion,
+                    );
+                    Get.toNamed(
+                      GetRouterName.chat,
+                      arguments: {
+                        'room': newRoom,
+                      },
+                    );
                   },
-                );
-              },
-              enable: opinion != 'none',
-            ),
+                  enable: opinion != 'none',
+                ),
+              ),
+              Gaps.v20,
+            ],
           ),
         ),
       );
