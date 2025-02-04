@@ -1,23 +1,36 @@
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ChatRoomViewModel extends GetxController {
   late StompService _stompService;
   late SharedPreferencesService _pref;
+  late ChatRoomsMessagesRepository _chatRoomsMessagesRepository;
 
   final _chatMessages = <ChatMessageEntity>[].obs;
-
-  final _chatRoomId = (-1).obs;
-  final _chatRoomTitle = ''.obs;
+  final _room = Rx<RoomRes>(
+    RoomRes(
+      chatRoomId: -1,
+      title: '',
+      content: '',
+      opinion: '',
+      agree: 0,
+      disagree: 0,
+      createdAt: '',
+    ),
+  );
 
   List<ChatMessageEntity> get chatMessages => _chatMessages;
 
-  int get chatRoomId => _chatRoomId.value;
-
-  String get chatRoomTitle => _chatRoomTitle.value;
+  RoomRes get room => _room.value;
 
   @override
   void onInit() {
@@ -25,17 +38,16 @@ class ChatRoomViewModel extends GetxController {
 
     _stompService = StompService();
     _pref = SharedPreferencesService();
+    _chatRoomsMessagesRepository = Get.find<ChatRoomsMessagesRepository>();
 
     try {
       final Map<String, dynamic> arguments = Get.arguments;
-      final int roomId = arguments['chat_room_id'] ?? -1;
-      final String roomTitle = arguments['chat_room_title'] ?? '';
-      final String opinionType = arguments['opinion_type'] ?? 'AGREE';
-      setChatRoomDetails(roomId, roomTitle);
+      final RoomRes room = arguments['room'];
+      _room.value = room;
     } catch (e) {
       log.d('에러: $e');
     }
-
+    _getChatRoomMessages();
     _initStompConnect();
     _subscribeMessage();
   }
@@ -47,7 +59,7 @@ class ChatRoomViewModel extends GetxController {
   }
 
   void _initStompConnect() {
-    _stompService.connectStomp(chatRoomId: _chatRoomId.value);
+    _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
   }
 
   void _subscribeMessage() {
@@ -71,28 +83,82 @@ class ChatRoomViewModel extends GetxController {
 
   void sendMessage({required String content}) {
     try {
+      String formatOpinion = '';
+      switch (_room.value.opinion) {
+        case '찬성':
+          formatOpinion = OpinionType.agree.value;
+        case '반대':
+          formatOpinion = OpinionType.disagree.value;
+        default:
+          formatOpinion = OpinionType.neutral.value;
+      }
+
       final chatMessage = ChatMessageEntity(
-        messageType: 'CHAT',
+        messageType: ChatMessageType.chat.value,
         content: content,
         sender: _pref.getNickname(),
-        opinionType: 'AGREE',
+        opinionType: formatOpinion,
         userCommunity: _pref.getCommunity(),
-        timeStamp: DateTime.now(),
       );
 
       _stompService.sendStomp(
-        chatRoomId: _chatRoomId.value,
+        chatRoomId: _room.value.chatRoomId,
         chatMessage: chatMessage,
       );
-
-      _chatMessages.add(chatMessage);
     } catch (e) {
       log.d("메시지 전송 중 오류 발생: $e");
     }
   }
 
-  void setChatRoomDetails(int roomId, String title) {
-    _chatRoomId.value = roomId;
-    _chatRoomTitle.value = title;
+  void _getChatRoomMessages({String? nextCursor}) async {
+    final result = await _chatRoomsMessagesRepository.getChatRoomsMessages(
+      roomId: _room.value.chatRoomId,
+      nextCursor: nextCursor,
+    );
+
+    result.when(
+      loading: () {},
+      success: (chatMessageCursor) {
+        String? previousDate;
+
+        for (final chatRoomMessage in chatMessageCursor.chatRoomMessages) {
+          final reversMessages = chatRoomMessage.messages.reversed.toList();
+          _chatMessages.insertAll(0, reversMessages);
+
+          final messageDate = DateTime.parse(chatRoomMessage.date);
+          if (previousDate != chatRoomMessage.date) {
+            final today = DateTime.now();
+            String formatDate = (today.year == messageDate.year &&
+                    today.month == messageDate.month &&
+                    today.day == messageDate.day)
+                ? '오늘'
+                : DateFormat('yyyy-MM-dd').format(messageDate);
+
+            if (!_chatMessages
+                .any((message) => message.content == formatDate)) {
+              _chatMessages.insert(
+                0,
+                ChatMessageEntity(
+                  messageType: ChatMessageType.date.value,
+                  content: formatDate,
+                  sender: '',
+                  opinionType: '',
+                  userCommunity: '',
+                ),
+              );
+            }
+          }
+
+          previousDate = chatRoomMessage.date;
+
+          if (chatRoomMessage.hasMore) {
+            _getChatRoomMessages(nextCursor: chatMessageCursor.nextCursor);
+          }
+        }
+      },
+      failure: (msg) {
+        deSnackBar(msg);
+      },
+    );
   }
 }

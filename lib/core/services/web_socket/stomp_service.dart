@@ -33,7 +33,7 @@ class StompService {
           log.d("STOMP 프로토콜 에러: ${frame.body}");
         },
         onDisconnect: (frame) {
-          log.d("STOMP 연결 해제: ${frame.headers}");
+          log.d('STOMP 연결 해제');
         },
         onWebSocketDone: () {
           log.d("WebSocket 연결 종료");
@@ -51,7 +51,7 @@ class StompService {
       stompClient.subscribe(
         destination: '/topic/room$chatRoomId',
         callback: (frame) {
-          log.d('[Stomp Receive] : $chatRoomId\n${frame.body}');
+          log.d('[Stomp Receive]\nroomId : $chatRoomId\n${frame.body}');
           if (frame.body != null) {
             final chatMessage = ChatMessageEntity.fromJson(
               jsonDecode(frame.body!),
@@ -70,10 +70,11 @@ class StompService {
     required ChatMessageEntity chatMessage,
   }) {
     try {
-      log.d('[Stomp Send] : $chatRoomId\n$chatMessage');
+      final jsonChatMessage = jsonEncode(chatMessage.toJson());
+      log.d('[Stomp Send]\nroomId : $chatRoomId\n$jsonChatMessage');
       stompClient.send(
-        destination: '/topic/room$chatRoomId',
-        body: jsonEncode(chatMessage.toJson()),
+        destination: '/stomp/chat.room.$chatRoomId',
+        body: jsonChatMessage,
       );
     } catch (e, stack) {
       log.d('$e \n $stack');
@@ -83,7 +84,6 @@ class StompService {
   void disconnect() {
     try {
       stompClient.deactivate();
-      _chatStream.close();
     } catch (e, stack) {
       log.d('$e \n $stack');
     }

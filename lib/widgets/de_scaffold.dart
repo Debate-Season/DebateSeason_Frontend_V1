@@ -5,13 +5,19 @@ import 'package:flutter/material.dart';
 class DeScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? body;
+  final Color? backgroundColor;
   final Widget? bottomNavigationBar;
+  final Widget? bottomSheet;
+  final bool? resizeToAvoidBottomInset;
 
   const DeScaffold({
     super.key,
     this.appBar,
     this.body,
+    this.backgroundColor,
     this.bottomNavigationBar,
+    this.bottomSheet,
+    this.resizeToAvoidBottomInset,
   });
 
   @override
@@ -23,7 +29,9 @@ class DeScaffold extends StatelessWidget {
           appBar: appBar,
           body: body,
           bottomNavigationBar: bottomNavigationBar,
-          backgroundColor: grey110,
+          backgroundColor: backgroundColor ?? grey110,
+          bottomSheet: bottomSheet,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         ),
       ),
     );
