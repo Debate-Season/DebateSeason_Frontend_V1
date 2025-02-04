@@ -17,32 +17,37 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () => Get.back(),
-          child: Row(
-            children: [
-              Gaps.h12,
-              Padding(
-                padding: Dimensions.all8,
-                child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+    return Container(
+      color: grey80,
+      child: SafeArea(
+        child: DeScaffold(
+          appBar: AppBar(
+            leading: GestureDetector(
+              onTap: () => Get.back(),
+              child: Row(
+                children: [
+                  Gaps.h12,
+                  Padding(
+                    padding: Dimensions.all8,
+                    child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+                  ),
+                  Gaps.h4,
+                ],
               ),
-              Gaps.h4,
-            ],
+            ),
+            title: Obx(() {
+              return ChatRoomAppBar(title: controller.room.title);
+            }),
+            titleSpacing: 0,
+            backgroundColor: grey80,
+            scrolledUnderElevation: 0,
+            automaticallyImplyLeading: true,
           ),
+          body: _body(),
+          backgroundColor: grey80,
+          resizeToAvoidBottomInset: true,
         ),
-        title: Obx(() {
-          return ChatRoomAppBar(title: controller.room.title);
-        }),
-        titleSpacing: 0,
-        backgroundColor: grey80,
-        scrolledUnderElevation: 0,
-        automaticallyImplyLeading: true,
       ),
-      body: _body(),
-      backgroundColor: grey80,
-      resizeToAvoidBottomInset: true,
     );
   }
 
