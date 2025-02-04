@@ -37,7 +37,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   DebateAppBar _appBar() {
     return DebateAppBar(
-      title: '이슈명',
+      titleWidget: _widgetAppBarTitle(),
       actions: [
         DeGestureDetector(
           onTap: () {},
@@ -49,6 +49,31 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         Gaps.h20,
       ],
     );
+  }
+
+  Widget _widgetAppBarTitle() {
+    return Obx(() {
+      return Row(
+        children: [
+          Gaps.h12,
+          Expanded(
+            child: Column(
+              children: [
+                DeText(controller.issueTitle!,
+                    style: cation12SB.copyWith(color: grey10)),
+                DeText('토론방', style: cation12M.copyWith(color: grey50)),
+              ],
+            ),
+          ),
+          Gaps.h12,
+          Padding(
+            padding: Dimensions.all8,
+            child: SvgPicture.asset(''),
+          ),
+          Gaps.h12,
+        ],
+      );
+    });
   }
 
   Widget _body() {
