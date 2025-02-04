@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
@@ -251,10 +252,19 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
                   return;
                 }
+                final newRoom = RoomRes(
+                  chatRoomId: room.chatRoomId,
+                  title: room.title,
+                  content: room.content,
+                  agree: room.agree,
+                  disagree: room.disagree,
+                  createdAt: room.createdAt,
+                  opinion: opinion,
+                );
                 Get.toNamed(
                   GetRouterName.chat,
                   arguments: {
-                    'room': room,
+                    'room': newRoom,
                   },
                 );
               },
