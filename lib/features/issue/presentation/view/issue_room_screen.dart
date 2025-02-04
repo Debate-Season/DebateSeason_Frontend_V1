@@ -38,8 +38,8 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _newChatCount(),
-          Gaps.v40,
+          // _newChatCount(),
+          // Gaps.v40,
           _joinedCommunities(),
           Gaps.v40,
           Expanded(
