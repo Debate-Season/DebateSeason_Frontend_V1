@@ -97,6 +97,14 @@ const cation12M = TextStyle(
   height: 1.5,
 );
 
+const caption12M2 = TextStyle(
+  color: grey10,
+  fontSize: 12,
+  fontFamily: 'Pretendard',
+  fontWeight: FontWeight.w500,
+  height: 1.2,
+);
+
 const cation12R = TextStyle(
   color: grey10,
   fontSize: 12,

@@ -94,14 +94,15 @@ class IssueCard extends StatelessWidget {
 
     return Container(
       width: 80,
+      height: 80,
       padding: EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 10,
+        horizontal: 9,
+        vertical: 7,
       ),
       decoration: ShapeDecoration(
         color: widgetColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(11.32),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       child: Column(
@@ -110,7 +111,7 @@ class IssueCard extends StatelessWidget {
         children: [
           DeText(
             data,
-            style: cation12SB,
+            style: caption12M2,
           ),
           DeText(
             data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
@@ -118,7 +119,7 @@ class IssueCard extends StatelessWidget {
           ),
           DeText(
             data == '찬성' ? '$agree표' : '$disagree표',
-            style: cation12M,
+            style: caption12M2,
           ),
         ],
       ),
