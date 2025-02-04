@@ -6,7 +6,6 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
-import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,8 +65,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
 
   Widget _categoryTitle() {
     return DeGestureDetector(
-      onTap: () {
-      },
+      onTap: () {},
       child: DeText(
         '전체',
         style: headerLarge,

@@ -7,105 +7,87 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_room_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChatRoomScreen extends GetView<ChatRoomViewModel> {
-  const ChatRoomScreen({super.key});
+  ChatRoomScreen({super.key});
+
+  final _chatScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => Get.back(),
+          child: Row(
+            children: [
+              Gaps.h12,
+              Padding(
+                padding: Dimensions.all8,
+                child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+              ),
+              Gaps.h4,
+            ],
+          ),
+        ),
+        title: Obx(() {
+          return ChatRoomAppBar(title: controller.room.title);
+        }),
+        titleSpacing: 0,
+        backgroundColor: grey80,
+        scrolledUnderElevation: 0,
+        automaticallyImplyLeading: true,
+      ),
       body: _body(),
       backgroundColor: grey80,
+      resizeToAvoidBottomInset: true,
     );
   }
 
   Widget _body() {
-    return Padding(
-      padding: Dimensions.all20,
-      child: Column(
-        children: [
-          Obx(() {
-            return ChatRoomAppBar(
-                title: controller.chatRoomTitle.isNotEmpty
-                    ? controller.chatRoomTitle
-                    : '토론방 로딩 중');
-          }),
-          Obx(() {
-            return Expanded(
-              child: _chatMessages(),
-            );
-          }),
-          ChatInputField(
-            chatRoomViewModel: controller,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: _chatMessages(),
+        ),
+        ChatInputField(
+          chatRoomViewModel: controller,
+        ),
+      ],
     );
   }
 
   Widget _chatMessages() {
     return Obx(() {
-      final chatMessages = controller.chatMessages;
-      // 더미데이터
-      // final chatMessages = [
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕1',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕2',
-      //     sender: '홍건적',
-      //     opinionType: 'DISAGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕3',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕4',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕5',
-      //     sender: '홍건적',
-      //     opinionType: 'AGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      //   ChatMessageEntity(
-      //     messageType: 'CHAT',
-      //     content: '안녕6',
-      //     sender: '홍건적',
-      //     opinionType: 'DISAGREE',
-      //     userCommunity: '에펨코리아',
-      //     timeStamp: DateTime.now(),
-      //   ),
-      // ];
-      return ListView.separated(
-        itemCount: chatMessages.length,
-        itemBuilder: (context, index) {
-          final chatMessage = chatMessages[index];
+      var chatMessages = controller.chatMessages;
 
-          return ChatMessage(message: chatMessage);
-        },
-        separatorBuilder: (context, index) => Gaps.v16,
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_chatScrollController.hasClients) {
+          _chatScrollController.jumpTo(
+            _chatScrollController.position.minScrollExtent,
+          );
+        }
+      });
+
+      final chattingMessageList = chatMessages.reversed.toList();
+
+      return Align(
+        alignment: Alignment.topCenter,
+        child: ListView.separated(
+          controller: _chatScrollController,
+          itemCount: chattingMessageList.length,
+          shrinkWrap: true,
+          reverse: true,
+          padding: Dimensions.all20,
+          itemBuilder: (context, index) {
+            final chatMessage = chattingMessageList[index];
+
+            return ChatMessage(message: chatMessage);
+          },
+          separatorBuilder: (context, index) => Gaps.v16,
+        ),
       );
     });
   }

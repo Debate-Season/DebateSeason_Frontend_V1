@@ -19,13 +19,11 @@ import 'package:get/get.dart';
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   const IssueRoomScreen({super.key});
 
-  String get issuetitle => controller.issuetitle.value;
-
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
       appBar: IssueAppBar(
-        title: Obx(() => Text(issuetitle, style: title)),
+        title: Obx(() => Text(controller.issuetitle.value, style: title)),
         isCenter: false,
       ),
       body: _body(),
