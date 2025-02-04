@@ -161,7 +161,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         Gaps.v16,
         DeGestureDetector(
           onTap: () {
-            DeDialog(
+            DeDialog.show(
               dialogTitle: '로그아웃 하시겠습니까?',
               doneText: '로그아웃',
               cancelText: '취소',
@@ -173,7 +173,6 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       if (Platform.isAndroid) {
                         controller.kakaoLogout().then((_) {
                           Get.offAllNamed(GetRouterName.auth);
-                          deSnackBar('로그아웃되었습니다.');
                         });
                       }
                     },
@@ -183,7 +182,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   );
                 });
               },
-            );
+            ).then((_) {
+              deSnackBar('로그아웃되었습니다.');
+            });
           },
           child: Row(
             children: [

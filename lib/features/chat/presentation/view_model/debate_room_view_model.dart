@@ -16,6 +16,9 @@ class DebateRoomViewModel extends GetxController {
   String? get voteData => _voteData.value;
 
   var voteStatus = ''.obs;
+  final _issueTitle = ''.obs;
+
+  String? get issueTitle => _issueTitle.value;
 
   void updateVoteStatus(String newOpinion) {
     voteStatus.value = newOpinion;
@@ -27,9 +30,10 @@ class DebateRoomViewModel extends GetxController {
     _roomDataSource = Get.find<RoomDataSource>();
     _voteDataSource = Get.find<VoteDataSource>();
 
-    final arguments = Get.arguments as Map<String, int>;
+    final arguments = Get.arguments as Map<String, dynamic>;
     final int chatroomId = arguments['chatroom_id'] ?? -1;
-    log.d('chatroomId : $chatroomId');
+    final String issueTitle = arguments['issue_title'] ?? '';
+    _issueTitle.value = issueTitle;
     fetchRoomData(chatroomId);
   }
 

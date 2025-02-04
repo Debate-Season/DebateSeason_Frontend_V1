@@ -1,21 +1,18 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
-
 class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final Widget titleWidget;
   final bool isBack;
   final List<Widget>? actions;
 
   const DebateAppBar({
     super.key,
-    required this.title,
+    required this.titleWidget,
     this.isBack = true,
     this.actions,
   });
@@ -25,7 +22,7 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: grey110,
       leading: isBack ? _backBtn() : null,
-      title: _title(title),
+      title: titleWidget,
       actions: actions,
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -47,28 +44,6 @@ class DebateAppBar extends StatelessWidget implements PreferredSizeWidget {
           Gaps.h4,
         ],
       ),
-    );
-  }
-
-  Widget _title(String title) {
-    return Row(
-      children: [
-        Gaps.h12,
-        Expanded(
-          child: Column(
-            children: [
-              DeText(title, style: cation12SB.copyWith(color: grey10)),
-              DeText('토론방', style: cation12M.copyWith(color: grey50)),
-            ],
-          ),
-        ),
-        Gaps.h12,
-        Padding(
-          padding: Dimensions.all8,
-          child: SvgPicture.asset(''),
-        ),
-        Gaps.h12,
-      ],
     );
   }
 

@@ -1,23 +1,23 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-
-import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   const DebateRoomScreen({super.key});
@@ -38,7 +38,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   DebateAppBar _appBar() {
     return DebateAppBar(
-      title: '이슈명',
+      titleWidget: _widgetAppBarTitle(),
       actions: [
         DeGestureDetector(
           onTap: () {},
@@ -50,6 +50,33 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         Gaps.h20,
       ],
     );
+  }
+
+  Widget _widgetAppBarTitle() {
+    return Obx(() {
+      return Row(
+        children: [
+          Gaps.h12,
+          Expanded(
+            child: Column(
+              children: [
+                DeText(
+                  controller.issueTitle!,
+                  style: cation12SB.copyWith(color: grey10),
+                ),
+                DeText('토론방', style: cation12M.copyWith(color: grey50)),
+              ],
+            ),
+          ),
+          Gaps.h12,
+          Padding(
+            padding: Dimensions.all8,
+            child: SvgPicture.asset(''),
+          ),
+          Gaps.h12,
+        ],
+      );
+    });
   }
 
   Widget _body() {
@@ -88,9 +115,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            log.d(room);
+            log.d(room?.toJson());
             if (room == null) {
-              return const Text('로딩중...');
+              return DeProgressIndicator();
             }
             return DeText(
               room.title,
@@ -106,7 +133,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       return DeText(
         room.content,
@@ -119,7 +146,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       int agree = room.agree;
       int disagree = room.disagree;
@@ -154,7 +181,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
 
       String opinion = controller.voteStatus.value;
@@ -184,14 +211,16 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             {}
           else
             {
-              DeDialog(
+              DeDialog.show(
                 dialogTitle: '입장 변경',
                 dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
                 doneText: '변경하기',
                 cancelText: '유지',
-                onTapDone: () {
-                  controller.postVoteData(data, room.chatRoomId);
-                  deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                onTapDone: () async {
+                  await controller.postVoteData(data, room.chatRoomId);
+                  if (Get.isDialogOpen ?? true) {
+                    deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                  }
                 },
               )
             }
@@ -234,7 +263,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       String opinion = controller.voteStatus.value;
 
@@ -251,10 +280,19 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
                   return;
                 }
+                final newRoom = RoomRes(
+                  chatRoomId: room.chatRoomId,
+                  title: room.title,
+                  content: room.content,
+                  agree: room.agree,
+                  disagree: room.disagree,
+                  createdAt: room.createdAt,
+                  opinion: opinion,
+                );
                 Get.toNamed(
                   GetRouterName.chat,
                   arguments: {
-                    'room': room,
+                    'room': newRoom,
                   },
                 );
               },
