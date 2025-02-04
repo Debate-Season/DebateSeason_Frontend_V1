@@ -89,7 +89,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Gaps.v40,
           DeGestureDetector(
             onTap: () {
-              DeDialog(
+              DeDialog.show(
                 dialogTitle: ProfileConstants.profileWithdrawDialogTitle,
                 dialogText: ProfileConstants.profileWithdrawDialogDescription,
                 cancelText: ProfileConstants.profileWithdrawDialogCancelText,

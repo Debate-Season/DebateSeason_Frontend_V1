@@ -7,24 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DeDialog {
-  final String dialogTitle;
-  final String dialogText;
-  final String cancelText;
-  final String doneText;
-  final void Function() onTapDone;
-
-  DeDialog({
-    required this.dialogTitle,
-    this.dialogText = '',
-    required this.cancelText,
-    required this.doneText,
-    required this.onTapDone,
+  static Future<void> show({
+    required String dialogTitle,
+    String dialogText = '',
+    required String cancelText,
+    required String doneText,
+    required VoidCallback onTapDone,
   }) {
-    _showLogoutDialog();
-  }
-
-  void _showLogoutDialog() {
-    Get.dialog(
+    return Get.dialog(
       Dialog(
         backgroundColor: grey80,
         shape: RoundedRectangleBorder(
@@ -35,10 +25,7 @@ class DeDialog {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DeText(
-                dialogTitle,
-                style: title,
-              ),
+              DeText(dialogTitle, style: title),
               if (dialogText.isNotEmpty) ...[
                 Gaps.v8,
                 DeText(
@@ -65,7 +52,10 @@ class DeDialog {
                     child: DeButtonSmall(
                       doneText,
                       textColor: brandColor,
-                      onPressed: onTapDone,
+                      onPressed: () {
+                        onTapDone();
+                        Get.back();
+                      },
                     ),
                   ),
                 ],

@@ -1,8 +1,13 @@
+import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -11,13 +16,6 @@ import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-
-import 'package:debateseason_frontend_v1/utils/logger.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   const DebateRoomScreen({super.key});
@@ -88,7 +86,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            log.d(room);
+            log.d(room?.toJson());
             if (room == null) {
               return const Text('로딩중...');
             }
@@ -184,14 +182,16 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             {}
           else
             {
-              DeDialog(
+              DeDialog.show(
                 dialogTitle: '입장 변경',
                 dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
                 doneText: '변경하기',
                 cancelText: '유지',
-                onTapDone: () {
-                  controller.postVoteData(data, room.chatRoomId);
-                  deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                onTapDone: () async {
+                  await controller.postVoteData(data, room.chatRoomId);
+                  if (Get.isDialogOpen ?? true) {
+                    deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                  }
                 },
               )
             }
