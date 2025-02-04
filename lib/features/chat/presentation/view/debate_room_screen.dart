@@ -12,6 +12,7 @@ import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
+import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +60,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           Expanded(
             child: Column(
               children: [
-                DeText(controller.issueTitle!,
-                    style: cation12SB.copyWith(color: grey10)),
+                DeText(
+                  controller.issueTitle!,
+                  style: cation12SB.copyWith(color: grey10),
+                ),
                 DeText('토론방', style: cation12M.copyWith(color: grey50)),
               ],
             ),
@@ -114,7 +117,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             final room = controller.roomData;
             log.d(room?.toJson());
             if (room == null) {
-              return const Text('로딩중...');
+              return DeProgressIndicator();
             }
             return DeText(
               room.title,
@@ -130,7 +133,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       return DeText(
         room.content,
@@ -143,7 +146,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       int agree = room.agree;
       int disagree = room.disagree;
@@ -178,7 +181,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
 
       String opinion = controller.voteStatus.value;
@@ -260,7 +263,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return const Text('로딩중...');
+        return DeProgressIndicator();
       }
       String opinion = controller.voteStatus.value;
 
