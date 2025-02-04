@@ -213,7 +213,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             {
               DeDialog.show(
                 dialogTitle: '입장 변경',
-                dialogText: '입장을 변경하시겠습니까?\n다음 변경은 7일 후 가능합니다.',
+                dialogText: '입장을 변경하시겠습니까?',
                 doneText: '변경하기',
                 cancelText: '유지',
                 onTapDone: () async {
