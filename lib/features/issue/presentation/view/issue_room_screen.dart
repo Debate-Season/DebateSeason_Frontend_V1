@@ -173,13 +173,14 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         return const Text('채팅방이 개설되지 않았습니다.');
       }
 
+      log.d(chatroom?.title);
       return DeGestureDetector(
         onTap: () {
           Get.toNamed(
             GetRouterName.debate,
             arguments: {
               'chatroom_id': chatroom?.chatRoomId ?? -1,
-              'issue_title': chatroom?.title ?? '',
+              'issue_title': controller.issuetitle.value,
             },
           );
         },
