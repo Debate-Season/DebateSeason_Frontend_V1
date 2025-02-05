@@ -62,20 +62,19 @@ class ChatMessage extends StatelessWidget {
           ),
         );
       default:
-        return Column(
-          children: [
-            _chatMessageHeader(),
-            Gaps.v4,
-            _chatMessageBody(
-              backgroundColor: redDark,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(0),
-                topRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
+        return Align(
+          alignment: Alignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _chatMessageHeader(),
+              Gaps.v4,
+              _chatMessageBody(
+                backgroundColor: blueDark,
+                borderRadius: BorderRadius.circular(12),
               ),
-            ),
-          ],
+            ],
+          ),
         );
     }
   }
