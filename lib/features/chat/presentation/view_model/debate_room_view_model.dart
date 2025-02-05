@@ -16,14 +16,10 @@ class DebateRoomViewModel extends GetxController {
 
   String? get voteData => _voteData.value;
 
-  var voteStatus = OpinionType.neutral.obs;
+  var voteStatus = OpinionType.neutral.value.obs;
   final _issueTitle = ''.obs;
 
   String? get issueTitle => _issueTitle.value;
-
-  void updateVoteStatus(OpinionType newOpinion) {
-    voteStatus.value = newOpinion;
-  }
 
   @override
   void onInit() {
@@ -60,7 +56,7 @@ class DebateRoomViewModel extends GetxController {
       try {
         voteStatus.value = response.data.opinion;
       } catch (e) {
-        voteStatus.value = OpinionType.neutral;
+        voteStatus.value = OpinionType.neutral.value;
       }
       log.d(voteStatus.value);
       log.d(response.data.opinion);
@@ -71,11 +67,15 @@ class DebateRoomViewModel extends GetxController {
 
   Future<void> postVoteData(OpinionType opinion, int chatroomId) async {
     try {
-      _voteDataSource.postVote(opinion: opinion, chatroomId: chatroomId);
+      _voteDataSource.postVote(opinion: opinion.value, chatroomId: chatroomId);
       updateVoteStatus(opinion);
       log.d(opinion.value);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
+  }
+
+  void updateVoteStatus(OpinionType newOpinion) {
+    voteStatus.value = newOpinion.value;
   }
 }

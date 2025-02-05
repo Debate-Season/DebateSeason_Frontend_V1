@@ -22,7 +22,7 @@ class ChatRoomViewModel extends GetxController {
       title: '',
       content: '',
       //opinion: '',
-      opinion: OpinionType.neutral,
+      opinion: OpinionType.neutral.value,
       agree: 0,
       disagree: 0,
       createdAt: '',

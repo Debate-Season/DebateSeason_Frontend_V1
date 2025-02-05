@@ -11,8 +11,7 @@ class RoomRes {
   int agree;
   int disagree;
   String createdAt;
-  OpinionType opinion;
-  //String opinion;
+  String opinion;
 
    RoomRes({
     required this.chatRoomId,

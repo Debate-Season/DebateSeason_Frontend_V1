@@ -11,7 +11,7 @@ abstract class VoteDataSource {
 
   @POST('/api/v1/room/vote')
   Future<NullableBaseRes> postVote({
-    @Query('opinion') required OpinionType opinion,
+    @Query('opinion') required String opinion,
     @Query('chatroom-id') required int chatroomId,
   });
 }

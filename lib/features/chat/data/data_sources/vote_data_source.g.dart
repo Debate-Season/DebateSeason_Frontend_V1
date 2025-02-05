@@ -19,12 +19,12 @@ class _VoteDataSource implements VoteDataSource {
 
   @override
   Future<NullableBaseRes> postVote({
-    required OpinionType opinion,
+    required String opinion,
     required int chatroomId,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'opinion': opinion.name,
+      r'opinion': opinion,
       r'chatroom-id': chatroomId,
     };
     final _headers = <String, dynamic>{};
