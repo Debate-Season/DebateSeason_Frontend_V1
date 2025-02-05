@@ -1,10 +1,10 @@
 enum OpinionType {
-  agree('AGREE'),
-  disagree('DISAGREE'),
-  neutral('NEUTRAL');
+  agree('AGREE', '찬성'),
+  disagree('DISAGREE', '반대'),
+  neutral('NEUTRAL', '중립');
 
   final String value;
+  final String valueKr;
 
-  const OpinionType(this.value);
-
+  const OpinionType(this.value, this.valueKr);
 }
