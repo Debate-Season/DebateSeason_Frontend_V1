@@ -54,10 +54,11 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         Gaps.v8,
-        Container(
-          height: 1,
-          color: grey70,
-        )
+        // todo 바텀시트 생성되면 하단 코드 주석 해제. (앱바 하단 구분선 스크린 쪽으로 이동)
+        // Container(
+        //   height: 1,
+        //   color: grey70,
+        // )
       ],
     );
   }

@@ -6,9 +6,13 @@ import 'package:get/get.dart';
 class IssueRoomViewModel extends GetxController {
   late final IssueDataSource _issueDataSource;
   final Rx<IssueRes?> _issueData = Rx<IssueRes?>(null);
+  final _issueId = (-1).obs;
+
   IssueRes? get issueData => _issueData.value;
 
-  var issuetitle = ''.obs;
+  int get issueId => _issueId.value;
+
+  var issueTitle = ''.obs;
 
   @override
   void onInit() {
@@ -17,7 +21,7 @@ class IssueRoomViewModel extends GetxController {
 
     final arguments = Get.arguments as Map<String, int>;
     final int issueId = arguments['issue_id'] ?? -1;
-    log.d('issueId : $issueId');
+    _issueId.value = issueId;
     fetchIssueData(issueId);
   }
 
@@ -25,7 +29,7 @@ class IssueRoomViewModel extends GetxController {
     try {
       final response = await _issueDataSource.getIssue(issueId: issueId);
       _issueData.value = response.data;
-      issuetitle.value = response.data.title;
+      issueTitle.value = response.data.title;
     } catch (e) {
       log.d(e);
     }

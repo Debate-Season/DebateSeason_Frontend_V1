@@ -6,4 +6,5 @@ enum OpinionType {
   final String value;
 
   const OpinionType(this.value);
+
 }

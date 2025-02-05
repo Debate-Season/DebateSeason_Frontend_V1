@@ -1,29 +1,21 @@
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'room_res.freezed.dart';
 part 'room_res.g.dart';
 
-@JsonSerializable()
-class RoomRes {
-  int chatRoomId;
-  String title;
-  String content;
-  int agree;
-  int disagree;
-  String createdAt;
-  String opinion;
-
-   RoomRes({
-    required this.chatRoomId,
-    required this.title,
-    required this.content,
-    required this.agree,
-    required this.disagree,
-    required this.createdAt,
-    required this.opinion,
-  });
+@freezed
+class RoomRes with _$RoomRes {
+  const factory RoomRes({
+    required int chatRoomId,
+    required String title,
+    required String content,
+    required int agree,
+    required int disagree,
+    required String createdAt,
+    required String opinion,
+  }) = _RoomRes;
 
   factory RoomRes.fromJson(Map<String, dynamic> json) =>
       _$RoomResFromJson(json);
-
-  Map<String, dynamic> toJson() => _$RoomResToJson(this);
 }

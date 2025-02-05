@@ -21,7 +21,8 @@ class ChatRoomViewModel extends GetxController {
       chatRoomId: -1,
       title: '',
       content: '',
-      opinion: '',
+      //opinion: '',
+      opinion: OpinionType.neutral.value,
       agree: 0,
       disagree: 0,
       createdAt: '',
@@ -44,6 +45,8 @@ class ChatRoomViewModel extends GetxController {
       final Map<String, dynamic> arguments = Get.arguments;
       final RoomRes room = arguments['room'];
       _room.value = room;
+      var opinion = room.opinion;
+      log.d('opinion: $opinion');
     } catch (e) {
       log.d('에러: $e');
     }
@@ -83,21 +86,11 @@ class ChatRoomViewModel extends GetxController {
 
   void sendMessage({required String content}) {
     try {
-      String formatOpinion = '';
-      switch (_room.value.opinion) {
-        case '찬성':
-          formatOpinion = OpinionType.agree.value;
-        case '반대':
-          formatOpinion = OpinionType.disagree.value;
-        default:
-          formatOpinion = OpinionType.neutral.value;
-      }
-
       final chatMessage = ChatMessageEntity(
         messageType: ChatMessageType.chat.value,
         content: content,
         sender: _pref.getNickname(),
-        opinionType: formatOpinion,
+        opinionType: _room.value.opinion,
         userCommunity: _pref.getCommunity(),
       );
 
