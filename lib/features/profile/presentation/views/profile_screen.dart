@@ -177,6 +177,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       } else {
                         Get.offAllNamed(GetRouterName.auth);
                       }
+                      deSnackBar('로그아웃되었습니다.');
                     },
                     failure: (msg) {
                       deSnackBar(msg);
@@ -184,9 +185,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   );
                 });
               },
-            ).then((_) {
-              deSnackBar('로그아웃되었습니다.');
-            });
+            );
           },
           child: Row(
             children: [
