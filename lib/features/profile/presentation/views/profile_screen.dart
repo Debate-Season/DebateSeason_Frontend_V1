@@ -174,6 +174,8 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                         controller.kakaoLogout().then((_) {
                           Get.offAllNamed(GetRouterName.auth);
                         });
+                      } else {
+                        Get.offAllNamed(GetRouterName.auth);
                       }
                     },
                     failure: (msg) {
