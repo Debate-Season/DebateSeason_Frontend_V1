@@ -105,6 +105,8 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                             deSnackBar(
                                 ProfileConstants.profileWithdrawSuccessMessage);
                           });
+                        } else {
+                          Get.offAllNamed(GetRouterName.auth);
                         }
                       },
                       failure: (msg) {

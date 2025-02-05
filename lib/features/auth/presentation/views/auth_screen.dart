@@ -66,7 +66,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                       },
                       success: (data) {
                         if (data.profileStatus) {
-                          Get.offNamed(GetRouterName.profileInput);
+                          Get.offNamed(GetRouterName.home);
                         } else {
                           Get.offNamed(GetRouterName.profileInput);
                         }

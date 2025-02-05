@@ -140,7 +140,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v8,
         DeTextField(
           style: body16M,
-          hintText: '사용할 닉네임을 입력해주세요.',
+          hintText: '한글, 영문 조합 최대 8자',
           controller: controller.nicknameController,
           focusNode: controller.nicknameFocusNode,
           autofocus: false,
