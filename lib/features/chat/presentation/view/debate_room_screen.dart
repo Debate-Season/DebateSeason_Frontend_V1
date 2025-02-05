@@ -9,7 +9,6 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/d
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -17,7 +16,6 @@ import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class DebateRoomScreen extends GetView<DebateRoomViewModel> {
@@ -41,13 +39,13 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return DebateAppBar(
       titleWidget: _widgetAppBarTitle(),
       actions: [
-        DeGestureDetector(
-          onTap: () {},
-          child: Padding(
-            padding: Dimensions.all8,
-            child: SvgPicture.asset(''),
-          ),
-        ),
+        // DeGestureDetector(
+        //   onTap: () {},
+        //   child: Padding(
+        //     padding: Dimensions.all8,
+        //     child: SvgPicture.asset(''),
+        //   ),
+        // ),
         Gaps.h20,
       ],
     );
@@ -72,7 +70,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           Gaps.h12,
           Padding(
             padding: Dimensions.all8,
-            child: SvgPicture.asset(''),
+            child: SizedBox.shrink(),
+            // SvgPicture.asset(''),
           ),
           Gaps.h12,
         ],
@@ -116,7 +115,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            log.d(room?.toJson());
             if (room == null) {
               return DeProgressIndicator();
             }

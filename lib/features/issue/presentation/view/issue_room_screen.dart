@@ -7,7 +7,6 @@ import 'package:debateseason_frontend_v1/features/issue/data/models/remote/respo
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_cached_image.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
@@ -23,7 +22,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   Widget build(BuildContext context) {
     return DeScaffold(
       appBar: IssueAppBar(
-        title: Obx(() => Text(controller.issuetitle.value, style: title)),
+        title: Obx(() => Text(controller.issueTitle.value, style: title)),
         isCenter: false,
       ),
       body: _body(),
@@ -91,7 +90,6 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Obx(() {
       final communities = controller.issueData?.map.keys.toList();
       final int len = communities?.length ?? 0;
-      log.d(communities);
 
       Widget comm(imagePath) {
         if (imagePath == null) {
@@ -177,7 +175,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             GetRouterName.debate,
             arguments: {
               'chatroom_id': chatroom?.chatRoomId ?? -1,
-              'issue_title': controller.issuetitle.value,
+              'issue_title': controller.issueTitle.value,
             },
           );
         },

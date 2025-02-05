@@ -2,24 +2,23 @@ import 'package:debateseason_frontend_v1/features/chat/data/data_sources/room_da
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/vote_data_source.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
 class DebateRoomViewModel extends GetxController {
-  late RoomDataSource _roomDataSource; // todo 여기 final 쓰면 오류 발생
+  late RoomDataSource _roomDataSource;
+  late VoteDataSource _voteDataSource;
   final Rx<RoomRes?> _roomData = Rx<RoomRes?>(null);
+  var voteStatus = OpinionType.neutral.value.obs;
+  final _issueTitle = ''.obs;
+  final _chatRoomId = (-1).obs;
 
   RoomRes? get roomData => _roomData.value;
 
-  late VoteDataSource _voteDataSource;
-  final Rx<String?> _voteData = Rx<String?>(null);
+  String get issueTitle => _issueTitle.value;
 
-  String? get voteData => _voteData.value;
-
-  var voteStatus = OpinionType.neutral.value.obs;
-  final _issueTitle = ''.obs;
-
-  String? get issueTitle => _issueTitle.value;
+  int get chatRoomId => _chatRoomId.value;
 
   @override
   void onInit() {
@@ -31,6 +30,7 @@ class DebateRoomViewModel extends GetxController {
     final int chatroomId = arguments['chatroom_id'] ?? -1;
     final String issueTitle = arguments['issue_title'] ?? '';
     _issueTitle.value = issueTitle;
+    _chatRoomId.value = chatroomId;
     fetchRoomData(chatroomId);
   }
 
@@ -58,8 +58,6 @@ class DebateRoomViewModel extends GetxController {
       } catch (e) {
         voteStatus.value = OpinionType.neutral.value;
       }
-      log.d(voteStatus.value);
-      log.d(response.data.opinion);
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
@@ -67,15 +65,26 @@ class DebateRoomViewModel extends GetxController {
 
   Future<void> postVoteData(OpinionType opinion, int chatroomId) async {
     try {
-      _voteDataSource.postVote(opinion: opinion.value, chatroomId: chatroomId);
+      await _voteDataSource.postVote(
+        opinion: opinion.value,
+        chatroomId: chatroomId,
+      );
       updateVoteStatus(opinion);
-      log.d(opinion.value);
-    } catch (e) {
-      log.d('Error fetching room data: $e');
+      _updateRoom(opinion: opinion);
+      final issueRoomViewModel = Get.find<IssueRoomViewModel>();
+      await issueRoomViewModel.fetchIssueData(issueRoomViewModel.issueId);
+      await fetchRoomData(_chatRoomId.value);
+    } catch (e, s) {
+      log.d('postVoteData: $e\n'
+          '$s');
     }
   }
 
   void updateVoteStatus(OpinionType newOpinion) {
     voteStatus.value = newOpinion.value;
+  }
+
+  void _updateRoom({required OpinionType opinion}) {
+    _roomData.value = roomData?.copyWith(opinion: opinion.value);
   }
 }
