@@ -86,21 +86,11 @@ class ChatRoomViewModel extends GetxController {
 
   void sendMessage({required String content}) {
     try {
-      String formatOpinion = '';
-      switch (_room.value.opinion) {
-        case OpinionType.agree:
-          formatOpinion = OpinionType.agree.value;
-        case OpinionType.disagree:
-          formatOpinion = OpinionType.disagree.value;
-        default:
-          formatOpinion = OpinionType.neutral.value;
-      }
-
       final chatMessage = ChatMessageEntity(
         messageType: ChatMessageType.chat.value,
         content: content,
         sender: _pref.getNickname(),
-        opinionType: formatOpinion,
+        opinionType: _room.value.opinion,
         userCommunity: _pref.getCommunity(),
       );
 
