@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/issue_constants.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
@@ -59,12 +60,12 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       child: Column(
         children: [
           DeText(
-            '오늘 신규 대화',
+            IssueConstants.todayNewChat,
             style: body16M.copyWith(color: grey50),
           ),
           Gaps.v12,
           DeText(
-            '-개',
+            IssueConstants.todayNewChatCount,
             style: body16Sb.copyWith(color: grey10),
           ),
         ],
@@ -77,7 +78,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DeText(
-          '참여 커뮤니티',
+          IssueConstants.joinedCommunities,
           style: title,
         ),
         Gaps.v16,
@@ -132,10 +133,10 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText('토론방', style: title),
+        DeText(IssueConstants.debateRoom, style: title),
         Gaps.v4,
         DeText(
-          'AI가 생성한 본 이슈의 주요 토론 주제입니다.',
+          IssueConstants.debateTopicDescription,
           style: cation12M.copyWith(color: grey50),
         ),
         Gaps.v8,
@@ -166,7 +167,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       final chatroom = chatRooms?[index];
 
       if (chatRooms == null) {
-        return const Text('채팅방이 개설되지 않았습니다.');
+        return const Text(IssueConstants.noChatRoom);
       }
 
       return DeGestureDetector(
