@@ -82,44 +82,45 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           style: title,
         ),
         Gaps.v16,
-        _commItem(),
+        _comm(),
       ],
     );
   }
 
-  Widget _commItem() {
+  Widget commItem(imagePath) {
+    if (imagePath == null) {
+      return Container(
+        width: 36,
+        height: 36,
+        decoration: ShapeDecoration(
+          color: brandColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: DeCachedImage(
+        imagePath,
+        width: 36,
+        height: 36,
+      ),
+    );
+  }
+
+  Widget _comm() {
     return Obx(() {
       final communities = controller.issueData?.map.keys.toList();
       final int len = communities?.length ?? 0;
-
-      Widget comm(imagePath) {
-        if (imagePath == null) {
-          return Container(
-            width: 36,
-            height: 36,
-            decoration: ShapeDecoration(
-              color: brandColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          );
-        }
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: DeCachedImage(
-            imagePath,
-            width: 36,
-            height: 36,
-          ),
-        );
-      }
 
       return SizedBox(
         height: 36,
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return comm(communities?[index]);
+            return commItem(communities?[index]);
           },
           separatorBuilder: (context, index) => Gaps.h8,
           itemCount: len,
