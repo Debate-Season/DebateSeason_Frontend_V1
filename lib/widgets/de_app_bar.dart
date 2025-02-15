@@ -10,6 +10,8 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isBack;
   final List<Widget>? actions;
   final bool? isCenter;
+  final Color? backgroundColor;
+  final PreferredSize? bottom;
 
   const DeAppBar({
     super.key,
@@ -17,12 +19,14 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isBack = true,
     this.actions,
     this.isCenter,
+    this.backgroundColor,
+    this.bottom,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: grey110,
+      backgroundColor: backgroundColor ?? grey110,
       leading: isBack ? _backBtn() : null,
       title: title,
       actions: [
@@ -34,6 +38,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: isBack,
       titleSpacing: isBack ? 0 : 20,
       centerTitle: isCenter,
+      bottom: bottom,
     );
   }
 
