@@ -1,14 +1,12 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final Widget title;
   final bool isBack;
   final List<Widget>? actions;
   final bool? isCenter;
@@ -26,10 +24,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: grey110,
       leading: isBack ? _backBtn() : null,
-      title: DeText(
-        title,
-        style: header,
-      ),
+      title: title,
       actions: [
         if (actions != null) ...actions!,
         Gaps.h20,

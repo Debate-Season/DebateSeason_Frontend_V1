@@ -20,70 +20,74 @@ class AuthScreen extends GetView<AuthViewModel> {
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(
-                'assets/images/img_auth_logo.png',
-                width: 160,
-                height: 160,
+      body: _body(),
+    );
+  }
+
+  Widget _body() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          Expanded(
+            child: Image.asset(
+              'assets/images/img_auth_logo.png',
+              width: 160,
+              height: 160,
+            ),
+          ),
+          if (Platform.isAndroid)
+            GestureDetector(
+              onTap: () {
+                controller.loginWithKakao().then((uiState) {
+                  uiState.when(
+                    loading: () {
+                      log.d('로딩중...');
+                    },
+                    success: (data) {
+                      if (data.profileStatus) {
+                        Get.offNamed(GetRouterName.home);
+                      } else {
+                        Get.offNamed(GetRouterName.profileInput);
+                      }
+                    },
+                    failure: (msg) {
+                      deSnackBar('로그인실패 : $msg');
+                    },
+                  );
+                });
+              },
+              child: _widgetLoginBtn(
+                loginType: AuthConstants.kakaoLoginType,
               ),
             ),
-            if (Platform.isAndroid)
-              GestureDetector(
-                onTap: () {
-                  controller.loginWithKakao().then((uiState) {
-                    uiState.when(
-                      loading: () {
-                        log.d('로딩중...');
-                      },
-                      success: (data) {
-                        if (data.profileStatus) {
-                          Get.offNamed(GetRouterName.home);
-                        } else {
-                          Get.offNamed(GetRouterName.profileInput);
-                        }
-                      },
-                      failure: (msg) {
-                        deSnackBar('로그인실패 : $msg');
-                      },
-                    );
-                  });
-                },
-                child: _widgetLoginBtn(
-                  loginType: AuthConstants.kakaoLoginType,
-                ),
+          if (Platform.isIOS)
+            GestureDetector(
+              onTap: () {
+                controller.loginWithApple().then((uiState) {
+                  uiState.when(
+                    loading: () {
+                      log.d('로딩중...');
+                    },
+                    success: (data) {
+                      if (data.profileStatus) {
+                        Get.offNamed(GetRouterName.home);
+                      } else {
+                        Get.offNamed(GetRouterName.profileInput);
+                      }
+                    },
+                    failure: (msg) {
+                      deSnackBar('로그인실패 : $msg');
+                    },
+                  );
+                });
+              },
+              child: _widgetLoginBtn(
+                loginType: AuthConstants.appleLoginType,
               ),
-            if (Platform.isIOS)
-              GestureDetector(
-                onTap: () {
-                  controller.loginWithApple().then((uiState) {
-                    uiState.when(
-                      loading: () {
-                        log.d('로딩중...');
-                      },
-                      success: (data) {
-                        if (data.profileStatus) {
-                          Get.offNamed(GetRouterName.home);
-                        } else {
-                          Get.offNamed(GetRouterName.profileInput);
-                        }
-                      },
-                      failure: (msg) {
-                        deSnackBar('로그인실패 : $msg');
-                      },
-                    );
-                  });
-                },
-                child: _widgetLoginBtn(
-                  loginType: AuthConstants.appleLoginType,
-                ),
-              ),
-            Gaps.v16,
-          ],
-        ),
+            ),
+          Gaps.v16,
+        ],
       ),
     );
   }
