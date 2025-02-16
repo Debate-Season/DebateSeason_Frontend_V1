@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/category/category_constants.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
@@ -67,7 +68,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
     return DeGestureDetector(
       onTap: () {},
       child: DeText(
-        '전체',
+        CategoryConstants.allCategory,
         style: headerLarge,
       ),
     );
@@ -87,7 +88,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           if (categoryList.isEmpty) {
             return Center(
               child: DeText(
-                '데이터가 없습니다.',
+                CategoryConstants.noData,
                 style: body16Sb.copyWith(color: grey50),
               ),
             );
@@ -149,7 +150,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                 Row(
                   children: [
                     DeText(
-                      '생성일',
+                      CategoryConstants.issueCreateDate,
                       style: cation12M.copyWith(color: grey50),
                     ),
                     Gaps.h2,
@@ -159,7 +160,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                     ),
                     Gaps.h8,
                     DeText(
-                      '토론주제',
+                      CategoryConstants.debateTopic,
                       style: cation12M.copyWith(color: grey50),
                     ),
                     Gaps.h2,
