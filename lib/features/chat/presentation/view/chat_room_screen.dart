@@ -61,6 +61,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
         ChatInputField(
           chatRoomViewModel: controller,
         ),
+        Gaps.v12,
       ],
     );
   }
