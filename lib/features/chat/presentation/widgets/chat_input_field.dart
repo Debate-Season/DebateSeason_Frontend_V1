@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
@@ -56,7 +57,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
             decoration: BoxDecoration(),
             child: IconButton(
               icon: SvgPicture.asset(
-                'assets/icons/ic_add_grey30.svg',
+                DeIcons.ic_add_grey30,
                 width: 24.0,
                 height: 24.0,
               ),
@@ -95,8 +96,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
               ),
               child: SvgPicture.asset(
                 _textController.text.isEmpty
-                    ? 'assets/icons/ic_send_grey70.svg'
-                    : 'assets/icons/ic_send_grey10.svg',
+                    ? DeIcons.ic_send_grey70
+                    : DeIcons.ic_send_grey10,
                 width: 24.0,
                 height: 24.0,
               ),

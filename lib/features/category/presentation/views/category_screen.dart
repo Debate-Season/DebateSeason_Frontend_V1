@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/category/category_constants.dart';
@@ -38,7 +39,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           },
           child: Padding(
             padding: Dimensions.all8,
-            child: SvgPicture.asset('assets/icons/ic_profile_grey10.svg'),
+            child: SvgPicture.asset(DeIcons.ic_profile_grey10),
           ),
         ),
         Gaps.h20,
@@ -175,7 +176,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           ),
           Padding(
             padding: Dimensions.all8,
-            child: SvgPicture.asset('assets/icons/ic_arrow_right_grey50.svg'),
+            child: SvgPicture.asset(DeIcons.ic_arrow_right_grey50),
           ),
         ],
       ),

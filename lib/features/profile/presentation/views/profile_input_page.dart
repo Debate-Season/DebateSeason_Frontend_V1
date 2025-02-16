@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
@@ -247,7 +248,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   onTap: () => controller.setGender(gender: genderMan),
                   child: ProfileGenderCard(
                     genderMan,
-                    imagePath: 'assets/icons/ic_men.svg',
+                    imagePath: DeIcons.ic_men,
                     isSelected: profileAgeRange == genderMan,
                   ),
                 ),
@@ -258,7 +259,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   onTap: () => controller.setGender(gender: genderWomen),
                   child: ProfileGenderCard(
                     genderWomen,
-                    imagePath: 'assets/icons/ic_women.svg',
+                    imagePath: DeIcons.ic_women,
                     isSelected: profileAgeRange == genderWomen,
                   ),
                 ),

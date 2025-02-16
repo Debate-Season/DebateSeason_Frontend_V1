@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
@@ -102,7 +103,7 @@ class ChatMessage extends StatelessWidget {
           style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
         ),
         Gaps.h4,
-        SvgPicture.asset('assets/icons/ic_dot_grey50.svg'),
+        SvgPicture.asset(DeIcons.ic_dot_grey50),
         Gaps.h4,
         DeText(
           _formatMessageTime(time: message.timeStamp),

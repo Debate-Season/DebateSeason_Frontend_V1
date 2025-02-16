@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
@@ -197,7 +198,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
-              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
             ],
           ),
         ),
@@ -213,7 +214,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
-              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
           Gaps.h12,
           Padding(
             padding: Dimensions.all8,
-            child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
+            child: SvgPicture.asset(DeIcons.ic_back_grey50),
           ),
           Gaps.h4,
         ],

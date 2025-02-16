@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
@@ -110,8 +111,8 @@ class AuthScreen extends GetView<AuthViewModel> {
         children: [
           SvgPicture.asset(
             loginType == AuthConstants.kakaoLoginType
-                ? 'assets/icons/ic_kakao_login.svg'
-                : 'assets/icons/ic_apple_login.svg',
+                ? DeIcons.ic_kakao_login
+                : DeIcons.ic_apple_login,
           ),
           Gaps.h8,
           Text(
