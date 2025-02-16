@@ -47,7 +47,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                         }
                       },
                       failure: (msg) {
-                        deSnackBar('로그인실패 : $msg');
+                        deSnackBar('${AuthConstants.loginFailure} : $msg');
                       },
                     );
                   });
@@ -72,7 +72,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                         }
                       },
                       failure: (msg) {
-                        deSnackBar('로그인실패 : $msg');
+                        deSnackBar('${AuthConstants.loginFailure} : $msg');
                       },
                     );
                   });
