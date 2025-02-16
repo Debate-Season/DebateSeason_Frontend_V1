@@ -48,7 +48,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Gaps.v8,
           DeText(
             ProfileConstants.profileWithdrawPolicyDescription,
-            style: DeFonts.cation12M.copyWith(color: DeColors.grey30),
+            style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
           ),
           Gaps.v20,
           DeText(

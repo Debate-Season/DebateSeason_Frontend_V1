@@ -150,22 +150,22 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                   children: [
                     DeText(
                       '생성일',
-                      style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+                      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       DateFormatUtil.yyyyMD(dateTime: category.createdAt),
-                      style: DeFonts.cation12M.copyWith(color: DeColors.grey30),
+                      style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
                     ),
                     Gaps.h8,
                     DeText(
                       '토론주제',
-                      style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+                      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       category.countChatRoom.toString(),
-                      style: DeFonts.cation12M.copyWith(color: DeColors.grey30),
+                      style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
                     ),
                   ],
                 ),

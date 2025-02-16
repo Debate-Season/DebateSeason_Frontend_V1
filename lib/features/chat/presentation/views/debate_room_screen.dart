@@ -62,11 +62,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               children: [
                 DeText(
                   controller.issueTitle,
-                  style: DeFonts.cation12SB.copyWith(color: DeColors.grey10),
+                  style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
                 ),
                 DeText(
                   DebateConstants.debateRoom,
-                  style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
                 ),
               ],
             ),
@@ -115,7 +115,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           DeText(
             DebateConstants.debateTopic,
-            style: DeFonts.cation12M.copyWith(color: DeColors.brandColor),
+            style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -264,7 +264,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             children: [
               DeText(
                 data,
-                style: DeFonts.cation12SB,
+                style: DeFonts.caption12SB,
               ),
               DeText(
                 '$ratio%',
@@ -272,7 +272,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               ),
               DeText(
                 detail,
-                style: DeFonts.cation12M,
+                style: DeFonts.caption12M,
               ),
             ],
           ),

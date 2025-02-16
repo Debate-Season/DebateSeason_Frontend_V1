@@ -39,7 +39,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueDate() {
     return DeText(
       chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
-      style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
     );
   }
 
@@ -56,7 +56,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueRecent() {
     return DeText(
       '최근', //'3분 전 대화', todo: 대화 시간 표시
-      style: DeFonts.cation12M.copyWith(color: DeColors.brandColor),
+      style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
     );
   }
 
@@ -68,7 +68,7 @@ class IssueCard extends StatelessWidget {
         Gaps.h8,
         DeText(
           'VS',
-          style: DeFonts.cation12M.copyWith(color: DeColors.grey70),
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey70),
         ),
         Gaps.h8,
         _widgetBtn('반대'),

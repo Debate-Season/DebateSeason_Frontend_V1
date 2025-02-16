@@ -92,7 +92,7 @@ class DeFonts {
     letterSpacing: 14 * (-2.5 / 100),
   );
 
-  static const cation12SB = TextStyle(
+  static const caption12SB = TextStyle(
     color: DeColors.grey10,
     fontSize: 12,
     fontFamily: 'Pretendard',
@@ -101,7 +101,7 @@ class DeFonts {
     letterSpacing: 12 * (-2.5 / 100),
   );
 
-  static const cation12M = TextStyle(
+  static const caption12M = TextStyle(
     color: DeColors.grey10,
     fontSize: 12,
     fontFamily: 'Pretendard',
@@ -119,7 +119,7 @@ class DeFonts {
     letterSpacing: 12 * (-2.5 / 100),
   );
 
-  static const cation12R = TextStyle(
+  static const caption12R = TextStyle(
     color: DeColors.grey10,
     fontSize: 12,
     fontFamily: 'Pretendard',

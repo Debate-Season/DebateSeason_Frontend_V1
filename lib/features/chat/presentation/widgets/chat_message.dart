@@ -94,19 +94,19 @@ class ChatMessage extends StatelessWidget {
         Gaps.h4,
         DeText(
           message.sender,
-          style: DeFonts.cation12SB.copyWith(color: DeColors.grey10),
+          style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
         ),
         Gaps.h4,
         DeText(
           message.userCommunity,
-          style: DeFonts.cation12R.copyWith(color: DeColors.grey30),
+          style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
         ),
         Gaps.h4,
         SvgPicture.asset('assets/icons/ic_dot_grey50.svg'),
         Gaps.h4,
         DeText(
           _formatMessageTime(time: message.timeStamp),
-          style: DeFonts.cation12R.copyWith(color: DeColors.grey30),
+          style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
         ),
       ],
     );
@@ -141,7 +141,7 @@ class ChatMessage extends StatelessWidget {
           ),
           child: DeText(
             message.content,
-            style: DeFonts.cation12R.copyWith(color: DeColors.grey50),
+            style: DeFonts.caption12R.copyWith(color: DeColors.grey50),
           ),
         ),
       ],

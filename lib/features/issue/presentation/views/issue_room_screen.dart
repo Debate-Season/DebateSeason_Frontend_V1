@@ -138,7 +138,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         Gaps.v4,
         DeText(
           IssueConstants.debateTopicDescription,
-          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Expanded(child: _debateList()),

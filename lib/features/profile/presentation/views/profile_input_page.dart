@@ -158,7 +158,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v4,
                 DeText(
                   nicknameErrorText,
-                  style: DeFonts.cation12M.copyWith(color: DeColors.red),
+                  style: DeFonts.caption12M.copyWith(color: DeColors.red),
                 ),
               ],
             );
@@ -230,7 +230,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Obx(() {
@@ -288,7 +288,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         DeGestureDetector(

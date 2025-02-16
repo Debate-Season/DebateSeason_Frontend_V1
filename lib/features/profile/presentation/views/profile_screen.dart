@@ -112,7 +112,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             ),
             child: DeText(
               '프로필 수정',
-              style: DeFonts.cation12M,
+              style: DeFonts.caption12M,
             ),
           ),
         )
