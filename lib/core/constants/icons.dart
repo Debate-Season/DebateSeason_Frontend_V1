@@ -1,4 +1,4 @@
-class Icons {
+class DeIcons {
   //colorable
   static const ic_add_grey30 = 'assets/icons/ic_add_grey30.svg';
   static const ic_back_grey50 = 'assets/icons/ic_back_grey50.svg';
