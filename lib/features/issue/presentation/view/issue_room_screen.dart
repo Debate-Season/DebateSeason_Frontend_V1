@@ -5,12 +5,8 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
-import 'package:debateseason_frontend_v1/widgets/de_cached_image.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,11 +17,17 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
-      appBar: IssueAppBar(
-        title: Obx(() => Text(controller.issueTitle.value, style: title)),
-        isCenter: false,
-      ),
+      appBar: _appBar(),
       body: _body(),
+    );
+  }
+
+  DeAppBar _appBar() {
+    return DeAppBar(
+      title: Obx(
+        () => Text(controller.issueTitle.value, style: title),
+      ),
+      isCenter: false,
     );
   }
 

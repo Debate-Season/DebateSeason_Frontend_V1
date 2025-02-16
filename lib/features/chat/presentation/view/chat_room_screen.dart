@@ -1,11 +1,12 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_room_app_bar.dart';
-import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -21,28 +22,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
       color: grey80,
       child: SafeArea(
         child: DeScaffold(
-          appBar: AppBar(
-            leading: GestureDetector(
-              onTap: () => Get.back(),
-              child: Row(
-                children: [
-                  Gaps.h12,
-                  Padding(
-                    padding: Dimensions.all8,
-                    child: SvgPicture.asset('assets/icons/ic_back_grey50.svg'),
-                  ),
-                  Gaps.h4,
-                ],
-              ),
-            ),
-            title: Obx(() {
-              return ChatRoomAppBar(title: controller.room.title);
-            }),
-            titleSpacing: 0,
-            backgroundColor: grey80,
-            scrolledUnderElevation: 0,
-            automaticallyImplyLeading: true,
-          ),
+          appBar: _appBar(),
           body: _body(),
           backgroundColor: grey80,
           resizeToAvoidBottomInset: true,
@@ -51,14 +31,30 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
     );
   }
 
+  DeAppBar _appBar() {
+    return DeAppBar(
+      isBack: true,
+      backgroundColor: grey80,
+      title: Obx(() {
+        return Text(
+          controller.room.title,
+          style: body14Sb.copyWith(color: grey10),
+          overflow: TextOverflow.ellipsis,
+        );
+      }),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(1.0),
+        child: Container(
+          color: grey70,
+          height: 1.0,
+        ),
+      ),
+    );
+  }
+
   Widget _body() {
     return Column(
       children: [
-        // todo 바텀시트 생성되면 하단 Container 삭제. (앱바 하단 구분선 스크린 쪽으로 이동)
-        Container(
-          height: 1,
-          color: grey70,
-        ),
         Expanded(
           child: _chatMessages(),
         ),
@@ -101,5 +97,37 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
         ),
       );
     });
+  }
+
+  Widget _widgetCloseDebateBottomSheetBody() {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            log.d('토론방 나가기');
+          },
+          child: Container(
+            padding: Dimensions.padding20x16,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/ic_exit_grey10.svg',
+                  width: 24.0,
+                  height: 24.0,
+                ),
+                Gaps.h16,
+                Expanded(
+                  child: DeText(
+                    '토론 종료하기',
+                    style: body16M.copyWith(color: grey10),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

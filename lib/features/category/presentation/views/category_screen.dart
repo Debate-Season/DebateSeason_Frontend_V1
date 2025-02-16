@@ -23,9 +23,9 @@ class CategoryScreen extends GetView<CategoryViewModel> {
     );
   }
 
-  AppBar _appBar() {
-    return AppBar(
-      backgroundColor: grey110,
+  DeAppBar _appBar() {
+    return DeAppBar(
+      isBack: false,
       title: Image.asset(
         'assets/images/img_debate_logo.png',
         width: 84,
@@ -43,10 +43,6 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         ),
         Gaps.h20,
       ],
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      titleSpacing: 20,
-      automaticallyImplyLeading: false,
     );
   }
 
