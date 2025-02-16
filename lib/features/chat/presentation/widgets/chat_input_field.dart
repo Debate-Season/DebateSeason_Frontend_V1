@@ -67,7 +67,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
             child: DeTextField(
               controller: _textController,
               keyboardType: TextInputType.multiline,
-              style: body14Sb.copyWith(color: DeColors.grey10),
+              style: DeFonts.body14Sb.copyWith(color: DeColors.grey10),
               minLines: 1,
               maxLines: 3,
               decoration: const InputDecoration(

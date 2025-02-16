@@ -62,11 +62,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               children: [
                 DeText(
                   controller.issueTitle,
-                  style: cation12SB.copyWith(color: DeColors.grey10),
+                  style: DeFonts.cation12SB.copyWith(color: DeColors.grey10),
                 ),
                 DeText(
                   DebateConstants.debateRoom,
-                  style: cation12M.copyWith(color: DeColors.grey50),
+                  style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
                 ),
               ],
             ),
@@ -115,7 +115,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           DeText(
             DebateConstants.debateTopic,
-            style: cation12M.copyWith(color: DeColors.brandColor),
+            style: DeFonts.cation12M.copyWith(color: DeColors.brandColor),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -124,7 +124,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             }
             return DeText(
               room.title,
-              style: body14M,
+              style: DeFonts.body14M,
             );
           }),
         ],
@@ -140,7 +140,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       }
       return DeText(
         room.content, // todo 3줄 초과 시 더보기 버튼 추가
-        style: body14R,
+        style: DeFonts.body14R,
       );
     });
   }
@@ -172,7 +172,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           _widgetVoteButton('찬성', agreeRatioText),
           DeText(
             DebateConstants.vs,
-            style: body14M.copyWith(color: DeColors.grey50),
+            style: DeFonts.body14M.copyWith(color: DeColors.grey50),
           ),
           _widgetVoteButton('반대', disagreeRatioText),
         ],
@@ -264,15 +264,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             children: [
               DeText(
                 data,
-                style: cation12SB,
+                style: DeFonts.cation12SB,
               ),
               DeText(
                 '$ratio%',
-                style: header,
+                style: DeFonts.header,
               ),
               DeText(
                 detail,
-                style: cation12M,
+                style: DeFonts.cation12M,
               ),
             ],
           ),
@@ -296,7 +296,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           child: Column(
             children: [
               DefaultTextStyle(
-                style: body16M,
+                style: DeFonts.body16M,
                 child: DeButtonLarge(
                   DebateConstants.enterRoom,
                   onPressed: () {

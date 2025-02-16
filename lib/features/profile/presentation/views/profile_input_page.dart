@@ -109,7 +109,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           padding: Dimensions.horizontal20,
           child: DeText(
             '프로필 사진',
-            style: body14Sb,
+            style: DeFonts.body14Sb,
           ),
         ),
         Gaps.v8,
@@ -135,11 +135,11 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       children: [
         DeText(
           '닉네임',
-          style: body14Sb,
+          style: DeFonts.body14Sb,
         ),
         Gaps.v8,
         DeTextField(
-          style: body16M,
+          style: DeFonts.body16M,
           hintText: '한글, 영문 조합 최대 8자',
           controller: controller.nicknameController,
           focusNode: controller.nicknameFocusNode,
@@ -158,7 +158,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v4,
                 DeText(
                   nicknameErrorText,
-                  style: cation12M.copyWith(color: DeColors.red),
+                  style: DeFonts.cation12M.copyWith(color: DeColors.red),
                 ),
               ],
             );
@@ -176,7 +176,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       children: [
         DeText(
           '소속 커뮤니티',
-          style: body14Sb,
+          style: DeFonts.body14Sb,
         ),
         Gaps.v8,
         DeGestureDetector(
@@ -204,7 +204,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             }
           },
           child: DeTextField(
-            style: body16M,
+            style: DeFonts.body16M,
             hintText: '주로 활동하는 커뮤니티를 등록해 주세요.',
             controller: controller.communityController,
             enabled: false,
@@ -225,12 +225,12 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       children: [
         DeText(
           '성별',
-          style: body14Sb,
+          style: DeFonts.body14Sb,
         ),
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Obx(() {
@@ -283,12 +283,12 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       children: [
         DeText(
           '나이대',
-          style: body14Sb,
+          style: DeFonts.body14Sb,
         ),
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         DeGestureDetector(
@@ -309,7 +309,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             }
           },
           child: DeTextField(
-            style: body16M,
+            style: DeFonts.body16M,
             hintText: '나이대를 선택해주세요.',
             controller: controller.ageController,
             enabled: false,

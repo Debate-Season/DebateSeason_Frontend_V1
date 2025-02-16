@@ -39,14 +39,14 @@ class IssueCard extends StatelessWidget {
   Widget _issueDate() {
     return DeText(
       chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
-      style: cation12M.copyWith(color: DeColors.grey50),
+      style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
     );
   }
 
   Widget _issueTitle() {
     return DeText(
       chatroom!.title,
-      style: body16Sb.copyWith(
+      style: DeFonts.body16Sb.copyWith(
         color: Color(0xFFF3F0F4),
       ),
       textAlign: TextAlign.center,
@@ -56,7 +56,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueRecent() {
     return DeText(
       '최근', //'3분 전 대화', todo: 대화 시간 표시
-      style: cation12M.copyWith(color: DeColors.brandColor),
+      style: DeFonts.cation12M.copyWith(color: DeColors.brandColor),
     );
   }
 
@@ -68,7 +68,7 @@ class IssueCard extends StatelessWidget {
         Gaps.h8,
         DeText(
           'VS',
-          style: cation12M.copyWith(color: DeColors.grey70),
+          style: DeFonts.cation12M.copyWith(color: DeColors.grey70),
         ),
         Gaps.h8,
         _widgetBtn('반대'),
@@ -111,15 +111,15 @@ class IssueCard extends StatelessWidget {
         children: [
           DeText(
             data,
-            style: caption12M2,
+            style: DeFonts.caption12M2,
           ),
           DeText(
             data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
-            style: header,
+            style: DeFonts.header,
           ),
           DeText(
             data == '찬성' ? '$agree표' : '$disagree표',
-            style: caption12M2,
+            style: DeFonts.caption12M2,
           ),
         ],
       ),

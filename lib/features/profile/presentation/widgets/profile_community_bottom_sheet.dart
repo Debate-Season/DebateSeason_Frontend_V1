@@ -39,7 +39,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
             return Center(
               child: DeText(
                 error,
-                style: body16Sb.copyWith(color: DeColors.red),
+                style: DeFonts.body16Sb.copyWith(color: DeColors.red),
               ),
             );
           },
@@ -62,7 +62,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
           return Center(
             child: DeText(
               error,
-              style: body16Sb.copyWith(color: DeColors.red),
+              style: DeFonts.body16Sb.copyWith(color: DeColors.red),
             ),
           );
         },

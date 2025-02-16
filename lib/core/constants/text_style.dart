@@ -1,114 +1,130 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
 import 'package:flutter/material.dart';
 
-const TextStyle largest = TextStyle(
-  color: grey10,
-  fontSize: 48,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w700,
-  height: 1,
-);
+class DeFonts {
+  static const TextStyle largest = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 48,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1,
+    letterSpacing: 48 * (-2.5 / 100),
+  );
 
-const TextStyle headerLarge = TextStyle(
-  color: grey10,
-  fontSize: 28,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w700,
-  height: 1.5,
-);
+  static const TextStyle headerLarge = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 28,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1.5,
+    letterSpacing: 28 * (-2.5 / 100),
+  );
 
-const TextStyle header = TextStyle(
-  color: grey10,
-  fontSize: 20,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w700,
-  height: 1.4,
-);
+  static const TextStyle header = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 20,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1.4,
+    letterSpacing: 20 * (-2.5 / 100),
+  );
 
-const TextStyle title = TextStyle(
-  color: grey10,
-  fontSize: 18,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w600,
-  height: 1.4,
-);
+  static const TextStyle title = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+    letterSpacing: 18 * (-2.5 / 100),
+  );
 
-const TextStyle body16Sb = TextStyle(
-  color: grey10,
-  fontSize: 16,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w600,
-  height: 1.5,
-);
+  static const TextStyle body16Sb = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 1.5,
+    letterSpacing: 16 * (-2.5 / 100),
+  );
 
-const TextStyle body16M = TextStyle(
-  color: grey10,
-  fontSize: 16,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w500,
-  height: 1.5,
-);
+  static const TextStyle body16M = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 1.5,
+    letterSpacing: 16 * (-2.5 / 100),
+  );
 
-const TextStyle body16R = TextStyle(
-  color: grey10,
-  fontSize: 16,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w400,
-  height: 1.5,
-);
+  static const TextStyle body16R = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 1.5,
+    letterSpacing: 16 * (-2.5 / 100),
+  );
 
-const TextStyle body14Sb = TextStyle(
-  color: grey10,
-  fontSize: 14,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w600,
-  height: 1.5,
-);
+  static const TextStyle body14Sb = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 1.5,
+    letterSpacing: 14 * (-2.5 / 100),
+  );
 
-const TextStyle body14M = TextStyle(
-  color: grey10,
-  fontSize: 14,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w500,
-  height: 1.5,
-);
+  static const TextStyle body14M = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 1.5,
+    letterSpacing: 14 * (-2.5 / 100),
+  );
 
-const TextStyle body14R = TextStyle(
-  color: grey10,
-  fontSize: 14,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w400,
-  height: 1.5,
-);
+  static const TextStyle body14R = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 14,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 1.5,
+    letterSpacing: 14 * (-2.5 / 100),
+  );
 
-const cation12SB = TextStyle(
-  color: grey10,
-  fontSize: 12,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w600,
-  height: 1.5,
-);
+  static const cation12SB = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 12,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w600,
+    height: 1.5,
+    letterSpacing: 12 * (-2.5 / 100),
+  );
 
-const cation12M = TextStyle(
-  color: grey10,
-  fontSize: 12,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w500,
-  height: 1.5,
-);
+  static const cation12M = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 12,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 1.5,
+    letterSpacing: 12 * (-2.5 / 100),
+  );
 
-const caption12M2 = TextStyle(
-  color: grey10,
-  fontSize: 12,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w500,
-  height: 1.2,
-);
+  static const caption12M2 = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 12,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w500,
+    height: 1.2,
+    letterSpacing: 12 * (-2.5 / 100),
+  );
 
-const cation12R = TextStyle(
-  color: grey10,
-  fontSize: 12,
-  fontFamily: 'Pretendard',
-  fontWeight: FontWeight.w400,
-  height: 1.5,
-);
+  static const cation12R = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 12,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w400,
+    height: 1.5,
+    letterSpacing: 12 * (-2.5 / 100),
+  );
+}

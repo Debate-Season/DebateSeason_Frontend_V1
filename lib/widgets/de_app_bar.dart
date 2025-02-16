@@ -28,7 +28,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: isBack ? _backBtn() : null,
       title: DeText(
         title,
-        style: header,
+        style: DeFonts.header,
       ),
       actions: [
         if (actions != null) ...actions!,

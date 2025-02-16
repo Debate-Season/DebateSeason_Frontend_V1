@@ -23,7 +23,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   Widget build(BuildContext context) {
     return DeScaffold(
       appBar: IssueAppBar(
-        title: Obx(() => Text(controller.issueTitle.value, style: title)),
+        title: Obx(() => Text(controller.issueTitle.value, style: DeFonts.title)),
         isCenter: false,
       ),
       body: _body(),
@@ -61,12 +61,12 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         children: [
           DeText(
             IssueConstants.todayNewChat,
-            style: body16M.copyWith(color: DeColors.grey50),
+            style: DeFonts.body16M.copyWith(color: DeColors.grey50),
           ),
           Gaps.v12,
           DeText(
             IssueConstants.todayNewChatCount,
-            style: body16Sb.copyWith(color: DeColors.grey10),
+            style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
           ),
         ],
       ),
@@ -79,7 +79,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       children: [
         DeText(
           IssueConstants.joinedCommunities,
-          style: title,
+          style: DeFonts.title,
         ),
         Gaps.v16,
         _comm(),
@@ -134,11 +134,11 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(IssueConstants.debateRoom, style: title),
+        DeText(IssueConstants.debateRoom, style: DeFonts.title),
         Gaps.v4,
         DeText(
           IssueConstants.debateTopicDescription,
-          style: cation12M.copyWith(color: DeColors.grey50),
+          style: DeFonts.cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Expanded(child: _debateList()),

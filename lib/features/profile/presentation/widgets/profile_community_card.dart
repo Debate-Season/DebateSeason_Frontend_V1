@@ -42,7 +42,7 @@ class ProfileCommunityCard extends StatelessWidget {
           Gaps.v4,
           Text(
             text,
-            style: body14M,
+            style: DeFonts.body14M,
           ),
         ],
       ),

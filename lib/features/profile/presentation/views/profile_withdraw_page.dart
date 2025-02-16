@@ -43,45 +43,45 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Gaps.v12,
           DeText(
             ProfileConstants.profileWithdrawPolicyTitle,
-            style: header,
+            style: DeFonts.header,
           ),
           Gaps.v8,
           DeText(
             ProfileConstants.profileWithdrawPolicyDescription,
-            style: cation12M.copyWith(color: DeColors.grey30),
+            style: DeFonts.cation12M.copyWith(color: DeColors.grey30),
           ),
           Gaps.v20,
           DeText(
             ProfileConstants.profileWithdrawProcedureTitle,
-            style: header,
+            style: DeFonts.header,
           ),
           Gaps.v8,
           DeText(
             ProfileConstants.profileWithdrawProcedureDescription,
-            style: body14M.copyWith(color: DeColors.grey30),
+            style: DeFonts.body14M.copyWith(color: DeColors.grey30),
           ),
           DeText(
             ProfileConstants.profileWithdrawWarning,
-            style: body14M.copyWith(color: DeColors.red),
+            style: DeFonts.body14M.copyWith(color: DeColors.red),
           ),
           Gaps.v20,
           DeText(
             ProfileConstants.profileWithdrawDeletedInfoTitle,
-            style: header,
+            style: DeFonts.header,
           ),
           Gaps.v8,
           Text.rich(
             TextSpan(
               text: ProfileConstants.profileWithdrawDeletedInfoDescription1,
-              style: body14M.copyWith(color: DeColors.grey30),
+              style: DeFonts.body14M.copyWith(color: DeColors.grey30),
               children: [
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription2,
-                  style: body14M.copyWith(color: DeColors.brandColor),
+                  style: DeFonts.body14M.copyWith(color: DeColors.brandColor),
                 ),
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription3,
-                  style: body14M.copyWith(color: DeColors.grey30),
+                  style: DeFonts.body14M.copyWith(color: DeColors.grey30),
                 ),
               ],
             ),
@@ -127,7 +127,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               child: Center(
                   child: DeText(
                 ProfileConstants.profileWithdrawDoneText,
-                style: body16M,
+                style: DeFonts.body16M,
               )),
             ),
           )

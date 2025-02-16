@@ -16,7 +16,7 @@ void deSnackBar(String message) {
     titleText: Container(),
     messageText: Text(
       message,
-      style: body14M.copyWith(color: DeColors.grey10),
+      style: DeFonts.body14M.copyWith(color: DeColors.grey10),
       textAlign: TextAlign.center,
     ),
     margin: EdgeInsets.zero,

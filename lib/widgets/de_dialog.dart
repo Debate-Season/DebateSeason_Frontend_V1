@@ -25,12 +25,12 @@ class DeDialog {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DeText(dialogTitle, style: title),
+              DeText(dialogTitle, style: DeFonts.title),
               if (dialogText.isNotEmpty) ...[
                 Gaps.v8,
                 DeText(
                   dialogText,
-                  style: body14M.copyWith(color: DeColors.grey30),
+                  style: DeFonts.body14M.copyWith(color: DeColors.grey30),
                   textAlign: TextAlign.center,
                 ),
               ],

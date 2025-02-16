@@ -38,7 +38,7 @@ class DeButtonSmall extends StatelessWidget {
         ),
         child: DeText(
           text,
-          style: body14M.copyWith(color: textColor ?? DeColors.grey10),
+          style: DeFonts.body14M.copyWith(color: textColor ?? DeColors.grey10),
           textAlign: TextAlign.center,
         ),
       ),

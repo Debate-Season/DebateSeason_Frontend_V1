@@ -103,7 +103,7 @@ class DeTextField extends StatelessWidget {
         maxLength: maxLength,
         // 색상 변경 여부 확인
         cursorColor: DeColors.grey10,
-        style: style ?? body14R,
+        style: style ?? DeFonts.body14R,
         textAlign: textAlign ?? TextAlign.start,
         onChanged: (value) {
           if (onChanged != null) {

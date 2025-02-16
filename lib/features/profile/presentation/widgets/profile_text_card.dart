@@ -27,7 +27,7 @@ class ProfileTextCard extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: body14M,
+          style: DeFonts.body14M,
         ),
       ),
     );

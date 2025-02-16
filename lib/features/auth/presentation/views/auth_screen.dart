@@ -112,7 +112,7 @@ class AuthScreen extends GetView<AuthViewModel> {
             loginType == AuthConstants.kakaoLoginType
                 ? AuthConstants.kakaoLogin
                 : AuthConstants.appleLogin,
-            style: body16M.copyWith(color: Colors.black),
+            style: DeFonts.body16M.copyWith(color: Colors.black),
           ),
         ],
       ),

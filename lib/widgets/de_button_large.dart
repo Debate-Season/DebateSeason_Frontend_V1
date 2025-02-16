@@ -30,7 +30,7 @@ class DeButtonLarge extends StatelessWidget {
         ),
         child: DeText(
           text,
-          style: body16M.copyWith(color: enable ? DeColors.grey10 : DeColors.brandDisable),
+          style: DeFonts.body16M.copyWith(color: enable ? DeColors.grey10 : DeColors.brandDisable),
           textAlign: TextAlign.center,
         ),
       ),

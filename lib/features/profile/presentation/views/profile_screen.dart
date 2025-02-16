@@ -64,7 +64,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       return Center(
                         child: DeText(
                           error,
-                          style: body16Sb.copyWith(color: DeColors.red),
+                          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
                         ),
                       );
                     },
@@ -97,7 +97,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         Gaps.v8,
         DeText(
           profile.nickname,
-          style: headerLarge,
+          style: DeFonts.headerLarge,
         ),
         Gaps.v16,
         DeGestureDetector(
@@ -112,7 +112,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             ),
             child: DeText(
               '프로필 수정',
-              style: cation12M,
+              style: DeFonts.cation12M,
             ),
           ),
         )
@@ -126,7 +126,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '내 소속 커뮤니티',
-          style: title,
+          style: DeFonts.title,
         ),
         Gaps.v8,
         Row(
@@ -142,7 +142,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             Gaps.h12,
             DeText(
               profile.community.name,
-              style: body16Sb,
+              style: DeFonts.body16Sb,
             ),
           ],
         )
@@ -156,7 +156,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '계정',
-          style: title,
+          style: DeFonts.title,
         ),
         Gaps.v16,
         DeGestureDetector(
@@ -191,7 +191,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '로그아웃',
-                style: body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
@@ -207,7 +207,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '회원탈퇴',
-                style: body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
@@ -224,7 +224,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '고객센터',
-          style: title,
+          style: DeFonts.title,
         ),
         Gaps.v16,
         DeGestureDetector(
@@ -237,7 +237,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 'tmddnjs1411@gmail.com',
-                style: body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h8,
               Container(
@@ -248,7 +248,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 ),
                 child: DeText(
                   '복사',
-                  style: body14M.copyWith(color: DeColors.grey50),
+                  style: DeFonts.body14M.copyWith(color: DeColors.grey50),
                 ),
               )
             ],

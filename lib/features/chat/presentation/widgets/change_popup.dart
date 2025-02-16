@@ -33,9 +33,9 @@ class ChangePopup extends StatelessWidget {
         padding: Dimensions.padding20x16,
         child: Column(
           children: [
-            DeText(popuptitle, style: title.copyWith(color: DeColors.grey10)),
+            DeText(popuptitle, style: DeFonts.title.copyWith(color: DeColors.grey10)),
             Gaps.v8,
-            DeText(description, style: body14M.copyWith(color: DeColors.grey30)),
+            DeText(description, style: DeFonts.body14M.copyWith(color: DeColors.grey30)),
             Gaps.v20,
             Row(
               children: [
