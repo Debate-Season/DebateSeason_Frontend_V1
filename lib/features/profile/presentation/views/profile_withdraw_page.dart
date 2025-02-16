@@ -29,7 +29,10 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
 
   DeAppBar _appBar() {
     return DeAppBar(
-      title: '회원탈퇴',
+      title: DeText(
+        '회원탈퇴',
+        style: DeFonts.header,
+      ),
       isBack: true,
     );
   }

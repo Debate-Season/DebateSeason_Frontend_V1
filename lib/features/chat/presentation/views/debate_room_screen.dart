@@ -8,8 +8,8 @@ import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -24,44 +24,24 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      DeScaffold(
-        appBar: _appBar(),
-        body: _body(),
-      ),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: _widgetDebateChat(),
-      )
-    ]);
-  }
-
-  DebateAppBar _appBar() {
-    return DebateAppBar(
-      titleWidget: _widgetAppBarTitle(),
-      actions: [
-        // DeGestureDetector(
-        //   onTap: () {},
-        //   child: Padding(
-        //     padding: Dimensions.all8,
-        //     child: SvgPicture.asset(''),
-        //   ),
-        // ),
-        Gaps.h20,
-      ],
+    return DeScaffold(
+      appBar: _appBar(),
+      body: _body(),
+      bottomSheet: _widgetDebateChat(),
     );
   }
 
-  Widget _widgetAppBarTitle() {
-    return Obx(() {
-      return Row(
-        children: [
-          Gaps.h12,
-          Expanded(
-            child: Column(
-              children: [
-                DeText(
-                  controller.issueTitle,
+  DeAppBar _appBar() {
+    return DeAppBar(
+      title: Obx(() {
+        return Row(
+          children: [
+            Gaps.h12,
+            Expanded(
+              child: Column(
+                children: [
+                  DeText(
+                    controller.issueTitle,
                   style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
                 ),
                 DeText(
@@ -69,18 +49,13 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
                 ),
               ],
+              ),
             ),
-          ),
-          Gaps.h12,
-          Padding(
-            padding: Dimensions.all8,
-            child: SizedBox.shrink(),
-            // SvgPicture.asset(''),
-          ),
-          Gaps.h12,
-        ],
-      );
-    });
+            Gaps.h24,
+          ],
+        );
+      }),
+    );
   }
 
   Widget _body() {
@@ -285,7 +260,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return DeProgressIndicator();
+        return Container(
+          color: DeColors.grey110,
+          child: DeProgressIndicator(),
+        );
       }
       String opinion = controller.voteStatus.value;
 

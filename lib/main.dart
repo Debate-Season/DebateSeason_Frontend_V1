@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -16,7 +17,11 @@ void main() async {
 
   final prefsService = SharedPreferencesService();
   await prefsService.init();
-  await dotenv.load(fileName: '.env');
+  if(kDebugMode) {
+    await dotenv.load(fileName: '.env.dev');
+  } else {
+    await dotenv.load(fileName: '.env.prod');
+  }
 
   _initUiSettings();
 

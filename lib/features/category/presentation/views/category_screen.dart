@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/category/category_constants.dart';
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
@@ -22,9 +23,9 @@ class CategoryScreen extends GetView<CategoryViewModel> {
     );
   }
 
-  AppBar _appBar() {
-    return AppBar(
-      backgroundColor: DeColors.grey110,
+  DeAppBar _appBar() {
+    return DeAppBar(
+      isBack: false,
       title: Image.asset(
         'assets/images/img_debate_logo.png',
         width: 84,
@@ -42,10 +43,6 @@ class CategoryScreen extends GetView<CategoryViewModel> {
         ),
         Gaps.h20,
       ],
-      elevation: 0,
-      scrolledUnderElevation: 0,
-      titleSpacing: 20,
-      automaticallyImplyLeading: false,
     );
   }
 
@@ -67,7 +64,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
     return DeGestureDetector(
       onTap: () {},
       child: DeText(
-        '전체',
+        CategoryConstants.allCategory,
         style: DeFonts.headerLarge,
       ),
     );
@@ -87,7 +84,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           if (categoryList.isEmpty) {
             return Center(
               child: DeText(
-                '데이터가 없습니다.',
+                CategoryConstants.noData,
                 style: DeFonts.body16Sb.copyWith(color: DeColors.grey50),
               ),
             );
@@ -149,23 +146,27 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                 Row(
                   children: [
                     DeText(
-                      '생성일',
-                      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                      CategoryConstants.issueCreateDate,
+                      style:
+                          DeFonts.caption12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       DateFormatUtil.yyyyMD(dateTime: category.createdAt),
-                      style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
+                      style:
+                          DeFonts.caption12M.copyWith(color: DeColors.grey30),
                     ),
                     Gaps.h8,
                     DeText(
-                      '토론주제',
-                      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                      CategoryConstants.debateTopic,
+                      style:
+                          DeFonts.caption12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       category.countChatRoom.toString(),
-                      style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
+                      style:
+                          DeFonts.caption12M.copyWith(color: DeColors.grey30),
                     ),
                   ],
                 ),
