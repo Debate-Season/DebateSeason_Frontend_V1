@@ -7,8 +7,8 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/response/room
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_app_bar.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -23,60 +23,38 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      DeScaffold(
-        appBar: _appBar(),
-        body: _body(),
-      ),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: _widgetDebateChat(),
-      )
-    ]);
-  }
-
-  DebateAppBar _appBar() {
-    return DebateAppBar(
-      titleWidget: _widgetAppBarTitle(),
-      actions: [
-        // DeGestureDetector(
-        //   onTap: () {},
-        //   child: Padding(
-        //     padding: Dimensions.all8,
-        //     child: SvgPicture.asset(''),
-        //   ),
-        // ),
-        Gaps.h20,
-      ],
+    return DeScaffold(
+      appBar: _appBar(),
+      body: _body(),
+      bottomSheet: _widgetDebateChat(),
     );
   }
 
-  Widget _widgetAppBarTitle() {
-    return Obx(() {
-      return Row(
-        children: [
-          Gaps.h12,
-          Expanded(
-            child: Column(
-              children: [
-                DeText(
-                  controller.issueTitle!,
-                  style: cation12SB.copyWith(color: grey10),
-                ),
-                DeText('토론방', style: cation12M.copyWith(color: grey50)),
-              ],
+  DeAppBar _appBar() {
+    return DeAppBar(
+      title: Obx(() {
+        return Row(
+          children: [
+            Gaps.h12,
+            Expanded(
+              child: Column(
+                children: [
+                  DeText(
+                    controller.issueTitle,
+                    style: cation12SB.copyWith(color: grey10),
+                  ),
+                  DeText(
+                    '토론방',
+                    style: cation12M.copyWith(color: grey50),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Gaps.h12,
-          Padding(
-            padding: Dimensions.all8,
-            child: SizedBox.shrink(),
-            // SvgPicture.asset(''),
-          ),
-          Gaps.h12,
-        ],
-      );
-    });
+            Gaps.h24,
+          ],
+        );
+      }),
+    );
   }
 
   Widget _body() {
@@ -187,47 +165,60 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int agree = room.agree;
       int disagree = room.disagree;
 
-      var widgetColor = data == '찬성' ? redDark : blueDark;
+      var widgetColor = data == OpinionType.agree.valueKr ? redDark : blueDark;
       if (opinion == OpinionType.agree.value) {
-        widgetColor = data == '찬성' ? red : blueDark;
+        widgetColor = data == OpinionType.agree.valueKr ? red : blueDark;
       } else if (opinion == OpinionType.disagree.value) {
-        widgetColor = data == '찬성' ? redDark : blue;
+        widgetColor = data == OpinionType.agree.valueKr ? redDark : blue;
       }
 
       String detail = '투표하기';
       if (opinion != OpinionType.neutral.value) {
-        detail = data == '찬성' ? '$agree표' : '$disagree표';
+        detail = data == OpinionType.agree.valueKr ? '$agree표' : '$disagree표';
       }
 
       return GestureDetector(
         onTap: () {
           if (opinion == OpinionType.neutral.value) {
-            if (data == '찬성') {
+            if (data == OpinionType.agree.valueKr) {
               controller.postVoteData(OpinionType.agree, room.chatRoomId);
-            } else if (data == '반대') {
+            } else if (data == OpinionType.disagree.valueKr) {
               controller.postVoteData(OpinionType.disagree, room.chatRoomId);
             }
             deSnackBar('내 입장을 $data(으)로 투표했습니다.');
           } else {
-            DeDialog.show(
-              dialogTitle: '입장 변경',
-              dialogText: '입장을 변경하시겠습니까?',
-              doneText: '변경하기',
-              cancelText: '유지',
-              onTapDone: () async {
-                if (data == '찬성') {
-                  await controller.postVoteData(
-                      OpinionType.agree, room.chatRoomId);
-                } else if (data == '반대') {
-                  await controller.postVoteData(
-                      OpinionType.disagree, room.chatRoomId);
-                }
-                //await controller.postVoteData(data, room.chatRoomId);
-                if (Get.isDialogOpen ?? true) {
-                  deSnackBar('내 입장을 $data(으)로 변경했습니다.');
-                }
-              },
-            );
+            String dataEn = '';
+            if (data == OpinionType.agree.valueKr) {
+              dataEn = OpinionType.agree.value;
+            } else if (data == OpinionType.disagree.valueKr) {
+              dataEn = OpinionType.disagree.value;
+            }
+
+            if (controller.voteStatus.value != dataEn) {
+              DeDialog.show(
+                dialogTitle: '입장 변경',
+                dialogText: '입장을 변경하시겠습니까?',
+                doneText: '변경하기',
+                cancelText: '유지',
+                onTapDone: () async {
+                  if (data == OpinionType.agree.valueKr) {
+                    await controller.postVoteData(
+                      OpinionType.agree,
+                      room.chatRoomId,
+                    );
+                  } else if (data == OpinionType.disagree.valueKr) {
+                    await controller.postVoteData(
+                      OpinionType.disagree,
+                      room.chatRoomId,
+                    );
+                  }
+                  //await controller.postVoteData(data, room.chatRoomId);
+                  if (Get.isDialogOpen ?? true) {
+                    deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                  }
+                },
+              );
+            }
           }
         },
         child: Container(
@@ -268,7 +259,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
       if (room == null) {
-        return DeProgressIndicator();
+        return Container(
+          color: grey110,
+          child: DeProgressIndicator(),
+        );
       }
       String opinion = controller.voteStatus.value;
 
