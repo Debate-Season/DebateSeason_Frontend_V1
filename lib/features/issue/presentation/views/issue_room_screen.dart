@@ -5,7 +5,7 @@ import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation/view_model/issue_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_app_bar.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_cached_image.dart';
