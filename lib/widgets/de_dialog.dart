@@ -16,7 +16,7 @@ class DeDialog {
   }) {
     return Get.dialog(
       Dialog(
-        backgroundColor: grey80,
+        backgroundColor: DeColors.grey80,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -30,7 +30,7 @@ class DeDialog {
                 Gaps.v8,
                 DeText(
                   dialogText,
-                  style: body14M.copyWith(color: grey30),
+                  style: body14M.copyWith(color: DeColors.grey30),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -44,14 +44,14 @@ class DeDialog {
                       onPressed: () {
                         Get.back();
                       },
-                      textColor: red,
+                      textColor: DeColors.red,
                     ),
                   ),
                   Gaps.h8,
                   Expanded(
                     child: DeButtonSmall(
                       doneText,
-                      textColor: brandColor,
+                      textColor: DeColors.brandColor,
                       onPressed: () {
                         onTapDone();
                         Get.back();

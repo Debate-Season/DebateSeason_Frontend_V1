@@ -18,8 +18,8 @@ class IssueCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       decoration: BoxDecoration(
-        color: grey120,
-        border: Border.all(color: grey90),
+        color: DeColors.grey120,
+        border: Border.all(color: DeColors.grey90),
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Column(
@@ -39,7 +39,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueDate() {
     return DeText(
       chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
-      style: cation12M.copyWith(color: grey50),
+      style: cation12M.copyWith(color: DeColors.grey50),
     );
   }
 
@@ -56,7 +56,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueRecent() {
     return DeText(
       '최근', //'3분 전 대화', todo: 대화 시간 표시
-      style: cation12M.copyWith(color: brandColor),
+      style: cation12M.copyWith(color: DeColors.brandColor),
     );
   }
 
@@ -68,7 +68,7 @@ class IssueCard extends StatelessWidget {
         Gaps.h8,
         DeText(
           'VS',
-          style: cation12M.copyWith(color: grey70),
+          style: cation12M.copyWith(color: DeColors.grey70),
         ),
         Gaps.h8,
         _widgetBtn('반대'),
@@ -77,7 +77,7 @@ class IssueCard extends StatelessWidget {
   }
 
   Widget _widgetBtn(String data) {
-    final widgetColor = data == '찬성' ? red : blue;
+    final widgetColor = data == '찬성' ? DeColors.red : DeColors.blue;
 
     int agree = chatroom?.agree ?? 0;
     int disagree = chatroom?.disagree ?? 0;

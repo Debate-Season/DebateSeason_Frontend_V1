@@ -52,7 +52,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Container(
       padding: Dimensions.vertical12,
       decoration: ShapeDecoration(
-        color: grey120,
+        color: DeColors.grey120,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -61,12 +61,12 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         children: [
           DeText(
             IssueConstants.todayNewChat,
-            style: body16M.copyWith(color: grey50),
+            style: body16M.copyWith(color: DeColors.grey50),
           ),
           Gaps.v12,
           DeText(
             IssueConstants.todayNewChatCount,
-            style: body16Sb.copyWith(color: grey10),
+            style: body16Sb.copyWith(color: DeColors.grey10),
           ),
         ],
       ),
@@ -93,7 +93,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         width: 36,
         height: 36,
         decoration: ShapeDecoration(
-          color: brandColor,
+          color: DeColors.brandColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -138,7 +138,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         Gaps.v4,
         DeText(
           IssueConstants.debateTopicDescription,
-          style: cation12M.copyWith(color: grey50),
+          style: cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Expanded(child: _debateList()),

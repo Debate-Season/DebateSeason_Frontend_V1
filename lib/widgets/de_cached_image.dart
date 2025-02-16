@@ -51,7 +51,7 @@ class DeCachedImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: grey50,
+      color: DeColors.grey50,
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

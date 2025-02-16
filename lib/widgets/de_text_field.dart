@@ -62,20 +62,20 @@ class DeTextField extends StatelessWidget {
         decoration: decoration ??
             InputDecoration(
               border: InputBorder.none,
-              hintStyle: style?.copyWith(color: grey50),
+              hintStyle: style?.copyWith(color: DeColors.grey50),
               hintText: hintText ?? '내용을 입력해 주세요.',
               contentPadding: Dimensions.all12,
               isDense: true,
               counterText: "",
               filled: true,
-              fillColor: fillColor ?? grey80,
+              fillColor: fillColor ?? DeColors.grey80,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: brandColor, width: 1),
+                borderSide: BorderSide(color: DeColors.brandColor, width: 1),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -102,7 +102,7 @@ class DeTextField extends StatelessWidget {
         expands: expands,
         maxLength: maxLength,
         // 색상 변경 여부 확인
-        cursorColor: grey10,
+        cursorColor: DeColors.grey10,
         style: style ?? body14R,
         textAlign: textAlign ?? TextAlign.start,
         onChanged: (value) {

@@ -23,7 +23,7 @@ class DeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: grey110,
+      color: DeColors.grey110,
       child: SafeArea(
         child: DeGestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -31,7 +31,7 @@ class DeScaffold extends StatelessWidget {
             appBar: appBar,
             body: body,
             bottomNavigationBar: bottomNavigationBar,
-            backgroundColor: backgroundColor ?? grey110,
+            backgroundColor: backgroundColor ?? DeColors.grey110,
             bottomSheet: bottomSheet,
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
           ),

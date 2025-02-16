@@ -27,18 +27,18 @@ class DeButtonSmall extends StatelessWidget {
         width: double.infinity,
         padding: Dimensions.vertical10,
         decoration: BoxDecoration(
-          color: backgroundColor ?? grey80,
+          color: backgroundColor ?? DeColors.grey80,
           border: backgroundColor == null
               ? Border.all(
                   width: 1,
-                  color: grey70,
+                  color: DeColors.grey70,
                 )
               : null,
           borderRadius: BorderRadius.circular(12),
         ),
         child: DeText(
           text,
-          style: body14M.copyWith(color: textColor ?? grey10),
+          style: body14M.copyWith(color: textColor ?? DeColors.grey10),
           textAlign: TextAlign.center,
         ),
       ),

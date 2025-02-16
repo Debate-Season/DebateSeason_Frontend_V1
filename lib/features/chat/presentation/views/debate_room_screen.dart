@@ -62,11 +62,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               children: [
                 DeText(
                   controller.issueTitle,
-                  style: cation12SB.copyWith(color: grey10),
+                  style: cation12SB.copyWith(color: DeColors.grey10),
                 ),
                 DeText(
                   DebateConstants.debateRoom,
-                  style: cation12M.copyWith(color: grey50),
+                  style: cation12M.copyWith(color: DeColors.grey50),
                 ),
               ],
             ),
@@ -106,7 +106,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Container(
       padding: Dimensions.padding8x10,
       decoration: ShapeDecoration(
-        color: grey80,
+        color: DeColors.grey80,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -115,7 +115,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           DeText(
             DebateConstants.debateTopic,
-            style: cation12M.copyWith(color: brandColor),
+            style: cation12M.copyWith(color: DeColors.brandColor),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -172,7 +172,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           _widgetVoteButton('찬성', agreeRatioText),
           DeText(
             DebateConstants.vs,
-            style: body14M.copyWith(color: grey50),
+            style: body14M.copyWith(color: DeColors.grey50),
           ),
           _widgetVoteButton('반대', disagreeRatioText),
         ],
@@ -191,11 +191,11 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int agree = room.agree;
       int disagree = room.disagree;
 
-      var widgetColor = data == OpinionType.agree.valueKr ? redDark : blueDark;
+      var widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blueDark;
       if (opinion == OpinionType.agree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? red : blueDark;
+        widgetColor = data == OpinionType.agree.valueKr ? DeColors.red : DeColors.blueDark;
       } else if (opinion == OpinionType.disagree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? redDark : blue;
+        widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blue;
       }
 
       String detail = DebateConstants.vs;

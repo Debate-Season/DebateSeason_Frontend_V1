@@ -48,7 +48,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Gaps.v8,
           DeText(
             ProfileConstants.profileWithdrawPolicyDescription,
-            style: cation12M.copyWith(color: grey30),
+            style: cation12M.copyWith(color: DeColors.grey30),
           ),
           Gaps.v20,
           DeText(
@@ -58,11 +58,11 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Gaps.v8,
           DeText(
             ProfileConstants.profileWithdrawProcedureDescription,
-            style: body14M.copyWith(color: grey30),
+            style: body14M.copyWith(color: DeColors.grey30),
           ),
           DeText(
             ProfileConstants.profileWithdrawWarning,
-            style: body14M.copyWith(color: red),
+            style: body14M.copyWith(color: DeColors.red),
           ),
           Gaps.v20,
           DeText(
@@ -73,15 +73,15 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           Text.rich(
             TextSpan(
               text: ProfileConstants.profileWithdrawDeletedInfoDescription1,
-              style: body14M.copyWith(color: grey30),
+              style: body14M.copyWith(color: DeColors.grey30),
               children: [
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription2,
-                  style: body14M.copyWith(color: brandColor),
+                  style: body14M.copyWith(color: DeColors.brandColor),
                 ),
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription3,
-                  style: body14M.copyWith(color: grey30),
+                  style: body14M.copyWith(color: DeColors.grey30),
                 ),
               ],
             ),
@@ -121,7 +121,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               width: double.infinity,
               padding: Dimensions.vertical12,
               decoration: BoxDecoration(
-                color: grey80,
+                color: DeColors.grey80,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(

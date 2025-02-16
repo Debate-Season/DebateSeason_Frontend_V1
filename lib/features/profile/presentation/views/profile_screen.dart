@@ -64,7 +64,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       return Center(
                         child: DeText(
                           error,
-                          style: body16Sb.copyWith(color: red),
+                          style: body16Sb.copyWith(color: DeColors.red),
                         ),
                       );
                     },
@@ -90,7 +90,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           width: 80,
           height: 80,
           decoration: BoxDecoration(
-            color: red,
+            color: DeColors.red,
             borderRadius: BorderRadius.circular(50),
           ),
         ),
@@ -107,7 +107,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           child: Container(
             padding: Dimensions.padding10x5,
             decoration: BoxDecoration(
-              color: grey80,
+              color: DeColors.grey80,
               borderRadius: BorderRadius.circular(20),
             ),
             child: DeText(
@@ -191,7 +191,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '로그아웃',
-                style: body14M.copyWith(color: grey50),
+                style: body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
@@ -207,7 +207,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '회원탈퇴',
-                style: body14M.copyWith(color: grey50),
+                style: body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h4,
               SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
@@ -237,18 +237,18 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 'tmddnjs1411@gmail.com',
-                style: body14M.copyWith(color: grey50),
+                style: body14M.copyWith(color: DeColors.grey50),
               ),
               Gaps.h8,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: BoxDecoration(
-                  color: grey80,
+                  color: DeColors.grey80,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DeText(
                   '복사',
-                  style: body14M.copyWith(color: grey50),
+                  style: body14M.copyWith(color: DeColors.grey50),
                 ),
               )
             ],

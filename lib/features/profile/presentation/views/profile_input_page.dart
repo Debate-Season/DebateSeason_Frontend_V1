@@ -119,7 +119,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             width: 70,
             height: 70,
             decoration: BoxDecoration(
-              color: blue,
+              color: DeColors.blue,
               borderRadius: BorderRadius.circular(50),
             ),
             child: SizedBox.shrink(),
@@ -158,7 +158,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Gaps.v4,
                 DeText(
                   nicknameErrorText,
-                  style: cation12M.copyWith(color: red),
+                  style: cation12M.copyWith(color: DeColors.red),
                 ),
               ],
             );
@@ -230,7 +230,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: cation12M.copyWith(color: grey50),
+          style: cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         Obx(() {
@@ -288,7 +288,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Gaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
-          style: cation12M.copyWith(color: grey50),
+          style: cation12M.copyWith(color: DeColors.grey50),
         ),
         Gaps.v8,
         DeGestureDetector(

@@ -18,7 +18,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: grey80,
+      color: DeColors.grey80,
       child: SafeArea(
         child: DeScaffold(
           appBar: AppBar(
@@ -39,12 +39,12 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
               return ChatRoomAppBar(title: controller.room.title);
             }),
             titleSpacing: 0,
-            backgroundColor: grey80,
+            backgroundColor: DeColors.grey80,
             scrolledUnderElevation: 0,
             automaticallyImplyLeading: true,
           ),
           body: _body(),
-          backgroundColor: grey80,
+          backgroundColor: DeColors.grey80,
           resizeToAvoidBottomInset: true,
         ),
       ),
@@ -57,7 +57,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
         // todo 바텀시트 생성되면 하단 Container 삭제. (앱바 하단 구분선 스크린 쪽으로 이동)
         Container(
           height: 1,
-          color: grey70,
+          color: DeColors.grey70,
         ),
         Expanded(
           child: _chatMessages(),

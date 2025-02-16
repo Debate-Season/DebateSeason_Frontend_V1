@@ -24,7 +24,7 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: Text(
                 title,
-                style: body14Sb.copyWith(color: grey10),
+                style: body14Sb.copyWith(color: DeColors.grey10),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -91,7 +91,7 @@ class ChatRoomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Expanded(
                   child: DeText(
                     '토론 종료하기',
-                    style: body16M.copyWith(color: grey10),
+                    style: body16M.copyWith(color: DeColors.grey10),
                   ),
                 ),
               ],

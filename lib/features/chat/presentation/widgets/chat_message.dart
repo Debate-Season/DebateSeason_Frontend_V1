@@ -30,7 +30,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               Gaps.v4,
               _chatMessageBody(
-                backgroundColor: redDark,
+                backgroundColor: DeColors.redDark,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
                   topRight: Radius.circular(12),
@@ -50,7 +50,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               Gaps.v4,
               _chatMessageBody(
-                backgroundColor: blueDark,
+                backgroundColor: DeColors.blueDark,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(0),
@@ -70,7 +70,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               Gaps.v4,
               _chatMessageBody(
-                backgroundColor: blueDark,
+                backgroundColor: DeColors.blueDark,
                 borderRadius: BorderRadius.circular(12),
               ),
             ],
@@ -94,19 +94,19 @@ class ChatMessage extends StatelessWidget {
         Gaps.h4,
         DeText(
           message.sender,
-          style: cation12SB.copyWith(color: grey10),
+          style: cation12SB.copyWith(color: DeColors.grey10),
         ),
         Gaps.h4,
         DeText(
           message.userCommunity,
-          style: cation12R.copyWith(color: grey30),
+          style: cation12R.copyWith(color: DeColors.grey30),
         ),
         Gaps.h4,
         SvgPicture.asset('assets/icons/ic_dot_grey50.svg'),
         Gaps.h4,
         DeText(
           _formatMessageTime(time: message.timeStamp),
-          style: cation12R.copyWith(color: grey30),
+          style: cation12R.copyWith(color: DeColors.grey30),
         ),
       ],
     );
@@ -136,12 +136,12 @@ class ChatMessage extends StatelessWidget {
         Container(
           padding: Dimensions.padding12x4,
           decoration: BoxDecoration(
-            color: grey90,
+            color: DeColors.grey90,
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: DeText(
             message.content,
-            style: cation12R.copyWith(color: grey50),
+            style: cation12R.copyWith(color: DeColors.grey50),
           ),
         ),
       ],

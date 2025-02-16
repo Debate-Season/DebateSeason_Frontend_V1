@@ -24,7 +24,7 @@ class DeBottomSheet extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.fromLTRB(24, 0, 24, 16),
         decoration: BoxDecoration(
-          color: grey80,
+          color: DeColors.grey80,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -72,7 +72,7 @@ class DeBottomSheet extends StatelessWidget {
       height: 5,
       margin: Dimensions.all8,
       decoration: BoxDecoration(
-        color: grey50,
+        color: DeColors.grey50,
         borderRadius: BorderRadius.circular(5),
       ),
     );

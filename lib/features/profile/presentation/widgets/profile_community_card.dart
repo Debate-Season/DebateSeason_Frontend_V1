@@ -22,11 +22,11 @@ class ProfileCommunityCard extends StatelessWidget {
     return Container(
       padding: Dimensions.vertical16,
       decoration: BoxDecoration(
-        color: grey80,
+        color: DeColors.grey80,
         borderRadius: BorderRadius.circular(12),
         border: isSelected
-            ? Border.all(color: brandColor, width: 1)
-            : Border.all(color: grey70, width: 1),
+            ? Border.all(color: DeColors.brandColor, width: 1)
+            : Border.all(color: DeColors.grey70, width: 1),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

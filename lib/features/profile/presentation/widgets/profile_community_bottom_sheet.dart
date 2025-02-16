@@ -39,7 +39,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
             return Center(
               child: DeText(
                 error,
-                style: body16Sb.copyWith(color: red),
+                style: body16Sb.copyWith(color: DeColors.red),
               ),
             );
           },
@@ -62,7 +62,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
           return Center(
             child: DeText(
               error,
-              style: body16Sb.copyWith(color: red),
+              style: body16Sb.copyWith(color: DeColors.red),
             ),
           );
         },
@@ -84,7 +84,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
           DeTextField(
             controller: controller.communitySearchController,
             hintText: '내용을 입력해 주세요.',
-            fillColor: grey90,
+            fillColor: DeColors.grey90,
             onChanged: (searchWord) =>
                 controller.onChangedCommunity(searchWord: searchWord),
           ),

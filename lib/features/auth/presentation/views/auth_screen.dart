@@ -96,7 +96,7 @@ class AuthScreen extends GetView<AuthViewModel> {
       padding: Dimensions.vertical12,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: loginType == AuthConstants.kakaoLoginType ? kakao : white,
+        color: loginType == AuthConstants.kakaoLoginType ? DeColors.kakao : DeColors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

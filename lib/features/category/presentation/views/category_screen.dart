@@ -24,7 +24,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
 
   AppBar _appBar() {
     return AppBar(
-      backgroundColor: grey110,
+      backgroundColor: DeColors.grey110,
       title: Image.asset(
         'assets/images/img_debate_logo.png',
         width: 84,
@@ -88,7 +88,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
             return Center(
               child: DeText(
                 '데이터가 없습니다.',
-                style: body16Sb.copyWith(color: grey50),
+                style: body16Sb.copyWith(color: DeColors.grey50),
               ),
             );
           }
@@ -107,7 +107,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                   padding: Dimensions.vertical16,
                   child: Divider(
                     height: 1,
-                    color: grey100,
+                    color: DeColors.grey100,
                   ),
                 );
               },
@@ -118,7 +118,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           return Center(
             child: DeText(
               error,
-              style: body16Sb.copyWith(color: red),
+              style: body16Sb.copyWith(color: DeColors.red),
             ),
           );
         },
@@ -150,22 +150,22 @@ class CategoryScreen extends GetView<CategoryViewModel> {
                   children: [
                     DeText(
                       '생성일',
-                      style: cation12M.copyWith(color: grey50),
+                      style: cation12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       DateFormatUtil.yyyyMD(dateTime: category.createdAt),
-                      style: cation12M.copyWith(color: grey30),
+                      style: cation12M.copyWith(color: DeColors.grey30),
                     ),
                     Gaps.h8,
                     DeText(
                       '토론주제',
-                      style: cation12M.copyWith(color: grey50),
+                      style: cation12M.copyWith(color: DeColors.grey50),
                     ),
                     Gaps.h2,
                     DeText(
                       category.countChatRoom.toString(),
-                      style: cation12M.copyWith(color: grey30),
+                      style: cation12M.copyWith(color: DeColors.grey30),
                     ),
                   ],
                 ),

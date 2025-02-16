@@ -25,12 +25,12 @@ class DeButtonLarge extends StatelessWidget {
         width: double.infinity,
         padding: Dimensions.vertical12,
         decoration: BoxDecoration(
-          color: enable ? brandColor : brandDark,
+          color: enable ? DeColors.brandColor : DeColors.brandDark,
           borderRadius: BorderRadius.circular(12),
         ),
         child: DeText(
           text,
-          style: body16M.copyWith(color: enable ? grey10 : brandDisable),
+          style: body16M.copyWith(color: enable ? DeColors.grey10 : DeColors.brandDisable),
           textAlign: TextAlign.center,
         ),
       ),

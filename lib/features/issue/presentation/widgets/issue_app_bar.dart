@@ -22,7 +22,7 @@ class IssueAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: grey110,
+      backgroundColor: DeColors.grey110,
       leading: isBack ? _backBtn() : null,
       title: title,
       actions: [

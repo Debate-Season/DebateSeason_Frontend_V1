@@ -39,7 +39,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
       margin: Dimensions.horizontal20,
       padding: Dimensions.vertical2,
       decoration: ShapeDecoration(
-        color: grey90,
+        color: DeColors.grey90,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(26.0),
         ),
@@ -67,7 +67,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
             child: DeTextField(
               controller: _textController,
               keyboardType: TextInputType.multiline,
-              style: body14Sb.copyWith(color: grey10),
+              style: body14Sb.copyWith(color: DeColors.grey10),
               minLines: 1,
               maxLines: 3,
               decoration: const InputDecoration(
@@ -89,7 +89,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
             child: Container(
               padding: Dimensions.all12,
               decoration: BoxDecoration(
-                color: _textController.text.isEmpty ? grey90 : brandColor,
+                color: _textController.text.isEmpty ? DeColors.grey90 : DeColors.brandColor,
                 borderRadius: BorderRadius.circular(48.0),
               ),
               child: SvgPicture.asset(
