@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/utils/exit_app_util.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,14 @@ class AuthScreen extends GetView<AuthViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      body: _body(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        ExitAppUtil.onWillPop();
+      },
+      child: DeScaffold(
+        body: _body(),
+      ),
     );
   }
 
