@@ -104,7 +104,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     );
   }
 
-  Widget _widgetProfileColor() {
+  /*Widget _widgetProfileColor() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -130,7 +130,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         )
       ],
     );
-  }
+  }*/
 
   Widget _widgetNickName() {
     return Column(

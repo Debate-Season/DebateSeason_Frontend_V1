@@ -1,5 +1,4 @@
 import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
@@ -49,7 +48,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     );
   }
 
-  Widget _newChatCount() {
+  /*Widget _newChatCount() {
     return Container(
       padding: Dimensions.vertical12,
       decoration: ShapeDecoration(
@@ -72,7 +71,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _joinedCommunities() {
     return Column(
