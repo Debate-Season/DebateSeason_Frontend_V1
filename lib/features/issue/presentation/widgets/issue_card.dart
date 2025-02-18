@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 class IssueCard extends StatelessWidget {
   final ChatRoomRes? chatroom;
 
+  //final Future<List<String>> Function(int) callback;
+  //final List<String> percent;
+
   const IssueCard({
     super.key,
     required this.chatroom,
+    //required this.callback,
+    //required this.percent,
   });
 
   @override
@@ -79,18 +84,27 @@ class IssueCard extends StatelessWidget {
   Widget _widgetBtn(String data) {
     final widgetColor = data == '찬성' ? red : blue;
 
-    int agree = chatroom?.agree ?? 0;
-    int disagree = chatroom?.disagree ?? 0;
-    int total = agree + disagree;
-    double agreeRatio = agree / total;
-    double disagreeRatio = disagree / total;
+    // int agree = chatroom?.agree ?? 0;
+    // int disagree = chatroom?.disagree ?? 0;
+    // int total = agree + disagree;
+    // double agreeRatio = agree / total;
+    // double disagreeRatio = disagree / total;
+    //
+    // if (total == 0) {
+    //   agreeRatio = 0;
+    //   disagreeRatio = 0;
+    // }
+    // String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
+    // String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
 
-    if (total == 0) {
-      agreeRatio = 0;
-      disagreeRatio = 0;
-    }
-    String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
-    String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+    final issueId = 1;
+    //viewmodel에 정의된 getPercentages 함수 호출
+    //final percentages = getPercentages(issueId);
+    final percentages = [1, 1, 1, 1];
+    final agree = percentages[0];
+    final disagree = percentages[1];
+    final agreeRatioText = percentages[2];
+    final disagreeRatioText = percentages[3];
 
     return Container(
       width: 80,

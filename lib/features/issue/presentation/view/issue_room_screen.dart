@@ -166,6 +166,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Obx(() {
       final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
       final chatroom = chatRooms?[index];
+      final percent = controller.getPercentages(controller.issueId);
 
       if (chatRooms == null) {
         return const Text('채팅방이 개설되지 않았습니다.');
@@ -181,6 +182,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             },
           );
         },
+        //child: IssueCard(chatroom: chatroom, callback: controller.getPercentages(controller.issueId ?? -1)),
         child: IssueCard(chatroom: chatroom),
       );
     });
