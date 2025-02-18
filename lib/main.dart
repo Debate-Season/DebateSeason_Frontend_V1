@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-import 'core/constants/color.dart';
+import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
 
 void main() async {

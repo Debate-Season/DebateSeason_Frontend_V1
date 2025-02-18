@@ -1,6 +1,6 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class IssueCard extends StatelessWidget {
         children: [
           _issueDate(),
           _issueTitle(),
-          Gaps.v12,
+          DeGaps.v12,
           //_issueRecent(),
           //Gaps.v12,
           _issueStatus(),
@@ -65,12 +65,12 @@ class IssueCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _widgetBtn('찬성'),
-        Gaps.h8,
+        DeGaps.h8,
         DeText(
           'VS',
           style: DeFonts.caption12M.copyWith(color: DeColors.grey70),
         ),
-        Gaps.h8,
+        DeGaps.h8,
         _widgetBtn('반대'),
       ],
     );

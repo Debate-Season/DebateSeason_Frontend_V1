@@ -1,9 +1,9 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
@@ -62,7 +62,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
         ChatInputField(
           chatRoomViewModel: controller,
         ),
-        Gaps.v12,
+        DeGaps.v12,
       ],
     );
   }
@@ -88,13 +88,13 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
           itemCount: chattingMessageList.length,
           shrinkWrap: true,
           reverse: true,
-          padding: Dimensions.all20,
+          padding: DeDimensions.all20,
           itemBuilder: (context, index) {
             final chatMessage = chattingMessageList[index];
 
             return ChatMessage(message: chatMessage);
           },
-          separatorBuilder: (context, index) => Gaps.v16,
+          separatorBuilder: (context, index) => DeGaps.v16,
         ),
       );
     });
@@ -108,7 +108,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
             log.d('토론방 나가기');
           },
           child: Container(
-            padding: Dimensions.padding20x16,
+            padding: DeDimensions.padding20x16,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -117,7 +117,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
                   width: 24.0,
                   height: 24.0,
                 ),
-                Gaps.h16,
+                DeGaps.h16,
                 Expanded(
                   child: DeText(
                     '토론 종료하기',

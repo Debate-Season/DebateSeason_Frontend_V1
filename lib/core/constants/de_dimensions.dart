@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Dimensions {
+class DeDimensions {
   static const EdgeInsets all2 = EdgeInsets.all(2);
   static const EdgeInsets all8 = EdgeInsets.all(8);
   static const EdgeInsets all10 = EdgeInsets.all(10);

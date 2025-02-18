@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
@@ -39,26 +39,26 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
 
   Widget _body() {
     return SingleChildScrollView(
-      padding: Dimensions.horizontal20,
+      padding: DeDimensions.horizontal20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gaps.v12,
+          DeGaps.v12,
           DeText(
             ProfileConstants.profileWithdrawPolicyTitle,
             style: DeFonts.header,
           ),
-          Gaps.v8,
+          DeGaps.v8,
           DeText(
             ProfileConstants.profileWithdrawPolicyDescription,
             style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
           ),
-          Gaps.v20,
+          DeGaps.v20,
           DeText(
             ProfileConstants.profileWithdrawProcedureTitle,
             style: DeFonts.header,
           ),
-          Gaps.v8,
+          DeGaps.v8,
           DeText(
             ProfileConstants.profileWithdrawProcedureDescription,
             style: DeFonts.body14M.copyWith(color: DeColors.grey30),
@@ -67,12 +67,12 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
             ProfileConstants.profileWithdrawWarning,
             style: DeFonts.body14M.copyWith(color: DeColors.red),
           ),
-          Gaps.v20,
+          DeGaps.v20,
           DeText(
             ProfileConstants.profileWithdrawDeletedInfoTitle,
             style: DeFonts.header,
           ),
-          Gaps.v8,
+          DeGaps.v8,
           Text.rich(
             TextSpan(
               text: ProfileConstants.profileWithdrawDeletedInfoDescription1,
@@ -89,7 +89,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               ],
             ),
           ),
-          Gaps.v40,
+          DeGaps.v40,
           DeGestureDetector(
             onTap: () {
               DeDialog.show(
@@ -122,7 +122,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
             },
             child: Container(
               width: double.infinity,
-              padding: Dimensions.vertical12,
+              padding: DeDimensions.vertical12,
               decoration: BoxDecoration(
                 color: DeColors.grey80,
                 borderRadius: BorderRadius.circular(12),

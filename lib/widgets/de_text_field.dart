@@ -1,7 +1,7 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,7 +65,7 @@ class DeTextField extends StatelessWidget {
               border: InputBorder.none,
               hintStyle: style?.copyWith(color: DeColors.grey50),
               hintText: hintText ?? '내용을 입력해 주세요.',
-              contentPadding: Dimensions.all12,
+              contentPadding: DeDimensions.all12,
               isDense: true,
               counterText: "",
               filled: true,
@@ -87,7 +87,7 @@ class DeTextField extends StatelessWidget {
                       ? DeGestureDetector(
                           onTap: () => controller.clear(),
                           child: Padding(
-                            padding: Dimensions.all10,
+                            padding: DeDimensions.all10,
                             child: SvgPicture.asset(
                                 DeIcons.ic_x_grey50),
                           ),

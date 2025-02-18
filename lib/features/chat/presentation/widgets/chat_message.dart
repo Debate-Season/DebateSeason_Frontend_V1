@@ -1,8 +1,8 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
@@ -29,7 +29,7 @@ class ChatMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _chatMessageHeader(),
-              Gaps.v4,
+              DeGaps.v4,
               _chatMessageBody(
                 backgroundColor: DeColors.redDark,
                 borderRadius: BorderRadius.only(
@@ -49,7 +49,7 @@ class ChatMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               _chatMessageHeader(),
-              Gaps.v4,
+              DeGaps.v4,
               _chatMessageBody(
                 backgroundColor: DeColors.blueDark,
                 borderRadius: BorderRadius.only(
@@ -69,7 +69,7 @@ class ChatMessage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _chatMessageHeader(),
-              Gaps.v4,
+              DeGaps.v4,
               _chatMessageBody(
                 backgroundColor: DeColors.blueDark,
                 borderRadius: BorderRadius.circular(12),
@@ -92,19 +92,19 @@ class ChatMessage extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        Gaps.h4,
+        DeGaps.h4,
         DeText(
           message.sender,
           style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
         ),
-        Gaps.h4,
+        DeGaps.h4,
         DeText(
           message.userCommunity,
           style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
         ),
-        Gaps.h4,
+        DeGaps.h4,
         SvgPicture.asset(DeIcons.ic_dot_grey50),
-        Gaps.h4,
+        DeGaps.h4,
         DeText(
           _formatMessageTime(time: message.timeStamp),
           style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
@@ -118,7 +118,7 @@ class ChatMessage extends StatelessWidget {
     required BorderRadius borderRadius,
   }) {
     return Container(
-      padding: Dimensions.all12,
+      padding: DeDimensions.all12,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: borderRadius,
@@ -135,7 +135,7 @@ class ChatMessage extends StatelessWidget {
       alignment: WrapAlignment.center,
       children: [
         Container(
-          padding: Dimensions.padding12x4,
+          padding: DeDimensions.padding12x4,
           decoration: BoxDecoration(
             color: DeColors.grey90,
             borderRadius: BorderRadius.circular(20.0),

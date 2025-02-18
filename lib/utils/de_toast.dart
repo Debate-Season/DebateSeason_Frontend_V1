@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class DeToast{

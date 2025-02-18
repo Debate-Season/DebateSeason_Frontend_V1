@@ -1,7 +1,7 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
@@ -36,7 +36,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       title: Obx(() {
         return Row(
           children: [
-            Gaps.h12,
+            DeGaps.h12,
             Expanded(
               child: Column(
                 children: [
@@ -51,7 +51,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               ],
               ),
             ),
-            Gaps.h24,
+            DeGaps.h24,
           ],
         );
       }),
@@ -60,15 +60,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   Widget _body() {
     return Padding(
-      padding: Dimensions.horizontal20,
+      padding: DeDimensions.horizontal20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Gaps.v12,
+          DeGaps.v12,
           _widgetDebateTopic(),
-          Gaps.v12,
+          DeGaps.v12,
           _widgetDebateDetail(),
-          Gaps.v20,
+          DeGaps.v20,
           _widgetDebateVote(),
         ],
       ),
@@ -79,7 +79,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   //-----------------------------------------------------------------------------
   Widget _widgetDebateTopic() {
     return Container(
-      padding: Dimensions.padding8x10,
+      padding: DeDimensions.padding8x10,
       decoration: ShapeDecoration(
         color: DeColors.grey80,
         shape: RoundedRectangleBorder(
@@ -226,7 +226,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           width: 120.0,
           //나중에 사이즈 다시 확인
           height: 120.0,
-          padding: Dimensions.all16,
+          padding: DeDimensions.all16,
           decoration: ShapeDecoration(
             color: widgetColor,
             shape: RoundedRectangleBorder(
@@ -301,7 +301,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   enable: opinion != 'none',
                 ),
               ),
-              Gaps.v20,
+              DeGaps.v20,
             ],
           ),
         ),

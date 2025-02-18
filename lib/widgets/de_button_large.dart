@@ -1,6 +1,6 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class DeButtonLarge extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: double.infinity,
-        padding: Dimensions.vertical12,
+        padding: DeDimensions.vertical12,
         decoration: BoxDecoration(
           color: enable ? DeColors.brandColor : DeColors.brandDark,
           borderRadius: BorderRadius.circular(12),

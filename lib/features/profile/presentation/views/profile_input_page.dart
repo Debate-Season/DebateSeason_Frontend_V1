@@ -1,8 +1,8 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
@@ -49,22 +49,22 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gaps.v12,
+          DeGaps.v12,
           // todo MVP 구현
           // _widgetProfileColor(),
           // Gaps.v32,
           Padding(
-            padding: Dimensions.horizontal20,
+            padding: DeDimensions.horizontal20,
             child: Column(
               children: [
                 _widgetNickName(),
-                Gaps.v32,
+                DeGaps.v32,
                 _widgetCommunity(),
-                Gaps.v32,
+                DeGaps.v32,
                 _widgetGender(),
-                Gaps.v32,
+                DeGaps.v32,
                 _widgetAge(),
-                Gaps.v40,
+                DeGaps.v40,
                 Obx(() {
                   return DeButtonLarge(
                     controller.isModifyScreen
@@ -96,7 +96,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                     enable: controller.isValidStartBtn(),
                   );
                 }),
-                Gaps.v20,
+                DeGaps.v20,
               ],
             ),
           ),
@@ -110,13 +110,13 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: Dimensions.horizontal20,
+          padding: DeDimensions.horizontal20,
           child: DeText(
             '프로필 사진',
             style: DeFonts.body14Sb,
           ),
         ),
-        Gaps.v8,
+        DeGaps.v8,
         // todo 프로필 사진 선택
         Center(
           child: Container(
@@ -141,7 +141,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           '닉네임',
           style: DeFonts.body14Sb,
         ),
-        Gaps.v8,
+        DeGaps.v8,
         DeTextField(
           style: DeFonts.body16M,
           hintText: '한글, 영문 조합 최대 8자',
@@ -159,7 +159,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           if (nicknameErrorText.isNotEmpty) {
             return Column(
               children: [
-                Gaps.v4,
+                DeGaps.v4,
                 DeText(
                   nicknameErrorText,
                   style: DeFonts.caption12M.copyWith(color: DeColors.red),
@@ -182,7 +182,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           '소속 커뮤니티',
           style: DeFonts.body14Sb,
         ),
-        Gaps.v8,
+        DeGaps.v8,
         DeGestureDetector(
           onTap: () {
             // 커뮤니티 선택 바텀시트
@@ -231,12 +231,12 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           '성별',
           style: DeFonts.body14Sb,
         ),
-        Gaps.v4,
+        DeGaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
-        Gaps.v8,
+        DeGaps.v8,
         Obx(() {
           final profileAgeRange = controller.profile.gender;
 
@@ -253,7 +253,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   ),
                 ),
               ),
-              Gaps.h8,
+              DeGaps.h8,
               Expanded(
                 child: DeGestureDetector(
                   onTap: () => controller.setGender(gender: genderWomen),
@@ -264,7 +264,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   ),
                 ),
               ),
-              Gaps.h8,
+              DeGaps.h8,
               Expanded(
                 child: DeGestureDetector(
                   onTap: () => controller.setGender(gender: genderOther),
@@ -289,12 +289,12 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           '나이대',
           style: DeFonts.body14Sb,
         ),
-        Gaps.v4,
+        DeGaps.v4,
         DeText(
           '본 정보는 타인에게 공개되지 않습니다.',
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
-        Gaps.v8,
+        DeGaps.v8,
         DeGestureDetector(
           onTap: () {
             if (Get.context != null) {

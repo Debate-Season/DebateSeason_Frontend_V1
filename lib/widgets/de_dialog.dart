@@ -1,6 +1,6 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_small.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +27,14 @@ class DeDialog {
             children: [
               DeText(dialogTitle, style: DeFonts.title),
               if (dialogText.isNotEmpty) ...[
-                Gaps.v8,
+                DeGaps.v8,
                 DeText(
                   dialogText,
                   style: DeFonts.body14M.copyWith(color: DeColors.grey30),
                   textAlign: TextAlign.center,
                 ),
               ],
-              Gaps.v20,
+              DeGaps.v20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -47,7 +47,7 @@ class DeDialog {
                       textColor: DeColors.red,
                     ),
                   ),
-                  Gaps.h8,
+                  DeGaps.h8,
                   Expanded(
                     child: DeButtonSmall(
                       doneText,

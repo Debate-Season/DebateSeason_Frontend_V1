@@ -1,10 +1,10 @@
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 
 class ChangePopup extends StatelessWidget {
@@ -30,13 +30,13 @@ class ChangePopup extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Padding(
-        padding: Dimensions.padding20x16,
+        padding: DeDimensions.padding20x16,
         child: Column(
           children: [
             DeText(popuptitle, style: DeFonts.title.copyWith(color: DeColors.grey10)),
-            Gaps.v8,
+            DeGaps.v8,
             DeText(description, style: DeFonts.body14M.copyWith(color: DeColors.grey30)),
-            Gaps.v20,
+            DeGaps.v20,
             Row(
               children: [
                 TextButton(onPressed: () => {log.d('btn1')}, child: Text(btn1)),

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
@@ -87,7 +87,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                 loginType: AuthConstants.appleLoginType,
               ),
             ),
-          Gaps.v16,
+          DeGaps.v16,
         ],
       ),
     );
@@ -97,8 +97,8 @@ class AuthScreen extends GetView<AuthViewModel> {
     required String loginType,
   }) {
     return Container(
-      margin: Dimensions.horizontal20,
-      padding: Dimensions.vertical12,
+      margin: DeDimensions.horizontal20,
+      padding: DeDimensions.vertical12,
       width: double.infinity,
       decoration: BoxDecoration(
         color: loginType == AuthConstants.kakaoLoginType
@@ -114,7 +114,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                 ? DeIcons.ic_kakao_login
                 : DeIcons.ic_apple_login,
           ),
-          Gaps.h8,
+          DeGaps.h8,
           Text(
             loginType == AuthConstants.kakaoLoginType
                 ? AuthConstants.kakaoLogin
