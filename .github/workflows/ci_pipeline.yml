@@ -1,0 +1,24 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run lint check
+        run: flutter analyze
+
+      - name: Build the app
+        run: flutter build apk --release
