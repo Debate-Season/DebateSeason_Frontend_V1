@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/features/category/category_constants.da
 import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
+import 'package:debateseason_frontend_v1/utils/exit_app_util.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,9 +19,15 @@ class CategoryScreen extends GetView<CategoryViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: _appBar(),
-      body: _body(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        ExitAppUtil.onWillPop();
+      },
+      child: DeScaffold(
+        appBar: _appBar(),
+        body: _body(),
+      ),
     );
   }
 
