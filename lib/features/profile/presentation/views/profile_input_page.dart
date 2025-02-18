@@ -26,9 +26,12 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
 
   DeAppBar _appBar({required bool isModifyScreen}) {
     return DeAppBar(
-      title: isModifyScreen
-          ? ProfileConstants.profileModifyAppbarText
-          : ProfileConstants.profileCreateAppbarText,
+      title: DeText(
+        isModifyScreen
+            ? ProfileConstants.profileModifyAppbarText
+            : ProfileConstants.profileCreateAppbarText,
+        style: header,
+      ),
       isBack: isModifyScreen,
     );
   }
