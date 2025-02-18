@@ -1,9 +1,10 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/chat_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +38,10 @@ class _ChatInputFieldState extends State<ChatInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: Dimensions.horizontal20,
-      padding: Dimensions.vertical2,
+      margin: DeDimensions.horizontal20,
+      padding: DeDimensions.vertical2,
       decoration: ShapeDecoration(
-        color: grey90,
+        color: DeColors.grey90,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(26.0),
         ),
@@ -52,23 +53,23 @@ class _ChatInputFieldState extends State<ChatInputField> {
           Container(
             width: 48.0,
             height: 48.0,
-            padding: Dimensions.all10,
+            padding: DeDimensions.all10,
             decoration: BoxDecoration(),
             child: IconButton(
               icon: SvgPicture.asset(
-                'assets/icons/ic_add_grey30.svg',
+                DeIcons.ic_add_grey30,
                 width: 24.0,
                 height: 24.0,
               ),
               onPressed: () {},
             ),
           ),
-          Gaps.h12,
+          DeGaps.h12,
           Expanded(
             child: DeTextField(
               controller: _textController,
               keyboardType: TextInputType.multiline,
-              style: body14Sb.copyWith(color: grey10),
+              style: DeFonts.body14Sb.copyWith(color: DeColors.grey10),
               minLines: 1,
               maxLines: 3,
               decoration: const InputDecoration(
@@ -77,7 +78,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
               ),
             ),
           ),
-          Gaps.h12,
+          DeGaps.h12,
           DeGestureDetector(
             onTap: () {
               if (_textController.text.isNotEmpty) {
@@ -88,15 +89,15 @@ class _ChatInputFieldState extends State<ChatInputField> {
               }
             },
             child: Container(
-              padding: Dimensions.all12,
+              padding: DeDimensions.all12,
               decoration: BoxDecoration(
-                color: _textController.text.isEmpty ? grey90 : brandColor,
+                color: _textController.text.isEmpty ? DeColors.grey90 : DeColors.brandColor,
                 borderRadius: BorderRadius.circular(48.0),
               ),
               child: SvgPicture.asset(
                 _textController.text.isEmpty
-                    ? 'assets/icons/ic_send_grey70.svg'
-                    : 'assets/icons/ic_send_grey10.svg',
+                    ? DeIcons.ic_send_grey70
+                    : DeIcons.ic_send_grey10,
                 width: 24.0,
                 height: 24.0,
               ),
