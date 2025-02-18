@@ -14,14 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Flutter SDK 캐시 설정
-      - name: Cache Flutter SDK
-        uses: actions/cache@v3
-        with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-flutter-
+      #      # Flutter SDK 캐시 설정
+      #      - name: Cache Flutter SDK
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: ~/.pub-cache
+      #          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-flutter-
 
       # Flutter SDK 설치
       - name: Install Flutter SDK
