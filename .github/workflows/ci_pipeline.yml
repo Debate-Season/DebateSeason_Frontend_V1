@@ -14,6 +14,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Gradle 캐시 삭제
+      - name: Remove Gradle cache
+        run: rm -rf ~/.gradle
+
       # .env.dev 파일 생성
       - name: Create .env.dev file
         run: echo "${{ secrets.ENV_DEV }}" > .env.dev
@@ -47,7 +51,7 @@ jobs:
 
       # Android 빌드
       - name: Build Android
-        run: flutter build apk --release
+        run: flutter build apk --release --verbose
 
 #  # iOS 빌드(macOS 환경)
 #  ios_build:
