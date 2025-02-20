@@ -18,6 +18,10 @@ jobs:
       - name: Create .env.dev file
         run: echo "${{ secrets.ENV_DEV }}" > .env.dev
 
+      # .env.prod 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
       # Flutter SDK 캐시 설정
       - name: Cache Flutter SDK
         uses: actions/cache@v3
