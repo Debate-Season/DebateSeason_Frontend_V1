@@ -5,10 +5,10 @@ import 'package:debateseason_frontend_v1/features/category/bindings/category_bin
 import 'package:debateseason_frontend_v1/features/category/presentation/views/category_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/bindings/chat_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/view/chat_room_screen.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/view/debate_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/chat_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation/view/issue_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
