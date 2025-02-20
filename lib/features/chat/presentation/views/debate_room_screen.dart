@@ -1,11 +1,12 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/view_model/debate_room_view_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
@@ -35,22 +36,22 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       title: Obx(() {
         return Row(
           children: [
-            Gaps.h12,
+            DeGaps.h12,
             Expanded(
               child: Column(
                 children: [
                   DeText(
                     controller.issueTitle,
-                    style: cation12SB.copyWith(color: grey10),
-                  ),
-                  DeText(
-                    '토론방',
-                    style: cation12M.copyWith(color: grey50),
-                  ),
-                ],
+                  style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
+                ),
+                DeText(
+                  DebateConstants.debateRoom,
+                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                ),
+              ],
               ),
             ),
-            Gaps.h24,
+            DeGaps.h24,
           ],
         );
       }),
@@ -59,15 +60,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   Widget _body() {
     return Padding(
-      padding: Dimensions.horizontal20,
+      padding: DeDimensions.horizontal20,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Gaps.v12,
+          DeGaps.v12,
           _widgetDebateTopic(),
-          Gaps.v12,
+          DeGaps.v12,
           _widgetDebateDetail(),
-          Gaps.v20,
+          DeGaps.v20,
           _widgetDebateVote(),
         ],
       ),
@@ -78,9 +79,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   //-----------------------------------------------------------------------------
   Widget _widgetDebateTopic() {
     return Container(
-      padding: Dimensions.padding8x10,
+      padding: DeDimensions.padding8x10,
       decoration: ShapeDecoration(
-        color: grey80,
+        color: DeColors.grey80,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -88,8 +89,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       child: Column(
         children: [
           DeText(
-            '토론주제',
-            style: cation12M.copyWith(color: brandColor),
+            DebateConstants.debateTopic,
+            style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -98,7 +99,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             }
             return DeText(
               room.title,
-              style: body14M,
+              style: DeFonts.body14M,
             );
           }),
         ],
@@ -114,7 +115,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       }
       return DeText(
         room.content, // todo 3줄 초과 시 더보기 버튼 추가
-        style: body14R,
+        style: DeFonts.body14R,
       );
     });
   }
@@ -145,8 +146,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           _widgetVoteButton('찬성', agreeRatioText),
           DeText(
-            'VS',
-            style: body14M.copyWith(color: grey50),
+            DebateConstants.vs,
+            style: DeFonts.body14M.copyWith(color: DeColors.grey50),
           ),
           _widgetVoteButton('반대', disagreeRatioText),
         ],
@@ -165,14 +166,14 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int agree = room.agree;
       int disagree = room.disagree;
 
-      var widgetColor = data == OpinionType.agree.valueKr ? redDark : blueDark;
+      var widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blueDark;
       if (opinion == OpinionType.agree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? red : blueDark;
+        widgetColor = data == OpinionType.agree.valueKr ? DeColors.red : DeColors.blueDark;
       } else if (opinion == OpinionType.disagree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? redDark : blue;
+        widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blue;
       }
 
-      String detail = '투표하기';
+      String detail = DebateConstants.vs;
       if (opinion != OpinionType.neutral.value) {
         detail = data == OpinionType.agree.valueKr ? '$agree표' : '$disagree표';
       }
@@ -196,10 +197,10 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
             if (controller.voteStatus.value != dataEn) {
               DeDialog.show(
-                dialogTitle: '입장 변경',
-                dialogText: '입장을 변경하시겠습니까?',
-                doneText: '변경하기',
-                cancelText: '유지',
+                dialogTitle: DebateConstants.changeVoteTitle,
+                dialogText: DebateConstants.changeVoteConfirm,
+                doneText: DebateConstants.changeVoteButton,
+                cancelText: DebateConstants.changeVoteCancel,
                 onTapDone: () async {
                   if (data == OpinionType.agree.valueKr) {
                     await controller.postVoteData(
@@ -225,7 +226,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           width: 120.0,
           //나중에 사이즈 다시 확인
           height: 120.0,
-          padding: Dimensions.all16,
+          padding: DeDimensions.all16,
           decoration: ShapeDecoration(
             color: widgetColor,
             shape: RoundedRectangleBorder(
@@ -238,15 +239,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             children: [
               DeText(
                 data,
-                style: cation12SB,
+                style: DeFonts.caption12SB,
               ),
               DeText(
                 '$ratio%',
-                style: header,
+                style: DeFonts.header,
               ),
               DeText(
                 detail,
-                style: cation12M,
+                style: DeFonts.caption12M,
               ),
             ],
           ),
@@ -260,7 +261,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       final room = controller.roomData;
       if (room == null) {
         return Container(
-          color: grey110,
+          color: DeColors.grey110,
           child: DeProgressIndicator(),
         );
       }
@@ -273,12 +274,12 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           child: Column(
             children: [
               DefaultTextStyle(
-                style: body16M,
+                style: DeFonts.body16M,
                 child: DeButtonLarge(
-                  '토론방 입장하기',
+                  DebateConstants.enterRoom,
                   onPressed: () {
                     if (opinion == OpinionType.neutral.value) {
-                      deSnackBar('대화를 시작하려면 입장(찬성/반대)을 선택해주세요.');
+                      deSnackBar(DebateConstants.enterRoomReject);
                       return;
                     }
                     final newRoom = RoomRes(
@@ -300,7 +301,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                   enable: opinion != 'none',
                 ),
               ),
-              Gaps.v20,
+              DeGaps.v20,
             ],
           ),
         ),

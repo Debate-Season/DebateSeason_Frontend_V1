@@ -1,7 +1,8 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class DeBottomSheet extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.fromLTRB(24, 0, 24, 16),
         decoration: BoxDecoration(
-          color: grey80,
+          color: DeColors.grey80,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -36,21 +37,21 @@ class DeBottomSheet extends StatelessWidget {
             Center(
               child: _widgetGrabber(),
             ),
-            Gaps.v16,
+            DeGaps.v16,
             Row(
               children: [
                 Expanded(
                   child: DeText(
                     titleText,
-                    style: title,
+                    style: DeFonts.title,
                   ),
                 ),
                 DeGestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Padding(
-                    padding: Dimensions.all10,
+                    padding: DeDimensions.all10,
                     child: SvgPicture.asset(
-                      'assets/icons/ic_x_grey50.svg',
+                      DeIcons.ic_x_grey50,
                       width: 20,
                       height: 20,
                     ),
@@ -58,7 +59,7 @@ class DeBottomSheet extends StatelessWidget {
                 ),
               ],
             ),
-            Gaps.v16,
+            DeGaps.v16,
             widget,
           ],
         ),
@@ -70,9 +71,9 @@ class DeBottomSheet extends StatelessWidget {
     return Container(
       width: 40,
       height: 5,
-      margin: Dimensions.all8,
+      margin: DeDimensions.all8,
       decoration: BoxDecoration(
-        color: grey50,
+        color: DeColors.grey50,
         borderRadius: BorderRadius.circular(5),
       ),
     );
