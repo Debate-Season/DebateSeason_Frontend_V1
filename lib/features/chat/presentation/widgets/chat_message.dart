@@ -103,7 +103,7 @@ class ChatMessage extends StatelessWidget {
           style: DeFonts.caption12R.copyWith(color: DeColors.grey30),
         ),
         DeGaps.h4,
-        SvgPicture.asset(DeIcons.ic_dot_grey50),
+        SvgPicture.asset(DeIcons.icDotGrey50),
         DeGaps.h4,
         DeText(
           _formatMessageTime(time: message.timeStamp),

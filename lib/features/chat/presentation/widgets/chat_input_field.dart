@@ -57,7 +57,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
             decoration: BoxDecoration(),
             child: IconButton(
               icon: SvgPicture.asset(
-                DeIcons.ic_add_grey30,
+                DeIcons.icAddGrey30,
                 width: 24.0,
                 height: 24.0,
               ),
@@ -96,8 +96,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
               ),
               child: SvgPicture.asset(
                 _textController.text.isEmpty
-                    ? DeIcons.ic_send_grey70
-                    : DeIcons.ic_send_grey10,
+                    ? DeIcons.icSendGrey70
+                    : DeIcons.icSendGrey10,
                 width: 24.0,
                 height: 24.0,
               ),

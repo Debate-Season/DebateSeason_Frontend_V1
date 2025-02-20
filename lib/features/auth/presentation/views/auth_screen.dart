@@ -118,8 +118,8 @@ class AuthScreen extends GetView<AuthViewModel> {
         children: [
           SvgPicture.asset(
             loginType == AuthConstants.kakaoLoginType
-                ? DeIcons.ic_kakao_login
-                : DeIcons.ic_apple_login,
+                ? DeIcons.icKakaoLogin
+                : DeIcons.icAppleLogin,
           ),
           DeGaps.h8,
           Text(

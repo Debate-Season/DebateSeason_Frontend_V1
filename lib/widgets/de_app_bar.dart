@@ -51,7 +51,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
           DeGaps.h12,
           Padding(
             padding: DeDimensions.all8,
-            child: SvgPicture.asset(DeIcons.ic_back_grey50),
+            child: SvgPicture.asset(DeIcons.icBackGrey50),
           ),
           DeGaps.h4,
         ],

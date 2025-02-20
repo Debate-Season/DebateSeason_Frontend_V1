@@ -46,7 +46,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           },
           child: Padding(
             padding: DeDimensions.all8,
-            child: SvgPicture.asset(DeIcons.ic_profile_grey10),
+            child: SvgPicture.asset(DeIcons.icProfileGrey10),
           ),
         ),
         DeGaps.h20,
@@ -183,7 +183,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
           ),
           Padding(
             padding: DeDimensions.all8,
-            child: SvgPicture.asset(DeIcons.ic_arrow_right_grey50),
+            child: SvgPicture.asset(DeIcons.icArrowRightGrey50),
           ),
         ],
       ),

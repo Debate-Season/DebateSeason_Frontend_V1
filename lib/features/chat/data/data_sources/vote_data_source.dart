@@ -1,4 +1,3 @@
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/base/nullable_base_res.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
