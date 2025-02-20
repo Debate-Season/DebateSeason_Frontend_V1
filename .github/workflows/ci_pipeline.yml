@@ -14,6 +14,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # .env.dev 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+
       # Flutter SDK 캐시 설정
       - name: Cache Flutter SDK
         uses: actions/cache@v3
