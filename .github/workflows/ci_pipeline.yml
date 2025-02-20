@@ -14,10 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Gradle 캐시 삭제
-      - name: Remove Gradle cache
-        run: rm -rf ~/.gradle
-
       # google-services.json 파일 생성
       - name: Create .env.dev file
         run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
@@ -27,7 +23,7 @@ jobs:
         run: echo "${{ secrets.ENV_DEV }}" > .env.dev
 
       # .env.prod 파일 생성
-      - name: Create .env.dev file
+      - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
 
       # Flutter SDK 캐시 설정
