@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
@@ -56,7 +56,7 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
             });
           },
         ),
-        Gaps.v16,
+        DeGaps.v16,
         Obx(() {
           final selectedAge = controller.selectedAge;
 
@@ -69,7 +69,7 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
             enable: selectedAge.isNotEmpty,
           );
         }),
-        Gaps.v16,
+        DeGaps.v16,
       ],
     );
   }

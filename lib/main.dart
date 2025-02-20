@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-import 'core/constants/color.dart';
+import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
 
 void main() async {
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 void _initUiSettings() {
   // 시스템 상태바 색상 변경
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: grey110,
+    statusBarColor: DeColors.grey110,
     statusBarIconBrightness: Brightness.light,
   ));
 

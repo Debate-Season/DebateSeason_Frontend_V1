@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
@@ -30,7 +31,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     return DeAppBar(
       title: DeText(
         '프로필',
-        style: header,
+        style: DeFonts.header,
       ),
       isBack: true,
     );
@@ -58,7 +59,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       return Column(
                         children: [
                           _profile(profile: profile),
-                          Gaps.v40,
+                          DeGaps.v40,
                           _myCommunity(profile: profile),
                         ],
                       );
@@ -67,15 +68,15 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       return Center(
                         child: DeText(
                           error,
-                          style: body16Sb.copyWith(color: red),
+                          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
                         ),
                       );
                     },
                   );
                 }),
-                Gaps.v40,
+                DeGaps.v40,
                 _account(),
-                Gaps.v40,
+                DeGaps.v40,
                 _support(),
               ],
             ),
@@ -93,29 +94,29 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           width: 80,
           height: 80,
           decoration: BoxDecoration(
-            color: red,
+            color: DeColors.red,
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        Gaps.v8,
+        DeGaps.v8,
         DeText(
           profile.nickname,
-          style: headerLarge,
+          style: DeFonts.headerLarge,
         ),
-        Gaps.v16,
+        DeGaps.v16,
         DeGestureDetector(
           onTap: () {
             Get.toNamed(GetRouterName.profileInput, arguments: profile);
           },
           child: Container(
-            padding: Dimensions.padding10x5,
+            padding: DeDimensions.padding10x5,
             decoration: BoxDecoration(
-              color: grey80,
+              color: DeColors.grey80,
               borderRadius: BorderRadius.circular(20),
             ),
             child: DeText(
               '프로필 수정',
-              style: cation12M,
+              style: DeFonts.caption12M,
             ),
           ),
         )
@@ -129,9 +130,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '내 소속 커뮤니티',
-          style: title,
+          style: DeFonts.title,
         ),
-        Gaps.v8,
+        DeGaps.v8,
         Row(
           children: [
             ClipRRect(
@@ -142,10 +143,10 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 height: 44,
               ),
             ),
-            Gaps.h12,
+            DeGaps.h12,
             DeText(
               profile.community.name,
-              style: body16Sb,
+              style: DeFonts.body16Sb,
             ),
           ],
         )
@@ -159,9 +160,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '계정',
-          style: title,
+          style: DeFonts.title,
         ),
-        Gaps.v16,
+        DeGaps.v16,
         DeGestureDetector(
           onTap: () {
             DeDialog.show(
@@ -194,14 +195,14 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '로그아웃',
-                style: body14M.copyWith(color: grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
-              Gaps.h4,
-              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+              DeGaps.h4,
+              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
             ],
           ),
         ),
-        Gaps.v8,
+        DeGaps.v8,
         DeGestureDetector(
           onTap: () {
             Get.toNamed(GetRouterName.profileWithdraw);
@@ -210,10 +211,10 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '회원탈퇴',
-                style: body14M.copyWith(color: grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
-              Gaps.h4,
-              SvgPicture.asset('assets/icons/ic_sign_out_grey50.svg'),
+              DeGaps.h4,
+              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
             ],
           ),
         ),
@@ -227,9 +228,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '고객센터',
-          style: title,
+          style: DeFonts.title,
         ),
-        Gaps.v16,
+        DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
             await Clipboard.setData(
@@ -240,18 +241,18 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 'tmddnjs1411@gmail.com',
-                style: body14M.copyWith(color: grey50),
+                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
-              Gaps.h8,
+              DeGaps.h8,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: BoxDecoration(
-                  color: grey80,
+                  color: DeColors.grey80,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DeText(
                   '복사',
-                  style: body14M.copyWith(color: grey50),
+                  style: DeFonts.body14M.copyWith(color: DeColors.grey50),
                 ),
               )
             ],
