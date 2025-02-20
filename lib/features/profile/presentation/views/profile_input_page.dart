@@ -248,7 +248,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   onTap: () => controller.setGender(gender: genderMan),
                   child: ProfileGenderCard(
                     genderMan,
-                    imagePath: DeIcons.ic_men,
+                    imagePath: DeIcons.icMen,
                     isSelected: profileAgeRange == genderMan,
                   ),
                 ),
@@ -259,7 +259,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                   onTap: () => controller.setGender(gender: genderWomen),
                   child: ProfileGenderCard(
                     genderWomen,
-                    imagePath: DeIcons.ic_women,
+                    imagePath: DeIcons.icWomen,
                     isSelected: profileAgeRange == genderWomen,
                   ),
                 ),
