@@ -51,7 +51,7 @@ jobs:
 
       # Android 빌드
       - name: Build Android
-        run: flutter build apk --release --verbose
+        run: flutter build apk --release --no-shrink
 
 #  # iOS 빌드(macOS 환경)
 #  ios_build:
