@@ -40,26 +40,7 @@ class DebateRoomViewModel extends GetxController {
     try {
       final response = await _roomDataSource.getRoom(chatroomId: chatroomId);
       _roomData.value = response.data;
-      // var tempVoteStatus = response.data.opinion;
-      // if(tempVoteStatus == '찬성'){
-      //   voteStatus.value = OpinionType.agree;
-      // } else if(tempVoteStatus == '반대'){
-      //   voteStatus.value = OpinionType.disagree;
-      // } else {
-      //   voteStatus.value = OpinionType.neutral;
-      // }
-
-      // if(response.data.opinion == 'none'){
-      //   voteStatus.value = OpinionType.neutral;
-      // }
-      // else{
-      //   voteStatus.value = response.data.opinion;
-      // }
-      try {
-        _voteStatus.value = response.data.opinion;
-      } catch (e) {
-        _voteStatus.value = OpinionType.neutral.value;
-      }
+      _voteStatus.value = response.data.opinion;
     } catch (e) {
       log.d('Error fetching room data: $e');
     }
