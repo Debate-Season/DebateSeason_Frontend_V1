@@ -1,8 +1,8 @@
-import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 
-getPercentages(ChatRoomRes chatroom) {
-  int agree = chatroom.agree;
-  int disagree = chatroom.disagree;
+getPercentages(RoomRes room) {
+  int agree = room.agree;
+  int disagree = room.disagree;
   int total = agree + disagree;
   double agreeRatio = agree / total;
   double disagreeRatio = disagree / total;

@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
@@ -116,19 +117,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateVote() {
     return Obx(() {
       final room = controller.roomData;
-
-      int agree = room.agree;
-      int disagree = room.disagree;
-      int total = agree + disagree;
-      double agreeRatio = agree / total;
-      double disagreeRatio = disagree / total;
-
-      if (total == 0) {
-        agreeRatio = 0;
-        disagreeRatio = 0;
-      }
-      String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
-      String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+      final percentages = getPercentages(room);
+      final agreeRatioText = percentages[0];
+      final disagreeRatioText = percentages[1];
 
       return Row(
         mainAxisSize: MainAxisSize.min,
