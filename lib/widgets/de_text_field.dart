@@ -1,6 +1,7 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,20 +63,20 @@ class DeTextField extends StatelessWidget {
         decoration: decoration ??
             InputDecoration(
               border: InputBorder.none,
-              hintStyle: style?.copyWith(color: grey50),
+              hintStyle: style?.copyWith(color: DeColors.grey50),
               hintText: hintText ?? '내용을 입력해 주세요.',
-              contentPadding: Dimensions.all12,
+              contentPadding: DeDimensions.all12,
               isDense: true,
               counterText: "",
               filled: true,
-              fillColor: fillColor ?? grey80,
+              fillColor: fillColor ?? DeColors.grey80,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide.none,
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: brandColor, width: 1),
+                borderSide: BorderSide(color: DeColors.brandColor, width: 1),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -86,9 +87,9 @@ class DeTextField extends StatelessWidget {
                       ? DeGestureDetector(
                           onTap: () => controller.clear(),
                           child: Padding(
-                            padding: Dimensions.all10,
+                            padding: DeDimensions.all10,
                             child: SvgPicture.asset(
-                                'assets/icons/ic_x_grey50.svg'),
+                                DeIcons.ic_x_grey50),
                           ),
                         )
                       : null)
@@ -102,8 +103,8 @@ class DeTextField extends StatelessWidget {
         expands: expands,
         maxLength: maxLength,
         // 색상 변경 여부 확인
-        cursorColor: grey10,
-        style: style ?? body14R,
+        cursorColor: DeColors.grey10,
+        style: style ?? DeFonts.body14R,
         textAlign: textAlign ?? TextAlign.start,
         onChanged: (value) {
           if (onChanged != null) {

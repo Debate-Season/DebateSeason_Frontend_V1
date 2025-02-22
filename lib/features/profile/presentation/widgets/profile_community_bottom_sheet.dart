@@ -1,6 +1,6 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -39,7 +39,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
             return Center(
               child: DeText(
                 error,
-                style: body16Sb.copyWith(color: red),
+                style: DeFonts.body16Sb.copyWith(color: DeColors.red),
               ),
             );
           },
@@ -62,7 +62,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
           return Center(
             child: DeText(
               error,
-              style: body16Sb.copyWith(color: red),
+              style: DeFonts.body16Sb.copyWith(color: DeColors.red),
             ),
           );
         },
@@ -84,11 +84,11 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
           DeTextField(
             controller: controller.communitySearchController,
             hintText: '내용을 입력해 주세요.',
-            fillColor: grey90,
+            fillColor: DeColors.grey90,
             onChanged: (searchWord) =>
                 controller.onChangedCommunity(searchWord: searchWord),
           ),
-          Gaps.v16,
+          DeGaps.v16,
           SizedBox(
             height: Get.mediaQuery.size.height * 0.3,
             child: GridView.builder(
@@ -123,7 +123,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
               },
             ),
           ),
-          Gaps.v16,
+          DeGaps.v16,
           Obx(() {
             final selectedCommunityId = controller.selectedCommunityId;
 
@@ -138,7 +138,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
               enable: selectedCommunityId > 0,
             );
           }),
-          Gaps.v16,
+          DeGaps.v16,
         ],
       ),
     );

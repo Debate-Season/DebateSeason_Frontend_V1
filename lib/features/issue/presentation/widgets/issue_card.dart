@@ -1,6 +1,6 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
-import 'package:debateseason_frontend_v1/core/constants/gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/text_style.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ class IssueCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       decoration: BoxDecoration(
-        color: grey120,
-        border: Border.all(color: grey90),
+        color: DeColors.grey120,
+        border: Border.all(color: DeColors.grey90),
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: Column(
@@ -32,7 +32,7 @@ class IssueCard extends StatelessWidget {
         children: [
           _issueDate(),
           _issueTitle(),
-          Gaps.v12,
+          DeGaps.v12,
           //_issueRecent(),
           //Gaps.v12,
           _issueStatus(),
@@ -44,14 +44,14 @@ class IssueCard extends StatelessWidget {
   Widget _issueDate() {
     return DeText(
       chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
-      style: cation12M.copyWith(color: grey50),
+      style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
     );
   }
 
   Widget _issueTitle() {
     return DeText(
       chatroom!.title,
-      style: body16Sb.copyWith(
+      style: DeFonts.body16Sb.copyWith(
         color: Color(0xFFF3F0F4),
       ),
       textAlign: TextAlign.center,
@@ -61,7 +61,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueRecent() {
     return DeText(
       '최근', //'3분 전 대화', todo: 대화 시간 표시
-      style: cation12M.copyWith(color: brandColor),
+      style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
     );
   }
 
@@ -70,19 +70,19 @@ class IssueCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _widgetBtn('찬성'),
-        Gaps.h8,
+        DeGaps.h8,
         DeText(
           'VS',
-          style: cation12M.copyWith(color: grey70),
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey70),
         ),
-        Gaps.h8,
+        DeGaps.h8,
         _widgetBtn('반대'),
       ],
     );
   }
 
   Widget _widgetBtn(String data) {
-    final widgetColor = data == '찬성' ? red : blue;
+    final widgetColor = data == '찬성' ? DeColors.red : DeColors.blue;
 
     // int agree = chatroom?.agree ?? 0;
     // int disagree = chatroom?.disagree ?? 0;
@@ -125,15 +125,15 @@ class IssueCard extends StatelessWidget {
         children: [
           DeText(
             data,
-            style: caption12M2,
+            style: DeFonts.caption12M2,
           ),
           DeText(
             data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
-            style: header,
+            style: DeFonts.header,
           ),
           DeText(
             data == '찬성' ? '$agree표' : '$disagree표',
-            style: caption12M2,
+            style: DeFonts.caption12M2,
           ),
         ],
       ),
