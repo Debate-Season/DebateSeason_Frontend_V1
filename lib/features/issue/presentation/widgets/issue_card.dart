@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class IssueCard extends StatelessWidget {
         _widgetBtn('찬성'),
         DeGaps.h8,
         DeText(
-          'VS',
+          IssueConstants.vs,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey70),
         ),
         DeGaps.h8,
