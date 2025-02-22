@@ -173,7 +173,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blue;
       }
 
-      String detail = DebateConstants.vs;
+      String detail = DebateConstants.voting;
       if (opinion != OpinionType.neutral.value) {
         detail = data == OpinionType.agree.valueKr ? '$agree표' : '$disagree표';
       }
