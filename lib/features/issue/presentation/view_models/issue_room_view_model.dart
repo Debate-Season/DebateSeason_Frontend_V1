@@ -5,11 +5,17 @@ import 'package:get/get.dart';
 
 class IssueRoomViewModel extends GetxController {
   late final IssueDataSource _issueDataSource;
-  final Rx<IssueRes?> _issueData = Rx<IssueRes?>(null);
+  final _issueData = Rx<IssueRes>(
+    IssueRes(
+      title: '',
+      map: {},
+      chatRoomMap: [],
+    ),
+  );
   final _issueId = (-1).obs;
   final _issueTitle = ''.obs;
 
-  IssueRes? get issueData => _issueData.value;
+  IssueRes get issueData => _issueData.value;
 
   int get issueId => _issueId.value;
 

@@ -116,14 +116,14 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _comm() {
     return Obx(() {
-      final communities = controller.issueData?.map.keys.toList();
-      final int len = communities?.length ?? 0;
+      final communities = controller.issueData.map.keys.toList();
+      final int len = communities.length;
 
       return SizedBox(
         height: 36,
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return commItem(communities?[index]);
+            return commItem(communities[index]);
           },
           separatorBuilder: (context, index) => DeGaps.h8,
           itemCount: len,
@@ -152,8 +152,8 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   Widget _debateList() {
     return Obx(() {
       final issue = controller.issueData;
-      final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
-      final int len = chatRooms?.length ?? 0;
+      final List<ChatRoomRes> chatRooms = issue.chatRoomMap;
+      final int len = chatRooms.length;
 
       return ListView.separated(
         itemBuilder: (context, index) {
@@ -167,19 +167,15 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateItem(int index) {
     return Obx(() {
-      final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
-      final chatroom = chatRooms?[index];
-
-      if (chatRooms == null) {
-        return const Text(IssueConstants.noChatRoom);
-      }
+      final List<ChatRoomRes> chatRooms = controller.issueData.chatRoomMap;
+      final chatroom = chatRooms[index];
 
       return DeGestureDetector(
         onTap: () {
           Get.toNamed(
             GetRouterName.debate,
             arguments: {
-              'chatroom_id': chatroom?.chatRoomId ?? -1,
+              'chatroom_id': chatroom.chatRoomId,
               'issue_title': controller.issueTitle,
             },
           );
