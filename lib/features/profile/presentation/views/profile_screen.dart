@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
@@ -198,7 +198,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h4,
-              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
+              SvgPicture.asset(DeIcons.icSignOutGrey50),
             ],
           ),
         ),
@@ -214,7 +214,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h4,
-              SvgPicture.asset(DeIcons.ic_sign_out_grey50),
+              SvgPicture.asset(DeIcons.icSignOutGrey50),
             ],
           ),
         ),

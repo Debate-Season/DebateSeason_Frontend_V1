@@ -89,7 +89,7 @@ class DeTextField extends StatelessWidget {
                           child: Padding(
                             padding: DeDimensions.all10,
                             child: SvgPicture.asset(
-                                DeIcons.ic_x_grey50),
+                                DeIcons.icXGrey50),
                           ),
                         )
                       : null)
