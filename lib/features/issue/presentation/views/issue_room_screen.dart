@@ -26,7 +26,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       title: Obx(
-        () => Text(controller.issueTitle.value, style: DeFonts.title),
+        () => Text(controller.issueTitle, style: DeFonts.title),
       ),
       isCenter: false,
     );
@@ -180,7 +180,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             GetRouterName.debate,
             arguments: {
               'chatroom_id': chatroom?.chatRoomId ?? -1,
-              'issue_title': controller.issueTitle.value,
+              'issue_title': controller.issueTitle,
             },
           );
         },
