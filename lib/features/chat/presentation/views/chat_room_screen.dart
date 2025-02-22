@@ -40,6 +40,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
           overflow: TextOverflow.ellipsis,
         );
       }),
+      isCenter: false,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0),
         child: Container(
