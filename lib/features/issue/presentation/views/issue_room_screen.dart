@@ -1,5 +1,4 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
@@ -50,6 +49,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     );
   }
 
+  /*
   Widget _newChatCount() {
     return Container(
       padding: DeDimensions.vertical12,
@@ -74,6 +74,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       ),
     );
   }
+  */
 
   Widget _joinedCommunities() {
     return Column(
@@ -168,7 +169,6 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Obx(() {
       final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
       final chatroom = chatRooms?[index];
-      final percent = controller.getPercentages(controller.issueId);
 
       if (chatRooms == null) {
         return const Text(IssueConstants.noChatRoom);
@@ -184,7 +184,6 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             },
           );
         },
-        //child: IssueCard(chatroom: chatroom, callback: controller.getPercentages(controller.issueId ?? -1)),
         child: IssueCard(chatroom: chatroom),
       );
     });
