@@ -14,11 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 🔥 google-services.json 파일 복원 (Base64 디코딩)
-      - name: Decode and save google-services.json
+      # 🔥 google-services.json 파일
+      - name: Restore google-services.json
         env:
           DATA_ANDROID: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: echo "$DATA_ANDROID" | tr -d '\n' | base64 --decode > android/app/google-services.json
+        run: echo "$DATA_ANDROID" > android/app/google-services.json
 
       # 🔥 .env.dev 파일 생성
       - name: Create .env.dev file
