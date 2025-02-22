@@ -55,8 +55,10 @@ class DebateRoomViewModel extends GetxController {
       updateVoteStatus(opinion);
       _updateRoom(opinion: opinion);
       final issueRoomViewModel = Get.find<IssueRoomViewModel>();
-      await issueRoomViewModel.fetchIssueData(issueRoomViewModel.issueId);
-      await fetchRoomData(_chatRoomId.value);
+      await Future.wait([
+        issueRoomViewModel.fetchIssueData(issueRoomViewModel.issueId),
+        fetchRoomData(_chatRoomId.value),
+      ]);
     } catch (e, s) {
       log.d('postVoteData: $e\n'
           '$s');
