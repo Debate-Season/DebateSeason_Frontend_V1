@@ -162,7 +162,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         return DeProgressIndicator();
       }
 
-      var opinion = controller.voteStatus.value;
+      var opinion = controller.voteStatus;
       int agree = room.agree;
       int disagree = room.disagree;
 
@@ -195,7 +195,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               dataEn = OpinionType.disagree.value;
             }
 
-            if (controller.voteStatus.value != dataEn) {
+            if (controller.voteStatus != dataEn) {
               DeDialog.show(
                 dialogTitle: DebateConstants.changeVoteTitle,
                 dialogText: DebateConstants.changeVoteConfirm,
@@ -265,7 +265,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           child: DeProgressIndicator(),
         );
       }
-      String opinion = controller.voteStatus.value;
+      String opinion = controller.voteStatus;
 
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐

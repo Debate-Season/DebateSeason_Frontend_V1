@@ -10,11 +10,13 @@ class DebateRoomViewModel extends GetxController {
   late RoomDataSource _roomDataSource;
   late VoteDataSource _voteDataSource;
   final Rx<RoomRes?> _roomData = Rx<RoomRes?>(null);
-  var voteStatus = OpinionType.neutral.value.obs;
+  final _voteStatus = OpinionType.neutral.value.obs;
   final _issueTitle = ''.obs;
   final _chatRoomId = (-1).obs;
 
   RoomRes? get roomData => _roomData.value;
+
+  String get voteStatus => _voteStatus.value;
 
   String get issueTitle => _issueTitle.value;
 
@@ -54,9 +56,9 @@ class DebateRoomViewModel extends GetxController {
       //   voteStatus.value = response.data.opinion;
       // }
       try {
-        voteStatus.value = response.data.opinion;
+        _voteStatus.value = response.data.opinion;
       } catch (e) {
-        voteStatus.value = OpinionType.neutral.value;
+        _voteStatus.value = OpinionType.neutral.value;
       }
     } catch (e) {
       log.d('Error fetching room data: $e');
@@ -81,7 +83,7 @@ class DebateRoomViewModel extends GetxController {
   }
 
   void updateVoteStatus(OpinionType newOpinion) {
-    voteStatus.value = newOpinion.value;
+    _voteStatus.value = newOpinion.value;
   }
 
   void _updateRoom({required OpinionType opinion}) {
