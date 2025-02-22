@@ -42,8 +42,8 @@ class IssueRoomViewModel extends GetxController {
       final response = await _issueDataSource.getIssue(issueId: issueId);
       final List<String> percentages = [];
 
-      int agree = response.data.chatRoomMap[issueId].agree ?? 0;
-      int disagree = response.data.chatRoomMap[issueId].disagree ?? 0;
+      int agree = response.data.chatRoomMap[issueId].agree;
+      int disagree = response.data.chatRoomMap[issueId].disagree;
       int total = agree + disagree;
       double agreeRatio = agree / total;
       double disagreeRatio = disagree / total;
