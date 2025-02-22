@@ -22,8 +22,7 @@ class MsgRes {
     required this.timeStamp,
   });
 
-factory MsgRes.fromJson(Map<String, dynamic> json) =>
-_$MsgResFromJson(json);
+  factory MsgRes.fromJson(Map<String, dynamic> json) => _$MsgResFromJson(json);
 
-Map<String, dynamic> toJson() => _$MsgResToJson(this);
+  Map<String, dynamic> toJson() => _$MsgResToJson(this);
 }

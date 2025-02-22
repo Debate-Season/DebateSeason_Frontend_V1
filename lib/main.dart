@@ -17,7 +17,7 @@ void main() async {
 
   final prefsService = SharedPreferencesService();
   await prefsService.init();
-  if(kDebugMode) {
+  if (kDebugMode) {
     await dotenv.load(fileName: '.env.dev');
   } else {
     await dotenv.load(fileName: '.env.prod');

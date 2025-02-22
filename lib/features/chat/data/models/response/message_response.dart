@@ -3,8 +3,11 @@ class MessageResponse {
   final String content;
   final String category;
 
-  MessageResponse(
-      {required this.sender, required this.content, required this.category});
+  MessageResponse({
+    required this.sender,
+    required this.content,
+    required this.category,
+  });
 
   factory MessageResponse.fromJson(Map<String, dynamic> json) {
     return MessageResponse(
