@@ -15,7 +15,6 @@ class IssueRoomViewModel extends GetxController {
 
   String get issueTitle => _issueTitle.value;
 
-
   @override
   void onInit() {
     super.onInit();

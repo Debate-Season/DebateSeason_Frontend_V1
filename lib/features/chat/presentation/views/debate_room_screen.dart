@@ -13,7 +13,6 @@ import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -94,9 +93,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            if (room == null) {
-              return DeProgressIndicator();
-            }
             return DeText(
               room.title,
               style: DeFonts.body14M,
@@ -110,9 +106,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateDetail() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
       return DeText(
         room.content, // todo 3줄 초과 시 더보기 버튼 추가
         style: DeFonts.body14R,
@@ -123,9 +116,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateVote() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
+
       int agree = room.agree;
       int disagree = room.disagree;
       int total = agree + disagree;
@@ -158,9 +149,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetVoteButton(final String data, String ratio) {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
 
       var opinion = controller.voteStatus;
       int agree = room.agree;
@@ -259,12 +247,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateChat() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return Container(
-          color: DeColors.grey110,
-          child: DeProgressIndicator(),
-        );
-      }
+
       String opinion = controller.voteStatus;
 
       return ChatBottomSheet(

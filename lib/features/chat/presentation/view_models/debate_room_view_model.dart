@@ -9,12 +9,23 @@ import 'package:get/get.dart';
 class DebateRoomViewModel extends GetxController {
   late RoomDataSource _roomDataSource;
   late VoteDataSource _voteDataSource;
-  final Rx<RoomRes?> _roomData = Rx<RoomRes?>(null);
+
+  final _roomData = Rx<RoomRes>(
+    RoomRes(
+      chatRoomId: -1,
+      title: '',
+      content: '',
+      opinion: OpinionType.neutral.value,
+      agree: 0,
+      disagree: 0,
+      createdAt: '',
+    ),
+  );
   final _voteStatus = OpinionType.neutral.value.obs;
   final _issueTitle = ''.obs;
   final _chatRoomId = (-1).obs;
 
-  RoomRes? get roomData => _roomData.value;
+  RoomRes get roomData => _roomData.value;
 
   String get voteStatus => _voteStatus.value;
 
@@ -70,6 +81,6 @@ class DebateRoomViewModel extends GetxController {
   }
 
   void _updateRoom({required OpinionType opinion}) {
-    _roomData.value = roomData?.copyWith(opinion: opinion.value);
+    _roomData.value = roomData.copyWith(opinion: opinion.value);
   }
 }
