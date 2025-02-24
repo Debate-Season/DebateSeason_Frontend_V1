@@ -1,7 +1,8 @@
+import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/chat_rooms_messages_data_source.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/mappers/chat_room_message_mapper.dart';
-import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_cursor_entity.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_message_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
+import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
 class ChatRoomsMessagesRepositoryImpl implements ChatRoomsMessagesRepository {
@@ -10,28 +11,43 @@ class ChatRoomsMessagesRepositoryImpl implements ChatRoomsMessagesRepository {
   ChatRoomsMessagesRepositoryImpl(this.dataSource);
 
   @override
-  Future<UiState<ChatMessageCursorEntity>> getChatRoomsMessages({
+  Future<UiState<CursorPagination<ChatMessageModel>>> getChatRoomsMessages({
     required int roomId,
     String? nextCursor,
   }) async {
-    final response = await dataSource.getChatRoomsMessages(
+    // Fetch Raw
+    final rawRepsonse = await dataSource.getRawChatRoomsMessages(
       roomId: roomId,
       cursor: nextCursor == null ? null : int.tryParse(nextCursor),
     );
 
+    // Map Raw Data to Inner Model
+    List<MessagesByDates> messagesByDates = rawRepsonse.data.messagesByDates;
+    List<ChatMessageModel> chatMessages = [];
+
+    for (var dateEntry in messagesByDates) {
+      chatMessages.addAll(dateEntry.chatMessageResponses);
+    }
+
+    final response = BaseRes<CursorPagination<ChatMessageModel>>(
+      status: rawRepsonse.status,
+      code: rawRepsonse.code,
+      message: rawRepsonse.message,
+      data: CursorPagination<ChatMessageModel>(
+        meta: CursorPaginationMeta(
+            nextCursor: rawRepsonse.data.nextCursor,
+            hasMore: rawRepsonse.data.hasMore),
+        data: chatMessages,
+      ),
+    );
+
+    // handle response
     switch (response.status) {
       case 200:
-        return UiState.success(
-          ChatRoomMessageMapper.toEntityChatMessageCursor(
-            res: response.data,
-          ),
-        );
+        return UiState.success(response.data);
       default:
-        if (response.message.isEmpty) {
-          return UiState.failure('서버통신에 문제가 발생했습니다.');
-        }
-
-        return UiState.failure(response.message);
+        return UiState.failure(
+            response.message.isEmpty ? "서버 통신에 문제가 발생했습니다" : response.message);
     }
   }
 }
