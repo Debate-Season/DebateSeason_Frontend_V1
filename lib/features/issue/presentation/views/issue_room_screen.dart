@@ -149,9 +149,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateList() {
     return Obx(() {
-      final issue = controller.issueData;
-      final List<ChatRoomRes> chatRooms = issue.chatRoomMap;
-      final int len = chatRooms.length;
+      final int len = controller.issueData.chatRoomMap.length;
 
       return ListView.separated(
         itemBuilder: (context, index) {
@@ -165,8 +163,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateItem(int index) {
     return Obx(() {
-      final List<ChatRoomRes> chatRooms = controller.issueData.chatRoomMap;
-      final chatroom = chatRooms[index];
+      final chatroom = controller.issueData.chatRoomMap[index];
 
       return DeGestureDetector(
         onTap: () {

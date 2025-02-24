@@ -1,11 +1,9 @@
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 
 getPercentages(RoomRes room) {
-  int agree = room.agree;
-  int disagree = room.disagree;
-  int total = agree + disagree;
-  double agreeRatio = agree / total;
-  double disagreeRatio = disagree / total;
+  int total = room.agree + room.disagree;
+  double agreeRatio = room.agree / total;
+  double disagreeRatio = room.disagree / total;
 
   if (total == 0) {
     agreeRatio = 0;
