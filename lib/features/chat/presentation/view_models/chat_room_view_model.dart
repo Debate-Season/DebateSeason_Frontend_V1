@@ -1,5 +1,7 @@
+import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_message_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
@@ -8,25 +10,17 @@ import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class ChatRoomViewModel extends GetxController {
-  late StompService _stompService;
-  late SharedPreferencesService _pref;
-  late ChatRoomsMessagesRepository _chatRoomsMessagesRepository;
+  final StompService _stompService = StompService();
+  final SharedPreferencesService _pref = SharedPreferencesService();
+  final ChatRoomsMessagesRepository _chatRoomsMessagesRepository =
+      Get.find<ChatRoomsMessagesRepository>();
 
   final _chatMessages = <ChatMessageEntity>[].obs;
-  final _room = Rx<RoomRes>(
-    RoomRes(
-      chatRoomId: -1,
-      title: '',
-      content: '',
-      opinion: OpinionType.neutral.value,
-      agree: 0,
-      disagree: 0,
-      createdAt: '',
-    ),
-  );
+  var state = Rx<CursorPaginationBase>(CursorPaginationLoading());
+
+  late final Rx<RoomRes> _room;
 
   List<ChatMessageEntity> get chatMessages => _chatMessages;
 
@@ -36,22 +30,16 @@ class ChatRoomViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
-    _stompService = StompService();
-    _pref = SharedPreferencesService();
-    _chatRoomsMessagesRepository = Get.find<ChatRoomsMessagesRepository>();
-
     try {
       final Map<String, dynamic> arguments = Get.arguments;
-      final RoomRes room = arguments['room'];
-      _room.value = room;
-      var opinion = room.opinion;
-      log.d('opinion: $opinion');
+      _room = Rx<RoomRes>(arguments['room']);
+
+      log.d('opinion: ${room.opinion}');
     } catch (e) {
       log.d('에러: $e');
     }
-    _getChatRoomMessages();
-    _initStompConnect();
-    _subscribeMessage();
+    fetchMessages(init: true);
+    initializeStomp();
   }
 
   @override
@@ -60,11 +48,11 @@ class ChatRoomViewModel extends GetxController {
     super.onClose();
   }
 
-  void _initStompConnect() {
+  void initializeStomp() {
+    // connect
     _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
-  }
 
-  void _subscribeMessage() {
+  void subscribeMessage() {
     _stompService.chatStream.listen(
       (chatMessage) {
         try {
@@ -102,7 +90,7 @@ class ChatRoomViewModel extends GetxController {
     }
   }
 
-  void _getChatRoomMessages({String? nextCursor}) async {
+  void getChatRoomMessages({String? nextCursor}) async {
     final result = await _chatRoomsMessagesRepository.getChatRoomsMessages(
       roomId: _room.value.chatRoomId,
       nextCursor: nextCursor,
@@ -144,7 +132,7 @@ class ChatRoomViewModel extends GetxController {
           previousDate = chatRoomMessage.date;
 
           if (chatRoomMessage.hasMore) {
-            _getChatRoomMessages(nextCursor: chatMessageCursor.nextCursor);
+            getChatRoomMessages(nextCursor: chatMessageCursor.nextCursor);
           }
         }
       },
