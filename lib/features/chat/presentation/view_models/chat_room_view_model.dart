@@ -51,9 +51,6 @@ class ChatRoomViewModel extends GetxController {
   void initializeStomp() {
     // connect
     _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
-  }
-
-  void subscribeMessage() {
     _stompService.chatStream.listen(
       (chatMessage) {
         // TODO:
