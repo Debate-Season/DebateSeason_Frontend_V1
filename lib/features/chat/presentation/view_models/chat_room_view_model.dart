@@ -51,6 +51,7 @@ class ChatRoomViewModel extends GetxController {
   void initializeStomp() {
     // connect
     _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
+  }
 
   void subscribeMessage() {
     _stompService.chatStream.listen(
@@ -90,54 +91,67 @@ class ChatRoomViewModel extends GetxController {
     }
   }
 
-  void getChatRoomMessages({String? nextCursor}) async {
-    final result = await _chatRoomsMessagesRepository.getChatRoomsMessages(
+  Future<void> fetchMessages({bool init = false}) async {
+    // 1) CursorPagination - 정상적으로 데이터가 있는 상태
+    // 2) CursorPaginationLoading - 데이터가 로딩중인 상태 (현재 캐시 없음)
+    // 3) CursorPaginationError - 에러가 있는 상태
+    // 4) CursorPaginationRefetching - 첫번째 페이지부터 다시 데이터를 가져올때
+    // 5) CursorPaginationFetchMore - 추가 데이터를 paginate 해오라는 요청을 받았을때
+
+    // 로딩된 이후 더이상 받을 값이 없는 것을 알고 있다면 바로 반환
+    if (state.value is CursorPagination) {
+      final pState = state.value as CursorPagination;
+      if (!pState.meta.hasMore) {
+        return;
+      }
+    }
+
+    final isLoading = state.value is CursorPaginationLoading;
+    final isFetchingMore = state.value is CursorPaginationFetchingMore;
+
+    // 처음 로딩중이거나 이미 로딩하고 있을 때는 바로 반환
+    if (!init && (isLoading || isFetchingMore)) {
+      return;
+    }
+
+    // 로딩 중이 아닐경우, Fetch 로 상태 업데이트
+    log.d(isLoading);
+    if (!isLoading) {
+      final pState = state.value as CursorPagination<ChatMessageModel>;
+
+      state.value = CursorPaginationFetchingMore(
+        meta: pState.meta,
+        data: pState.data,
+      );
+    }
+
+    final nextCursor = (state.value is CursorPaginationFetchingMore)
+        ? (state.value as CursorPaginationFetchingMore).meta.nextCursor
+        : null;
+
+    // 서버에 추가 데이터 요청
+    final resp = await _chatRoomsMessagesRepository.getChatRoomsMessages(
       roomId: _room.value.chatRoomId,
       nextCursor: nextCursor,
     );
 
-    result.when(
+    resp.when(
       loading: () {},
-      success: (chatMessageCursor) {
-        String? previousDate;
-
-        for (final chatRoomMessage in chatMessageCursor.chatRoomMessages) {
-          final reversMessages = chatRoomMessage.messages.reversed.toList();
-          _chatMessages.insertAll(0, reversMessages);
-
-          final messageDate = DateTime.parse(chatRoomMessage.date);
-          if (previousDate != chatRoomMessage.date) {
-            final today = DateTime.now();
-            String formatDate = (today.year == messageDate.year &&
-                    today.month == messageDate.month &&
-                    today.day == messageDate.day)
-                ? '오늘'
-                : DateFormat('yyyy-MM-dd').format(messageDate);
-
-            if (!_chatMessages
-                .any((message) => message.content == formatDate)) {
-              _chatMessages.insert(
-                0,
-                ChatMessageEntity(
-                  messageType: ChatMessageType.date.value,
-                  content: formatDate,
-                  sender: '',
-                  opinionType: '',
-                  userCommunity: '',
-                ),
-              );
-            }
-          }
-
-          previousDate = chatRoomMessage.date;
-
-          if (chatRoomMessage.hasMore) {
-            getChatRoomMessages(nextCursor: chatMessageCursor.nextCursor);
-          }
+      success: (pstate) {
+        if (!isLoading) {
+          state.value = pstate.copyWith(
+            data: [
+              ...pstate.data,
+              ...(state.value as CursorPaginationFetchingMore).data,
+            ],
+          );
+        } else {
+          state.value = pstate;
         }
       },
       failure: (msg) {
         deSnackBar(msg);
+        state.value = CursorPaginationError();
       },
     );
   }
