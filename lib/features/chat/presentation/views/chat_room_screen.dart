@@ -2,17 +2,52 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_message_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
+import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatRoomScreen extends GetView<ChatRoomViewModel> {
-  ChatRoomScreen({super.key});
+class ChatRoomScreen extends StatefulWidget {
+  const ChatRoomScreen({super.key});
 
-  final _chatScrollController = ScrollController();
+  @override
+  State<ChatRoomScreen> createState() => _ChatRoomScreenState();
+}
+
+class _ChatRoomScreenState extends State<ChatRoomScreen> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // 메시지 로딩 후 가장 아래로 스크롤
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(
+          scrollController.position.minScrollExtent,
+        );
+      }
+    });
+
+    scrollController.addListener(scrollListner);
+  }
+
+  void scrollListner() {
+    final viewModel = Get.find<ChatRoomViewModel>();
+
+    log.d(scrollController.offset);
+    if (scrollController.offset >
+        scrollController.position.maxScrollExtent - 300) {
+      log.d('FETCH MORE');
+      viewModel.fetchMessages();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +65,14 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   }
 
   DeAppBar _appBar() {
+    final viewModel = Get.find<ChatRoomViewModel>();
+
     return DeAppBar(
       isBack: true,
       backgroundColor: DeColors.grey80,
-      title: Obx(() {
-        return Text(
-          controller.room.title,
+      title: Obx(
+        () => Text(
+          viewModel.room.title,
           style: DeFonts.body14Sb.copyWith(color: DeColors.grey10),
           overflow: TextOverflow.ellipsis,
         );
@@ -53,6 +90,7 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
 
   Widget _body() {
     final viewModel = Get.find<ChatRoomViewModel>();
+
     return Column(
       children: [
         Expanded(
@@ -67,31 +105,60 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   }
 
   Widget _chatMessages() {
+    final viewModel = Get.find<ChatRoomViewModel>();
+
     return Obx(() {
-      var chatMessages = controller.chatMessages;
+      // final chattingMessageList = controller.chatMessages.reversed.toList();
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_chatScrollController.hasClients) {
-          _chatScrollController.jumpTo(
-            _chatScrollController.position.minScrollExtent,
-          );
-        }
-      });
+      final cursorState = viewModel.state.value;
+      if (cursorState is CursorPaginationLoading) {
+        return Center(child: CircularProgressIndicator());
+      }
 
-      final chattingMessageList = chatMessages.reversed.toList();
+      // TODO : CursorPagination Error 구현 필요
+
+      // CursorPagination
+      // CursorPaginationFetching
+
+      final List<ChatMessageModel> chattingMessageList =
+          (cursorState as CursorPagination).data.cast<ChatMessageModel>();
 
       return Align(
         alignment: Alignment.topCenter,
         child: ListView.separated(
-          controller: _chatScrollController,
-          itemCount: chattingMessageList.length,
+          controller: scrollController,
+          itemCount: chattingMessageList.length + 1,
           shrinkWrap: true,
           reverse: true,
           padding: DeDimensions.all20,
           itemBuilder: (context, index) {
-            final chatMessage = chattingMessageList[index];
+            // 추가 데이터를 Fetch 할 때, 상단 로딩바
+            if (index == chattingMessageList.length) {
+              return Center(
+                child: cursorState is CursorPaginationFetchingMore
+                    ? SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(),
+                      )
+                    : SizedBox.shrink(),
+              );
+            }
 
-            return ChatMessage(message: chatMessage);
+            final ChatMessageModel chatMessageModel =
+                chattingMessageList[index];
+
+            // dataline 여부 확인
+            bool withDateLine;
+            if (index == 0) {
+              withDateLine = false;
+            } else {
+              final currentTime = DateTime.parse(chatMessageModel.timeStamp);
+              final prevTIme =
+                  DateTime.parse(chattingMessageList[index - 1].timeStamp);
+              withDateLine = !DateFormatUtil.isSameDate(currentTime, prevTIme);
+            }
+            return ChatMessage(chatMessageModel, withDateLine: withDateLine);
           },
           separatorBuilder: (context, index) => DeGaps.v16,
         ),
