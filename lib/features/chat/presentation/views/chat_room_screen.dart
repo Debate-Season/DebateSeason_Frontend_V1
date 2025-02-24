@@ -52,13 +52,14 @@ class ChatRoomScreen extends GetView<ChatRoomViewModel> {
   }
 
   Widget _body() {
+    final viewModel = Get.find<ChatRoomViewModel>();
     return Column(
       children: [
         Expanded(
           child: _chatMessages(),
         ),
         ChatInputField(
-          chatRoomViewModel: controller,
+          sendMessage: viewModel.sendMessage,
         ),
         DeGaps.v12,
       ],

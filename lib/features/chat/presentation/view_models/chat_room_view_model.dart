@@ -72,7 +72,7 @@ class ChatRoomViewModel extends GetxController {
     );
   }
 
-  void sendMessage({required String content}) {
+  void sendMessage(String content) {
     try {
       final chatMessage = ChatMessageEntity(
         messageType: ChatMessageType.chat.value,
