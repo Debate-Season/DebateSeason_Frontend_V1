@@ -56,18 +56,31 @@ class ChatRoomViewModel extends GetxController {
   void subscribeMessage() {
     _stompService.chatStream.listen(
       (chatMessage) {
-        try {
-          _chatMessages.add(chatMessage);
-        } catch (e) {
-          log.d("메시지 처리 오류: $e");
+        // TODO:
+        // ChatMessageEntity 를 ChatMessageModel 로 변환해야함.
+        // ChatMessageEntity 에는 Id 가 없음.
+        // id 가 없으면 메시지 식별이 불가해서 추후 추가적인 적용에 어려움이 있을 것으로 보임.
+        // ChatMessageEntity;
+        // CursorPagination<ChatMessageModel>;
+        // 위 해결될 경우 변경될 사항
+        if (state.value is CursorPagination) {
+          state.value = (state.value as CursorPagination<ChatMessageModel>)
+              .copyWith(data: [
+            ChatMessageModel(
+              id: 99999,
+              messageType: chatMessage.messageType,
+              sender: chatMessage.sender,
+              content: chatMessage.content,
+              opinionType: chatMessage.opinionType,
+              userCommunity: chatMessage.userCommunity,
+              timeStamp: chatMessage.timeStamp.toString(),
+            ),
+            ...(state.value as CursorPagination).data,
+          ]);
         }
       },
-      onError: (error) {
-        log.d("Error subscribe: $error");
-      },
-      onDone: () {
-        log.d("Stream closed.");
-      },
+      onError: (error) => log.d("Error subscribe: $error"),
+      onDone: () => log.d("Stream closed."),
       cancelOnError: false,
     );
   }
