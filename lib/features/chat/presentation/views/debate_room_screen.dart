@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
@@ -13,7 +14,6 @@ import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
-import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -42,13 +42,13 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 children: [
                   DeText(
                     controller.issueTitle,
-                  style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
-                ),
-                DeText(
-                  DebateConstants.debateRoom,
-                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
-                ),
-              ],
+                    style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
+                  ),
+                  DeText(
+                    DebateConstants.debateRoom,
+                    style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                  ),
+                ],
               ),
             ),
             DeGaps.h24,
@@ -94,9 +94,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
           ),
           Obx(() {
             final room = controller.roomData;
-            if (room == null) {
-              return DeProgressIndicator();
-            }
             return DeText(
               room.title,
               style: DeFonts.body14M,
@@ -110,9 +107,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateDetail() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
       return DeText(
         room.content, // todo 3줄 초과 시 더보기 버튼 추가
         style: DeFonts.body14R,
@@ -123,21 +117,9 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateVote() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
-      int agree = room.agree;
-      int disagree = room.disagree;
-      int total = agree + disagree;
-      double agreeRatio = agree / total;
-      double disagreeRatio = disagree / total;
-
-      if (total == 0) {
-        agreeRatio = 0;
-        disagreeRatio = 0;
-      }
-      String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
-      String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+      final percentages = getPercentages(room);
+      final agreeRatioText = percentages[0];
+      final disagreeRatioText = percentages[1];
 
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -158,22 +140,25 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetVoteButton(final String data, String ratio) {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return DeProgressIndicator();
-      }
 
-      var opinion = controller.voteStatus.value;
+      var opinion = controller.voteStatus;
       int agree = room.agree;
       int disagree = room.disagree;
 
-      var widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blueDark;
+      var widgetColor = data == OpinionType.agree.valueKr
+          ? DeColors.redDark
+          : DeColors.blueDark;
       if (opinion == OpinionType.agree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? DeColors.red : DeColors.blueDark;
+        widgetColor = data == OpinionType.agree.valueKr
+            ? DeColors.red
+            : DeColors.blueDark;
       } else if (opinion == OpinionType.disagree.value) {
-        widgetColor = data == OpinionType.agree.valueKr ? DeColors.redDark : DeColors.blue;
+        widgetColor = data == OpinionType.agree.valueKr
+            ? DeColors.redDark
+            : DeColors.blue;
       }
 
-      String detail = DebateConstants.vs;
+      String detail = DebateConstants.voting;
       if (opinion != OpinionType.neutral.value) {
         detail = data == OpinionType.agree.valueKr ? '$agree표' : '$disagree표';
       }
@@ -195,7 +180,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               dataEn = OpinionType.disagree.value;
             }
 
-            if (controller.voteStatus.value != dataEn) {
+            if (controller.voteStatus != dataEn) {
               DeDialog.show(
                 dialogTitle: DebateConstants.changeVoteTitle,
                 dialogText: DebateConstants.changeVoteConfirm,
@@ -259,13 +244,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   Widget _widgetDebateChat() {
     return Obx(() {
       final room = controller.roomData;
-      if (room == null) {
-        return Container(
-          color: DeColors.grey110,
-          child: DeProgressIndicator(),
-        );
-      }
-      String opinion = controller.voteStatus.value;
+
+      String opinion = controller.voteStatus;
 
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐

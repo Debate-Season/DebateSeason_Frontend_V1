@@ -5,14 +5,21 @@ import 'package:get/get.dart';
 
 class IssueRoomViewModel extends GetxController {
   late final IssueDataSource _issueDataSource;
-  final Rx<IssueRes?> _issueData = Rx<IssueRes?>(null);
+  final _issueData = Rx<IssueRes>(
+    IssueRes(
+      title: '',
+      map: {},
+      chatRoomMap: [],
+    ),
+  );
   final _issueId = (-1).obs;
+  final _issueTitle = ''.obs;
 
-  IssueRes? get issueData => _issueData.value;
+  IssueRes get issueData => _issueData.value;
 
   int get issueId => _issueId.value;
 
-  var issueTitle = ''.obs;
+  String get issueTitle => _issueTitle.value;
 
   @override
   void onInit() {
@@ -29,7 +36,7 @@ class IssueRoomViewModel extends GetxController {
     try {
       final response = await _issueDataSource.getIssue(issueId: issueId);
       _issueData.value = response.data;
-      issueTitle.value = response.data.title;
+      _issueTitle.value = response.data.title;
     } catch (e) {
       log.d(e);
     }
