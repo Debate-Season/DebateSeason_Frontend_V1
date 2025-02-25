@@ -21,7 +21,6 @@ class ChatRoomViewModel extends GetxController {
       chatRoomId: -1,
       title: '',
       content: '',
-      //opinion: '',
       opinion: OpinionType.neutral.value,
       agree: 0,
       disagree: 0,

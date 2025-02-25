@@ -2,7 +2,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
-import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
@@ -25,7 +24,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       title: Obx(
-        () => Text(controller.issueTitle.value, style: DeFonts.title),
+        () => Text(controller.issueTitle, style: DeFonts.title),
       ),
       isCenter: false,
     );
@@ -114,14 +113,14 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _comm() {
     return Obx(() {
-      final communities = controller.issueData?.map.keys.toList();
-      final int len = communities?.length ?? 0;
+      final communities = controller.issueData.map.keys.toList();
+      final int len = communities.length;
 
       return SizedBox(
         height: 36,
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return commItem(communities?[index]);
+            return commItem(communities[index]);
           },
           separatorBuilder: (context, index) => DeGaps.h8,
           itemCount: len,
@@ -149,9 +148,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateList() {
     return Obx(() {
-      final issue = controller.issueData;
-      final List<ChatRoomRes>? chatRooms = issue?.chatRoomMap;
-      final int len = chatRooms?.length ?? 0;
+      final int len = controller.issueData.chatRoomMap.length;
 
       return ListView.separated(
         itemBuilder: (context, index) {
@@ -165,20 +162,15 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateItem(int index) {
     return Obx(() {
-      final List<ChatRoomRes>? chatRooms = controller.issueData?.chatRoomMap;
-      final chatroom = chatRooms?[index];
-
-      if (chatRooms == null) {
-        return const Text(IssueConstants.noChatRoom);
-      }
+      final chatroom = controller.issueData.chatRoomMap[index];
 
       return DeGestureDetector(
         onTap: () {
           Get.toNamed(
             GetRouterName.debate,
             arguments: {
-              'chatroom_id': chatroom?.chatRoomId ?? -1,
-              'issue_title': controller.issueTitle.value,
+              'chatroom_id': chatroom.chatRoomId,
+              'issue_title': controller.issueTitle,
             },
           );
         },
