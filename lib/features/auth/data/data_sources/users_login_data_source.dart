@@ -1,5 +1,5 @@
-import 'package:debateseason_frontend_v1/features/auth/data/models/remote/request/users_login_req.dart';
-import 'package:debateseason_frontend_v1/features/auth/data/models/remote/response/users_login_res.dart';
+import 'package:debateseason_frontend_v1/features/auth/data/models/request/users_login_req.dart';
+import 'package:debateseason_frontend_v1/features/auth/data/models/response/users_login_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';

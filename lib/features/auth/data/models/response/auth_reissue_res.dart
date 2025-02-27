@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/auth/domain/entities/auth_reissue_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_reissue_res.g.dart';
@@ -16,4 +17,9 @@ class AuthReissueRes {
       _$AuthReissueResFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthReissueResToJson(this);
+
+  toEntity() => AuthReissueEntity(
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      );
 }

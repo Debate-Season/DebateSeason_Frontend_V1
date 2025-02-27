@@ -10,7 +10,6 @@ class AuthReissueReq {
     required this.refreshToken,
   });
 
-
   factory AuthReissueReq.fromJson(Map<String, dynamic> json) =>
       _$AuthReissueReqFromJson(json);
 

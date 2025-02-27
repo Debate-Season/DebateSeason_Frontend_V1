@@ -1,9 +1,9 @@
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/auth/data/data_sources/remote/users_login_data_source.dart';
-import 'package:debateseason_frontend_v1/features/auth/data/mapper/users_login_mapper.dart';
+import 'package:debateseason_frontend_v1/features/auth/data/data_sources/users_login_data_source.dart';
+import 'package:debateseason_frontend_v1/features/auth/data/models/request/users_login_req.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
-import 'package:debateseason_frontend_v1/features/auth/domain/repositories/remote/users_login_repository.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/repositories/users_login_repository.dart';
 
 class UsersLoginRepositoryImpl implements UsersLoginRepository {
   final UsersLoginDataSource dataSource;
@@ -17,7 +17,7 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
     final storage = SecureStorageService();
     final pref = SharedPreferencesService();
     final response = await dataSource.postUsersLogin(
-      requestBody: UsersLoginMapper.toRequest(entity),
+      requestBody: UsersLoginReq.fromEntity(entity),
     );
 
     await Future.wait([
@@ -28,6 +28,6 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
       pref.setProfileStatus(profileStatus: response.data.profileStatus),
     ]);
 
-    return UsersLoginMapper.toEntity(response.data);
+    return response.data.toEntity();
   }
 }
