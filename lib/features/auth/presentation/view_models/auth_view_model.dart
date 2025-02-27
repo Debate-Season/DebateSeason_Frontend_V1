@@ -31,7 +31,7 @@ class AuthViewModel extends GetxController {
     );
   }
 
-  Future<UiState<UsersLoginEntity>> loginWithKakao() async {
+  Future<UiState<bool>> loginWithKakao() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
       if (isInstalled) {
@@ -42,35 +42,35 @@ class AuthViewModel extends GetxController {
 
       User user = await UserApi.instance.me();
 
-      final usersLoginEntity = await postUsersLogin(
+      final profileStatus = await postUsersLogin(
         identifier: user.id.toString(),
         socialType: AuthConstants.kakaoLoginType,
       );
 
       await _getProfile();
 
-      return UiState.success(usersLoginEntity);
+      return UiState.success(profileStatus);
     } catch (e) {
       log.d('카카오 로그인 실패\n$e');
       return UiState.failure('카카오 로그인에 실패했습니다.');
     }
   }
 
-  Future<UiState<UsersLoginEntity>> loginWithApple() async {
+  Future<UiState<bool>> loginWithApple() async {
     try {
       final user = await SignInWithApple.getAppleIDCredential(scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
       ]);
 
-      final usersLoginEntity = await postUsersLogin(
+      final profileStatus = await postUsersLogin(
         identifier: user.userIdentifier.toString(),
         socialType: AuthConstants.appleLoginType,
       );
 
       await _getProfile();
 
-      return UiState.success(usersLoginEntity);
+      return UiState.success(profileStatus);
     } catch (e, stackTrace) {
       log.d('애플 로그인 실패\n$e\n$stackTrace');
       return UiState.failure('애플 로그인에 실패했습니다.');
@@ -94,7 +94,7 @@ class AuthViewModel extends GetxController {
     }
   }
 
-  Future<UsersLoginEntity> postUsersLogin({
+  Future<bool> postUsersLogin({
     required String identifier,
     required String socialType,
   }) async {

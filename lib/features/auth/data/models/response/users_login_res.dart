@@ -21,11 +21,4 @@ class UsersLoginRes {
       _$UsersLoginResFromJson(json);
 
   Map<String, dynamic> toJson() => _$UsersLoginResToJson(this);
-
-  toEntity() => UsersLoginEntity(
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-        socialType: socialType,
-        profileStatus: profileStatus,
-      );
 }

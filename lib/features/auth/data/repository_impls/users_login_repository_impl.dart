@@ -11,7 +11,7 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
   UsersLoginRepositoryImpl(this.dataSource);
 
   @override
-  Future<UsersLoginEntity> postUsersLogin({
+  Future<bool> postUsersLogin({
     required UsersLoginEntity entity,
   }) async {
     final storage = SecureStorageService();
@@ -28,6 +28,6 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
       pref.setProfileStatus(profileStatus: response.data.profileStatus),
     ]);
 
-    return response.data.toEntity();
+    return response.data.profileStatus;
   }
 }
