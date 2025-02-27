@@ -19,7 +19,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.isBack = true,
     this.actions,
-    this.isCenter,
+    this.isCenter = false,
     this.backgroundColor,
     this.bottom,
   });
