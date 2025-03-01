@@ -1,8 +1,8 @@
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/users_logout_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/models/remote/request/users_logout_req.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/users_logout_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/users_logout_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/request/users_logout_req.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_logout_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
 class UsersLogoutRepositoryImpl implements UsersLogoutRepository {

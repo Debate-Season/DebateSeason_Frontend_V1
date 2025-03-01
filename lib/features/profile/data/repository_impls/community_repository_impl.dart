@@ -1,7 +1,7 @@
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/community_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/community_data_source.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/mapper/community_mapper.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
 class CommunityRepositoryImpl implements CommunityRepository {

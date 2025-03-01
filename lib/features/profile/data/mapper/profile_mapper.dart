@@ -1,6 +1,6 @@
 import 'package:debateseason_frontend_v1/features/profile/data/mapper/community_mapper.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/models/remote/request/profile_req.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/models/remote/response/profile_res.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/response/profile_res.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 
 class ProfileMapper {

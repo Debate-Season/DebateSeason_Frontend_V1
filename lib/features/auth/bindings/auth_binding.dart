@@ -6,9 +6,9 @@ import 'package:debateseason_frontend_v1/features/auth/data/repository_impls/use
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/auth_reissue_repository.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/profile_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/remote/profile_repository_impl.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/profile_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/profile_repository_impl.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:get/get.dart';
 
 class AuthBinding extends Bindings {

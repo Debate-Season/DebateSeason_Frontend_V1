@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_nickname_check_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
