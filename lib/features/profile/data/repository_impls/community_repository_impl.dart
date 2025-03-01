@@ -1,5 +1,4 @@
 import 'package:debateseason_frontend_v1/features/profile/data/data_sources/community_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/mapper/community_mapper.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -16,9 +15,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
     switch (response.status) {
       case 200:
         return UiState.success(
-          response.data
-              .map((res) => CommunityMapper.toEntity(res: res))
-              .toList(),
+          response.data.map((res) => res.toEntity()).toList(),
         );
       default:
         if (response.message.isEmpty) {
@@ -40,9 +37,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
     switch (response.status) {
       case 200:
         return UiState.success(
-          response.data
-              .map((res) => CommunityMapper.toEntity(res: res))
-              .toList(),
+          response.data.map((res) => res.toEntity()).toList(),
         );
       default:
         if (response.message.isEmpty) {

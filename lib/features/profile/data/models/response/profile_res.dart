@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'community_res.dart';
@@ -22,4 +23,11 @@ class ProfileRes {
       _$ProfileResFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileResToJson(this);
+
+  toEntity() => ProfileEntity(
+        nickname: nickname,
+        gender: gender,
+        ageRange: ageRange,
+        community: community.toEntity(),
+      );
 }

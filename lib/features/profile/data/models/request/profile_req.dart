@@ -20,4 +20,11 @@ class ProfileReq {
       _$ProfileReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileReqToJson(this);
+
+  factory ProfileReq.fromEntity(entity) => ProfileReq(
+        nickname: entity.nickname,
+        communityId: entity.community.id,
+        gender: entity.gender,
+        ageRange: entity.ageRange,
+      );
 }
