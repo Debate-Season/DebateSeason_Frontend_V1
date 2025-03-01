@@ -3,7 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/chat_message_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
@@ -120,8 +120,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       // CursorPagination
       // CursorPaginationFetching
 
-      final List<ChatMessageModel> chattingMessageList =
-          (cursorState as CursorPagination).data.cast<ChatMessageModel>();
+      final List<ChatMessageEntity> chattingMessageList =
+          (cursorState as CursorPagination).data.cast<ChatMessageEntity>();
 
       return Align(
         alignment: Alignment.topCenter,
@@ -145,7 +145,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               );
             }
 
-            final ChatMessageModel chatMessageModel =
+            final ChatMessageEntity chatMessageModel =
                 chattingMessageList[index];
 
             // dataline 여부 확인

@@ -28,7 +28,7 @@ MessagesByDates _$MessagesByDatesFromJson(Map<String, dynamic> json) =>
     MessagesByDates(
       date: json['date'] as String,
       chatMessageResponses: (json['chatMessageResponses'] as List<dynamic>)
-          .map((e) => ChatMessageModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       hasMore: json['hasMore'] as bool,
       totalCount: (json['totalCount'] as num).toInt(),
