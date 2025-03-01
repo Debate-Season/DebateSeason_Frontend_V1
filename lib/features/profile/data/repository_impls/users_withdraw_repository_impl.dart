@@ -10,7 +10,7 @@ class UsersWithdrawRepositoryImpl implements UsersWithdrawRepository {
   UsersWithdrawRepositoryImpl(this.dataSource);
 
   @override
-  Future<UiState<String>> postUsersWithdraw() async {
+  Future<UiState<void>> postUsersWithdraw() async {
     final response = await dataSource.postUsersWithdraw();
 
     switch (response.status) {
@@ -23,7 +23,7 @@ class UsersWithdrawRepositoryImpl implements UsersWithdrawRepository {
           pref.clear(),
         ]);
 
-        return UiState.success(response.message);
+        return UiState.success(null);
       default:
         if (response.message.isEmpty) {
           return UiState.failure('서버통신에 문제가 발생했습니다.');

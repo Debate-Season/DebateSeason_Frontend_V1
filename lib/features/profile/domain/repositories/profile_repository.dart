@@ -4,11 +4,11 @@ import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 abstract class ProfileRepository {
   Future<UiState<ProfileEntity>> getProfile();
 
-  Future<UiState<String>> postProfile({
+  Future<UiState<void>> postProfile({
     required ProfileEntity entity,
   });
 
-  Future<UiState<String>> patchProfile({
+  Future<UiState<void>> patchProfile({
     required ProfileEntity entity,
   });
 }

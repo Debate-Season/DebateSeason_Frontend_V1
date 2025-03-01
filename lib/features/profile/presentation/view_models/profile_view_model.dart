@@ -32,11 +32,11 @@ class ProfileViewModel extends GetxController {
     _profile.refresh();
   }
 
-  Future<UiState<String>> postLogout() async {
+  Future<UiState<void>> postLogout() async {
     return await _usersLogoutRepository.postUsersLogout();
   }
 
-  Future<UiState<String>> postWithdraw() async {
+  Future<UiState<void>> postWithdraw() async {
     return await _usersWithdrawRepository.postUsersWithdraw();
   }
 

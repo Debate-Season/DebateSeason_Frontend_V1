@@ -32,7 +32,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<UiState<String>> postProfile({
+  Future<UiState<void>> postProfile({
     required ProfileEntity entity,
   }) async {
     final response = await dataSource.postProfiles(
@@ -48,7 +48,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           pref.setCommunity(community: entity.community.name),
         ]);
 
-        return (UiState.success(response.message));
+        return (UiState.success(null));
       default:
         if (response.message.isEmpty) {
           (UiState.failure('서버통신에 문제가 발생했습니다.'));
@@ -59,7 +59,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<UiState<String>> patchProfile({required ProfileEntity entity}) async {
+  Future<UiState<void>> patchProfile({required ProfileEntity entity}) async {
     final response = await dataSource.patchProfiles(
       body: ProfileReq.fromEntity(entity),
     );
@@ -72,9 +72,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           pref.setCommunity(community: entity.community.name),
         ]);
 
-        return UiState.success(
-          response.message,
-        );
+        return UiState.success(null);
       default:
         if (response.message.isEmpty) {
           UiState.failure('서버통신에 문제가 발생했습니다.');

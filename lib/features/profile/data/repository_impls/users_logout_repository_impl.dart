@@ -11,7 +11,7 @@ class UsersLogoutRepositoryImpl implements UsersLogoutRepository {
   UsersLogoutRepositoryImpl(this.dataSource);
 
   @override
-  Future<UiState<String>> postUsersLogout() async {
+  Future<UiState<void>> postUsersLogout() async {
     final storage = SecureStorageService();
     final refreshToken = await storage.getRefreshToken();
 
@@ -28,7 +28,7 @@ class UsersLogoutRepositoryImpl implements UsersLogoutRepository {
           pref.clear(),
         ]);
 
-        return UiState.success(response.message);
+        return UiState.success(null);
       default:
         if (response.message.isEmpty) {
           return UiState.failure('서버통신에 문제가 발생했습니다.');

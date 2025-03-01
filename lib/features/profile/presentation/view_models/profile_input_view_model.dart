@@ -109,12 +109,10 @@ class ProfileInputViewModel extends GetxController {
   }
 
   Future<void> _getProfileNicknameCheck({required String nickname}) async {
-    final response =
-        await _profileNicknameCheckRepository.getProfileNicknameCheck(
-      nickname: nickname,
-    );
+    final statusCode = await _profileNicknameCheckRepository
+        .getProfileNicknameCheck(nickname: nickname);
 
-    switch (response.status) {
+    switch (statusCode) {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
@@ -141,12 +139,12 @@ class ProfileInputViewModel extends GetxController {
     _selectedCommunities.value = result;
   }
 
-  Future<UiState<String>> postProfile() async =>
+  Future<UiState<void>> postProfile() async =>
       await _profileRepository.postProfile(
         entity: _profile.value,
       );
 
-  Future<UiState<String>> patchProfile() async {
+  Future<UiState<void>> patchProfile() async {
     _profileViewModel.updateProfile(profile: _profile.value);
 
     return await _profileRepository.patchProfile(
