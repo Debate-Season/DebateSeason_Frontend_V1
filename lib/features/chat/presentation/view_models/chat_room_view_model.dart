@@ -1,7 +1,6 @@
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/chat_message_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
@@ -61,9 +60,9 @@ class ChatRoomViewModel extends GetxController {
         // CursorPagination<ChatMessageModel>;
         // 위 해결될 경우 변경될 사항
         if (state.value is CursorPagination) {
-          state.value = (state.value as CursorPagination<ChatMessageModel>)
+          state.value = (state.value as CursorPagination<ChatMessageEntity>)
               .copyWith(data: [
-            ChatMessageModel(
+            ChatMessageEntity(
               id: 99999,
               messageType: chatMessage.messageType,
               sender: chatMessage.sender,
@@ -85,11 +84,13 @@ class ChatRoomViewModel extends GetxController {
   void sendMessage(String content) {
     try {
       final chatMessage = ChatMessageEntity(
+        id: 99999,
         messageType: ChatMessageType.chat.value,
         content: content,
         sender: _pref.getNickname(),
         opinionType: _room.value.opinion,
         userCommunity: _pref.getCommunity(),
+        timeStamp: DateTime.timestamp().toString(),
       );
 
       _stompService.sendStomp(
@@ -127,7 +128,7 @@ class ChatRoomViewModel extends GetxController {
     // 로딩 중이 아닐경우, Fetch 로 상태 업데이트
     log.d(isLoading);
     if (!isLoading) {
-      final pState = state.value as CursorPagination<ChatMessageModel>;
+      final pState = state.value as CursorPagination<ChatMessageEntity>;
 
       state.value = CursorPaginationFetchingMore(
         meta: pState.meta,

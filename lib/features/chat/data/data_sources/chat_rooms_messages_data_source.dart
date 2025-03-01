@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/chat/data/models/chat_message_model.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -40,7 +40,7 @@ class ChatRoomsMessagesRes {
 @JsonSerializable()
 class MessagesByDates {
   final String date;
-  final List<ChatMessageModel> chatMessageResponses;
+  final List<ChatMessageEntity> chatMessageResponses;
   final bool hasMore;
   final int totalCount;
 
