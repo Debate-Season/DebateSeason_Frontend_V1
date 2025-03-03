@@ -9,13 +9,10 @@ class IssueRoomViewModel extends GetxController {
   final _issueData = Rx<UiState<IssueEntity>>(const UiState.loading());
 
   final _issueId = (-1).obs;
-  final _issueTitle = ''.obs;
 
   UiState<IssueEntity> get issueData => _issueData.value;
 
   int get issueId => _issueId.value;
-
-  String get issueTitle => _issueTitle.value;
 
   @override
   void onInit() {

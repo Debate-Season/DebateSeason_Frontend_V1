@@ -12,5 +12,5 @@ abstract class IssueDataSource {
   @GET('/api/v1/issue')
   Future<BaseRes<IssueRes>> getIssue({
     @Query('issue-id') required int issueId,
-});
+  });
 }
