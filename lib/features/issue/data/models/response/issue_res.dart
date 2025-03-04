@@ -24,6 +24,6 @@ class IssueRes {
   IssueEntity toEntity() => IssueEntity(
         title: title,
         map: map,
-        chatRoomMap: chatRoomMap,
+        chatRoomMap: chatRoomMap.map((e) => e.toEntity()).toList(),
       );
 }

@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$IssueEntity {
   String get title => throw _privateConstructorUsedError;
   Map<String, int> get map => throw _privateConstructorUsedError;
-  List<ChatRoomRes> get chatRoomMap => throw _privateConstructorUsedError;
+  List<ChatRoomEntity> get chatRoomMap => throw _privateConstructorUsedError;
 
   /// Create a copy of IssueEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -34,7 +34,7 @@ abstract class $IssueEntityCopyWith<$Res> {
       _$IssueEntityCopyWithImpl<$Res, IssueEntity>;
   @useResult
   $Res call(
-      {String title, Map<String, int> map, List<ChatRoomRes> chatRoomMap});
+      {String title, Map<String, int> map, List<ChatRoomEntity> chatRoomMap});
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$IssueEntityCopyWithImpl<$Res, $Val extends IssueEntity>
       chatRoomMap: null == chatRoomMap
           ? _value.chatRoomMap
           : chatRoomMap // ignore: cast_nullable_to_non_nullable
-              as List<ChatRoomRes>,
+              as List<ChatRoomEntity>,
     ) as $Val);
   }
 }
@@ -82,7 +82,7 @@ abstract class _$$IssueEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title, Map<String, int> map, List<ChatRoomRes> chatRoomMap});
+      {String title, Map<String, int> map, List<ChatRoomEntity> chatRoomMap});
 }
 
 /// @nodoc
@@ -114,7 +114,7 @@ class __$$IssueEntityImplCopyWithImpl<$Res>
       chatRoomMap: null == chatRoomMap
           ? _value._chatRoomMap
           : chatRoomMap // ignore: cast_nullable_to_non_nullable
-              as List<ChatRoomRes>,
+              as List<ChatRoomEntity>,
     ));
   }
 }
@@ -125,7 +125,7 @@ class _$IssueEntityImpl implements _IssueEntity {
   _$IssueEntityImpl(
       {required this.title,
       required final Map<String, int> map,
-      required final List<ChatRoomRes> chatRoomMap})
+      required final List<ChatRoomEntity> chatRoomMap})
       : _map = map,
         _chatRoomMap = chatRoomMap;
 
@@ -139,9 +139,9 @@ class _$IssueEntityImpl implements _IssueEntity {
     return EqualUnmodifiableMapView(_map);
   }
 
-  final List<ChatRoomRes> _chatRoomMap;
+  final List<ChatRoomEntity> _chatRoomMap;
   @override
-  List<ChatRoomRes> get chatRoomMap {
+  List<ChatRoomEntity> get chatRoomMap {
     if (_chatRoomMap is EqualUnmodifiableListView) return _chatRoomMap;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_chatRoomMap);
@@ -183,14 +183,14 @@ abstract class _IssueEntity implements IssueEntity {
   factory _IssueEntity(
       {required final String title,
       required final Map<String, int> map,
-      required final List<ChatRoomRes> chatRoomMap}) = _$IssueEntityImpl;
+      required final List<ChatRoomEntity> chatRoomMap}) = _$IssueEntityImpl;
 
   @override
   String get title;
   @override
   Map<String, int> get map;
   @override
-  List<ChatRoomRes> get chatRoomMap;
+  List<ChatRoomEntity> get chatRoomMap;
 
   /// Create a copy of IssueEntity
   /// with the given fields replaced by the non-null parameter values.
