@@ -1,4 +1,3 @@
-import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'users_login_res.g.dart';
