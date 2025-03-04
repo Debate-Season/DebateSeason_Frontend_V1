@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/issue/data/models/response/chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/issue_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

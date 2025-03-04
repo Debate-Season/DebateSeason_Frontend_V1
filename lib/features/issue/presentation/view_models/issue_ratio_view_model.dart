@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/issue/data/models/remote/response/chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/issue/data/models/response/chat_room_res.dart';
 
 getPercentages(ChatRoomRes chatroom) {
   int total = chatroom.agree + chatroom.disagree;

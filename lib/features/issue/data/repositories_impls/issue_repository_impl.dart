@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/issue/data/datasources/remote/issue_data_source.dart';
+import 'package:debateseason_frontend_v1/features/issue/data/datasources/issue_data_source.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/issue_entity.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/repositories/issue_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
