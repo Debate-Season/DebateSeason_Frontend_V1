@@ -40,14 +40,14 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueDate() {
     return DeText(
-      chatroom?.createdAt.substring(0, 10) ?? '----.-.--',
+      chatroom.createdAt.toString().substring(0, 10),
       style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
     );
   }
 
   Widget _issueTitle() {
     return DeText(
-      chatroom!.title,
+      chatroom.title,
       style: DeFonts.body16Sb.copyWith(
         color: Color(0xFFF3F0F4),
       ),
@@ -80,10 +80,10 @@ class IssueCard extends StatelessWidget {
 
   Widget _widgetBtn(String data) {
     final widgetColor = data == '찬성' ? DeColors.red : DeColors.blue;
-    final agree = chatroom?.agree ?? 0;
-    final disagree = chatroom?.disagree ?? 0;
+    final agree = chatroom.agree;
+    final disagree = chatroom.disagree;
 
-    final percentages = getPercentages(chatroom!);
+    final percentages = getPercentages(chatroom);
     final agreeRatioText = percentages[0];
     final disagreeRatioText = percentages[1];
 
