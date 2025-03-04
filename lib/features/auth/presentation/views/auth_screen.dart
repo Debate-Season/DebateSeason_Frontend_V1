@@ -54,7 +54,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                     },
                     success: (data) {
                       if (data.profileStatus) {
-                        Get.offNamed(GetRouterName.home);
+                        Get.offNamed(GetRouterName.issuemap);
                       } else {
                         Get.offNamed(GetRouterName.profileInput);
                       }
@@ -79,7 +79,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                     },
                     success: (data) {
                       if (data.profileStatus) {
-                        Get.offNamed(GetRouterName.home);
+                        Get.offNamed(GetRouterName.issuemap);
                       } else {
                         Get.offNamed(GetRouterName.profileInput);
                       }

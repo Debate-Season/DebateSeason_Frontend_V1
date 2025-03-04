@@ -1,8 +1,8 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
-import 'package:debateseason_frontend_v1/features/category/presentation/views/category_screen.dart';
 import 'package:debateseason_frontend_v1/features/home/home_screen.dart';
+import 'package:debateseason_frontend_v1/features/issuemap/presentation/views/issuemap_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -30,7 +30,7 @@ class MainScreen extends GetView<MainViewModel> {
           index: controller.selectedIndex,
           children: [
             HomeScreen(),
-            CategoryScreen(),
+            IssuemapScreen(),
             ProfileScreen(),
           ],
         );
