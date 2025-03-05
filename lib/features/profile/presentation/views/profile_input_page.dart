@@ -1,8 +1,8 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
@@ -74,7 +74,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                         ? () => controller.patchProfile().then((result) {
                               result.when(loading: () {
                                 controller.setApiLoading(isApiLoading: true);
-                              }, success: (message) {
+                              }, success: (_) {
                                 controller.setApiLoading(isApiLoading: false);
                                 Get.back();
                               }, failure: (msg) {
@@ -85,7 +85,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                         : () => controller.postProfile().then((result) {
                               result.when(loading: () {
                                 controller.setApiLoading(isApiLoading: true);
-                              }, success: (message) {
+                              }, success: (_) {
                                 controller.setApiLoading(isApiLoading: false);
                                 Get.offAllNamed(GetRouterName.home);
                               }, failure: (msg) {
