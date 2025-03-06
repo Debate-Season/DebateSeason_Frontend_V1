@@ -1,5 +1,5 @@
 import 'package:debateseason_frontend_v1/features/issuemap/domain/entities/category_entity.dart';
-import 'package:debateseason_frontend_v1/features/issuemap/domain/repositories/remote/users_home_repository.dart';
+import 'package:debateseason_frontend_v1/features/issuemap/domain/repositories/users_home_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:get/get.dart';
 

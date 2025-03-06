@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/presentation/view_models/auth_view_model.dart';
@@ -52,8 +52,8 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (data) {
-                      if (data.profileStatus) {
+                    success: (profileStatus) {
+                      if (profileStatus) {
                         Get.offNamed(GetRouterName.issuemap);
                       } else {
                         Get.offNamed(GetRouterName.profileInput);
@@ -77,8 +77,8 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (data) {
-                      if (data.profileStatus) {
+                    success: (profileStatus) {
+                      if (profileStatus) {
                         Get.offNamed(GetRouterName.issuemap);
                       } else {
                         Get.offNamed(GetRouterName.profileInput);
