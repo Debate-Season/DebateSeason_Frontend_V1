@@ -1,12 +1,12 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
-import 'package:debateseason_frontend_v1/features/category/category_constants.dart';
-import 'package:debateseason_frontend_v1/features/category/domain/entities/category_entity.dart';
-import 'package:debateseason_frontend_v1/features/category/presentation/view_models/category_view_model.dart';
+import 'package:debateseason_frontend_v1/features/issuemap/category_constants.dart';
+import 'package:debateseason_frontend_v1/features/issuemap/domain/entities/category_entity.dart';
+import 'package:debateseason_frontend_v1/features/issuemap/presentation/view_models/issuemap_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
 import 'package:debateseason_frontend_v1/utils/exit_app_util.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
@@ -14,8 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class CategoryScreen extends GetView<CategoryViewModel> {
-  const CategoryScreen({super.key});
+class IssuemapScreen extends GetView<IssuemapViewModel> {
+  const IssuemapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

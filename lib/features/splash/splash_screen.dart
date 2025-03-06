@@ -51,7 +51,7 @@ class SplashScreenState extends State<SplashScreen> {
 
     if (accessToken.isNotEmpty) {
       if (profileStatus) {
-        Get.offAllNamed(GetRouterName.home);
+        Get.offAllNamed(GetRouterName.main);
       } else {
         Get.offAllNamed(GetRouterName.profileInput);
       }

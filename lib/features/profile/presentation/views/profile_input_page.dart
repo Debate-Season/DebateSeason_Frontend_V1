@@ -87,7 +87,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                                 controller.setApiLoading(isApiLoading: true);
                               }, success: (_) {
                                 controller.setApiLoading(isApiLoading: false);
-                                Get.offAllNamed(GetRouterName.home);
+                                Get.offAllNamed(GetRouterName.issuemap);
                               }, failure: (msg) {
                                 controller.setApiLoading(isApiLoading: false);
                                 deSnackBar(msg);
