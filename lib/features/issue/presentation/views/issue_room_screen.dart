@@ -6,7 +6,6 @@ import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/widgets/issue_card.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +23,14 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       title: Obx(
-        () => Text(controller.issueTitle, style: DeFonts.title),
+        () => Text(
+          controller.issueData.when(
+            loading: () => '로딩중',
+            success: (issueData) => issueData.title,
+            failure: (error) => error,
+          ),
+          style: DeFonts.title,
+        ),
       ),
       isCenter: false,
     );
@@ -48,7 +54,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     );
   }
 
-  /*Widget _newChatCount() {
+/*Widget _newChatCount() {
     return Container(
       padding: DeDimensions.vertical12,
       decoration: ShapeDecoration(
@@ -113,19 +119,41 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _comm() {
     return Obx(() {
-      final communities = controller.issueData.map.keys.toList();
-      final int len = communities.length;
+      final issueData = controller.issueData;
 
-      return SizedBox(
-        height: 36,
-        child: ListView.separated(
-          itemBuilder: (context, index) {
-            return commItem(communities[index]);
-          },
-          separatorBuilder: (context, index) => DeGaps.h8,
-          itemCount: len,
-          scrollDirection: Axis.horizontal,
+      return issueData.when(
+        loading: () => const Center(
+          child: DeProgressIndicator(),
         ),
+        success: (issueData) {
+          final communities = issueData.map.keys.toList();
+          final int len = communities.length;
+          if (len == 0) {
+            return const SizedBox(
+              height: 36,
+              child: DeText(
+                '참여 중인 커뮤니티가 없어요. 토론에 참여해보세요!',
+                style: DeFonts.body14M,
+              ),
+            );
+          }
+          return SizedBox(
+            height: 36,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return commItem(communities[index]);
+              },
+              separatorBuilder: (context, index) => DeGaps.h8,
+              itemCount: len,
+              scrollDirection: Axis.horizontal,
+            ),
+          );
+        },
+        failure: (error) => const SizedBox(
+            height: 36,
+            child: Center(
+              child: DeText('데이터 로딩 실패'),
+            )),
       );
     });
   }
@@ -148,34 +176,57 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
 
   Widget _debateList() {
     return Obx(() {
-      final int len = controller.issueData.chatRoomMap.length;
+      final issueData = controller.issueData;
 
-      return ListView.separated(
-        itemBuilder: (context, index) {
-          return _debateItem(index);
+      return issueData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        success: (issueData) {
+          final chatRoomMap = issueData.chatRoomMap;
+          final int len = chatRoomMap.length;
+          return ListView.separated(
+            itemBuilder: (context, index) {
+              return _debateItem(index);
+            },
+            separatorBuilder: (context, index) => DeGaps.v12,
+            itemCount: len,
+          );
         },
-        separatorBuilder: (context, index) => DeGaps.v12,
-        itemCount: len,
+        failure: (error) => Center(
+          child: DeText(
+            error,
+            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          ),
+        ),
       );
     });
   }
 
   Widget _debateItem(int index) {
-    return Obx(() {
-      final chatroom = controller.issueData.chatRoomMap[index];
-
-      return DeGestureDetector(
-        onTap: () {
-          Get.toNamed(
-            GetRouterName.debate,
-            arguments: {
-              'chatroom_id': chatroom.chatRoomId,
-              'issue_title': controller.issueTitle,
-            },
-          );
-        },
-        child: IssueCard(chatroom: chatroom),
-      );
-    });
+    final issueData = controller.issueData;
+    return issueData.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      success: (issueData) {
+        final chatRoomMap = issueData.chatRoomMap;
+        final chatroom = chatRoomMap[index];
+        return DeGestureDetector(
+          onTap: () {
+            Get.toNamed(
+              GetRouterName.debate,
+              arguments: {
+                'chatroom_id': chatroom.chatRoomId,
+                'issue_title': issueData.title,
+              },
+            );
+          },
+          child: IssueCard(chatroom: chatroom),
+        );
+      },
+      failure: (error) => Center(
+        child: DeText(
+          error,
+          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+        ),
+      ),
+    );
   }
 }

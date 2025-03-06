@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/issue/domain/entities/chat_room_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'chat_room_res.g.dart';
@@ -10,7 +11,7 @@ class ChatRoomRes {
   int agree;
   int disagree;
   String createdAt;
-  String? opinion;
+  String opinion;
 
   ChatRoomRes({
     required this.chatRoomId,
@@ -26,4 +27,14 @@ class ChatRoomRes {
       _$ChatRoomResFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChatRoomResToJson(this);
+
+  ChatRoomEntity toEntity() => ChatRoomEntity(
+        chatRoomId: chatRoomId,
+        title: title,
+        content: content,
+        agree: agree,
+        disagree: disagree,
+        createdAt: DateTime.parse(createdAt),
+        opinion: opinion,
+      );
 }
