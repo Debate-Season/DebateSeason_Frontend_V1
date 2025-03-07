@@ -57,9 +57,27 @@ class ProfilePolicyPageState extends State<ProfilePolicyPage> {
                 style: DeFonts.header,
               ),
               DeGaps.v12,
-              _widgetPolicyTerms(),
+              _widgetPolicyTerms(
+                'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
+                '서비스 이용 약관',
+                _isCheckedTermsOfUse,
+                (bool newValue) {
+                  setState(() {
+                    _isCheckedTermsOfUse = newValue;
+                  });
+                },
+              ),
               DeGaps.v20,
-              _widgetPolicyPrivacy(),
+              _widgetPolicyTerms(
+                'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
+                '개인정보 수집/이용 동의',
+                _isCheckedPrivacyPolicy,
+                (bool newValue) {
+                  setState(() {
+                    _isCheckedPrivacyPolicy = newValue;
+                  });
+                },
+              ),
             ],
           ),
         ),
