@@ -39,51 +39,49 @@ class ProfileScreen extends GetView<ProfileViewModel> {
   }
 
   Widget _body() {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Column(
-              children: [
-                Obx(() {
-                  final profile = controller.profile;
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Column(
+          children: [
+            Obx(() {
+              final profile = controller.profile;
 
-                  return profile.when(
-                    loading: () {
-                      return const Center(
-                        child: DeProgressIndicator(),
-                      );
-                    },
-                    success: (profile) {
-                      return Column(
-                        children: [
-                          _profile(profile: profile),
-                          DeGaps.v40,
-                          _myCommunity(profile: profile),
-                        ],
-                      );
-                    },
-                    failure: (error) {
-                      return Center(
-                        child: DeText(
-                          error,
-                          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
-                        ),
-                      );
-                    },
+              return profile.when(
+                loading: () {
+                  return const Center(
+                    child: DeProgressIndicator(),
                   );
-                }),
-                DeGaps.v40,
-                _support(),
-                DeGaps.v40,
-                _account(),
-              ],
-            ),
-          ),
+                },
+                success: (profile) {
+                  return Column(
+                    children: [
+                      _profile(profile: profile),
+                      DeGaps.v40,
+                      _myCommunity(profile: profile),
+                    ],
+                  );
+                },
+                failure: (error) {
+                  return Center(
+                    child: DeText(
+                      error,
+                      style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+                    ),
+                  );
+                },
+              );
+            }),
+            DeGaps.v40,
+            _support(),
+            DeGaps.v40,
+            _policy(),
+            DeGaps.v40,
+            _account(),
+          ],
         ),
-      ],
+      ),
     );
   }
 
