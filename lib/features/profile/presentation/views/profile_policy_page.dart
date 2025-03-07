@@ -82,127 +82,79 @@ class ProfilePolicyPageState extends State<ProfilePolicyPage> {
     );
   }
 
-  Widget _widgetPolicyTerms() {
-    return Column(
+  Widget _widgetPolicyTerms(
+      String url, String title, bool isChecked, ValueChanged<bool> onChanged) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         DeGestureDetector(
-          onTap: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '(필수)',
-                          style: DeFonts.body16M
-                              .copyWith(color: DeColors.brandColor),
-                        ),
-                        TextSpan(
-                          text: ' 서비스 이용 약관',
-                          style:
-                              DeFonts.body16M.copyWith(color: DeColors.grey10),
-                        ),
-                      ],
-                    ),
-                  ),
-                  DeGaps.h2,
-                  SvgPicture.asset(
-                    DeIcons.icArrowRightGrey50,
-                    width: 16.0,
-                    height: 16.0,
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 24.0,
-                height: 24.0,
-                child: Checkbox(
-                  value: _isCheckedTermsOfUse,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isCheckedTermsOfUse = value ?? false;
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  side: BorderSide(
-                    width: 1,
-                    color: DeColors.grey80,
-                  ),
-                  activeColor: DeColors.brandColor,
-                  checkColor: DeColors.grey10,
-                ),
-              )
-            ],
-          ),
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url: url,
+                  title: title,
+                ));
+          },
+          child: _webView(title),
+        ),
+        _checkBox(
+          checked: isChecked,
+          onChanged: onChanged,
         ),
       ],
     );
   }
 
-  Widget _widgetPolicyPrivacy() {
-    return Column(
+  Widget _webView(String title) {
+    return Row(
       children: [
-        DeGestureDetector(
-          onTap: () {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Text.rich(
+          TextSpan(
             children: [
-              Row(
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '(필수)',
-                          style: DeFonts.body16M
-                              .copyWith(color: DeColors.brandColor),
-                        ),
-                        TextSpan(
-                          text: ' 개인정보 수집/이용 동의',
-                          style:
-                              DeFonts.body16M.copyWith(color: DeColors.grey10),
-                        ),
-                      ],
-                    ),
-                  ),
-                  DeGaps.h2,
-                  SvgPicture.asset(
-                    DeIcons.icArrowRightGrey50,
-                    width: 16.0,
-                    height: 16.0,
-                  ),
-                ],
+              TextSpan(
+                text: '(필수)',
+                style: DeFonts.body16M.copyWith(color: DeColors.brandColor),
               ),
-              SizedBox(
-                width: 24.0,
-                height: 24.0,
-                child: Checkbox(
-                  value: _isCheckedPrivacyPolicy,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isCheckedPrivacyPolicy = value ?? false;
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                  side: BorderSide(
-                    width: 1,
-                    color: DeColors.grey80,
-                  ),
-                  activeColor: DeColors.brandColor,
-                  checkColor: DeColors.grey10,
-                ),
-              )
+              TextSpan(
+                text: ' $title',
+                style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+              ),
             ],
           ),
         ),
+        DeGaps.h2,
+        SvgPicture.asset(
+          DeIcons.icArrowRightGrey50,
+          width: 16.0,
+          height: 16.0,
+        ),
       ],
+    );
+  }
+
+  Widget _checkBox({
+    required bool checked,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return SizedBox(
+      width: 24.0,
+      height: 24.0,
+      child: Checkbox(
+        value: checked,
+        onChanged: (bool? value) {
+          if (value != null) {
+            onChanged(value);
+          }
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+        side: BorderSide(
+          width: 1,
+          color: DeColors.grey80,
+        ),
+        activeColor: DeColors.brandColor,
+        checkColor: DeColors.grey10,
+      ),
     );
   }
 }
