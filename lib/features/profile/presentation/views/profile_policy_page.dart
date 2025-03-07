@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,12 +49,12 @@ class ProfilePolicyPageState extends State<ProfilePolicyPage> {
             children: [
               DeGaps.v40,
               DeText(
-                '서비스 이용을 위해\n이용 약관 동의가 필요합니다.',
+                '서비스 이용을 위해\n약관 동의가 필요합니다.',
                 style: DeFonts.header,
               ),
               DeGaps.v28,
               DeText(
-                '이용 약관',
+                '약관 및 개인정보 처리방침',
                 style: DeFonts.header,
               ),
               DeGaps.v12,
