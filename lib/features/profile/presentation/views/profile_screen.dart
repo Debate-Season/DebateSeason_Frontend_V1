@@ -75,9 +75,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   );
                 }),
                 DeGaps.v40,
-                _account(),
-                DeGaps.v40,
                 _support(),
+                DeGaps.v40,
+                _account(),
               ],
             ),
           ),
