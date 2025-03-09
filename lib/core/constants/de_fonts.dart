@@ -29,7 +29,7 @@ class DeFonts {
     letterSpacing: 20 * (-2.5 / 100),
   );
 
-  static const TextStyle title = TextStyle(
+  static const TextStyle header18Sb = TextStyle(
     color: DeColors.grey10,
     fontSize: 18,
     fontFamily: 'Pretendard',

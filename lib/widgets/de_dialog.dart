@@ -25,7 +25,7 @@ class DeDialog {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              DeText(dialogTitle, style: DeFonts.title),
+              DeText(dialogTitle, style: DeFonts.header18Sb),
               if (dialogText.isNotEmpty) ...[
                 DeGaps.v8,
                 DeText(

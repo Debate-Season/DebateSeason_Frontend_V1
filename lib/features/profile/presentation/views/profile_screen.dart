@@ -130,7 +130,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '내 소속 커뮤니티',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v8,
         Row(
@@ -160,7 +160,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '계정',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -228,7 +228,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '고객센터',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(

@@ -24,7 +24,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       title: Obx(
-        () => Text(controller.issueTitle, style: DeFonts.title),
+        () => Text(controller.issueTitle, style: DeFonts.header18Sb),
       ),
       isCenter: false,
     );
@@ -79,7 +79,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       children: [
         DeText(
           IssueConstants.joinedCommunities,
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         _comm(),
@@ -134,7 +134,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(IssueConstants.debateRoom, style: DeFonts.title),
+        DeText(IssueConstants.debateRoom, style: DeFonts.header18Sb),
         DeGaps.v4,
         DeText(
           IssueConstants.debateTopicDescription,
