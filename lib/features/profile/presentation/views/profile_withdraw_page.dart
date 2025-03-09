@@ -80,7 +80,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               children: [
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription2,
-                  style: DeFonts.body14M.copyWith(color: DeColors.brandColor),
+                  style: DeFonts.body14M.copyWith(color: DeColors.brand),
                 ),
                 TextSpan(
                   text: ProfileConstants.profileWithdrawDeletedInfoDescription3,

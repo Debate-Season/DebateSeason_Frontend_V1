@@ -25,7 +25,7 @@ class ProfileGenderCard extends StatelessWidget {
         color: DeColors.grey80,
         borderRadius: BorderRadius.circular(12),
         border: isSelected
-            ? Border.all(color: DeColors.brandColor, width: 1)
+            ? Border.all(color: DeColors.brand, width: 1)
             : Border.all(color: DeColors.grey70, width: 1),
       ),
       child: Column(

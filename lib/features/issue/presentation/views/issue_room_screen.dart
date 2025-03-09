@@ -93,7 +93,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         width: 36,
         height: 36,
         decoration: ShapeDecoration(
-          color: DeColors.brandColor,
+          color: DeColors.brand,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

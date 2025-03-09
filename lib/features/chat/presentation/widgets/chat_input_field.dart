@@ -93,7 +93,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
               decoration: BoxDecoration(
                 color: _textController.text.isEmpty
                     ? DeColors.grey90
-                    : DeColors.brandColor,
+                    : DeColors.brand,
                 borderRadius: BorderRadius.circular(48.0),
               ),
               child: SvgPicture.asset(

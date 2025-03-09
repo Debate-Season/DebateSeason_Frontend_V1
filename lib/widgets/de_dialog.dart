@@ -51,7 +51,7 @@ class DeDialog {
                   Expanded(
                     child: DeButtonSmall(
                       doneText,
-                      textColor: DeColors.brandColor,
+                      textColor: DeColors.brand,
                       onPressed: () {
                         onTapDone();
                         Get.back();

@@ -31,7 +31,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               DeGaps.v4,
               _chatMessageBody(
-                backgroundColor: DeColors.redDark,
+                backgroundColor: DeColors.redDarkOnGrey,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
                   topRight: Radius.circular(12),
@@ -51,7 +51,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               DeGaps.v4,
               _chatMessageBody(
-                backgroundColor: DeColors.blueDark,
+                backgroundColor: DeColors.blueDarkOnGrey,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(0),
@@ -71,7 +71,7 @@ class ChatMessage extends StatelessWidget {
               _chatMessageHeader(),
               DeGaps.v4,
               _chatMessageBody(
-                backgroundColor: DeColors.blueDark,
+                backgroundColor: DeColors.blueDarkOnGrey,
                 borderRadius: BorderRadius.circular(12),
               ),
             ],

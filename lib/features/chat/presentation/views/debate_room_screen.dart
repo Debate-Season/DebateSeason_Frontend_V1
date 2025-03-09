@@ -90,7 +90,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           DeText(
             DebateConstants.debateTopic,
-            style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
+            style: DeFonts.caption12M.copyWith(color: DeColors.brand),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -146,15 +146,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int disagree = room.disagree;
 
       var widgetColor = data == OpinionType.agree.valueKr
-          ? DeColors.redDark
-          : DeColors.blueDark;
+          ? DeColors.redDarkOnGrey
+          : DeColors.blueDarkOnGrey;
       if (opinion == OpinionType.agree.value) {
         widgetColor = data == OpinionType.agree.valueKr
             ? DeColors.red
-            : DeColors.blueDark;
+            : DeColors.blueDarkOnGrey;
       } else if (opinion == OpinionType.disagree.value) {
         widgetColor = data == OpinionType.agree.valueKr
-            ? DeColors.redDark
+            ? DeColors.redDarkOnGrey
             : DeColors.blue;
       }
 

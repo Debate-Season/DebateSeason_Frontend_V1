@@ -27,7 +27,7 @@ class DeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor ?? DeColors.grey110,
+      backgroundColor: backgroundColor ?? DeColors.grey120,
       leading: isBack ? _backBtn() : null,
       title: title,
       actions: [
