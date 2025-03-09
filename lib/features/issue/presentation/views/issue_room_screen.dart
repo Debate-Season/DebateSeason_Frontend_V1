@@ -1,4 +1,5 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
@@ -29,7 +30,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             success: (issueData) => issueData.title,
             failure: (error) => error,
           ),
-          style: DeFonts.title,
+          style: DeFonts.header,
         ),
       ),
       isCenter: false,
@@ -42,8 +43,8 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // _newChatCount(),
-          // Gaps.v40,
+          _newChatCount(),
+          DeGaps.v40,
           _joinedCommunities(),
           DeGaps.v40,
           Expanded(
@@ -54,7 +55,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     );
   }
 
-/*Widget _newChatCount() {
+Widget _newChatCount() {
     return Container(
       padding: DeDimensions.vertical12,
       decoration: ShapeDecoration(
@@ -77,7 +78,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         ],
       ),
     );
-  }*/
+  }
 
   Widget _joinedCommunities() {
     return Column(
@@ -87,7 +88,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           IssueConstants.joinedCommunities,
           style: DeFonts.title,
         ),
-        DeGaps.v16,
+        DeGaps.v12,
         _comm(),
       ],
     );
@@ -168,7 +169,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           IssueConstants.debateTopicDescription,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
-        DeGaps.v8,
+        DeGaps.v12,
         Expanded(child: _debateList()),
       ],
     );
@@ -181,8 +182,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       return issueData.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         success: (issueData) {
-          final chatRoomMap = issueData.chatRoomMap;
-          final int len = chatRoomMap.length;
+          final int len = issueData.chatRoomMap.length;
           return ListView.separated(
             itemBuilder: (context, index) {
               return _debateItem(index);
