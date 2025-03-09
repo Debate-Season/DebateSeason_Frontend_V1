@@ -18,10 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UsersLoginEntity {
   String get identifier => throw _privateConstructorUsedError;
   String get socialType => throw _privateConstructorUsedError;
-  String get accessToken => throw _privateConstructorUsedError;
-  String get refreshToken => throw _privateConstructorUsedError;
   bool get profileStatus => throw _privateConstructorUsedError;
-  int get statusCode => throw _privateConstructorUsedError;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -36,13 +33,7 @@ abstract class $UsersLoginEntityCopyWith<$Res> {
           UsersLoginEntity value, $Res Function(UsersLoginEntity) then) =
       _$UsersLoginEntityCopyWithImpl<$Res, UsersLoginEntity>;
   @useResult
-  $Res call(
-      {String identifier,
-      String socialType,
-      String accessToken,
-      String refreshToken,
-      bool profileStatus,
-      int statusCode});
+  $Res call({String identifier, String socialType, bool profileStatus});
 }
 
 /// @nodoc
@@ -62,10 +53,7 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
   $Res call({
     Object? identifier = null,
     Object? socialType = null,
-    Object? accessToken = null,
-    Object? refreshToken = null,
     Object? profileStatus = null,
-    Object? statusCode = null,
   }) {
     return _then(_value.copyWith(
       identifier: null == identifier
@@ -76,22 +64,10 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
           ? _value.socialType
           : socialType // ignore: cast_nullable_to_non_nullable
               as String,
-      accessToken: null == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
-              as String,
       profileStatus: null == profileStatus
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
               as bool,
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -104,13 +80,7 @@ abstract class _$$UsersLoginEntityImplCopyWith<$Res>
       __$$UsersLoginEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String identifier,
-      String socialType,
-      String accessToken,
-      String refreshToken,
-      bool profileStatus,
-      int statusCode});
+  $Res call({String identifier, String socialType, bool profileStatus});
 }
 
 /// @nodoc
@@ -128,10 +98,7 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? identifier = null,
     Object? socialType = null,
-    Object? accessToken = null,
-    Object? refreshToken = null,
     Object? profileStatus = null,
-    Object? statusCode = null,
   }) {
     return _then(_$UsersLoginEntityImpl(
       identifier: null == identifier
@@ -142,22 +109,10 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
           ? _value.socialType
           : socialType // ignore: cast_nullable_to_non_nullable
               as String,
-      accessToken: null == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
-              as String,
       profileStatus: null == profileStatus
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
               as bool,
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -166,12 +121,7 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
 
 class _$UsersLoginEntityImpl implements _UsersLoginEntity {
   _$UsersLoginEntityImpl(
-      {this.identifier = '',
-      this.socialType = '',
-      this.accessToken = '',
-      this.refreshToken = '',
-      this.profileStatus = false,
-      this.statusCode = 500});
+      {this.identifier = '', this.socialType = '', this.profileStatus = false});
 
   @override
   @JsonKey()
@@ -181,20 +131,11 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
   final String socialType;
   @override
   @JsonKey()
-  final String accessToken;
-  @override
-  @JsonKey()
-  final String refreshToken;
-  @override
-  @JsonKey()
   final bool profileStatus;
-  @override
-  @JsonKey()
-  final int statusCode;
 
   @override
   String toString() {
-    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, accessToken: $accessToken, refreshToken: $refreshToken, profileStatus: $profileStatus, statusCode: $statusCode)';
+    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, profileStatus: $profileStatus)';
   }
 
   @override
@@ -206,19 +147,13 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
                 other.identifier == identifier) &&
             (identical(other.socialType, socialType) ||
                 other.socialType == socialType) &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken) &&
             (identical(other.profileStatus, profileStatus) ||
-                other.profileStatus == profileStatus) &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode));
+                other.profileStatus == profileStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, identifier, socialType,
-      accessToken, refreshToken, profileStatus, statusCode);
+  int get hashCode =>
+      Object.hash(runtimeType, identifier, socialType, profileStatus);
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -234,23 +169,14 @@ abstract class _UsersLoginEntity implements UsersLoginEntity {
   factory _UsersLoginEntity(
       {final String identifier,
       final String socialType,
-      final String accessToken,
-      final String refreshToken,
-      final bool profileStatus,
-      final int statusCode}) = _$UsersLoginEntityImpl;
+      final bool profileStatus}) = _$UsersLoginEntityImpl;
 
   @override
   String get identifier;
   @override
   String get socialType;
   @override
-  String get accessToken;
-  @override
-  String get refreshToken;
-  @override
   bool get profileStatus;
-  @override
-  int get statusCode;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.

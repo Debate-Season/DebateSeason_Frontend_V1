@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_nickname_check_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -109,12 +109,10 @@ class ProfileInputViewModel extends GetxController {
   }
 
   Future<void> _getProfileNicknameCheck({required String nickname}) async {
-    final response =
-        await _profileNicknameCheckRepository.getProfileNicknameCheck(
-      nickname: nickname,
-    );
+    final statusCode = await _profileNicknameCheckRepository
+        .getProfileNicknameCheck(nickname: nickname);
 
-    switch (response.status) {
+    switch (statusCode) {
       case 200:
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
@@ -141,12 +139,12 @@ class ProfileInputViewModel extends GetxController {
     _selectedCommunities.value = result;
   }
 
-  Future<UiState<String>> postProfile() async =>
+  Future<UiState<void>> postProfile() async =>
       await _profileRepository.postProfile(
         entity: _profile.value,
       );
 
-  Future<UiState<String>> patchProfile() async {
+  Future<UiState<void>> patchProfile() async {
     _profileViewModel.updateProfile(profile: _profile.value);
 
     return await _profileRepository.patchProfile(

@@ -101,7 +101,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                   controller.postWithdraw().then((result) {
                     result.when(
                       loading: () {},
-                      success: (msg) {
+                      success: (_) {
                         if (Platform.isAndroid) {
                           controller.kakaoLogout().then((_) {
                             Get.offAllNamed(GetRouterName.auth);

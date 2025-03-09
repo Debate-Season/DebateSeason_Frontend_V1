@@ -2,7 +2,8 @@ class GetRouterName {
   /// Root Routers
   static const String splash = '/';
   static const String auth = '/login';
-  static const String home = '/home';
+  static const String main = '/main';
+  static const String issuemap = '/issuemap';
   static const String chat = '/chat';
   static const String issue = '/issue';
   static const String category = '/category';
