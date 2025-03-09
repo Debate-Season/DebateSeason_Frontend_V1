@@ -20,6 +20,15 @@ class DeFonts {
     letterSpacing: 28 * (-2.5 / 100),
   );
 
+  static const TextStyle header24B = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 24,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1.5,
+    letterSpacing: 24 * (-2.5 / 100),
+  );
+
   static const TextStyle header20B = TextStyle(
     color: DeColors.grey10,
     fontSize: 20,
