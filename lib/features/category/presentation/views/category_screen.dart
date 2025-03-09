@@ -73,7 +73,7 @@ class CategoryScreen extends GetView<CategoryViewModel> {
       onTap: () {},
       child: DeText(
         CategoryConstants.allCategory,
-        style: DeFonts.headerLarge,
+        style: DeFonts.header28Sb,
       ),
     );
   }

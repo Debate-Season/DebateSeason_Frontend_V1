@@ -11,11 +11,11 @@ class DeFonts {
     letterSpacing: 48 * (-2.5 / 100),
   );
 
-  static const TextStyle headerLarge = TextStyle(
+  static const TextStyle header28Sb = TextStyle(
     color: DeColors.grey10,
     fontSize: 28,
     fontFamily: 'Pretendard',
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     height: 1.5,
     letterSpacing: 28 * (-2.5 / 100),
   );

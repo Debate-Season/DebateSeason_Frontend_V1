@@ -101,7 +101,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v8,
         DeText(
           profile.nickname,
-          style: DeFonts.headerLarge,
+          style: DeFonts.header28Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
