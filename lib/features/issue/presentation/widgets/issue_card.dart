@@ -28,10 +28,11 @@ class IssueCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _issueDate(),
+          DeGaps.v2,
           _issueTitle(),
-          DeGaps.v12,
-          //_issueRecent(),
-          //Gaps.v12,
+          DeGaps.v8,
+          _issueRecent(),
+          DeGaps.v8,
           _issueStatus(),
         ],
       ),
@@ -55,12 +56,12 @@ class IssueCard extends StatelessWidget {
     );
   }
 
-  /*Widget _issueRecent() {
+  Widget _issueRecent() {
     return DeText(
       '최근', //'3분 전 대화', todo: 대화 시간 표시
       style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
     );
-  }*/
+  }
 
   Widget _issueStatus() {
     return Row(
@@ -79,7 +80,7 @@ class IssueCard extends StatelessWidget {
   }
 
   Widget _widgetBtn(String data) {
-    final widgetColor = data == '찬성' ? DeColors.red : DeColors.blue;
+    final widgetColor = data == '찬성' ? DeColors.redDarker : DeColors.blueDarker;
     final agree = chatroom.agree;
     final disagree = chatroom.disagree;
 
