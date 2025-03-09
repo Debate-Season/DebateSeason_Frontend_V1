@@ -82,16 +82,41 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
-      child: Column(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        spacing: 5,
         children: [
-          DeText(
-            IssueConstants.todayNewChat,
-            style: DeFonts.body16M.copyWith(color: DeColors.grey50),
+          Column(
+            children: [
+              DeText(
+                '관심 등록',
+                style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+              ),
+              DeGaps.v4,
+              DeText(
+                '2,337명',
+                style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+              ),
+            ],
           ),
-          DeGaps.v12,
-          DeText(
-            IssueConstants.todayNewChatCount,
-            style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+          Container(
+            width: 1,
+            height: 40,
+            decoration: BoxDecoration(color: DeColors.grey100),
+          ),
+          Column(
+            children: [
+              DeText(
+                IssueConstants.todayNewChat,
+                style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+              ),
+              DeGaps.v4,
+              DeText(
+                IssueConstants.todayNewChatCount,
+                style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+              ),
+            ],
           ),
         ],
       ),
