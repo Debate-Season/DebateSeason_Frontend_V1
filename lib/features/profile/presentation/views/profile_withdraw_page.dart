@@ -31,7 +31,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
     return DeAppBar(
       title: DeText(
         '회원탈퇴',
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: true,
     );
@@ -46,7 +46,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           DeGaps.v12,
           DeText(
             ProfileConstants.profileWithdrawPolicyTitle,
-            style: DeFonts.header,
+            style: DeFonts.header20B,
           ),
           DeGaps.v8,
           DeText(
@@ -56,7 +56,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           DeGaps.v20,
           DeText(
             ProfileConstants.profileWithdrawProcedureTitle,
-            style: DeFonts.header,
+            style: DeFonts.header20B,
           ),
           DeGaps.v8,
           DeText(
@@ -70,7 +70,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           DeGaps.v20,
           DeText(
             ProfileConstants.profileWithdrawDeletedInfoTitle,
-            style: DeFonts.header,
+            style: DeFonts.header20B,
           ),
           DeGaps.v8,
           Text.rich(

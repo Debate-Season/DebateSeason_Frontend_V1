@@ -31,7 +31,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         isModifyScreen
             ? ProfileConstants.profileModifyAppbarText
             : ProfileConstants.profileCreateAppbarText,
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: isModifyScreen,
     );

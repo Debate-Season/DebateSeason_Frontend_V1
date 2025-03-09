@@ -228,7 +228,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               ),
               DeText(
                 '$ratio%',
-                style: DeFonts.header,
+                style: DeFonts.header20B,
               ),
               DeText(
                 detail,

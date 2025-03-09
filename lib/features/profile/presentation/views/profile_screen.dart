@@ -31,7 +31,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     return DeAppBar(
       title: DeText(
         '프로필',
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: true,
     );
