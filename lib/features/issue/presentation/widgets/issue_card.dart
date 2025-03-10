@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:debateseason_frontend_v1/widgets/de_vote_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class IssueCard extends StatelessWidget {
   final ChatRoomEntity chatroom;
@@ -70,7 +71,8 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueDate() {
     return DeText(
-      chatroom.createdAt.toString().substring(0, 10),
+      DateFormat('yyyy.M.d')
+          .format(DateTime.parse(chatroom.createdAt.toString())),
       style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
     );
   }
