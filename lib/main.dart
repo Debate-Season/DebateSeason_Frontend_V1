@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 void _initUiSettings() {
   // 시스템 상태바 색상 변경
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: DeColors.grey110,
+    statusBarColor: DeColors.grey120,
     statusBarIconBrightness: Brightness.light,
   ));
 

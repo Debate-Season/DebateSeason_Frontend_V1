@@ -20,7 +20,7 @@ class IssueCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       decoration: BoxDecoration(
-        color: DeColors.grey120,
+        color: DeColors.grey110,
         border: Border.all(color: DeColors.grey90),
         borderRadius: BorderRadius.circular(16.0),
       ),
@@ -110,7 +110,7 @@ class IssueCard extends StatelessWidget {
           ),
           DeText(
             data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
-            style: DeFonts.header,
+            style: DeFonts.header20B,
           ),
           DeText(
             data == '찬성' ? '$agree표' : '$disagree표',

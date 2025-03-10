@@ -43,7 +43,7 @@ class DeBottomSheet extends StatelessWidget {
                 Expanded(
                   child: DeText(
                     titleText,
-                    style: DeFonts.title,
+                    style: DeFonts.header18Sb,
                   ),
                 ),
                 DeGestureDetector(
