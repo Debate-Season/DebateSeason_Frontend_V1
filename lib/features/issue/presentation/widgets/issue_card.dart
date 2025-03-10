@@ -82,6 +82,8 @@ class IssueCard extends StatelessWidget {
         color: Color(0xFFF3F0F4),
       ),
       textAlign: TextAlign.center,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
     );
   }
 
