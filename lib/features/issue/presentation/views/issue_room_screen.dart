@@ -77,46 +77,48 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Container(
       padding: DeDimensions.vertical12,
       decoration: ShapeDecoration(
-        color: DeColors.grey120,
+        color: DeColors.grey110,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        spacing: 5,
         children: [
-          Column(
-            children: [
-              DeText(
-                '관심 등록',
-                style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
-              ),
-              DeGaps.v4,
-              DeText(
-                '2,337명',
-                style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                DeText(
+                  '관심 등록',
+                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                ),
+                DeGaps.v4,
+                DeText(
+                  '9.9천만명',
+                  style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+                ),
+              ],
+            ),
           ),
           Container(
             width: 1,
             height: 40,
             decoration: BoxDecoration(color: DeColors.grey100),
           ),
-          Column(
-            children: [
-              DeText(
-                IssueConstants.todayNewChat,
-                style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
-              ),
-              DeGaps.v4,
-              DeText(
-                IssueConstants.todayNewChatCount,
-                style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                DeText(
+                  IssueConstants.todayNewChat,
+                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+                ),
+                DeGaps.v4,
+                DeText(
+                  IssueConstants.todayNewChatCount,
+                  style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+                ),
+              ],
+            ),
           ),
         ],
       ),
