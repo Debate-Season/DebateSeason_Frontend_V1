@@ -8,7 +8,7 @@ void deSnackBar(String message) {
     "",
     "",
     snackPosition: SnackPosition.TOP,
-    backgroundColor: DeColors.brandColor,
+    backgroundColor: DeColors.brand,
     colorText: DeColors.grey10,
     duration: Duration(seconds: 2),
     isDismissible: true,

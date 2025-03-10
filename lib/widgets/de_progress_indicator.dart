@@ -11,12 +11,12 @@ class DeProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
       return CircularProgressIndicator(
-        color: DeColors.brandColor,
+        color: DeColors.brand,
       );
     }
     if (Platform.isIOS) {
       return CupertinoActivityIndicator(
-        color: DeColors.brandColor,
+        color: DeColors.brand,
       );
     } else {
       return CircularProgressIndicator.adaptive();

@@ -32,7 +32,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
             success: (issueData) => issueData.title,
             failure: (error) => error,
           ),
-          style: DeFonts.header,
+          style: DeFonts.header18Sb,
         ),
       ),
       actions: [
@@ -129,7 +129,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       children: [
         DeText(
           IssueConstants.joinedCommunities,
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v12,
         _comm(),
@@ -143,7 +143,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         width: 36,
         height: 36,
         decoration: ShapeDecoration(
-          color: DeColors.brandColor,
+          color: DeColors.brand,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -206,7 +206,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(IssueConstants.debateRoom, style: DeFonts.title),
+        DeText(IssueConstants.debateRoom, style: DeFonts.header18Sb),
         DeGaps.v4,
         DeText(
           IssueConstants.debateTopicDescription,

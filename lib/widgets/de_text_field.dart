@@ -76,7 +76,7 @@ class DeTextField extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: DeColors.brandColor, width: 1),
+                borderSide: BorderSide(color: DeColors.brand, width: 1),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
