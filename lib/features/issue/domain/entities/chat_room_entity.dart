@@ -5,7 +5,7 @@ class ChatRoomEntity {
   int agree;
   int disagree;
   DateTime createdAt;
-  String? opinion;
+  String opinion;
 
   ChatRoomEntity({
     required this.chatRoomId,

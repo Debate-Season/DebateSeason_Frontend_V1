@@ -3,8 +3,8 @@ import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
-import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
+import 'package:debateseason_frontend_v1/widgets/de_vote_button.dart';
 import 'package:flutter/material.dart';
 
 class IssueCard extends StatelessWidget {
@@ -96,58 +96,25 @@ class IssueCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _widgetBtn('찬성'),
+        DeVoteButton(
+          isPros: true,
+          agree: chatroom.agree,
+          disagree: chatroom.disagree,
+          myOpinion: chatroom.opinion,
+        ),
         DeGaps.h8,
         DeText(
           IssueConstants.vs,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey70),
         ),
         DeGaps.h8,
-        _widgetBtn('반대'),
-      ],
-    );
-  }
-
-  Widget _widgetBtn(String data) {
-    final widgetColor = data == '찬성' ? DeColors.redDark : DeColors.blueDark;
-    final agree = chatroom.agree;
-    final disagree = chatroom.disagree;
-
-    final percentages = getPercentages(chatroom);
-    final agreeRatioText = percentages[0];
-    final disagreeRatioText = percentages[1];
-
-    return Container(
-      width: 80,
-      height: 80,
-      padding: EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 7,
-      ),
-      decoration: ShapeDecoration(
-        color: widgetColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+        DeVoteButton(
+          isPros: false,
+          agree: chatroom.agree,
+          disagree: chatroom.disagree,
+          myOpinion: chatroom.opinion,
         ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DeText(
-            data,
-            style: DeFonts.caption12M2,
-          ),
-          DeText(
-            data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
-            style: DeFonts.header20B,
-          ),
-          DeText(
-            data == '찬성' ? '$agree표' : '$disagree표',
-            style: DeFonts.caption12M2,
-          ),
-        ],
-      ),
+      ],
     );
   }
 }
