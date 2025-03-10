@@ -17,25 +17,54 @@ class IssueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
-      decoration: BoxDecoration(
-        color: DeColors.grey110,
-        border: Border.all(color: DeColors.grey90),
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _issueDate(),
-          DeGaps.v2,
-          _issueTitle(),
-          DeGaps.v8,
-          _issueRecent(),
-          DeGaps.v8,
-          _issueStatus(),
-        ],
-      ),
+    bool isVoted = chatroom.opinion == 'NEUTRAL';
+    return Column(
+      children: [
+        Container(
+          padding: isVoted
+              ? const EdgeInsets.fromLTRB(16, 16, 16, 20)
+              : const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: DeColors.grey110,
+            border: Border.all(color: DeColors.grey90),
+            borderRadius: isVoted
+                ? BorderRadius.circular(16.0)
+                : BorderRadius.only(
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(16.0),
+                  ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _issueDate(),
+              DeGaps.v2,
+              _issueTitle(),
+              DeGaps.v8,
+              _issueRecent(),
+              DeGaps.v8,
+              _issueStatus(),
+            ],
+          ),
+        ),
+        if (!isVoted)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            decoration: BoxDecoration(
+              color: DeColors.brand,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(16.0),
+                bottomRight: Radius.circular(16.0),
+              ),
+            ),
+            alignment: Alignment.center,
+            child: DeText(
+              '참여 중',
+              style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
+            ),
+          ),
+      ],
     );
   }
 
