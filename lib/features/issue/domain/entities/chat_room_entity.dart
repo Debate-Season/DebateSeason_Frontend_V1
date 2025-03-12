@@ -1,3 +1,5 @@
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+
 class ChatRoomEntity {
   int chatRoomId;
   String title;
@@ -5,7 +7,7 @@ class ChatRoomEntity {
   int agree;
   int disagree;
   DateTime createdAt;
-  String opinion;
+  OpinionType opinion;
 
   ChatRoomEntity({
     required this.chatRoomId,

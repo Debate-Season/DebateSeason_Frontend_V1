@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/chat_room_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -35,6 +36,19 @@ class ChatRoomRes {
         agree: agree,
         disagree: disagree,
         createdAt: DateTime.parse(createdAt),
-        opinion: opinion,
+        opinion: _getOpinion(opinion),
       );
+
+  OpinionType _getOpinion(String opn) {
+    switch (opn.toUpperCase()) {
+      case 'AGREE':
+        return OpinionType.agree;
+      case 'DISAGREE':
+        return OpinionType.disagree;
+      case 'NEUTRAL':
+        return OpinionType.neutral;
+      default:
+        return OpinionType.neutral;
+    }
+  }
 }

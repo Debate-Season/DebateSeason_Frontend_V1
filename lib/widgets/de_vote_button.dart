@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class DeVoteButton extends StatelessWidget {
   final bool isPros;
   final int agree;
   final int disagree;
-  final String myOpinion;
+  final OpinionType myOpinion;
 
   const DeVoteButton({
     super.key,
@@ -35,8 +36,8 @@ class DeVoteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widgetColor = isPros
-        ? (myOpinion == 'AGREE' ? DeColors.red : DeColors.redDark)
-        : (myOpinion == 'DISAGREE' ? DeColors.blue : DeColors.blueDark);
+        ? (myOpinion == OpinionType.agree ? DeColors.red : DeColors.redDark)
+        : (myOpinion == OpinionType.disagree ? DeColors.blue : DeColors.blueDark);
     final data = isPros ? '찬성' : '반대';
 
     final percentages = getPercentages(agree, disagree);
