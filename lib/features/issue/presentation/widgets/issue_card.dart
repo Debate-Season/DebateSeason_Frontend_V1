@@ -48,23 +48,7 @@ class IssueCard extends StatelessWidget {
             ],
           ),
         ),
-        if (!isVoted)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            decoration: BoxDecoration(
-              color: DeColors.brand,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-            ),
-            alignment: Alignment.center,
-            child: DeText(
-              '참여 중',
-              style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
-            ),
-          ),
+        if (!isVoted) _issueVoted(),
       ],
     );
   }
@@ -119,6 +103,25 @@ class IssueCard extends StatelessWidget {
           myOpinion: chatroom.opinion,
         ),
       ],
+    );
+  }
+
+  Widget _issueVoted() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        color: DeColors.brand,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(16.0),
+          bottomRight: Radius.circular(16.0),
+        ),
+      ),
+      alignment: Alignment.center,
+      child: DeText(
+        '참여 중',
+        style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
+      ),
     );
   }
 }
