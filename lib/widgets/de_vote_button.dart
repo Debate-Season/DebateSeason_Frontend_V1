@@ -18,19 +18,12 @@ class DeVoteButton extends StatelessWidget {
     required this.myOpinion,
   });
 
-  getPercentages(int agree, int disagree) {
-    int total = agree + disagree;
-    double agreeRatio = agree / total;
-    double disagreeRatio = disagree / total;
+  getPercentages(int count, int total) {
+    double ratio = count / total;
 
-    if (total == 0) {
-      agreeRatio = 0;
-      disagreeRatio = 0;
-    }
-    String agreeRatioText = (agreeRatio * 100).toStringAsFixed(0);
-    String disagreeRatioText = (disagreeRatio * 100).toStringAsFixed(0);
+    if (total == 0) ratio = 0;
 
-    return [agreeRatioText, disagreeRatioText];
+    return (ratio * 100).toStringAsFixed(0);
   }
 
   @override
@@ -40,9 +33,8 @@ class DeVoteButton extends StatelessWidget {
         : (myOpinion == OpinionType.disagree ? DeColors.blue : DeColors.blueDark);
     final data = isPros ? '찬성' : '반대';
 
-    final percentages = getPercentages(agree, disagree);
-    final agreeRatioText = percentages[0];
-    final disagreeRatioText = percentages[1];
+    final agreeRatio = getPercentages(agree, agree + disagree);
+    final disagreeRatio = getPercentages(disagree, agree + disagree);
 
     return Container(
       width: 80,
@@ -66,7 +58,7 @@ class DeVoteButton extends StatelessWidget {
             style: DeFonts.caption12M2,
           ),
           DeText(
-            data == '찬성' ? '$agreeRatioText%' : '$disagreeRatioText%',
+            data == '찬성' ? '$agreeRatio%' : '$disagreeRatio%',
             style: DeFonts.header20B,
           ),
           DeText(
