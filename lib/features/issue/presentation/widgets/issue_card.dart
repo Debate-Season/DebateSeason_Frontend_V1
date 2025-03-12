@@ -65,9 +65,7 @@ class IssueCard extends StatelessWidget {
   Widget _issueTitle() {
     return DeText(
       chatroom.title,
-      style: DeFonts.body16Sb.copyWith(
-        color: Color(0xFFF3F0F4),
-      ),
+      style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       maxLines: 2,
