@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/core/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/chat_room_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

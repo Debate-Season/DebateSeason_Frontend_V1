@@ -4,7 +4,7 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/response/room
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/core/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';

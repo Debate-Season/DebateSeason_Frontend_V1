@@ -1,7 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/core/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
