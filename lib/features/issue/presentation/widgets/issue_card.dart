@@ -18,22 +18,22 @@ class IssueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isVoted = chatroom.opinion == 'NEUTRAL';
+    bool isVoted = chatroom.opinion != 'NEUTRAL';
     return Column(
       children: [
         Container(
           padding: isVoted
-              ? const EdgeInsets.fromLTRB(16, 16, 16, 20)
-              : const EdgeInsets.all(16),
+              ? const EdgeInsets.all(16)
+              : const EdgeInsets.fromLTRB(16, 16, 16, 20),
           decoration: BoxDecoration(
             color: DeColors.grey110,
             border: Border.all(color: DeColors.grey90),
             borderRadius: isVoted
-                ? BorderRadius.circular(16.0)
-                : BorderRadius.only(
+                ? BorderRadius.only(
                     topLeft: Radius.circular(16.0),
                     topRight: Radius.circular(16.0),
-                  ),
+                  )
+                : BorderRadius.circular(16.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +48,7 @@ class IssueCard extends StatelessWidget {
             ],
           ),
         ),
-        if (!isVoted) _issueVoted(),
+        if (isVoted) _issueVoted(),
       ],
     );
   }
