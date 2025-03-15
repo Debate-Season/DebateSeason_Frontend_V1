@@ -33,46 +33,56 @@ class AuthViewModel extends GetxController {
 
   Future<UiState<bool>> loginWithKakao() async {
     try {
-      bool isInstalled = await isKakaoTalkInstalled();
+      final isInstalled = await isKakaoTalkInstalled();
+      OAuthToken kakaoToken;
       if (isInstalled) {
-        await UserApi.instance.loginWithKakaoTalk();
+        kakaoToken = await UserApi.instance.loginWithKakaoTalk();
       } else {
-        await UserApi.instance.loginWithKakaoAccount();
+        kakaoToken = await UserApi.instance.loginWithKakaoAccount();
       }
 
-      User user = await UserApi.instance.me();
+      log.d(kakaoToken.idToken);
+      if (kakaoToken.idToken == null && kakaoToken.accessToken.isEmpty) {
+        return UiState.failure('카카오 계정으로 로그인해주세요.');
+      }
 
       final profileStatus = await postUsersLogin(
-        identifier: user.id.toString(),
+        idToken: kakaoToken.idToken!,
         socialType: AuthConstants.kakaoLoginType,
       );
 
-      await _getProfile();
+      if (profileStatus) {
+        await _getProfile();
+      }
 
       return UiState.success(profileStatus);
-    } catch (e) {
-      log.d('카카오 로그인 실패\n$e');
+    } catch (e, stack) {
+      log.d('카카오 로그인 실패\n $e \n $stack');
       return UiState.failure('카카오 로그인에 실패했습니다.');
     }
   }
 
   Future<UiState<bool>> loginWithApple() async {
     try {
-      final user = await SignInWithApple.getAppleIDCredential(scopes: [
+      final appleAuth = await SignInWithApple.getAppleIDCredential(scopes: [
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
       ]);
 
+      if (appleAuth.identityToken == null && appleAuth.identityToken!.isEmpty) {
+        return UiState.failure('애플 계정으로 로그인해주세요.');
+      }
+
       final profileStatus = await postUsersLogin(
-        identifier: user.userIdentifier.toString(),
+        idToken: appleAuth.identityToken!,
         socialType: AuthConstants.appleLoginType,
       );
 
       await _getProfile();
 
       return UiState.success(profileStatus);
-    } catch (e, stackTrace) {
-      log.d('애플 로그인 실패\n$e\n$stackTrace');
+    } catch (e, stack) {
+      log.d('애플 로그인 실패\n $e \n $stack');
       return UiState.failure('애플 로그인에 실패했습니다.');
     }
   }
@@ -95,12 +105,12 @@ class AuthViewModel extends GetxController {
   }
 
   Future<bool> postUsersLogin({
-    required String identifier,
+    required String idToken,
     required String socialType,
   }) async {
     return await _usersLoginRepository.postUsersLogin(
       entity: UsersLoginEntity(
-        identifier: identifier,
+        idToken: idToken,
         socialType: socialType,
       ),
     );
