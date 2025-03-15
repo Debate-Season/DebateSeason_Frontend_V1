@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/enums/opinion_type.dart';
+import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 
 class ChatRoomEntity {
   int chatRoomId;
