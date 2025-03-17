@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/home/home_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/home_binding.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/bindings/issuemap_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:get/get.dart';
