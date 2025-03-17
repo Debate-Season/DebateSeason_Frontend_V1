@@ -3,8 +3,11 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/home_view_model.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/home_media_page.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/home_recommend_page.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
+import 'package:debateseason_frontend_v1/widgets/de_tab_short.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +39,12 @@ class HomeScreen extends GetView<HomeViewModel> {
       child: Column(
         children: [
           _headlineNews(),
+          Expanded(
+            child: DeTabShort(
+              tabs: ['추천', '미디어'],
+              tabViews: [HomeRecommendPage(), HomeMediaPage()],
+            ),
+          ),
         ],
       ),
     );
