@@ -8,12 +8,12 @@ part of 'users_login_req.dart';
 
 UsersLoginReq _$UsersLoginReqFromJson(Map<String, dynamic> json) =>
     UsersLoginReq(
-      identifier: json['identifier'] as String,
+      idToken: json['idToken'] as String,
       socialType: json['socialType'] as String,
     );
 
 Map<String, dynamic> _$UsersLoginReqToJson(UsersLoginReq instance) =>
     <String, dynamic>{
-      'identifier': instance.identifier,
+      'idToken': instance.idToken,
       'socialType': instance.socialType,
     };

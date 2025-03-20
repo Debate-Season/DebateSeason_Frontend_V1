@@ -10,7 +10,7 @@ part 'users_login_data_source.g.dart';
 abstract class UsersLoginDataSource {
   factory UsersLoginDataSource(Dio dio) = _UsersLoginDataSource;
 
-  @POST("/api/v1/users/login")
+  @POST("/api/v2/users/login")
   @Extra({'access_token': false})
   Future<BaseRes<UsersLoginRes>> postUsersLogin({
     @Body() required UsersLoginReq requestBody,

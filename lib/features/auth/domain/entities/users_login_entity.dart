@@ -5,7 +5,7 @@ part 'users_login_entity.freezed.dart';
 @freezed
 class UsersLoginEntity with _$UsersLoginEntity {
   factory UsersLoginEntity({
-    @Default('') String identifier,
+    @Default('') String idToken,
     @Default('') String socialType,
     @Default(false) bool profileStatus,
   }) = _UsersLoginEntity;
