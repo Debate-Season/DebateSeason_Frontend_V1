@@ -4,6 +4,9 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/request/terms_agree_req.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/terms_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
@@ -21,6 +24,17 @@ class TermsPage extends GetView<TermsViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    log.d("🟢 [View] TermsViewModel 인스턴스 확인: ${controller.hashCode}");
+    final testEntities = [
+      TermsAgreeEntity(termsId: 1, agreed: true),
+      TermsAgreeEntity(termsId: 2, agreed: false),
+    ];
+
+    // ✅ Entity → Request Model 변환
+    final termsAgreeReq = TermsAgreeReq.fromEntityList(testEntities);
+
+    // ✅ JSON 변환 결과 확인
+    log.d("🟢 [테스트] TermsAgreeReq JSON 변환 결과: ${termsAgreeReq.toJson()}");
     return DeScaffold(
       appBar: _appBar(),
       body: _body(),
@@ -54,13 +68,15 @@ class TermsPage extends GetView<TermsViewModel> {
           ),
           DeGaps.v12,
           _agreeTerms(),
+          _agreeButton(),
         ],
       ),
     );
   }
 
   Widget _agreeTerms() {
-    return Obx(() {
+    return Obx(
+      () {
         final agreeItem = controller.termsData;
 
         return agreeItem.when(
@@ -68,12 +84,13 @@ class TermsPage extends GetView<TermsViewModel> {
           success: (agreeItem) {
             return Expanded(
               child: ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: agreeItem.length,
-                  itemBuilder: (context, index) {
-                    final item = agreeItem[index];
-                    return _widgetPolicyTerms(item.notionUrl, item.termsType);
-                  },
+                shrinkWrap: true,
+                itemCount: agreeItem.length,
+                itemBuilder: (context, index) {
+                  final item = agreeItem[index];
+                  //return _widgetPolicyTerms(item.notionUrl, item.termsType, item.termsId);
+                  return _widgetPolicyTerms(item);
+                },
                 separatorBuilder: (context, index) => DeGaps.v12,
               ),
             );
@@ -92,50 +109,33 @@ class TermsPage extends GetView<TermsViewModel> {
     );
   }
 
-  Widget _widgetPolicyTerms(String url, String type) {
-    //type이 SERVICE이면 서비스 이용약관, type이 PRIVACY이면 개인정보 처리방침
+//    //type이 SERVICE이면 서비스 이용약관, type이 PRIVACY이면 개인정보 처리방침
+  Widget _widgetPolicyTerms(TermsEntity terms) {
     String title = '';
-    if(type == 'SERVICE') {title = '서비스 이용 약관';}
-    else if(type == 'PRIVACY') {title = '개인정보 수집/이용 동의';}
+    if (terms.termsType == 'SERVICE') {
+      title = '서비스 이용 약관';
+    } else if (terms.termsType == 'PRIVACY') {
+      title = '개인정보 수집/이용 동의';
+    }
 
     return DeGestureDetector(
       onTap: () {
         Get.to(() => WebViewPage(
-              url: url,
+              url: terms.notionUrl,
               title: title,
             ));
       },
-      child: _webView(title),
+      child: _webView(terms, title),
     );
   }
-  //
-  // Widget _webView(String title){
-  //   return Obx((){
-  //     final agreeItem = controller.termsData;
-  //     return CheckboxListTile(
-  //       title: Text.rich(
-  //                 TextSpan(
-  //                   children: [
-  //                     TextSpan(
-  //                       text: '(필수)',
-  //                       style: DeFonts.body16M.copyWith(color: DeColors.brandColor),
-  //                     ),
-  //                     TextSpan(
-  //                       text: ' $title',
-  //                       style: DeFonts.body16M.copyWith(color: DeColors.grey10),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //       value: agreeItem.isChecked,
-  //     )
-  //   })
-  // }
 
-  Widget _webView(String title) {
-    return Row(
-      children: [
-        Text.rich(
+  Widget _webView(TermsEntity terms, String title) {
+    return Obx(() {
+      final isChecked = controller.agreeData
+          .any((e) => e.termsId == terms.termsId && e.agreed);
+
+      return CheckboxListTile(
+        title: Text.rich(
           TextSpan(
             children: [
               TextSpan(
@@ -149,15 +149,57 @@ class TermsPage extends GetView<TermsViewModel> {
             ],
           ),
         ),
-        DeGaps.h2,
-        SvgPicture.asset(
-          DeIcons.icArrowRightGrey50,
-          width: 16.0,
-          height: 16.0,
+        value: isChecked,
+        onChanged: (value) {
+          controller.checkAgree(terms.termsId, value ?? false);
+        },
+        checkboxShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
         ),
-      ],
+      );
+    });
+  }
+
+  Widget _agreeButton() {
+    log.d("🟢 [View] postTermsAgree 함수: ${controller.postTermsAgree}");
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: DeButtonLarge(
+        '동의하고 넘어가기',
+        onPressed: () async {
+          log.d('눌렸니?');
+          await controller.postTermsAgree();
+        },
+      ),
     );
   }
+
+// Widget _webView(String title) {
+//   return Row(
+//     children: [
+//       Text.rich(
+//         TextSpan(
+//           children: [
+//             TextSpan(
+//               text: '(필수)',
+//               style: DeFonts.body16M.copyWith(color: DeColors.brandColor),
+//             ),
+//             TextSpan(
+//               text: ' $title',
+//               style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+//             ),
+//           ],
+//         ),
+//       ),
+//       DeGaps.h2,
+//       SvgPicture.asset(
+//         DeIcons.icArrowRightGrey50,
+//         width: 16.0,
+//         height: 16.0,
+//       ),
+//     ],
+//   );
+// }
 /*
 Widget _body() {
   bool isCheckedTermsOfUse = false;
