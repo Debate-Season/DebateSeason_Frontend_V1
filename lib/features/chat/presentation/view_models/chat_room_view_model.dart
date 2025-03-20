@@ -4,9 +4,9 @@ import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_message_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
-import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
