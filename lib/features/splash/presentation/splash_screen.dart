@@ -21,7 +21,7 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: splashDuration), () {
-      autoLogin();
+      _autoLogin();
     });
   }
 
@@ -39,7 +39,7 @@ class SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<void> autoLogin() async {
+  Future<void> _autoLogin() async {
     final storage = SecureStorageService();
     final pref = SharedPreferencesService();
 

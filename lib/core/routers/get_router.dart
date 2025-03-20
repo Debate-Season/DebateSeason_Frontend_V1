@@ -16,7 +16,7 @@ import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_page.dart';
-import 'package:debateseason_frontend_v1/features/splash/splash_screen.dart';
+import 'package:debateseason_frontend_v1/features/splash/presentation/splash_screen.dart';
 import 'package:get/get.dart';
 
 class GetRouter {
