@@ -30,7 +30,7 @@ class _UsersLoginDataSource implements UsersLoginDataSource {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/users/login',
+            '/api/v2/users/login',
             queryParameters: queryParameters,
             data: _data,
           )

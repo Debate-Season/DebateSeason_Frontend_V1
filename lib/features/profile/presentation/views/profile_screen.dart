@@ -32,7 +32,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     return DeAppBar(
       title: DeText(
         '프로필',
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: true,
     );
@@ -100,7 +100,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v8,
         DeText(
           profile.nickname,
-          style: DeFonts.headerLarge,
+          style: DeFonts.header28Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -129,7 +129,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '내 소속 커뮤니티',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v8,
         Row(
@@ -159,7 +159,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '계정',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -227,7 +227,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '고객센터',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -267,7 +267,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '약관 및 개인정보 처리',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -282,7 +282,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '서비스 이용 약관',
-                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h4,
               SvgPicture.asset(DeIcons.icArrowRightGrey50),
@@ -302,7 +302,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '아동 안전 표준 정책',
-                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h4,
               SvgPicture.asset(DeIcons.icArrowRightGrey50),
@@ -322,7 +322,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             children: [
               DeText(
                 '개인정보 수집/이용 약관',
-                style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h4,
               SvgPicture.asset(DeIcons.icArrowRightGrey50),

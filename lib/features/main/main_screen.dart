@@ -48,10 +48,10 @@ class MainScreen extends GetView<MainViewModel> {
         child: BottomNavigationBar(
           currentIndex: controller.selectedIndex,
           onTap: controller.changeTabIndex,
-          selectedItemColor: DeColors.brandColor,
+          selectedItemColor: DeColors.brand,
           unselectedItemColor: DeColors.grey30,
           selectedLabelStyle: DeFonts.caption12M2.copyWith(
-            color: DeColors.brandColor,
+            color: DeColors.brand,
           ),
           unselectedLabelStyle: DeFonts.caption12M2.copyWith(
             color: DeColors.grey30,
@@ -73,7 +73,7 @@ class MainScreen extends GetView<MainViewModel> {
               activeIcon: _buildNavBarIcon(
                 'assets/icons/ic_home_brand.svg',
                 '홈',
-                DeColors.brandColor,
+                DeColors.brand,
               ),
               label: '',
             ),
@@ -86,7 +86,7 @@ class MainScreen extends GetView<MainViewModel> {
               activeIcon: _buildNavBarIcon(
                 'assets/icons/ic_issuemap_brand.svg',
                 '이슈맵',
-                DeColors.brandColor,
+                DeColors.brand,
               ),
               label: '',
             ),
@@ -99,7 +99,7 @@ class MainScreen extends GetView<MainViewModel> {
               activeIcon: _buildNavBarIcon(
                 'assets/icons/ic_profile_brand.svg',
                 '프로필',
-                DeColors.brandColor,
+                DeColors.brand,
               ),
               label: '',
             ),

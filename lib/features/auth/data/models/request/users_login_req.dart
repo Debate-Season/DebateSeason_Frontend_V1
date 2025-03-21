@@ -5,11 +5,11 @@ part 'users_login_req.g.dart';
 
 @JsonSerializable()
 class UsersLoginReq {
-  String identifier;
+  String idToken;
   String socialType;
 
   UsersLoginReq({
-    required this.identifier,
+    required this.idToken,
     required this.socialType,
   });
 
@@ -19,7 +19,7 @@ class UsersLoginReq {
 
   factory UsersLoginReq.fromEntity(UsersLoginEntity entity) {
     return UsersLoginReq(
-      identifier: entity.identifier,
+      idToken: entity.idToken,
       socialType: entity.socialType,
     );
   }
