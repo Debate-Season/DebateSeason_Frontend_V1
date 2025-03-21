@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/profile/data/models/request/terms_agree_req.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
@@ -35,22 +35,18 @@ class TermsViewModel extends GetxController {
 
   Future<void> postTermsAgree() async {
     try {
-      // final requestBody =
-      //     TermsAgreeReq.fromEntityList(_agreeData.toList()).toJson();
-      //log.d('📌 [postTermsAgree] 서버로 보낼 JSON 데이터: $requestBody');
-      //log.d("서버로 약관 동의 정보 전송: ${_agreeData.map((e) => '${e.termsId}:${e.agreed}').toList()}");
       final response =
           await _termsRepository.postTermsAgree(entities: _agreeData.toList());
 
       response.when(
         loading: () {
-          Get.snackbar('약관 로딩중', '약관 동의 로딩로딩');
+          Get.snackbar('약관 로딩중', '잠시 후 다시 시도해주세요.');
         },
         success: (_) {
-          Get.snackbar('약관 동의 성공', '약관 동의 성공!!');
+          Get.toNamed(GetRouterName.profileInput);
         },
-        failure: (message) {
-          Get.snackbar('약관 동의 실패', '약관 동의 실패 $message');
+        failure: (_) {
+          Get.snackbar('약관 동의 실패', '잠시 후 다시 시도해주세요.');
         },
       );
     } catch (e) {
