@@ -34,21 +34,20 @@ class TermsViewModel extends GetxController {
   }
 
   Future<void> postTermsAgree() async {
-    log.d('postTErmsAgree 호출');
-
     try {
-      final requestBody = TermsAgreeReq.fromEntityList(_agreeData.toList()).toJson();
-      log.d('📌 [postTermsAgree] 서버로 보낼 JSON 데이터: $requestBody');
-      log.d("서버로 약관 동의 정보 전송: ${_agreeData.map((e) => '${e.termsId}:${e.agreed}').toList()}");
+      // final requestBody =
+      //     TermsAgreeReq.fromEntityList(_agreeData.toList()).toJson();
+      //log.d('📌 [postTermsAgree] 서버로 보낼 JSON 데이터: $requestBody');
+      //log.d("서버로 약관 동의 정보 전송: ${_agreeData.map((e) => '${e.termsId}:${e.agreed}').toList()}");
       final response =
           await _termsRepository.postTermsAgree(entities: _agreeData.toList());
 
       response.when(
-        loading: () { Get.snackbar('약관 로딩중', '약관 동의 로딩로딩');},
+        loading: () {
+          Get.snackbar('약관 로딩중', '약관 동의 로딩로딩');
+        },
         success: (_) {
           Get.snackbar('약관 동의 성공', '약관 동의 성공!!');
-          // _agreeData.clear();
-          // getTerms();
         },
         failure: (message) {
           Get.snackbar('약관 동의 실패', '약관 동의 실패 $message');
@@ -57,15 +56,13 @@ class TermsViewModel extends GetxController {
     } catch (e) {
       log.d(e);
     }
-    //await _termsRepository.postTermsAgree(entities: _agreeData.toList());
   }
 
   void checkAgree(int termsId, bool isChecked) {
     final index =
-    _agreeData.indexWhere((element) => element.termsId == termsId);
+        _agreeData.indexWhere((element) => element.termsId == termsId);
     if (index != -1) {
       _agreeData[index] = _agreeData[index].copyWith(agreed: isChecked);
-
     } else {
       _agreeData.add(TermsAgreeEntity(termsId: termsId, agreed: isChecked));
     }

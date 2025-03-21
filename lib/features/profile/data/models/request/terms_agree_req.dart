@@ -19,7 +19,9 @@ class TermsAgreeReq {
 
   factory TermsAgreeReq.fromEntityList(List<TermsAgreeEntity> entities) {
     return TermsAgreeReq(
-      agreements: entities.map((e) => AgreementsReq(termsId: e.termsId, agreed: e.agreed)).toList(),
+      agreements: entities
+          .map((e) => AgreementsReq(termsId: e.termsId, agreed: e.agreed))
+          .toList(),
     );
   }
 }

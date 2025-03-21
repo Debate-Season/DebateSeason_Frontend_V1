@@ -3,15 +3,14 @@ import 'package:debateseason_frontend_v1/features/profile/data/data_sources/term
 import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/terms_repository_impl.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/terms_view_model.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
 class TermsBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<TermsDataSource>(() => TermsDataSource(DioClient().dio));
-    Get.lazyPut<TermsRepository>(() => TermsRepositoryImpl(Get.find<TermsDataSource>()));
+    Get.lazyPut<TermsRepository>(
+        () => TermsRepositoryImpl(Get.find<TermsDataSource>()));
     Get.lazyPut(() => TermsViewModel());
-    log.d('terms binding 실행됨');
   }
 }

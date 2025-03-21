@@ -4,7 +4,6 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 
 class TermsRepositoryImpl implements TermsRepository {
   final TermsDataSource dataSource;
@@ -31,9 +30,8 @@ class TermsRepositoryImpl implements TermsRepository {
   Future<UiState<void>> postTermsAgree({
     required List<TermsAgreeEntity> entities,
   }) async {
-    log.d('postTermsAgree Repository 실행됨');
     final reqBody = TermsAgreeReq.fromEntityList(entities).toJson();
-    log.d("📌 [postTermsAgree] 서버로 보낼 최종 JSON 데이터: $reqBody");
+    //log.d("📌 [postTermsAgree] 서버로 보낼 최종 JSON 데이터: $reqBody");
 
     final response = await dataSource.postTermsAgree(
       body: reqBody,
