@@ -32,7 +32,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     return DeAppBar(
       title: DeText(
         '프로필',
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: true,
     );
@@ -100,7 +100,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v8,
         DeText(
           profile.nickname,
-          style: DeFonts.headerLarge,
+          style: DeFonts.header28Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -129,7 +129,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '내 소속 커뮤니티',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v8,
         Row(
@@ -159,7 +159,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '계정',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(
@@ -227,7 +227,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       children: [
         DeText(
           '고객센터',
-          style: DeFonts.title,
+          style: DeFonts.header18Sb,
         ),
         DeGaps.v16,
         DeGestureDetector(

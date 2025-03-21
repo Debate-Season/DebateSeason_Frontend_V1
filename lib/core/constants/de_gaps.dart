@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DeGaps {
+  static const v2 = SizedBox(height: 2);
   static const v4 = SizedBox(height: 4);
   static const v6 = SizedBox(height: 6);
   static const v8 = SizedBox(height: 8);

@@ -5,7 +5,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/opinion_type.dart';
+import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
@@ -90,7 +90,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         children: [
           DeText(
             DebateConstants.debateTopic,
-            style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
+            style: DeFonts.caption12M.copyWith(color: DeColors.brand),
           ),
           Obx(() {
             final room = controller.roomData;
@@ -146,15 +146,15 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
       int disagree = room.disagree;
 
       var widgetColor = data == OpinionType.agree.valueKr
-          ? DeColors.redDark
-          : DeColors.blueDark;
+          ? DeColors.redDarkOnGrey
+          : DeColors.blueDarkOnGrey;
       if (opinion == OpinionType.agree.value) {
         widgetColor = data == OpinionType.agree.valueKr
             ? DeColors.red
-            : DeColors.blueDark;
+            : DeColors.blueDarkOnGrey;
       } else if (opinion == OpinionType.disagree.value) {
         widgetColor = data == OpinionType.agree.valueKr
-            ? DeColors.redDark
+            ? DeColors.redDarkOnGrey
             : DeColors.blue;
       }
 
@@ -228,7 +228,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
               ),
               DeText(
                 '$ratio%',
-                style: DeFonts.header,
+                style: DeFonts.header20B,
               ),
               DeText(
                 detail,

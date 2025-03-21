@@ -11,16 +11,25 @@ class DeFonts {
     letterSpacing: 48 * (-2.5 / 100),
   );
 
-  static const TextStyle headerLarge = TextStyle(
+  static const TextStyle header28Sb = TextStyle(
     color: DeColors.grey10,
     fontSize: 28,
     fontFamily: 'Pretendard',
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     height: 1.5,
     letterSpacing: 28 * (-2.5 / 100),
   );
 
-  static const TextStyle header = TextStyle(
+  static const TextStyle header24B = TextStyle(
+    color: DeColors.grey10,
+    fontSize: 24,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w700,
+    height: 1.5,
+    letterSpacing: 24 * (-2.5 / 100),
+  );
+
+  static const TextStyle header20B = TextStyle(
     color: DeColors.grey10,
     fontSize: 20,
     fontFamily: 'Pretendard',
@@ -29,7 +38,7 @@ class DeFonts {
     letterSpacing: 20 * (-2.5 / 100),
   );
 
-  static const TextStyle title = TextStyle(
+  static const TextStyle header18Sb = TextStyle(
     color: DeColors.grey10,
     fontSize: 18,
     fontFamily: 'Pretendard',

@@ -23,7 +23,6 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
     await Future.wait([
       storage.setAccessToken(accessToken: response.data.accessToken),
       storage.setRefreshToken(refreshToken: response.data.refreshToken),
-      storage.setIdentifier(identifier: entity.identifier),
       pref.setSocialType(socialType: entity.socialType),
       pref.setProfileStatus(profileStatus: response.data.profileStatus),
     ]);

@@ -33,7 +33,7 @@ class ChangePopup extends StatelessWidget {
         child: Column(
           children: [
             DeText(popupTitle,
-                style: DeFonts.title.copyWith(color: DeColors.grey10)),
+                style: DeFonts.header18Sb.copyWith(color: DeColors.grey10)),
             DeGaps.v8,
             DeText(description,
                 style: DeFonts.body14M.copyWith(color: DeColors.grey30)),
