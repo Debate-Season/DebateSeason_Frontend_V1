@@ -66,7 +66,7 @@ class _TermsDataSource implements TermsDataSource {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/vi/terms/agree',
+            '/api/v1/terms/agree',
             queryParameters: queryParameters,
             data: _data,
           )
