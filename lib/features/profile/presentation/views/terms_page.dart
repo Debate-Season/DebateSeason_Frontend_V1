@@ -2,8 +2,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/terms_agree_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
@@ -12,7 +10,6 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/views/web
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class TermsPage extends GetView<TermsViewModel> {
@@ -45,7 +42,7 @@ class TermsPage extends GetView<TermsViewModel> {
     return DeAppBar(
       title: DeText(
         '이용 동의',
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       ),
       isBack: false,
     );
@@ -59,12 +56,12 @@ class TermsPage extends GetView<TermsViewModel> {
         children: [
           DeText(
             '서비스 이용을 위해\n약관 동의가 필요합니다.',
-            style: DeFonts.header,
+            style: DeFonts.header24B,
           ),
           DeGaps.v28,
           DeText(
             '이용 약관',
-            style: DeFonts.header,
+            style: DeFonts.header18Sb.copyWith(color:DeColors.grey30),
           ),
           DeGaps.v12,
           _agreeTerms(),
@@ -140,7 +137,7 @@ class TermsPage extends GetView<TermsViewModel> {
             children: [
               TextSpan(
                 text: '(필수)',
-                style: DeFonts.body16M.copyWith(color: DeColors.brandColor),
+                style: DeFonts.body16M.copyWith(color: DeColors.brand),
               ),
               TextSpan(
                 text: ' $title',

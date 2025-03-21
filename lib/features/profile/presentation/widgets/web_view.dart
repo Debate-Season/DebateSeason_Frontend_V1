@@ -37,7 +37,7 @@ class _WebWidgetState extends State<WebWidget> {
       appBar: DeAppBar(
         title: DeText(
           widget.title,
-          style: DeFonts.title,
+          style: DeFonts.header20B,
         ),
       ),
       body: WebViewWidget(controller: controller),
