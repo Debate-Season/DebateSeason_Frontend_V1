@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/terms_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -97,12 +98,7 @@ class TermsPage extends GetView<TermsViewModel> {
   }
 
   Widget _termsTitle(String url, String type) {
-    String title = '';
-    if (type == 'SERVICE') {
-      title = '서비스 이용 약관';
-    } else if (type == 'PRIVACY') {
-      title = '개인정보 수집/이용 동의';
-    }
+    String title = ProfileConstants.termsTitleMap[type] ?? '';
 
     return DeGestureDetector(
       onTap: () {
