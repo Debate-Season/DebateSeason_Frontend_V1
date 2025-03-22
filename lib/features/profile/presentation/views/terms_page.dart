@@ -130,6 +130,7 @@ class TermsPage extends GetView<TermsViewModel> {
           ),
         ),
         value: isChecked,
+        contentPadding: EdgeInsets.zero,
         onChanged: (value) {
           controller.checkAgree(terms.termsId, value ?? false);
         },
