@@ -2,11 +2,13 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/terms_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class TermsPage extends GetView<TermsViewModel> {
@@ -67,7 +69,7 @@ class TermsPage extends GetView<TermsViewModel> {
                 itemCount: agreeItem.length,
                 itemBuilder: (context, index) {
                   final item = agreeItem[index];
-                  return _widgetPolicyTerms(item);
+                  return _termsCheckItem(item);
                 },
                 separatorBuilder: (context, index) => DeGaps.v12,
               ),
@@ -87,7 +89,7 @@ class TermsPage extends GetView<TermsViewModel> {
     );
   }
 
-  Widget _widgetPolicyTerms(TermsEntity terms) {
+  Widget _termsCheckItem(TermsEntity terms) {
     String title = '';
     //type이 SERVICE이면 서비스 이용약관, type이 PRIVACY이면 개인정보 처리방침
     if (terms.termsType == 'SERVICE') {
