@@ -56,23 +56,20 @@ class TermsPage extends GetView<TermsViewModel> {
   }
 
   Widget _agreeTerms() {
-    return Obx(
-      () {
+    return Expanded(
+      child: Obx(() {
         final agreeItem = controller.termsData;
 
         return agreeItem.when(
           loading: () => const Center(child: CircularProgressIndicator()),
           success: (agreeItem) {
-            return Expanded(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: agreeItem.length,
-                itemBuilder: (context, index) {
-                  final item = agreeItem[index];
-                  return _termsCheckItem(item);
-                },
-                separatorBuilder: (context, index) => DeGaps.v12,
-              ),
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: agreeItem.length,
+              itemBuilder: (context, index) {
+                final item = agreeItem[index];
+                return _termsCheckItem(item);
+              },
             );
           },
           failure: (error) => SizedBox(
@@ -85,71 +82,101 @@ class TermsPage extends GetView<TermsViewModel> {
             ),
           ),
         );
-      },
+      }),
     );
   }
 
   Widget _termsCheckItem(TermsEntity terms) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _termsTitle(terms.notionUrl, terms.termsType),
+        _termsCheckBox(terms),
+      ],
+    );
+  }
+
+  Widget _termsTitle(String url, String type) {
     String title = '';
-    //type이 SERVICE이면 서비스 이용약관, type이 PRIVACY이면 개인정보 처리방침
-    if (terms.termsType == 'SERVICE') {
+    if (type == 'SERVICE') {
       title = '서비스 이용 약관';
-    } else if (terms.termsType == 'PRIVACY') {
+    } else if (type == 'PRIVACY') {
       title = '개인정보 수집/이용 동의';
     }
 
     return DeGestureDetector(
       onTap: () {
         Get.to(() => WebViewPage(
-              url: terms.notionUrl,
+              url: url,
               title: title,
             ));
       },
-      child: _webView(terms, title),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: '(필수)',
+                  style: DeFonts.body16M.copyWith(color: DeColors.brand),
+                ),
+                TextSpan(
+                  text: ' $title',
+                  style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+                ),
+              ],
+            ),
+          ),
+          DeGaps.h2,
+          SvgPicture.asset(
+            DeIcons.icArrowRightGrey50,
+            width: 16,
+            height: 16,
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _webView(TermsEntity terms, String title) {
+  Widget _termsCheckBox(TermsEntity terms) {
     return Obx(() {
       final isChecked = controller.agreeData
           .any((e) => e.termsId == terms.termsId && e.agreed);
 
-      return CheckboxListTile(
-        title: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: '(필수)',
-                style: DeFonts.body16M.copyWith(color: DeColors.brand),
-              ),
-              TextSpan(
-                text: ' $title',
-                style: DeFonts.body16M.copyWith(color: DeColors.grey10),
-              ),
-            ],
-          ),
-        ),
+      return Checkbox(
         value: isChecked,
-        contentPadding: EdgeInsets.zero,
         onChanged: (value) {
           controller.checkAgree(terms.termsId, value ?? false);
         },
-        checkboxShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-        ),
       );
     });
   }
 
   Widget _agreeButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: DeButtonLarge(
-        '동의하고 넘어가기',
-        onPressed: () async {
-          await controller.postTermsAgree();
+    return Obx(() {
+      return controller.termsData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        success: (agreeItem) {
+          final enabled = agreeItem.every((term) => controller.agreeData
+              .any((e) => e.termsId == term.termsId && e.agreed));
+
+          return DeButtonLarge(
+            '동의하고 넘어가기',
+            onPressed: enabled ? () => controller.postTermsAgree() : () => (),
+            enable: enabled,
+          );
         },
-      ),
-    );
+        failure: (error) => SizedBox(
+          height: 36,
+          child: Center(
+            child: DeText(
+              '데이터 로딩 실패',
+              style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
