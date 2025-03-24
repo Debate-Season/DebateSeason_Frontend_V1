@@ -44,7 +44,7 @@ class SplashViewModel extends GetxController {
     appVersionRes.when(
       loading: () {},
       success: (appVersionRes) {
-        if (appVersionRes.versionCode < versionCode) {
+        if (appVersionRes.versionCode > versionCode) {
           appVersion.value = appVersionRes;
         } else {
           determineNextRoute();
