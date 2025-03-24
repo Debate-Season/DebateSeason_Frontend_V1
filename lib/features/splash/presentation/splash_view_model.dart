@@ -56,6 +56,7 @@ class SplashViewModel extends GetxController {
   Future<void> determineNextRoute() async {
     final String accessToken = await storage.getAccessToken();
     final bool profileStatus = pref.getProfileStatus();
+    final bool termsStatus = pref.getTermsStatus();
 
     log.d(
       'AccessToken : $accessToken\n'
@@ -63,10 +64,14 @@ class SplashViewModel extends GetxController {
     );
 
     if (accessToken.isNotEmpty) {
-      if (profileStatus) {
-        nextRoute.value = GetRouterName.main;
+      if (termsStatus) {
+        if (profileStatus) {
+          nextRoute.value = GetRouterName.issuemap;
+        } else {
+          nextRoute.value = GetRouterName.profileInput;
+        }
       } else {
-        nextRoute.value = GetRouterName.profileInput;
+        nextRoute.value = GetRouterName.terms;
       }
     } else {
       nextRoute.value = GetRouterName.auth;

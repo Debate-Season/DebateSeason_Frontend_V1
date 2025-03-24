@@ -8,5 +8,6 @@ class UsersLoginEntity with _$UsersLoginEntity {
     @Default('') String idToken,
     @Default('') String socialType,
     @Default(false) bool profileStatus,
+    @Default(false) bool termsStatus,
   }) = _UsersLoginEntity;
 }
