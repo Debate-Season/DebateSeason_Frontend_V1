@@ -41,6 +41,7 @@ class SplashScreen extends GetView<SplashViewModel> {
 
   Future<void> _appUpdateDeDialog({required AppVersionEntity appVersion}) {
     return DeDialog.show(
+      barrierDismissible: false,
       dialogTitle: SplashConstants.UPDATE,
       dialogText: SplashConstants.UPDATE_DIALOG_CONTENT,
       cancelText: SplashConstants.UPDATE_AFTER,

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 class DeDialog {
   static Future<void> show({
+    bool barrierDismissible = true,
     required String dialogTitle,
     String dialogText = '',
     required String cancelText,
@@ -16,6 +17,7 @@ class DeDialog {
     required VoidCallback onTapDone,
   }) {
     return Get.dialog(
+      barrierDismissible: barrierDismissible,
       Dialog(
         backgroundColor: DeColors.grey80,
         shape: RoundedRectangleBorder(
