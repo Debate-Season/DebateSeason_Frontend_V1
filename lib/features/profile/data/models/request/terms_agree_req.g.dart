@@ -17,3 +17,15 @@ Map<String, dynamic> _$TermsAgreeReqToJson(TermsAgreeReq instance) =>
     <String, dynamic>{
       'agreements': instance.agreements,
     };
+
+AgreementsReq _$AgreementsReqFromJson(Map<String, dynamic> json) =>
+    AgreementsReq(
+      termsId: (json['termsId'] as num).toInt(),
+      agreed: json['agreed'] as bool,
+    );
+
+Map<String, dynamic> _$AgreementsReqToJson(AgreementsReq instance) =>
+    <String, dynamic>{
+      'termsId': instance.termsId,
+      'agreed': instance.agreed,
+    };

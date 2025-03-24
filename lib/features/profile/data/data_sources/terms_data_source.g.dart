@@ -54,14 +54,12 @@ class _TermsDataSource implements TermsDataSource {
   }
 
   @override
-  Future<NullableBaseRes> postTermsAgree({
-    required Map<String, dynamic> body,
-  }) async {
+  Future<NullableBaseRes> postTermsAgree({required TermsAgreeReq body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body);
+    _data.addAll(body.toJson());
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

@@ -30,7 +30,7 @@ class TermsRepositoryImpl implements TermsRepository {
   Future<UiState<void>> postTermsAgree({
     required List<TermsAgreeEntity> entities,
   }) async {
-    final reqBody = TermsAgreeReq.fromEntityList(entities).toJson();
+    final reqBody = TermsAgreeReq.fromEntityList(entities);
     //log.d("📌 [postTermsAgree] 서버로 보낼 최종 JSON 데이터: $reqBody");
 
     final response = await dataSource.postTermsAgree(

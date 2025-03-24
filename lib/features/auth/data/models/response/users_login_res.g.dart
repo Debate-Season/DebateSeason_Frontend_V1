@@ -12,6 +12,7 @@ UsersLoginRes _$UsersLoginResFromJson(Map<String, dynamic> json) =>
       refreshToken: json['refreshToken'] as String,
       socialType: json['socialType'] as String,
       profileStatus: json['profileStatus'] as bool,
+      termsStatus: json['termsStatus'] as bool,
     );
 
 Map<String, dynamic> _$UsersLoginResToJson(UsersLoginRes instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$UsersLoginResToJson(UsersLoginRes instance) =>
       'refreshToken': instance.refreshToken,
       'socialType': instance.socialType,
       'profileStatus': instance.profileStatus,
+      'termsStatus': instance.termsStatus,
     };
