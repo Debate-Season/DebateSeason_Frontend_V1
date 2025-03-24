@@ -13,4 +13,5 @@ class GetRouterName {
   static const String profile = '/profile';
   static const String profileInput = '/profile_input';
   static const String profileWithdraw = '/profile_withdraw';
+  static const String terms = '/terms';
 }

@@ -25,4 +25,8 @@ class ProfileConstants {
   static const profileWithdrawDialogCancelText = '탈퇴 취소';
   static const profileWithdrawDoneText = '탈퇴 신청하기';
   static const profileWithdrawSuccessMessage = '회원탈퇴 되었습니다.';
+  static const Map<String, String> termsTitleMap = {
+    'SERVICE': '서비스 이용 약관',
+    'PRIVACY': '개인정보 수집/이용 동의',
+  };
 }
