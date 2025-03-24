@@ -60,15 +60,12 @@ class SplashScreen extends GetView<SplashViewModel> {
       },
       onTapDone: () async {
         if (Platform.isAndroid) {
-          const url =
-              'https://play.google.com/store/apps/details?id=com.rosyocean.debateseason';
-          if (await canLaunchUrl(Uri.parse(url))) {
-            await launchUrl(Uri.parse(url));
+          if (await canLaunchUrl(Uri.parse(SplashConstants.PLAY_STORE_URL))) {
+            await launchUrl(Uri.parse(SplashConstants.PLAY_STORE_URL));
           }
         } else if (Platform.isIOS) {
-          const url = 'https://apps.apple.com/app/id6739631545';
-          if (await canLaunchUrl(Uri.parse(url))) {
-            await launchUrl(Uri.parse(url),
+          if (await canLaunchUrl(Uri.parse(SplashConstants.APP_STORE_URL))) {
+            await launchUrl(Uri.parse(SplashConstants.APP_STORE_URL),
                 mode: LaunchMode.externalApplication);
           }
         } else {
