@@ -14,7 +14,10 @@ class SplashViewModel extends GetxController {
   final pref = SharedPreferencesService();
   late AppVersionRepository _appVersionRepository;
   final nextRoute = ''.obs;
+  final _profileStatus = false.obs;
   final appVersion = Rx<AppVersionEntity?>(null);
+
+  bool get profileStatus => _profileStatus.value;
 
   @override
   void onInit() {
@@ -41,7 +44,7 @@ class SplashViewModel extends GetxController {
     appVersionRes.when(
       loading: () {},
       success: (appVersionRes) {
-        if (appVersionRes.versionCode > versionCode) {
+        if (appVersionRes.versionCode < versionCode) {
           appVersion.value = appVersionRes;
         } else {
           determineNextRoute();
@@ -72,6 +75,7 @@ class SplashViewModel extends GetxController {
           nextRoute.value = GetRouterName.profileInput;
         }
       } else {
+        _profileStatus.value = profileStatus;
         nextRoute.value = GetRouterName.terms;
       }
     } else {

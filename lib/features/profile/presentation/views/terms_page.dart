@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/terms_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
@@ -153,6 +154,8 @@ class TermsPage extends GetView<TermsViewModel> {
 
   Widget _agreeButton() {
     return Obx(() {
+      final profileStatus = controller.profileStatus;
+
       return controller.termsData.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         success: (agreeItem) {
@@ -161,7 +164,27 @@ class TermsPage extends GetView<TermsViewModel> {
 
           return DeButtonLarge(
             '동의하고 넘어가기',
-            onPressed: enabled ? () => controller.postTermsAgree() : () => (),
+            onPressed: enabled
+                ? () {
+                    controller.postTermsAgree().then((uiState) {
+                      uiState.when(
+                        loading: () {
+                          Get.snackbar('약관 로딩중', '잠시 후 다시 시도해주세요.');
+                        },
+                        success: (_) {
+                          if (profileStatus) {
+                            Get.offNamed(GetRouterName.issuemap);
+                          } else {
+                            Get.offNamed(GetRouterName.profileInput);
+                          }
+                        },
+                        failure: (_) {
+                          Get.snackbar('약관 동의 실패', '잠시 후 다시 시도해주세요.');
+                        },
+                      );
+                    });
+                  }
+                : () => (),
             enable: enabled,
           );
         },

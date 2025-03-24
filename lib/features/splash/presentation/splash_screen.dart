@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:debateseason_frontend_v1/common/constants/error_constants.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/splash/domain/app_version_entity.dart';
 import 'package:debateseason_frontend_v1/features/splash/presentation/splash_view_model.dart';
 import 'package:debateseason_frontend_v1/features/splash/splash_constants.dart';
@@ -23,7 +24,11 @@ class SplashScreen extends GetView<SplashViewModel> {
     });
     ever(controller.nextRoute, (routeName) {
       if (routeName.isNotEmpty) {
-        Get.offAllNamed(routeName);
+        if (routeName == GetRouterName.terms) {
+          Get.offAllNamed(routeName, arguments: controller.profileStatus);
+        } else {
+          Get.offAllNamed(routeName);
+        }
       }
     });
 
