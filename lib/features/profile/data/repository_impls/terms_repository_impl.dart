@@ -1,9 +1,11 @@
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/data_sources/terms_data_source.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/terms_agree_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 
 class TermsRepositoryImpl implements TermsRepository {
   final TermsDataSource dataSource;
@@ -30,21 +32,29 @@ class TermsRepositoryImpl implements TermsRepository {
   Future<UiState<void>> postTermsAgree({
     required List<TermsAgreeEntity> entities,
   }) async {
-    final reqBody = TermsAgreeReq.fromEntityList(entities);
-    //log.d("📌 [postTermsAgree] 서버로 보낼 최종 JSON 데이터: $reqBody");
+    try {
+      final reqBody = TermsAgreeReq.fromEntityList(entities);
+      //log.d("📌 [postTermsAgree] 서버로 보낼 최종 JSON 데이터: $reqBody");
 
-    final response = await dataSource.postTermsAgree(
-      body: reqBody,
-    );
+      final response = await dataSource.postTermsAgree(
+        body: reqBody,
+      );
 
-    switch (response.status) {
-      case 200:
-        return UiState.success(null);
-      default:
-        if (response.message.isEmpty) {
-          UiState.failure('서버통신에 문제가 발생했습니다.');
-        }
-        return UiState.failure(response.message);
+      switch (response.status) {
+        case 200:
+          final perf = SharedPreferencesService();
+          await perf.setTermsStatus(termsStatus: true);
+
+          return UiState.success(null);
+        default:
+          if (response.message.isEmpty) {
+            UiState.failure('서버통신에 문제가 발생했습니다.');
+          }
+          return UiState.failure(response.message);
+      }
+    } catch (e, stack) {
+      log.d('$e \n $stack');
+      return UiState.failure('서버통신에 문제가 발생했습니다.');
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/common/constants/error_constants.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
@@ -8,18 +8,21 @@ import 'package:get/get.dart';
 
 class TermsViewModel extends GetxController {
   late final TermsRepository _termsRepository;
-
   final _termsData = Rx<UiState<List<TermsEntity>>>(const UiState.loading());
-
   final _agreeData = RxList<TermsAgreeEntity>();
+  final _profileStatus = false.obs;
 
   List<TermsAgreeEntity> get agreeData => _agreeData;
 
   UiState<List<TermsEntity>> get termsData => _termsData.value;
 
+  bool get profileStatus => _profileStatus.value;
+
   @override
   void onInit() async {
     super.onInit();
+
+    _profileStatus.value = Get.arguments as bool;
     _termsRepository = Get.find<TermsRepository>();
     await getTerms();
   }
@@ -33,24 +36,14 @@ class TermsViewModel extends GetxController {
     }
   }
 
-  Future<void> postTermsAgree() async {
+  Future<UiState<void>> postTermsAgree() async {
     try {
-      final response =
-          await _termsRepository.postTermsAgree(entities: _agreeData.toList());
-
-      response.when(
-        loading: () {
-          Get.snackbar('약관 로딩중', '잠시 후 다시 시도해주세요.');
-        },
-        success: (_) {
-          Get.toNamed(GetRouterName.profileInput);
-        },
-        failure: (_) {
-          Get.snackbar('약관 동의 실패', '잠시 후 다시 시도해주세요.');
-        },
+      return await _termsRepository.postTermsAgree(
+        entities: _agreeData.toList(),
       );
-    } catch (e) {
-      log.d(e);
+    } catch (e, s) {
+      log.d('$e\n$s');
+      return UiState.failure(ErrorConstants.SERVER_ERROR);
     }
   }
 

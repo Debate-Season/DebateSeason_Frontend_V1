@@ -173,6 +173,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   result.when(
                     loading: () {},
                     success: (_) {
+                      controller.clearStorage();
                       if (Platform.isAndroid) {
                         controller.kakaoLogout().then((_) {
                           Get.offAllNamed(GetRouterName.auth);
