@@ -45,13 +45,15 @@ class SplashScreenState extends State<SplashScreen> {
 
     final String accessToken = await storage.getAccessToken();
     final bool profileStatus = pref.getProfileStatus();
+    final bool termsStatus = pref.getTermsStatus();
 
     log.d('AccessToken : $accessToken\n'
-        'ProfileStatus : $profileStatus');
+        'ProfileStatus : $profileStatus\n'
+        'TermsStatus : $termsStatus');
 
     if (accessToken.isNotEmpty) {
       if (profileStatus) {
-        Get.offAllNamed(GetRouterName.main);
+        Get.offAllNamed(GetRouterName.issuemap);
       } else {
         Get.offAllNamed(GetRouterName.profileInput);
       }

@@ -52,9 +52,13 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (profileStatus) {
-                      if (profileStatus) {
-                        Get.offNamed(GetRouterName.issuemap);
+                    success: (loginStatus) {
+                      if (loginStatus.$2) {//termsStatus
+                        if (loginStatus.$1) {//profileStatus
+                          Get.offNamed(GetRouterName.issuemap);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
                       } else {
                         Get.offNamed(GetRouterName.terms);
                       }
@@ -77,9 +81,13 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (profileStatus) {
-                      if (profileStatus) {
-                        Get.offNamed(GetRouterName.issuemap);
+                    success: (loginStatus) {
+                      if (loginStatus.$2) {// termsStatus
+                        if (loginStatus.$1) {// profileStatus
+                          Get.offNamed(GetRouterName.issuemap);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
                       } else {
                         Get.offNamed(GetRouterName.terms);
                       }

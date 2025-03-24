@@ -34,5 +34,10 @@ class SharedPreferencesService {
 
   String getCommunity() => _prefs.getString('community') ?? '';
 
+  Future<void> setTermsStatus({required bool termsStatus}) async =>
+      await _prefs.setBool('terms_status', termsStatus);
+
+  bool getTermsStatus() => _prefs.getBool('terms_status') ?? false;
+
   Future<void> clear() async => await _prefs.clear();
 }
