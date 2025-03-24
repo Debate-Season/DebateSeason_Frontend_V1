@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
@@ -102,6 +102,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                     result.when(
                       loading: () {},
                       success: (_) {
+                        controller.clearStorage();
                         if (Platform.isAndroid) {
                           controller.kakaoLogout().then((_) {
                             Get.offAllNamed(GetRouterName.auth);
