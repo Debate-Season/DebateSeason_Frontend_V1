@@ -39,6 +39,7 @@ class TermsPage extends GetView<TermsViewModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          DeGaps.v40,
           DeText(
             '서비스 이용을 위해\n약관 동의가 필요합니다.',
             style: DeFonts.header24B,
@@ -51,6 +52,7 @@ class TermsPage extends GetView<TermsViewModel> {
           DeGaps.v12,
           _agreeTerms(),
           _agreeButton(),
+          DeGaps.v20,
         ],
       ),
     );
