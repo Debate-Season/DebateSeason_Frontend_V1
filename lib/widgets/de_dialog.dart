@@ -1,6 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_small.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ class DeDialog {
     String dialogText = '',
     required String cancelText,
     required String doneText,
+    VoidCallback? onTapCancel,
     required VoidCallback onTapDone,
   }) {
     return Get.dialog(
@@ -42,6 +43,9 @@ class DeDialog {
                     child: DeButtonSmall(
                       cancelText,
                       onPressed: () {
+                        if (onTapCancel != null) {
+                          onTapCancel();
+                        }
                         Get.back();
                       },
                       textColor: DeColors.red,

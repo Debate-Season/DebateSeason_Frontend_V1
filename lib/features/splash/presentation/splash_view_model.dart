@@ -1,13 +1,75 @@
-import 'package:debateseason_frontend_v1/features/splash/domain/app_versions_repository.dart';
+import 'package:debateseason_frontend_v1/common/constants/error_constants.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/features/splash/domain/app_version_entity.dart';
+import 'package:debateseason_frontend_v1/features/splash/domain/app_version_repository.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashViewModel extends GetxController {
-  late AppVersionsRepository _appVersionsRepository;
+  final storage = SecureStorageService();
+  final pref = SharedPreferencesService();
+  late AppVersionRepository _appVersionRepository;
+  final nextRoute = ''.obs;
+  final appVersion = Rx<AppVersionEntity?>(null);
 
   @override
   void onInit() {
     super.onInit();
 
-    _appVersionsRepository = Get.find<AppVersionsRepository>();
+    _appVersionRepository = Get.find<AppVersionRepository>();
+    _startSplash();
+  }
+
+  void _startSplash() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    await getAppVersions();
+  }
+
+  Future<void> getAppVersions() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    final versionCode = int.parse(packageInfo.buildNumber);
+
+    final appVersionRes = await _appVersionRepository.getAppVersion(
+      versionCode: versionCode,
+    );
+
+    appVersionRes.when(
+      loading: () {},
+      success: (appVersionRes) {
+        if (appVersionRes.versionCode > versionCode) {
+          appVersion.value = appVersionRes;
+        } else {
+          determineNextRoute();
+        }
+      },
+      failure: (msg) {
+        deSnackBar(ErrorConstants.SERVER_ERROR);
+      },
+    );
+  }
+
+  Future<void> determineNextRoute() async {
+    final String accessToken = await storage.getAccessToken();
+    final bool profileStatus = pref.getProfileStatus();
+
+    log.d(
+      'AccessToken : $accessToken\n'
+      'ProfileStatus : $profileStatus',
+    );
+
+    if (accessToken.isNotEmpty) {
+      if (profileStatus) {
+        nextRoute.value = GetRouterName.main;
+      } else {
+        nextRoute.value = GetRouterName.profileInput;
+      }
+    } else {
+      nextRoute.value = GetRouterName.auth;
+    }
   }
 }

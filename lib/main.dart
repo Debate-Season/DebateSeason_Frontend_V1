@@ -1,6 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dart';
+import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding: AuthBinding(),
+      initialBinding: SplashBinding(),
       initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
       builder: (context, widget) {
