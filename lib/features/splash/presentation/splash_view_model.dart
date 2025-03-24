@@ -60,7 +60,8 @@ class SplashViewModel extends GetxController {
 
     log.d(
       'AccessToken : $accessToken\n'
-      'ProfileStatus : $profileStatus',
+      'ProfileStatus : $profileStatus\n'
+      'TermsStatus : $termsStatus',
     );
 
     if (accessToken.isNotEmpty) {
