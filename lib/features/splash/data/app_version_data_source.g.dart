@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_versions_data_source.dart';
+part of 'app_version_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'app_versions_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _AppVersionsDataSource implements AppVersionsDataSource {
-  _AppVersionsDataSource(this._dio, {this.baseUrl, this.errorLogger});
+class _AppVersionDataSource implements AppVersionDataSource {
+  _AppVersionDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -18,29 +18,29 @@ class _AppVersionsDataSource implements AppVersionsDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BaseRes<AppVersionsResponse>> getAppVersions({
+  Future<BaseRes<AppVersionRes>> getAppVersion({
     required int versionCode,
   }) async {
-    final _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{'access_token': false};
     final queryParameters = <String, dynamic>{r'versionCode': versionCode};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BaseRes<AppVersionsResponse>>(
+    final _options = _setStreamType<BaseRes<AppVersionRes>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/app/versions/check',
+            '/api/v1/app/version/check',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BaseRes<AppVersionsResponse> _value;
+    late BaseRes<AppVersionRes> _value;
     try {
-      _value = BaseRes<AppVersionsResponse>.fromJson(
+      _value = BaseRes<AppVersionRes>.fromJson(
         _result.data!,
-        (json) => AppVersionsResponse.fromJson(json as Map<String, dynamic>),
+        (json) => AppVersionRes.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

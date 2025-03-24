@@ -1,18 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_versions_response.dart';
+part of 'app_version_res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppVersionsResponse _$AppVersionsResponseFromJson(Map<String, dynamic> json) =>
-    AppVersionsResponse(
+AppVersionRes _$AppVersionResFromJson(Map<String, dynamic> json) =>
+    AppVersionRes(
       forceUpdate: json['forceUpdate'] as bool,
+      versionCode: (json['versionCode'] as num).toInt(),
     );
 
-Map<String, dynamic> _$AppVersionsResponseToJson(
-        AppVersionsResponse instance) =>
+Map<String, dynamic> _$AppVersionResToJson(AppVersionRes instance) =>
     <String, dynamic>{
       'forceUpdate': instance.forceUpdate,
+      'versionCode': instance.versionCode,
     };
