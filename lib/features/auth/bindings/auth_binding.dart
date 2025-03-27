@@ -20,12 +20,6 @@ class AuthBinding extends Bindings {
     Get.lazyPut<UsersLoginRepository>(
       () => UsersLoginRepositoryImpl(Get.find<UsersLoginDataSource>()),
     );
-    Get.lazyPut<AuthReissueDataSource>(
-      () => AuthReissueDataSource(DioClient().dio),
-    );
-    Get.lazyPut<AuthReissueRepository>(
-      () => AuthReissueRepositoryImpl(Get.find<AuthReissueDataSource>()),
-    );
     Get.lazyPut<ProfileDataSource>(
       () => ProfileDataSource(DioClient().dio),
     );

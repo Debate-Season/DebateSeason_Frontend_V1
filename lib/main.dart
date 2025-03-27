@@ -61,7 +61,5 @@ void _initUiSettings() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(MyApp());
-  });
+  ]);
 }
