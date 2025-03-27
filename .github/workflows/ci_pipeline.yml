@@ -64,17 +64,24 @@ jobs:
 #          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
 #          restore-keys: |
 #            ${{ runner.os }}-flutter-
-      
+
+      # 🔥 GoogleService-Info.plist 파일 (iOS용)
+      - name: Restore GoogleService-Info.plist
+        env:
+          DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
+
+
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.2'
-        
+
       # 🔥 .env.dev 파일 생성
       - name: Create .env.dev file
         run: echo "${{ secrets.ENV_DEV }}" > .env.dev
-
+      
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
