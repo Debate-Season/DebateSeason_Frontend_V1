@@ -47,14 +47,15 @@ jobs:
       - name: Build Android Debug APK
         run: flutter build apk --debug
 
-#  # iOS 빌드(macOS 환경)
-#  ios_build:
-#    runs-on: macos-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
+  # iOS 빌드(macOS 환경)
+  ios_build:
+    runs-on: macos-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
 #      # Flutter SDK 캐시 설정
 #      - name: Cache Flutter SDK
 #        uses: actions/cache@v2
@@ -63,15 +64,29 @@ jobs:
 #          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
 #          restore-keys: |
 #            ${{ runner.os }}-flutter-
-#
-#      # Flutter 의존성 설치
-#      - name: Install Flutter dependencies
-#        run: flutter pub get
-#
-#      # 린트 체크
-#      - name: Flutter lint check
-#        run: flutter analyze
-#
-#      # iOS 빌드
-#      - name: Build iOS
-#        run: flutter build ios --release --no-codesign
+      
+      # 🔥 Flutter SDK 설치 및 캐시 활성화
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          cache: true
+
+      # 🔥 Flutter 클린 및 의존성 재설치
+      - name: Clean and Install Flutter dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      # 🔥 iOS 의존성 설치
+      - name: Install iOS dependencies
+        run: |
+          cd ios
+          pod repo update
+          pod install --repo-update
+          pod update Firebase/CoreOnly
+          cd ..
+
+      # iOS 빌드
+      - name: Build iOS
+        run: flutter build ios --no-codesign
