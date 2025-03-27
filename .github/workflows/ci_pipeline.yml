@@ -70,6 +70,14 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.2'
+        
+      # 🔥 .env.dev 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+
+      # 🔥 .env.prod 파일 생성
+      - name: Create .env.prod file
+        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
 
       # 🔥 Flutter 클린 및 의존성 재설치
       - name: Clean and Install Flutter dependencies
