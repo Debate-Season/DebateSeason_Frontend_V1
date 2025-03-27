@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_location_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
@@ -64,6 +65,10 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 _widgetGender(),
                 DeGaps.v32,
                 _widgetAge(),
+                DeGaps.v32,
+                _widgetResidence(),
+                DeGaps.v32,
+                _widgetHomeTown(),
                 DeGaps.v40,
                 Obx(() {
                   return DeButtonLarge(
@@ -137,9 +142,17 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '닉네임',
-          style: DeFonts.body14Sb,
+        Row(
+          children: [
+            DeText(
+              '닉네임',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            ),
+          ],
         ),
         DeGaps.v8,
         DeTextField(
@@ -178,9 +191,17 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '소속 커뮤니티',
-          style: DeFonts.body14Sb,
+        Row(
+          children: [
+            DeText(
+              '소속 커뮤니티',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            )
+          ],
         ),
         DeGaps.v8,
         DeGestureDetector(
@@ -227,9 +248,17 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '성별',
-          style: DeFonts.body14Sb,
+        Row(
+          children: [
+            DeText(
+              '성별',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            )
+          ],
         ),
         DeGaps.v4,
         DeText(
@@ -285,9 +314,17 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '나이대',
-          style: DeFonts.body14Sb,
+        Row(
+          children: [
+            DeText(
+              '연령대',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            )
+          ],
         ),
         DeGaps.v4,
         DeText(
@@ -319,6 +356,131 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
             enabled: false,
             isCleanIcon: false,
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _widgetResidence() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            DeText(
+              '거주지',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            )
+          ],
+        ),
+        DeGaps.v4,
+        DeText(
+          '본 정보는 타인에게 공개되지 않습니다.',
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+        ),
+        DeGaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            if (Get.context != null) {
+              showModalBottomSheet(
+                context: Get.context!,
+                isScrollControlled: true,
+                builder: (context) {
+                  return ProfileLocationBottomSheet(
+                    title: '거주지',
+                  );
+                },
+              );
+            }
+          },
+          child: DeTextField(
+            style: DeFonts.body16M,
+            hintText: '거주지를 선택해주세요.',
+            controller: controller.residenceController,
+            enabled: false,
+            isCleanIcon: false,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _widgetHomeTown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            DeText(
+              '출신지',
+              style: DeFonts.body14Sb,
+            ),
+            DeText(
+              '*',
+              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+            )
+          ],
+        ),
+        DeGaps.v4,
+        DeText(
+          '본 정보는 타인에게 공개되지 않습니다.',
+          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+        ),
+        DeGaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            if (Get.context != null) {
+              showModalBottomSheet(
+                context: Get.context!,
+                isScrollControlled: true,
+                builder: (context) {
+                  return ProfileLocationBottomSheet(
+                    title: '출신지',
+                  );
+                },
+              );
+            }
+          },
+          child: DeTextField(
+            style: DeFonts.body16M,
+            hintText: '출신지를 선택해주세요.',
+            controller: controller.homeTownController,
+            enabled: false,
+            isCleanIcon: false,
+          ),
+        ),
+        DeGaps.v12,
+        Row(
+          children: [
+            DeText(
+              '거주지와 동일',
+              style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+            ),
+            const Spacer(),
+            Obx(() {
+              bool isChecked = false;
+              isChecked = controller.selectedResidenceDistrict != null &&
+                  controller.selectedResidenceProvince ==
+                      controller.selectedHomeTownProvince &&
+                  controller.selectedResidenceDistrict ==
+                      controller.selectedHomeTownDistrict;
+
+              return Checkbox(
+                value: isChecked,
+                onChanged: (value) {
+                  if (value ?? false) {
+                    controller.checkSameToResidence();
+                  } else {
+                    controller.uncheckSameToResidence();
+                  }
+                },
+              );
+            }),
+          ],
         ),
       ],
     );
