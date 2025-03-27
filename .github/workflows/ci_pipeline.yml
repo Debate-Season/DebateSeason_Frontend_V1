@@ -77,14 +77,6 @@ jobs:
           flutter clean
           flutter pub get
 
-    # 디버깅 Generated.xcconfig 생성
-      - name: Debug List ios/Flutter directory
-        run: |
-          pwd
-          ls -la ios/Flutter
-          flutter --version
-
-
       # 🔥 iOS 의존성 설치
       - name: Install iOS dependencies
         run: |
