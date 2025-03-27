@@ -5,6 +5,8 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_nickname_check_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/district_type.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/province_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -19,6 +21,8 @@ class ProfileInputViewModel extends GetxController {
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
   late TextEditingController ageController;
+  late TextEditingController residenceController;
+  late TextEditingController homeTownController;
   late ProfileRepository _profileRepository;
   late CommunityRepository _communityRepository;
   late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
@@ -40,6 +44,8 @@ class ProfileInputViewModel extends GetxController {
   final _selectedAge = ''.obs;
   final _isModifyScreen = false.obs;
   final _isApiLoading = false.obs;
+  final _selectedProvince = Rx<ProvinceType>(ProvinceType.seoul);
+  final _selectedDistrict = Rx<DistrictType?>(null);
 
   ProfileEntity get profile => _profile.value;
 
@@ -60,6 +66,10 @@ class ProfileInputViewModel extends GetxController {
 
   bool get isApiLoading => _isApiLoading.value;
 
+  ProvinceType get selectedProvince => _selectedProvince.value;
+
+  DistrictType? get selectedDistrict => _selectedDistrict.value;
+
   @override
   void onInit() {
     super.onInit();
@@ -69,6 +79,8 @@ class ProfileInputViewModel extends GetxController {
     communityController = TextEditingController();
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
+    residenceController = TextEditingController();
+    homeTownController = TextEditingController();
     _debounceNickname?.cancel();
     _debounceCommunity?.cancel();
     _profileRepository = Get.find<ProfileRepository>();
@@ -104,6 +116,8 @@ class ProfileInputViewModel extends GetxController {
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
+    residenceController.dispose();
+    homeTownController.dispose();
 
     super.dispose();
   }
@@ -242,6 +256,58 @@ class ProfileInputViewModel extends GetxController {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void setSelectedProvince({required ProvinceType province}) {
+    _selectedProvince.value = province;
+    _selectedDistrict.value = null;
+  }
+
+  void setSelectedDistrict(DistrictType district) {
+    _selectedDistrict.value = district;
+  }
+
+  void checkHomeTown() {
+
+  }
+
+  List<DistrictType> getDistrictList(ProvinceType province) {
+    switch (province) {
+      case ProvinceType.seoul:
+        return DistrictType.seoul;
+      case ProvinceType.busan:
+        return DistrictType.busan;
+      case ProvinceType.daegu:
+        return DistrictType.daegu;
+      case ProvinceType.incheon:
+        return DistrictType.incheon;
+      case ProvinceType.gwangju:
+        return DistrictType.gwangju;
+      case ProvinceType.daejeon:
+        return DistrictType.daejeon;
+      case ProvinceType.ulsan:
+        return DistrictType.ulsan;
+      case ProvinceType.sejong:
+        return DistrictType.sejong;
+      case ProvinceType.gyeonggi:
+        return DistrictType.gyeonggi;
+      case ProvinceType.gangwon:
+        return DistrictType.gangwon;
+      case ProvinceType.chungbuk:
+        return DistrictType.chungbuk;
+      case ProvinceType.chungnam:
+        return DistrictType.chungnam;
+      case ProvinceType.jeonbuk:
+        return DistrictType.jeonbuk;
+      case ProvinceType.jeonnam:
+        return DistrictType.jeonnam;
+      case ProvinceType.gyeongbuk:
+        return DistrictType.gyeongbuk;
+      case ProvinceType.gyeongnam:
+        return DistrictType.gyeongnam;
+      case ProvinceType.jeju:
+        return DistrictType.jeju;
     }
   }
 }
