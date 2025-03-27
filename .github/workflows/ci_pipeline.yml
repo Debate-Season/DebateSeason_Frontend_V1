@@ -76,7 +76,6 @@ jobs:
         run: |
           flutter clean
           flutter pub get
-          rm -rf ~/.pub-cache
 
     # 디버깅 Generated.xcconfig 생성
       - name: Debug List ios/Flutter directory
@@ -94,12 +93,6 @@ jobs:
           pod install --repo-update
           pod update Firebase/CoreOnly
           cd ..
-
-      # 🔥 Flutter 클린 및 의존성 재설치
-      - name: Clean and Install Flutter dependencies
-        run: |
-          flutter clean
-          flutter pub get
 
       # iOS 빌드
       - name: Build iOS
