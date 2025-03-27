@@ -69,14 +69,21 @@ jobs:
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.0'
-          cache: true
+          flutter-version: '3.27.2'
 
       # 🔥 Flutter 클린 및 의존성 재설치
       - name: Clean and Install Flutter dependencies
         run: |
           flutter clean
           flutter pub get
+          
+      # 디버깅 Generated.xcconfig 생성
+      - name: Debug List ios/Flutter directory
+        run: |
+          pwd
+          ls -la ios/Flutter
+          flutter --version
+
 
       # 🔥 iOS 의존성 설치
       - name: Install iOS dependencies
