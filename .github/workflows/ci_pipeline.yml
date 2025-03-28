@@ -47,7 +47,6 @@ jobs:
       - name: Build Android Debug APK
         run: flutter build apk --debug
 
-  # iOS 빌드(macOS 환경)
   ios_build:
     runs-on: macos-latest
     needs: build
@@ -65,18 +64,17 @@ jobs:
 #          restore-keys: |
 #            ${{ runner.os }}-flutter-
 
-      # 🔥 GoogleService-Info.plist 파일 (iOS용)
-      - name: Restore GoogleService-Info.plist
-        env:
-          DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-        run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
-
-
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.2'
+          flutter-version: '3.27.0'
+
+      # 🔥 GoogleService-Info.plist 파일
+      - name: Restore GoogleService-Info.plist
+        env:
+          DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
 
       # 🔥 .env.dev 파일 생성
       - name: Create .env.dev file
@@ -86,7 +84,7 @@ jobs:
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
 
-      # 🔥 Flutter 클린 및 의존성 재설치
+      # 🔥 Flutter 클린 및 의존성 설치
       - name: Clean and Install Flutter dependencies
         run: |
           flutter clean
@@ -101,6 +99,6 @@ jobs:
           pod update Firebase/CoreOnly
           cd ..
 
-      # iOS 빌드
+      # 🔥 iOS 빌드
       - name: Build iOS
         run: flutter build ios --no-codesign
