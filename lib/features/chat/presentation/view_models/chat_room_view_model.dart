@@ -166,4 +166,15 @@ class ChatRoomViewModel extends GetxController {
       },
     );
   }
+
+  void reportInappropriateChat(int messageId) async {
+    final List<bool>? result = await Get.to(InappropriateChatReportScreen());
+
+    if (result == null) return; // 신고하지 않고 뒤로가기 버튼 눌렀을 경우.
+
+    // 신고 확인 버튼을 눌렀을 경우.
+    // 백엔드쪽으로 통신하여 처리
+
+    log.d("result $result");
+  }
 }
