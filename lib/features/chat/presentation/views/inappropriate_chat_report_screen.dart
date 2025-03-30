@@ -24,7 +24,7 @@ class _InappropriateChatReportScreenState
       appBar: DeAppBar(
           title: Text(
         "신고하기",
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       )),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),

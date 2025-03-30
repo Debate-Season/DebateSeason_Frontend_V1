@@ -9,21 +9,21 @@ part of 'chat_message_entity.dart';
 ChatMessageEntity _$ChatMessageEntityFromJson(Map<String, dynamic> json) =>
     ChatMessageEntity(
       id: (json['id'] as num).toInt(),
-      messageType: json['messageType'] as String,
+      messageType: ChatMessageType.fromJson(json['messageType'] as String),
       sender: json['sender'] as String,
       content: json['content'] as String,
-      opinionType: json['opinionType'] as String,
+      opinionType: OpinionType.fromJson(json['opinionType'] as String),
       userCommunity: json['userCommunity'] as String,
-      timeStamp: json['timeStamp'] as String,
+      timeStamp: DateTime.parse(json['timeStamp'] as String),
     );
 
 Map<String, dynamic> _$ChatMessageEntityToJson(ChatMessageEntity instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'messageType': instance.messageType,
-      'sender': instance.sender,
+      'messageType': ChatMessageType.toJsonUpper(instance.messageType),
       'content': instance.content,
-      'opinionType': instance.opinionType,
+      'sender': instance.sender,
+      'opinionType': OpinionType.toJsonUpper(instance.opinionType),
       'userCommunity': instance.userCommunity,
-      'timeStamp': instance.timeStamp,
+      'timeStamp': instance.timeStamp.toIso8601String(),
     };

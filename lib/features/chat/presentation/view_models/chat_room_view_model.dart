@@ -5,7 +5,7 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/types/chat_message_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -63,13 +63,13 @@ class ChatRoomViewModel extends GetxController {
           state.value = (state.value as CursorPagination<ChatMessageEntity>)
               .copyWith(data: [
             ChatMessageEntity(
-              id: 99999,
+              id: chatMessage.id,
               messageType: chatMessage.messageType,
               sender: chatMessage.sender,
               content: chatMessage.content,
               opinionType: chatMessage.opinionType,
               userCommunity: chatMessage.userCommunity,
-              timeStamp: chatMessage.timeStamp.toString(),
+              timeStamp: chatMessage.timeStamp,
             ),
             ...(state.value as CursorPagination).data,
           ]);
@@ -85,12 +85,12 @@ class ChatRoomViewModel extends GetxController {
     try {
       final chatMessage = ChatMessageEntity(
         id: 99999,
-        messageType: ChatMessageType.chat.value,
+        messageType: ChatMessageType.chat,
         content: content,
         sender: _pref.getNickname(),
         opinionType: _room.value.opinion,
         userCommunity: _pref.getCommunity(),
-        timeStamp: DateTime.timestamp().toString(),
+        timeStamp: DateTime.timestamp(),
       );
 
       _stompService.sendStomp(
@@ -152,8 +152,8 @@ class ChatRoomViewModel extends GetxController {
         if (!isLoading) {
           state.value = pstate.copyWith(
             data: [
-              ...pstate.data,
               ...(state.value as CursorPaginationFetchingMore).data,
+              ...pstate.data,
             ],
           );
         } else {

@@ -13,8 +13,8 @@ _$RoomResImpl _$$RoomResImplFromJson(Map<String, dynamic> json) =>
       content: json['content'] as String,
       agree: (json['agree'] as num).toInt(),
       disagree: (json['disagree'] as num).toInt(),
-      createdAt: json['createdAt'] as String,
-      opinion: json['opinion'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      opinion: OpinionType.fromJson(json['opinion'] as String),
     );
 
 Map<String, dynamic> _$$RoomResImplToJson(_$RoomResImpl instance) =>
@@ -24,6 +24,12 @@ Map<String, dynamic> _$$RoomResImplToJson(_$RoomResImpl instance) =>
       'content': instance.content,
       'agree': instance.agree,
       'disagree': instance.disagree,
-      'createdAt': instance.createdAt,
-      'opinion': instance.opinion,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'opinion': _$OpinionTypeEnumMap[instance.opinion]!,
     };
+
+const _$OpinionTypeEnumMap = {
+  OpinionType.agree: 'agree',
+  OpinionType.disagree: 'disagree',
+  OpinionType.neutral: 'neutral',
+};

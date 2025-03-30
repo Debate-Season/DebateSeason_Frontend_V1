@@ -13,31 +13,23 @@ class ChatRoomsMessagesRepositoryImpl implements ChatRoomsMessagesRepository {
   @override
   Future<UiState<CursorPagination<ChatMessageEntity>>> getChatRoomsMessages({
     required int roomId,
-    String? nextCursor,
+    int? nextCursor,
   }) async {
     // Fetch Raw
-    final rawRepsonse = await dataSource.getRawChatRoomsMessages(
+    final rawResponse = await dataSource.getChatRoomsMessages(
       roomId: roomId,
-      cursor: nextCursor == null ? null : int.tryParse(nextCursor),
+      cursor: nextCursor,
     );
 
-    // Map Raw Data to Inner Model
-    List<MessagesByDates> messagesByDates = rawRepsonse.data.messagesByDates;
-    List<ChatMessageEntity> chatMessages = [];
-
-    for (var dateEntry in messagesByDates) {
-      chatMessages.addAll(dateEntry.chatMessageResponses);
-    }
-
     final response = BaseRes<CursorPagination<ChatMessageEntity>>(
-      status: rawRepsonse.status,
-      code: rawRepsonse.code,
-      message: rawRepsonse.message,
+      status: rawResponse.status,
+      code: rawResponse.code,
+      message: rawResponse.message,
       data: CursorPagination<ChatMessageEntity>(
         meta: CursorPaginationMeta(
-            nextCursor: rawRepsonse.data.nextCursor,
-            hasMore: rawRepsonse.data.hasMore),
-        data: chatMessages,
+            nextCursor: rawResponse.data.nextCursor,
+            hasMore: rawResponse.data.hasMore),
+        data: rawResponse.data.items,
       ),
     );
 

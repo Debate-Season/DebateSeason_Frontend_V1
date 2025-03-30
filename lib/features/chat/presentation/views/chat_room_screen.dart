@@ -75,8 +75,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           viewModel.room.title,
           style: DeFonts.body14Sb.copyWith(color: DeColors.grey10),
           overflow: TextOverflow.ellipsis,
-        );
-      }),
+        ),
+      ),
       isCenter: false,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0),
@@ -123,45 +123,60 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       final List<ChatMessageEntity> chattingMessageList =
           (cursorState as CursorPagination).data.cast<ChatMessageEntity>();
 
-      return Align(
-        alignment: Alignment.topCenter,
-        child: ListView.separated(
-          controller: scrollController,
-          itemCount: chattingMessageList.length + 1,
-          shrinkWrap: true,
-          reverse: true,
-          padding: DeDimensions.all20,
-          itemBuilder: (context, index) {
-            // 추가 데이터를 Fetch 할 때, 상단 로딩바
-            if (index == chattingMessageList.length) {
-              return Center(
-                child: cursorState is CursorPaginationFetchingMore
-                    ? SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(),
-                      )
-                    : SizedBox.shrink(),
-              );
-            }
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          double parentHeight = constraints.maxHeight;
 
-            final ChatMessageEntity chatMessageModel =
-                chattingMessageList[index];
+          return Align(
+            alignment: Alignment.topCenter,
+            child: ListView.separated(
+              controller: scrollController,
+              itemCount: chattingMessageList.length + 1,
+              shrinkWrap: true,
+              reverse: true,
+              padding: DeDimensions.all20,
+              itemBuilder: (context, index) {
+                // 추가 데이터를 Fetch 할 때, 상단 로딩바
+                if (index == chattingMessageList.length) {
+                  return Center(
+                    child: cursorState is CursorPaginationFetchingMore
+                        ? SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(),
+                          )
+                        : SizedBox.shrink(),
+                  );
+                }
 
-            // dataline 여부 확인
-            bool withDateLine;
-            if (index == 0) {
-              withDateLine = false;
-            } else {
-              final currentTime = DateTime.parse(chatMessageModel.timeStamp);
-              final prevTIme =
-                  DateTime.parse(chattingMessageList[index - 1].timeStamp);
-              withDateLine = !DateFormatUtil.isSameDate(currentTime, prevTIme);
-            }
-            return ChatMessage(chatMessageModel, withDateLine: withDateLine);
-          },
-          separatorBuilder: (context, index) => DeGaps.v16,
-        ),
+                final ChatMessageEntity chatMessageModel =
+                    chattingMessageList[index];
+
+                return ChatMessage(
+                  chatMessageModel,
+                  parentHeight: parentHeight,
+                  onInappropriateChatReport: viewModel.reportInappropriateChat,
+                );
+              },
+              separatorBuilder: (context, index) {
+                // dataline 여부 확인
+                bool withDateLine;
+                if (index == chattingMessageList.length - 1) {
+                  withDateLine = false;
+                } else {
+                  final prevTIme = chattingMessageList[index].timeStamp;
+                  final currentTime = chattingMessageList[index + 1].timeStamp;
+                  withDateLine =
+                      !DateFormatUtil.isSameDate(currentTime, prevTIme);
+                }
+
+                return withDateLine
+                    ? _dateline(chattingMessageList[index].timeStamp)
+                    : DeGaps.v16;
+              },
+            ),
+          );
+        },
       );
     });
   }
@@ -197,4 +212,35 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       ],
     );
   }*/
+}
+
+Widget _dateline(DateTime date) {
+  String dateString;
+  if (DateFormatUtil.isToday(date)) {
+    dateString = "오늘";
+  } else if (DateFormatUtil.isYesterday(date)) {
+    dateString = "어제";
+  } else {
+    dateString = "${date.year}.${date.month}.${date.day}";
+  }
+
+  return Align(
+    child: Column(
+      children: [
+        DeGaps.v12,
+        Container(
+          padding: DeDimensions.padding12x4,
+          decoration: BoxDecoration(
+            color: DeColors.grey90,
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: DeText(
+            dateString,
+            style: DeFonts.caption12R.copyWith(color: DeColors.grey50),
+          ),
+        ),
+        DeGaps.v12,
+      ],
+    ),
+  );
 }

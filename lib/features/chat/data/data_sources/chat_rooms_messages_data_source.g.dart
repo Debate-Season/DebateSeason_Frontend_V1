@@ -9,35 +9,19 @@ part of 'chat_rooms_messages_data_source.dart';
 ChatRoomsMessagesRes _$ChatRoomsMessagesResFromJson(
         Map<String, dynamic> json) =>
     ChatRoomsMessagesRes(
-      messagesByDates: (json['messagesByDates'] as List<dynamic>)
-          .map((e) => MessagesByDates.fromJson(e as Map<String, dynamic>))
+      items: (json['items'] as List<dynamic>)
+          .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      nextCursor: json['nextCursor'] as String?,
+      nextCursor: ChatRoomsMessagesRes._stringToInt(json['nextCursor']),
       hasMore: json['hasMore'] as bool,
+      totalCount: (json['totalCount'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ChatRoomsMessagesResToJson(
         ChatRoomsMessagesRes instance) =>
     <String, dynamic>{
-      'messagesByDates': instance.messagesByDates,
+      'items': instance.items,
       'nextCursor': instance.nextCursor,
-      'hasMore': instance.hasMore,
-    };
-
-MessagesByDates _$MessagesByDatesFromJson(Map<String, dynamic> json) =>
-    MessagesByDates(
-      date: json['date'] as String,
-      chatMessageResponses: (json['chatMessageResponses'] as List<dynamic>)
-          .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      hasMore: json['hasMore'] as bool,
-      totalCount: (json['totalCount'] as num).toInt(),
-    );
-
-Map<String, dynamic> _$MessagesByDatesToJson(MessagesByDates instance) =>
-    <String, dynamic>{
-      'date': instance.date,
-      'chatMessageResponses': instance.chatMessageResponses,
       'hasMore': instance.hasMore,
       'totalCount': instance.totalCount,
     };
@@ -58,7 +42,7 @@ class _ChatRoomsMessagesDataSource implements ChatRoomsMessagesDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BaseRes<ChatRoomsMessagesRes>> getRawChatRoomsMessages({
+  Future<BaseRes<ChatRoomsMessagesRes>> getChatRoomsMessages({
     required int roomId,
     int? cursor,
   }) async {
