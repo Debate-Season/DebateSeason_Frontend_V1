@@ -70,7 +70,7 @@ class StompService {
     required ChatMessageEntity chatMessage,
   }) {
     try {
-      final jsonChatMessage = jsonEncode(chatMessage.toJson());
+      final jsonChatMessage = jsonEncode(chatMessage.toStompMessage());
       log.d('[Stomp Send]\nroomId : $chatRoomId\n$jsonChatMessage');
       stompClient.send(
         destination: '/stomp/chat.room.$chatRoomId',

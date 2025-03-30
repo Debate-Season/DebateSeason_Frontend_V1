@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'room_res.freezed.dart';
@@ -11,8 +12,8 @@ class RoomRes with _$RoomRes {
     required String content,
     required int agree,
     required int disagree,
-    required String createdAt,
-    required String opinion,
+    required DateTime createdAt,
+    @JsonKey(fromJson: OpinionType.fromJson) required OpinionType opinion,
   }) = _RoomRes;
 
   factory RoomRes.fromJson(Map<String, dynamic> json) =>

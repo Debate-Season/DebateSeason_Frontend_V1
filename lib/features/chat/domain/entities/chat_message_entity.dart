@@ -1,3 +1,5 @@
+import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'chat_message_entity.g.dart';
@@ -5,12 +7,15 @@ part 'chat_message_entity.g.dart';
 @JsonSerializable()
 class ChatMessageEntity {
   int id;
-  String messageType;
-  String sender;
+  @JsonKey(
+      fromJson: ChatMessageType.fromJson, toJson: ChatMessageType.toJsonUpper)
+  ChatMessageType messageType;
   String content;
-  String opinionType;
+  String sender;
+  @JsonKey(fromJson: OpinionType.fromJson, toJson: OpinionType.toJsonUpper)
+  OpinionType opinionType;
   String userCommunity;
-  String timeStamp;
+  DateTime timeStamp;
 
   ChatMessageEntity({
     required this.id,

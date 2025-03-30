@@ -38,7 +38,7 @@ class CursorPagination<T> extends CursorPaginationBase {
 
 @JsonSerializable()
 class CursorPaginationMeta {
-  final String? nextCursor;
+  final int? nextCursor;
   final bool hasMore;
 
   CursorPaginationMeta({
@@ -47,7 +47,7 @@ class CursorPaginationMeta {
   });
 
   CursorPaginationMeta copyWith({
-    String? nextCursor,
+    int? nextCursor,
     bool? hasMore,
   }) {
     return CursorPaginationMeta(

@@ -9,6 +9,9 @@ import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_wiki_widget.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/my_highlight_widget.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/two_tab.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -59,20 +62,46 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
   }
 
   Widget _body() {
-    return Padding(
-      padding: DeDimensions.horizontal20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          DeGaps.v12,
-          _widgetDebateTopic(),
-          DeGaps.v12,
-          _widgetDebateDetail(),
-          DeGaps.v20,
-          _widgetDebateVote(),
-        ],
-      ),
-    );
+    return Obx(() {
+      return Padding(
+        padding: DeDimensions.horizontal20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DeGaps.v12,
+            _widgetDebateTopic(),
+            DeGaps.v12,
+            _widgetDebateDetail(),
+            DeGaps.v20,
+            _widgetDebateVote(),
+            DeGaps.v20,
+            TwoTab(
+                labels: ["토론 위키", "내 하이라이트"],
+                onChange: (selectedIndex) {
+                  controller.onTapTab(selectedIndex);
+                },
+                selectedIndex: controller.tabselected.value),
+            DeGaps.v12,
+            IndexedStack(
+              index: controller.tabselected.value,
+              children: [
+                DebateWikiWidget(
+                  agreeTotal: 10,
+                  agreeLogic: 11,
+                  agreeAttitude: 12,
+                  disagreeTotal: 13,
+                  disagreeLogic: 14,
+                  disagreeAttitude: 15,
+                  agreeMvp: "승정원일기",
+                  disagreeMvp: "오징어맨",
+                ),
+                MyHighlightWidget(),
+              ],
+            )
+          ],
+        ),
+      );
+    });
   }
 
   // todo api 연결 끝나면 하단 코드 위젯파일로 분리하기
@@ -126,78 +155,62 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _widgetVoteButton('찬성', agreeRatioText),
+          _widgetVoteButton(OpinionType.agree, agreeRatioText),
           DeText(
             DebateConstants.vs,
             style: DeFonts.body14M.copyWith(color: DeColors.grey50),
           ),
-          _widgetVoteButton('반대', disagreeRatioText),
+          _widgetVoteButton(OpinionType.disagree, disagreeRatioText),
         ],
       );
     });
   }
 
-  Widget _widgetVoteButton(final String data, String ratio) {
+  Widget _widgetVoteButton(final OpinionType data, String ratio) {
     return Obx(() {
       final room = controller.roomData;
+      OpinionType opinion = controller.voteStatus;
 
-      var opinion = controller.voteStatus;
-      int agree = room.agree;
-      int disagree = room.disagree;
-
-      var widgetColor = data == OpinionType.agree.valueKr
-          ? DeColors.redDarkOnGrey
-          : DeColors.blueDarkOnGrey;
-      if (opinion == OpinionType.agree.value) {
-        widgetColor = data == OpinionType.agree.valueKr
-            ? DeColors.red
-            : DeColors.blueDarkOnGrey;
-      } else if (opinion == OpinionType.disagree.value) {
-        widgetColor = data == OpinionType.agree.valueKr
-            ? DeColors.redDarkOnGrey
-            : DeColors.blue;
+      Color widgetColor;
+      if (opinion == OpinionType.agree) {
+        widgetColor =
+            data == OpinionType.agree ? DeColors.red : DeColors.blueDark;
+      } else if (opinion == OpinionType.disagree) {
+        widgetColor =
+            data == OpinionType.agree ? DeColors.redDark : DeColors.blue;
+      } else {
+        widgetColor =
+            data == OpinionType.agree ? DeColors.redDark : DeColors.blueDark;
       }
 
       String detail = DebateConstants.voting;
-      if (opinion != OpinionType.neutral.value) {
-        detail = data == OpinionType.agree.valueKr ? '$agree표' : '$disagree표';
+      if (opinion != OpinionType.neutral) {
+        detail =
+            data == OpinionType.agree ? '${room.agree}표' : '${room.disagree}표';
       }
 
       return GestureDetector(
         onTap: () {
-          if (opinion == OpinionType.neutral.value) {
-            if (data == OpinionType.agree.valueKr) {
+          if (opinion == OpinionType.neutral) {
+            if (data == OpinionType.agree) {
               controller.postVoteData(OpinionType.agree, room.chatRoomId);
-            } else if (data == OpinionType.disagree.valueKr) {
+            } else if (data == OpinionType.disagree) {
               controller.postVoteData(OpinionType.disagree, room.chatRoomId);
             }
             deSnackBar('내 입장을 $data(으)로 투표했습니다.');
           } else {
-            String dataEn = '';
-            if (data == OpinionType.agree.valueKr) {
-              dataEn = OpinionType.agree.value;
-            } else if (data == OpinionType.disagree.valueKr) {
-              dataEn = OpinionType.disagree.value;
-            }
-
-            if (controller.voteStatus != dataEn) {
+            if (controller.voteStatus != data) {
               DeDialog.show(
                 dialogTitle: DebateConstants.changeVoteTitle,
                 dialogText: DebateConstants.changeVoteConfirm,
                 doneText: DebateConstants.changeVoteButton,
                 cancelText: DebateConstants.changeVoteCancel,
                 onTapDone: () async {
-                  if (data == OpinionType.agree.valueKr) {
-                    await controller.postVoteData(
-                      OpinionType.agree,
-                      room.chatRoomId,
-                    );
-                  } else if (data == OpinionType.disagree.valueKr) {
-                    await controller.postVoteData(
-                      OpinionType.disagree,
-                      room.chatRoomId,
-                    );
-                  }
+                  await controller.postVoteData(
+                    data,
+                    room.chatRoomId,
+                  );
+
                   //await controller.postVoteData(data, room.chatRoomId);
                   if (Get.isDialogOpen ?? true) {
                     deSnackBar('내 입장을 $data(으)로 변경했습니다.');
@@ -223,7 +236,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DeText(
-                data,
+                data.valueKr,
                 style: DeFonts.caption12SB,
               ),
               DeText(
@@ -245,8 +258,6 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
     return Obx(() {
       final room = controller.roomData;
 
-      String opinion = controller.voteStatus;
-
       return ChatBottomSheet(
         // 이렇게 해야 텍스트박스에 노란 밑줄 지워짐
         widget: DeGestureDetector(
@@ -258,7 +269,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                 child: DeButtonLarge(
                   DebateConstants.enterRoom,
                   onPressed: () {
-                    if (opinion == OpinionType.neutral.value) {
+                    if (controller.voteStatus == OpinionType.neutral) {
                       deSnackBar(DebateConstants.enterRoomReject);
                       return;
                     }
@@ -269,7 +280,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                       agree: room.agree,
                       disagree: room.disagree,
                       createdAt: room.createdAt,
-                      opinion: opinion,
+                      opinion: controller.voteStatus,
                     );
                     Get.toNamed(
                       GetRouterName.chat,
@@ -278,7 +289,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
                       },
                     );
                   },
-                  enable: opinion != 'none',
+                  enable: controller.voteStatus != OpinionType.neutral,
                 ),
               ),
               DeGaps.v20,

@@ -25,8 +25,9 @@ mixin _$RoomRes {
   String get content => throw _privateConstructorUsedError;
   int get agree => throw _privateConstructorUsedError;
   int get disagree => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
-  String get opinion => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: OpinionType.fromJson)
+  OpinionType get opinion => throw _privateConstructorUsedError;
 
   /// Serializes this RoomRes to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,8 +49,8 @@ abstract class $RoomResCopyWith<$Res> {
       String content,
       int agree,
       int disagree,
-      String createdAt,
-      String opinion});
+      DateTime createdAt,
+      @JsonKey(fromJson: OpinionType.fromJson) OpinionType opinion});
 }
 
 /// @nodoc
@@ -99,11 +100,11 @@ class _$RoomResCopyWithImpl<$Res, $Val extends RoomRes>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       opinion: null == opinion
           ? _value.opinion
           : opinion // ignore: cast_nullable_to_non_nullable
-              as String,
+              as OpinionType,
     ) as $Val);
   }
 }
@@ -121,8 +122,8 @@ abstract class _$$RoomResImplCopyWith<$Res> implements $RoomResCopyWith<$Res> {
       String content,
       int agree,
       int disagree,
-      String createdAt,
-      String opinion});
+      DateTime createdAt,
+      @JsonKey(fromJson: OpinionType.fromJson) OpinionType opinion});
 }
 
 /// @nodoc
@@ -170,11 +171,11 @@ class __$$RoomResImplCopyWithImpl<$Res>
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       opinion: null == opinion
           ? _value.opinion
           : opinion // ignore: cast_nullable_to_non_nullable
-              as String,
+              as OpinionType,
     ));
   }
 }
@@ -189,7 +190,7 @@ class _$RoomResImpl implements _RoomRes {
       required this.agree,
       required this.disagree,
       required this.createdAt,
-      required this.opinion});
+      @JsonKey(fromJson: OpinionType.fromJson) required this.opinion});
 
   factory _$RoomResImpl.fromJson(Map<String, dynamic> json) =>
       _$$RoomResImplFromJson(json);
@@ -205,9 +206,10 @@ class _$RoomResImpl implements _RoomRes {
   @override
   final int disagree;
   @override
-  final String createdAt;
+  final DateTime createdAt;
   @override
-  final String opinion;
+  @JsonKey(fromJson: OpinionType.fromJson)
+  final OpinionType opinion;
 
   @override
   String toString() {
@@ -259,8 +261,9 @@ abstract class _RoomRes implements RoomRes {
       required final String content,
       required final int agree,
       required final int disagree,
-      required final String createdAt,
-      required final String opinion}) = _$RoomResImpl;
+      required final DateTime createdAt,
+      @JsonKey(fromJson: OpinionType.fromJson)
+      required final OpinionType opinion}) = _$RoomResImpl;
 
   factory _RoomRes.fromJson(Map<String, dynamic> json) = _$RoomResImpl.fromJson;
 
@@ -275,9 +278,10 @@ abstract class _RoomRes implements RoomRes {
   @override
   int get disagree;
   @override
-  String get createdAt;
+  DateTime get createdAt;
   @override
-  String get opinion;
+  @JsonKey(fromJson: OpinionType.fromJson)
+  OpinionType get opinion;
 
   /// Create a copy of RoomRes
   /// with the given fields replaced by the non-null parameter values.

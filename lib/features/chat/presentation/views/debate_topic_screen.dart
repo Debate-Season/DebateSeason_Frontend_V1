@@ -18,7 +18,7 @@ class _DebateTopicScreenState extends State<DebateTopicScreen> {
       appBar: DeAppBar(
           title: Text(
         "토론주제",
-        style: DeFonts.header,
+        style: DeFonts.header20B,
       )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),

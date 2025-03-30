@@ -7,4 +7,15 @@ enum OpinionType {
   final String valueKr;
 
   const OpinionType(this.value, this.valueKr);
+
+  static OpinionType fromJson(String json) {
+    return OpinionType.values.firstWhere(
+      (e) => e.value == json,
+      orElse: () => throw ArgumentError('Unknown OpinionType: $json'),
+    );
+  }
+
+  static String toJsonUpper(OpinionType opinion) {
+    return opinion.value.toUpperCase();
+  }
 }
