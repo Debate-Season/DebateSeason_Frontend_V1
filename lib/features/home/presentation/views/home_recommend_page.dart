@@ -23,14 +23,14 @@ class HomeRecommendPage extends StatelessWidget {
   }
 
   Widget _body() {
-    return Column(
+    return ListView(
       children: [
         DeGaps.v20,
         _bestDebate(),
         DeGaps.v40,
         _bestIssue(),
         DeGaps.v40,
-        Expanded(child: _myDebate()),
+        _myDebate(),
       ],
     );
   }
@@ -187,7 +187,6 @@ class HomeRecommendPage extends StatelessWidget {
                 DeIcons.icArrowRightGrey50,
                 width: 20,
                 height: 20,
-                color: DeColors.grey70,
               )
             ],
           ),
@@ -199,16 +198,19 @@ class HomeRecommendPage extends StatelessWidget {
   Widget _myDebate() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DeText('참여 중인 토론', style: DeFonts.header18Sb),
         DeGaps.v12,
-        Expanded(child: _debateList()),
+        _debateList(),
       ],
     );
   }
 
   Widget _debateList() {
     return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return _debateItem(index);
       },
