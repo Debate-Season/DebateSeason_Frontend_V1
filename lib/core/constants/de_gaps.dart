@@ -14,6 +14,7 @@ class DeGaps {
   static const v32 = SizedBox(height: 32);
   static const v36 = SizedBox(height: 36);
   static const v40 = SizedBox(height: 40);
+  static const v42 = SizedBox(height: 42);
 
   static const h2 = SizedBox(width: 2);
   static const h4 = SizedBox(width: 4);
