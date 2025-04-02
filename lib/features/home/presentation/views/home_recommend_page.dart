@@ -29,7 +29,7 @@ class HomeRecommendPage extends StatelessWidget {
         _bestDebate(),
         DeGaps.v40,
         _bestIssue(),
-        DeGaps.v40,
+        DeGaps.v42,
         _myDebate(),
       ],
     );
@@ -39,9 +39,12 @@ class HomeRecommendPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '인기 토론',
-          style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+        Padding(
+          padding: DeDimensions.horizontal20,
+          child: DeText(
+            '인기 토론',
+            style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+          ),
         ),
         DeGaps.v12,
         _bestDebateList(),
@@ -111,9 +114,12 @@ class HomeRecommendPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText(
-          '인기 이슈',
-          style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+        Padding(
+          padding: DeDimensions.horizontal20,
+          child: DeText(
+            '인기 이슈',
+            style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+          ),
         ),
         DeGaps.v12,
         _bestIssueList(),
@@ -200,7 +206,10 @@ class HomeRecommendPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DeText('참여 중인 토론', style: DeFonts.header18Sb),
+        Padding(
+          padding: DeDimensions.horizontal20,
+          child: DeText('참여 중인 토론', style: DeFonts.header18Sb),
+        ),
         DeGaps.v12,
         _debateList(),
       ],
@@ -208,14 +217,17 @@ class HomeRecommendPage extends StatelessWidget {
   }
 
   Widget _debateList() {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return _debateItem(index);
-      },
-      separatorBuilder: (context, index) => DeGaps.v12,
-      itemCount: 4,
+    return Padding(
+      padding: DeDimensions.horizontal20,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return _debateItem(index);
+        },
+        separatorBuilder: (context, index) => DeGaps.v12,
+        itemCount: 4,
+      ),
     );
   }
 

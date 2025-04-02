@@ -53,9 +53,12 @@ class _HomeScreenContentState extends State<HomeScreenContent>
         ),
         SliverPersistentHeader(
           pinned: false,
-          delegate: _TabBarDelegate(HomeTabBar(
-            tabController: _tabController,
-            tabs: tabs.map((e) => Tab(text: e)).toList(),
+          delegate: _TabBarDelegate(Padding(
+            padding: DeDimensions.horizontal20,
+            child: HomeTabBar(
+              tabController: _tabController,
+              tabs: tabs.map((e) => Tab(text: e)).toList(),
+            ),
           )),
         ),
       ],
@@ -95,22 +98,25 @@ class _HomeScreenContentState extends State<HomeScreenContent>
   }
 
   Widget _headlineNews() {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          decoration: BoxDecoration(
-            color: DeColors.grey110,
-            borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: DeDimensions.padding10x8,
+            decoration: BoxDecoration(
+              color: DeColors.grey110,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DeText(
+              '속보나올 자리',
+              style: DeFonts.body14M,
+            ),
           ),
-          child: DeText(
-            '속보나올 자리',
-            style: DeFonts.body14M,
-          ),
-        ),
-        DeGaps.v4,
-      ],
+          DeGaps.v4,
+        ],
+      ),
     );
   }
 }
