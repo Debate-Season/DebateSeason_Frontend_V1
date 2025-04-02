@@ -97,14 +97,19 @@ class HomeRecommendPage extends StatelessWidget {
   }
 
   Widget _bestDebateList() {
+    final scrollController = ScrollController(
+      initialScrollOffset: (320 + 20) * 5000,
+    );
     return SizedBox(
       height: 158,
       child: ListView.separated(
+        controller: scrollController,
         itemBuilder: (context, index) {
+          final realIndex = index % 5;
           return bestDebateItem();
         },
         separatorBuilder: (context, index) => DeGaps.h8,
-        itemCount: 5,
+        itemCount: 10000,
         scrollDirection: Axis.horizontal,
       ),
     );
