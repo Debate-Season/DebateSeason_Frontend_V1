@@ -50,6 +50,7 @@ class _HomeScreenContentState extends State<HomeScreenContent>
             child: _headlineNews(),
           ),
           backgroundColor: DeColors.grey120,
+          surfaceTintColor: Colors.transparent,
         ),
         SliverPersistentHeader(
           pinned: false,
