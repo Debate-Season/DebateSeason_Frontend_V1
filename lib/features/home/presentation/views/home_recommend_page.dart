@@ -135,11 +135,16 @@ class HomeRecommendPage extends StatelessWidget {
   Widget _bestIssueList() {
     return SizedBox(
       height: 102, // todo 높이 조정
-      child: ListView.separated(
+      child: ListView.builder(
         itemBuilder: (context, index) {
-          return bestIssueItem();
+          return Row(
+            children: [
+              if (index == 0) DeGaps.h20,
+              bestIssueItem(),
+              DeGaps.h8,
+            ],
+          );
         },
-        separatorBuilder: (context, index) => DeGaps.h8,
         itemCount: 5,
         scrollDirection: Axis.horizontal,
       ),
