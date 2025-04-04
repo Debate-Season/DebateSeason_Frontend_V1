@@ -92,7 +92,88 @@ class HomeMediaPage extends StatelessWidget {
   Widget _mediaList() {
     return Padding(
       padding: DeDimensions.padding20x12,
-      child: Column(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DeText(
+            '모아보기',
+            style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+          ),
+          DeGaps.v16,
+          _category(),
+          DeGaps.v20,
+          _mediaListItems(),
+        ],
+      ),
+    );
+  }
+
+  Widget _category() {
+    Widget categoryBtn(String title) {
+      return DeGestureDetector(
+        onTap: () {},
+        child: Container(
+          padding: DeDimensions.padding10x4,
+          decoration: BoxDecoration(
+            color: DeColors.grey10,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: DeText(
+            title,
+            style: DeFonts.body14Sb.copyWith(color: DeColors.grey120),
+          ),
+        ),
+      );
+    }
+
+    return Row(
+      children: [
+        categoryBtn('모두'),
+        DeGaps.h12,
+        categoryBtn('뉴스 · 기사'),
+        DeGaps.h12,
+        categoryBtn('Youtube'),
+        DeGaps.h12,
+        categoryBtn('커뮤니티'),
+        DeGaps.h12,
+      ],
+    );
+  }
+
+  Widget _mediaListItems() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            DeGestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 160,
+                height: 100,
+                color: DeColors.grey110,
+              ),
+            ),
+            DeGaps.h12,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DeGestureDetector(
+                    onTap: () {},
+                    child: DeText(
+                      '대한민국 헌법상 계엄령 조항은 시대에 맞게 개정될 필요가 있는가?',
+                      style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  DeGaps.v4,
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

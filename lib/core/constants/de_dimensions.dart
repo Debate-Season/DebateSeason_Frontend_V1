@@ -12,6 +12,8 @@ class DeDimensions {
       EdgeInsets.symmetric(horizontal: 6, vertical: 2);
   static const EdgeInsets padding8x10 =
       EdgeInsets.symmetric(horizontal: 8, vertical: 10);
+  static const EdgeInsets padding10x4 =
+      EdgeInsets.symmetric(horizontal: 10, vertical: 4);
   static const EdgeInsets padding10x5 =
       EdgeInsets.symmetric(horizontal: 10, vertical: 5);
   static const EdgeInsets padding10x8 =
