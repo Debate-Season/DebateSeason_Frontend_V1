@@ -21,14 +21,14 @@ class HomeMediaPage extends StatelessWidget {
 
   Widget _body() {
     return Column(children: [
+      DeGaps.v4, //todo 여백값 정확히 계산
       _mainMedia(),
       _mediaList(),
     ]);
   }
 
   Widget _mainMedia() {
-    //padding을 이렇게 따로둬도 되나
-      return Column(
+    return Column(
       children: [
         DeGestureDetector(
           onTap: () {},
@@ -46,7 +46,7 @@ class HomeMediaPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: DeGestureDetector(
-                      onTap: (){},
+                      onTap: () {},
                       child: DeText(
                         '[단독]노원구 마약류 양귀비 텃밭, 초등학구 마약류 양귀비 텃',
                         style: DeFonts.body16M.copyWith(color: DeColors.grey10),
@@ -58,9 +58,7 @@ class HomeMediaPage extends StatelessWidget {
                   DeGestureDetector(
                     onTap: () {},
                     child: SvgPicture.asset(
-                      width: 20,
-                      height: 20,
-                      DeIcons.icMoreGrey10,
+                      DeIcons.icMoreGrey50,
                     ),
                   ),
                 ],
@@ -71,9 +69,11 @@ class HomeMediaPage extends StatelessWidget {
                   DeText('경향신문',
                       style:
                           DeFonts.caption12M.copyWith(color: DeColors.grey10)),
-                  DeText(' . ',
-                      style:
-                          DeFonts.caption12M.copyWith(color: DeColors.grey10)),
+                  DeGaps.h6,
+                  SvgPicture.asset(
+                    DeIcons.icDotGrey50,
+                  ),
+                  DeGaps.h6,
                   DeText('13:23',
                       style:
                           DeFonts.caption12M.copyWith(color: DeColors.grey10)),
