@@ -20,11 +20,14 @@ class HomeMediaPage extends StatelessWidget {
   }
 
   Widget _body() {
-    return Column(children: [
-      DeGaps.v4, //todo 여백값 정확히 계산
-      _mainMedia(),
-      _mediaList(),
-    ]);
+    return ListView(
+      children: [
+        DeGaps.v4, //todo 여백값 정확히 계산
+        _mainMedia(),
+        DeGaps.v40,
+        _mediaList(),
+      ],
+    );
   }
 
   Widget _mainMedia() {
@@ -39,7 +42,7 @@ class HomeMediaPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: DeDimensions.padding20x12,
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
           child: Column(
             children: [
               Row(
