@@ -76,9 +76,14 @@ class HomeRecommendPage extends StatelessWidget {
             ),
           ),
           DeGaps.v8,
-          DeText(
-            '대한민국 헌법상 계엄령 조항은 시대에 맞게 개정될 필요가 있는가?',
-            style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+          SizedBox(
+            height: 48, // fontsize * lineHeight * 2
+            child: DeText(
+              '대한민국 헌법상 계엄령 조항은 시대에 맞게 개정될 필요가 있는가?',
+              style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Row(
             children: [
