@@ -4,11 +4,8 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/home_tab_bar.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/home_tab_view.dart';
-import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'home_media_page.dart';
 import 'home_recommend_page.dart';
 
@@ -44,11 +41,8 @@ class _HomeScreenContentState extends State<HomeScreenContent>
         SliverAppBar(
           pinned: true,
           floating: false,
-          title: _appbar(),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(57),
-            child: _headlineNews(),
-          ),
+          titleSpacing: 0,
+          title: _headlineNews(),
           backgroundColor: DeColors.grey120,
           surfaceTintColor: Colors.transparent,
         ),
@@ -70,31 +64,6 @@ class _HomeScreenContentState extends State<HomeScreenContent>
           HomeMediaPage(),
         ],
       ),
-    );
-  }
-
-  Widget _appbar() {
-    return DeAppBar(
-      title: Padding(
-        padding: DeDimensions.padding20x16,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SvgPicture.asset(
-              'assets/icons/ic_logo.svg',
-              width: 24,
-              height: 24,
-            ),
-            DeGaps.h4,
-            SvgPicture.asset(
-              'assets/icons/ic_debateseason.svg',
-              width: 24,
-              height: 24,
-            ),
-          ],
-        ),
-      ),
-      isBack: false,
     );
   }
 
