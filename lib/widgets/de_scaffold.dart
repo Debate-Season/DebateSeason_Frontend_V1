@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/core/constants/color.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class DeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: grey110,
+      color: DeColors.grey120,
       child: SafeArea(
         child: DeGestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -31,7 +31,7 @@ class DeScaffold extends StatelessWidget {
             appBar: appBar,
             body: body,
             bottomNavigationBar: bottomNavigationBar,
-            backgroundColor: backgroundColor ?? grey110,
+            backgroundColor: backgroundColor ?? DeColors.grey120,
             bottomSheet: bottomSheet,
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
           ),

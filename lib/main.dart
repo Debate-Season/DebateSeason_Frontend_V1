@@ -1,6 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/auth/bindings/auth_binding.dart';
+import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
-import 'core/constants/color.dart';
+import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
 
 void main() async {
@@ -17,7 +17,7 @@ void main() async {
 
   final prefsService = SharedPreferencesService();
   await prefsService.init();
-  if(kDebugMode) {
+  if (kDebugMode) {
     await dotenv.load(fileName: '.env.dev');
   } else {
     await dotenv.load(fileName: '.env.prod');
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding: AuthBinding(),
+      initialBinding: SplashBinding(),
       initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
       builder: (context, widget) {
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 void _initUiSettings() {
   // 시스템 상태바 색상 변경
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: grey110,
+    statusBarColor: DeColors.grey120,
     statusBarIconBrightness: Brightness.light,
   ));
 
@@ -61,7 +61,5 @@ void _initUiSettings() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(MyApp());
-  });
+  ]);
 }

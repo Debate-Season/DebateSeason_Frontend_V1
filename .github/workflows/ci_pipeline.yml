@@ -1,0 +1,104 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 🔥 google-services.json 파일
+      - name: Restore google-services.json
+        env:
+          DATA_ANDROID: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo "$DATA_ANDROID" > android/app/google-services.json
+
+      # 🔥 .env.dev 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+
+      # 🔥 .env.prod 파일 생성
+      - name: Create .env.prod file
+        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
+      # 🔥 Flutter SDK 설치 및 캐시 활성화
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          cache: true
+
+      # 🔥 Flutter 의존성 설치
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      # 🔥 린트 체크
+      - name: Flutter lint check
+        run: flutter analyze
+
+      # 🔥 Android 빌드
+      - name: Build Android Debug APK
+        run: flutter build apk --debug
+
+  ios_build:
+    runs-on: macos-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+#      # Flutter SDK 캐시 설정
+#      - name: Cache Flutter SDK
+#        uses: actions/cache@v2
+#        with:
+#          path: ~/.pub-cache
+#          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-flutter-
+
+      # 🔥 Flutter SDK 설치 및 캐시 활성화
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+
+      # 🔥 GoogleService-Info.plist 파일
+      - name: Restore GoogleService-Info.plist
+        env:
+          DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
+
+      # 🔥 .env.dev 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+      
+      # 🔥 .env.prod 파일 생성
+      - name: Create .env.prod file
+        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
+      # 🔥 Flutter 클린 및 의존성 설치
+      - name: Clean and Install Flutter dependencies
+        run: |
+          flutter clean
+          flutter pub get
+
+      # 🔥 iOS 의존성 설치
+      - name: Install iOS dependencies
+        run: |
+          cd ios
+          pod repo update
+          pod install --repo-update
+          pod update Firebase/CoreOnly
+          cd ..
+
+      # 🔥 iOS 빌드
+      - name: Build iOS
+        run: flutter build ios --no-codesign

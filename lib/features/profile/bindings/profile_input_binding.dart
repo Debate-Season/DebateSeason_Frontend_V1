@@ -1,13 +1,13 @@
 import 'package:debateseason_frontend_v1/core/network/dio_client.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/community_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/profile_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/data_sources/remote/profile_nickname_check_data_source.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/remote/community_repository_impl.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/remote/profile_nickname_check_repository_impl.dart';
-import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/remote/profile_repository_impl.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/community_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_nickname_check_repository.dart';
-import 'package:debateseason_frontend_v1/features/profile/domain/repositories/remote/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/community_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/profile_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/data_sources/profile_nickname_check_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/community_repository_impl.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/profile_nickname_check_repository_impl.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/repository_impls/profile_repository_impl.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_nickname_check_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:get/get.dart';
 
