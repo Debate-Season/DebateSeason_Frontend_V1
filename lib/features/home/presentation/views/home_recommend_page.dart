@@ -110,7 +110,7 @@ class HomeRecommendPage extends StatelessWidget {
       child: ListView.separated(
         controller: scrollController,
         itemBuilder: (context, index) {
-          final realIndex = index % 5;
+          //final realIndex = index % 5;
           return bestDebateItem();
         },
         separatorBuilder: (context, index) => DeGaps.h8,
