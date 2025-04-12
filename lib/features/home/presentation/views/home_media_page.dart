@@ -71,7 +71,7 @@ class HomeMediaPage extends StatelessWidget {
                 children: [
                   DeText('경향신문',
                       style:
-                          DeFonts.caption12M.copyWith(color: DeColors.grey10)),
+                          DeFonts.caption12M.copyWith(color: DeColors.grey50)),
                   DeGaps.h6,
                   SvgPicture.asset(
                     DeIcons.icDotGrey50,
@@ -79,7 +79,7 @@ class HomeMediaPage extends StatelessWidget {
                   DeGaps.h6,
                   DeText('13:23',
                       style:
-                          DeFonts.caption12M.copyWith(color: DeColors.grey10)),
+                          DeFonts.caption12M.copyWith(color: DeColors.grey50)),
                 ],
               ),
             ],
