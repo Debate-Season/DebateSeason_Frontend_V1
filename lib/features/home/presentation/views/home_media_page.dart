@@ -147,39 +147,104 @@ class HomeMediaPage extends StatelessWidget {
     );
   }
 
-  Widget _mediaListItems() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            DeGestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 160,
-                height: 100,
-                color: DeColors.grey110,
-              ),
-            ),
-            DeGaps.h12,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DeGestureDetector(
-                    onTap: () {},
-                    child: DeText(
-                      '대한민국 헌법상 계엄령 조항은 시대에 맞게 개정될 필요가 있는가?',
-                      style: DeFonts.body16M.copyWith(color: DeColors.grey10),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+  Widget _mediaList() {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return _mediaItem(index);
+      },
+      separatorBuilder: (context, index) => DeGaps.v12,
+      itemCount: 4,
+    );
+  }
+
+  Widget _mediaItem(int index) {
+    return DeGestureDetector(
+      onTap: () {},
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 78,
+            height: 78,
+            decoration: ShapeDecoration(
+                color: DeColors.brand,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                )),
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.network(
+                    'https://picsum.photos/seed/picsum/200/300',
+                    fit: BoxFit.cover,
                   ),
-                  DeGaps.v4,
-                ],
-              ),
+                ),
+                Positioned(
+                  right: 6,
+                  top: 6,
+                  child: Container(
+                      width: 28,
+                      height: 28,
+                      padding: DeDimensions.all8,
+                      // todo padding 수정필요
+                      decoration: BoxDecoration(
+                        color: DeColors.trans50,
+                        shape: BoxShape.circle,
+                      ),
+                      child: SvgPicture.asset(
+                        DeIcons.icExitGrey10,
+                      )),
+                ),
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+          DeGaps.h12,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: DeText(
+                        '[단독]구귀비 구귀비 텃구귀비 텃구귀비 텃텃',
+                        style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    DeGaps.h12,
+                    DeGestureDetector(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        DeIcons.icMoreGrey50,
+                      ),
+                    ),
+                  ],
+                ),
+                DeGaps.v4,
+                Row(
+                  children: [
+                    DeText('공급자',
+                        style: DeFonts.caption12M
+                            .copyWith(color: DeColors.grey50)),
+                    DeGaps.h6,
+                    SvgPicture.asset(
+                      DeIcons.icDotGrey50,
+                    ),
+                    DeGaps.h6,
+                    DeText('1일 전',
+                        style: DeFonts.caption12M
+                            .copyWith(color: DeColors.grey50)),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
