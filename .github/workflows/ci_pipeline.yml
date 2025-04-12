@@ -6,6 +6,9 @@ on:
       - develop
       - release/**
       - main
+  push:
+    branches:
+      - release/**
 
 jobs:
   build:
