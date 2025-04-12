@@ -35,17 +35,19 @@ jobs:
       # 🔥 브랜치 조건에 따라 .env 선택
       - name: Select .env file based on branch
         run: |
-         echo "Current ref: ${{ github.ref }}"
-         if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
-           echo "Using .env.dev"
-           cp .env.dev .env
-         elif [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == refs/heads/release/* ]]; then
-           echo "Using .env.prod"
-           cp .env.prod .env
-         else
-           echo "No environment matched for this branch"
-           exit 1
-         fi
+          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
+          echo "Target branch: $TARGET_BRANCH"
+          
+          if [[ "$TARGET_BRANCH" == "develop" ]]; then
+            echo "Using .env.dev"
+            cp .env.dev .env
+          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
+            echo "Using .env.prod"
+            cp .env.prod .env
+          else
+            echo "No environment matched for this branch ($TARGET_BRANCH)"
+            exit 1
+          fi
 
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
@@ -106,15 +108,17 @@ jobs:
       # 🔥 브랜치 조건에 따라 .env 선택
       - name: Select .env file based on branch
         run: |
-          echo "Current ref: ${{ github.ref }}"
-          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
+          echo "Target branch: $TARGET_BRANCH"
+          
+          if [[ "$TARGET_BRANCH" == "develop" ]]; then
             echo "Using .env.dev"
             cp .env.dev .env
-          elif [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == refs/heads/release/* ]]; then
+          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
             echo "Using .env.prod"
             cp .env.prod .env
           else
-            echo "No environment matched for this branch"
+            echo "No environment matched for this branch ($TARGET_BRANCH)"
             exit 1
           fi
 
