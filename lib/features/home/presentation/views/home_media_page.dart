@@ -127,17 +127,20 @@ class HomeMediaPage extends StatelessWidget {
       );
     }
 
-    return Row(
-      children: [
-        categoryBtn('모두'),
-        DeGaps.h12,
-        categoryBtn('뉴스 · 기사'),
-        DeGaps.h12,
-        categoryBtn('Youtube'),
-        DeGaps.h12,
-        categoryBtn('커뮤니티'),
-        DeGaps.h12,
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          categoryBtn('모두'),
+          DeGaps.h12,
+          categoryBtn('뉴스 · 기사'),
+          DeGaps.h12,
+          categoryBtn('Youtube'),
+          DeGaps.h12,
+          categoryBtn('커뮤니티'),
+          DeGaps.h12,
+        ],
+      ),
     );
   }
 
