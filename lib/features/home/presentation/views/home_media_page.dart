@@ -25,7 +25,7 @@ class HomeMediaPage extends StatelessWidget {
         DeGaps.v4, //todo 여백값 정확히 계산
         _mainMedia(),
         DeGaps.v40,
-        _mediaList(),
+        _medias(),
       ],
     );
   }
@@ -89,7 +89,7 @@ class HomeMediaPage extends StatelessWidget {
     );
   }
 
-  Widget _mediaList() {
+  Widget _medias() {
     return Padding(
       padding: DeDimensions.padding20x12,
       child: Column(
@@ -101,15 +101,15 @@ class HomeMediaPage extends StatelessWidget {
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
           DeGaps.v16,
-          _category(),
+          _mediaCategory(),
           DeGaps.v20,
-          _mediaListItems(),
+          _mediaList(),
         ],
       ),
     );
   }
 
-  Widget _category() {
+  Widget _mediaCategory() {
     Widget categoryBtn(String title) {
       return DeGestureDetector(
         onTap: () {},
