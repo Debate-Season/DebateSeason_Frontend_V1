@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - release
+      - main
 
 jobs:
   build:
@@ -27,6 +28,21 @@ jobs:
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
+      # 🔥 브랜치 조건에 따라 .env 선택
+      - name: Select .env file based on branch
+        run: |
+         echo "Current ref: ${{ github.ref }}"
+         if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+           echo "Using .env.dev"
+           cp .env.dev .env
+         elif [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == refs/heads/release/* ]]; then
+           echo "Using .env.prod"
+           cp .env.prod .env
+         else
+           echo "No environment matched for this branch"
+           exit 1
+         fi
 
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
@@ -83,6 +99,21 @@ jobs:
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
+      # 🔥 브랜치 조건에 따라 .env 선택
+      - name: Select .env file based on branch
+        run: |
+          echo "Current ref: ${{ github.ref }}"
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "Using .env.dev"
+            cp .env.dev .env
+          elif [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == refs/heads/release/* ]]; then
+            echo "Using .env.prod"
+            cp .env.prod .env
+          else
+            echo "No environment matched for this branch"
+            exit 1
+          fi
 
       # 🔥 Flutter 클린 및 의존성 설치
       - name: Clean and Install Flutter dependencies
