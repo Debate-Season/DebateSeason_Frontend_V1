@@ -111,17 +111,20 @@ class HomeMediaPage extends StatelessWidget {
 
   Widget _mediaCategory() {
     Widget categoryBtn(String title) {
+      final bool isSelected = title == '모두';
+
       return DeGestureDetector(
         onTap: () {},
         child: Container(
           padding: DeDimensions.padding10x4,
           decoration: BoxDecoration(
-            color: DeColors.grey10,
+            color: isSelected ? DeColors.grey10 : DeColors.grey110,
             borderRadius: BorderRadius.circular(6),
           ),
           child: DeText(
             title,
-            style: DeFonts.body14Sb.copyWith(color: DeColors.grey120),
+            style: DeFonts.body14Sb.copyWith(
+                color: isSelected ? DeColors.grey120 : DeColors.grey50),
           ),
         ),
       );
