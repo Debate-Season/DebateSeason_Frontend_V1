@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet_notitle.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -15,22 +16,22 @@ class HomeMediaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DeScaffold(
-      body: _body(),
+      body: _body(context),
     );
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return ListView(
       children: [
         DeGaps.v4, //todo 여백값 정확히 계산
-        _mainMedia(),
+        _mainMedia(context),
         DeGaps.v40,
         _medias(),
       ],
     );
   }
 
-  Widget _mainMedia() {
+  Widget _mainMedia(BuildContext context) {
     return Column(
       children: [
         DeGestureDetector(
@@ -59,7 +60,35 @@ class HomeMediaPage extends StatelessWidget {
                   ),
                   DeGaps.h12,
                   DeGestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context, //todo context 넣은 부모위젯들 삭제
+                        builder: (context) {
+                          return DeBottomSheetNoTitle(
+                            widget: Column(
+                              children: [
+                                DeGestureDetector(
+                                  onTap: () {},
+                                  child: (Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        DeIcons.icCopyGrey10,
+                                      ),
+                                      DeGaps.h16,
+                                      DeText('URL 복사하기',
+                                          style: DeFonts.body16M
+                                              .copyWith(color: DeColors.grey10)),
+                                    ],
+                                  )),
+                                ),
+                                DeGaps.v16,
+                                DeGaps.v16,
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                     child: SvgPicture.asset(
                       DeIcons.icMoreGrey50,
                     ),
