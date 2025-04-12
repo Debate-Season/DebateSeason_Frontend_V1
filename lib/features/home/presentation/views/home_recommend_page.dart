@@ -236,7 +236,7 @@ class HomeRecommendPage extends StatelessWidget {
       padding: DeDimensions.horizontal20,
       child: ListView.separated(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return _debateItem(index);
         },
