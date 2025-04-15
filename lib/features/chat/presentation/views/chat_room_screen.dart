@@ -162,7 +162,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 // dataline 여부 확인
                 bool withDateLine;
                 if (index == chattingMessageList.length - 1) {
-                  withDateLine = false;
+                  withDateLine = cursorState.meta.hasMore ? false : true;
                 } else {
                   final prevTIme = chattingMessageList[index].timeStamp;
                   final currentTime = chattingMessageList[index + 1].timeStamp;
