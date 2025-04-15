@@ -196,7 +196,8 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             } else if (data == OpinionType.disagree) {
               controller.postVoteData(OpinionType.disagree, room.chatRoomId);
             }
-            deSnackBar('내 입장을 $data(으)로 투표했습니다.');
+            Get.closeAllSnackbars();
+            deSnackBar('내 입장을 ${data.valueKr}(으)로 투표했습니다.');
           } else {
             if (controller.voteStatus != data) {
               DeDialog.show(
@@ -212,8 +213,12 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
                   //await controller.postVoteData(data, room.chatRoomId);
                   if (Get.isDialogOpen ?? true) {
-                    deSnackBar('내 입장을 $data(으)로 변경했습니다.');
+                    Get.back();
+                    // 기존 스낵바 제거 후 새로운 스낵바 표시
                   }
+                  Get.closeAllSnackbars();
+                  // 잠시 지연 후 스낵바 표시
+                  deSnackBar('내 입장을 ${data.valueKr}(으)로 변경했습니다.');
                 },
               );
             }
