@@ -116,8 +116,8 @@ class _ChatMessageState extends State<ChatMessage> {
       alignment: alignment,
       child: GestureDetector(
         key: messageKey,
-        onLongPress: () =>
-            _showReactionModal(context, messageKey, alignment, link),
+        // onLongPress: () =>
+        //     _showReactionModal(context, messageKey, alignment, link),
         child: Column(
           crossAxisAlignment: crossAxisAlignment,
           children: [

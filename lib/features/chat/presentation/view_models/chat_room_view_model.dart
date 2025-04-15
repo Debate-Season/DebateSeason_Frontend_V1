@@ -5,7 +5,6 @@ import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -80,6 +79,8 @@ class ChatRoomViewModel extends GetxController {
       cancelOnError: false,
     );
   }
+
+  void reportInappropriateChat(int index) {}
 
   void sendMessage(String content) {
     try {

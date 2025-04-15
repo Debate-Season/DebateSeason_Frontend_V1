@@ -31,4 +31,11 @@ class ChatMessageEntity {
       _$ChatMessageEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChatMessageEntityToJson(this);
+
+  Map<String, dynamic> toStompMessage() {
+    final Map<String, dynamic> json = toJson();
+    json.remove('id');
+    json['timeStamp'] = null;
+    return json;
+  }
 }

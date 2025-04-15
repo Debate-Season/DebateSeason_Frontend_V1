@@ -9,9 +9,7 @@ import 'package:debateseason_frontend_v1/features/chat/debate_constants.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/debate_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_bottom_sheet.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/debate_wiki_widget.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/my_highlight_widget.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/two_tab.dart';
+// import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/my_highlight_widget.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
@@ -63,6 +61,7 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
 
   Widget _body() {
     return Obx(() {
+      controller.tabselected.value;
       return Padding(
         padding: DeDimensions.horizontal20,
         child: Column(
@@ -75,29 +74,29 @@ class DebateRoomScreen extends GetView<DebateRoomViewModel> {
             DeGaps.v20,
             _widgetDebateVote(),
             DeGaps.v20,
-            TwoTab(
-                labels: ["토론 위키", "내 하이라이트"],
-                onChange: (selectedIndex) {
-                  controller.onTapTab(selectedIndex);
-                },
-                selectedIndex: controller.tabselected.value),
-            DeGaps.v12,
-            IndexedStack(
-              index: controller.tabselected.value,
-              children: [
-                DebateWikiWidget(
-                  agreeTotal: 10,
-                  agreeLogic: 11,
-                  agreeAttitude: 12,
-                  disagreeTotal: 13,
-                  disagreeLogic: 14,
-                  disagreeAttitude: 15,
-                  agreeMvp: "승정원일기",
-                  disagreeMvp: "오징어맨",
-                ),
-                MyHighlightWidget(),
-              ],
-            )
+            // TwoTab(
+            //     labels: ["토론 위키", "내 하이라이트"],
+            //     onChange: (selectedIndex) {
+            //       controller.onTapTab(selectedIndex);
+            //     },
+            //     selectedIndex: controller.tabselected.value),
+            // DeGaps.v12,
+            // IndexedStack(
+            //   index: controller.tabselected.value,
+            //   children: [
+            //     DebateWikiWidget(
+            //       agreeTotal: 10,
+            //       agreeLogic: 11,
+            //       agreeAttitude: 12,
+            //       disagreeTotal: 13,
+            //       disagreeLogic: 14,
+            //       disagreeAttitude: 15,
+            //       agreeMvp: "승정원일기",
+            //       disagreeMvp: "오징어맨",
+            //     ),
+            //     MyHighlightWidget(),
+            //   ],
+            // )
           ],
         ),
       );
