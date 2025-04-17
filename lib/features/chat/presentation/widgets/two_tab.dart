@@ -42,7 +42,7 @@ class TwoTab extends StatelessWidget {
 
 class _SelectedTab extends StatelessWidget {
   final String text;
-  const _SelectedTab(this.text, {super.key});
+  const _SelectedTab(this.text);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _SelectedTab extends StatelessWidget {
 
 class _UnSelected extends StatelessWidget {
   final String text;
-  const _UnSelected(this.text, {super.key});
+  const _UnSelected(this.text);
 
   @override
   Widget build(BuildContext context) {
