@@ -37,7 +37,7 @@ jobs:
         run: |
           TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
           echo "Target branch: $TARGET_BRANCH"
-          
+
           if [[ "$TARGET_BRANCH" == "develop" ]]; then
             echo "Using .env.dev"
             cp .env.dev .env
@@ -53,7 +53,7 @@ jobs:
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.0'
+          flutter-version: "3.27.0"
           cache: true
 
       # 🔥 Flutter 의존성 설치
@@ -76,20 +76,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-#      # Flutter SDK 캐시 설정
-#      - name: Cache Flutter SDK
-#        uses: actions/cache@v2
-#        with:
-#          path: ~/.pub-cache
-#          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-#          restore-keys: |
-#            ${{ runner.os }}-flutter-
+      #      # Flutter SDK 캐시 설정
+      #      - name: Cache Flutter SDK
+      #        uses: actions/cache@v2
+      #        with:
+      #          path: ~/.pub-cache
+      #          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-flutter-
 
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.0'
+          flutter-version: "3.27.0"
 
       # 🔥 GoogleService-Info.plist 파일
       - name: Restore GoogleService-Info.plist
@@ -100,7 +100,7 @@ jobs:
       # 🔥 .env.dev 파일 생성
       - name: Create .env.dev file
         run: echo "${{ secrets.ENV_DEV }}" > .env.dev
-      
+
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
@@ -110,7 +110,7 @@ jobs:
         run: |
           TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
           echo "Target branch: $TARGET_BRANCH"
-          
+
           if [[ "$TARGET_BRANCH" == "develop" ]]; then
             echo "Using .env.dev"
             cp .env.dev .env

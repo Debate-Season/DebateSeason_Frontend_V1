@@ -1,7 +1,8 @@
+import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/room_data_source.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/vote_data_source.dart';
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
-import 'package:debateseason_frontend_v1/common/enums/opinion_type.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_topic_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_room_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -15,23 +16,25 @@ class DebateRoomViewModel extends GetxController {
       chatRoomId: -1,
       title: '',
       content: '',
-      opinion: OpinionType.neutral.value,
+      opinion: OpinionType.neutral,
       agree: 0,
       disagree: 0,
-      createdAt: '',
+      createdAt: DateTime.now(),
     ),
   );
-  final _voteStatus = OpinionType.neutral.value.obs;
+  final _voteStatus = OpinionType.neutral.obs;
   final _issueTitle = ''.obs;
   final _chatRoomId = (-1).obs;
 
   RoomRes get roomData => _roomData.value;
 
-  String get voteStatus => _voteStatus.value;
+  OpinionType get voteStatus => _voteStatus.value;
 
   String get issueTitle => _issueTitle.value;
 
   int get chatRoomId => _chatRoomId.value;
+
+  final tabselected = 0.obs;
 
   @override
   void onInit() {
@@ -77,10 +80,18 @@ class DebateRoomViewModel extends GetxController {
   }
 
   void updateVoteStatus(OpinionType newOpinion) {
-    _voteStatus.value = newOpinion.value;
+    _voteStatus.value = newOpinion;
   }
 
   void _updateRoom({required OpinionType opinion}) {
-    _roomData.value = roomData.copyWith(opinion: opinion.value);
+    _roomData.value = roomData.copyWith(opinion: opinion);
+  }
+
+  void onTapDebateTopic() {
+    Get.to(DebateTopicScreen());
+  }
+
+  void onTapTab(int index) {
+    tabselected.value = index;
   }
 }
