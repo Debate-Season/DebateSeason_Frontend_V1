@@ -4,7 +4,11 @@ on:
   pull_request:
     branches:
       - develop
-      - release
+      - release/**
+      - main
+  push:
+    branches:
+      - release/**
 
 jobs:
   build:
@@ -28,6 +32,23 @@ jobs:
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
 
+      # 🔥 브랜치 조건에 따라 .env 선택
+      - name: Select .env file based on branch
+        run: |
+          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
+          echo "Target branch: $TARGET_BRANCH"
+
+          if [[ "$TARGET_BRANCH" == "develop" ]]; then
+            echo "Using .env.dev"
+            cp .env.dev .env
+          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
+            echo "Using .env.prod"
+            cp .env.prod .env
+          else
+            echo "No environment matched for this branch ($TARGET_BRANCH)"
+            exit 1
+          fi
+
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
@@ -47,7 +68,6 @@ jobs:
       - name: Build Android Debug APK
         run: flutter build apk --debug
 
-  # iOS 빌드(macOS 환경)
   ios_build:
     runs-on: macos-latest
     needs: build
@@ -55,14 +75,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # 🔥 .env.dev 파일 생성
-      - name: Create .env.dev file
-        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
-
-      # 🔥 .env.prod 파일 생성
-      - name: Create .env.prod file
-        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
 
       #      # Flutter SDK 캐시 설정
       #      - name: Cache Flutter SDK
@@ -77,20 +89,44 @@ jobs:
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.2"
+          flutter-version: "3.27.0"
 
-      # 🔥 Flutter 클린 및 의존성 재설치
+      # 🔥 GoogleService-Info.plist 파일
+      - name: Restore GoogleService-Info.plist
+        env:
+          DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
+
+      # 🔥 .env.dev 파일 생성
+      - name: Create .env.dev file
+        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+
+      # 🔥 .env.prod 파일 생성
+      - name: Create .env.prod file
+        run: echo "${{ secrets.ENV_PROD }}" > .env.prod
+
+      # 🔥 브랜치 조건에 따라 .env 선택
+      - name: Select .env file based on branch
+        run: |
+          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
+          echo "Target branch: $TARGET_BRANCH"
+
+          if [[ "$TARGET_BRANCH" == "develop" ]]; then
+            echo "Using .env.dev"
+            cp .env.dev .env
+          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
+            echo "Using .env.prod"
+            cp .env.prod .env
+          else
+            echo "No environment matched for this branch ($TARGET_BRANCH)"
+            exit 1
+          fi
+
+      # 🔥 Flutter 클린 및 의존성 설치
       - name: Clean and Install Flutter dependencies
         run: |
           flutter clean
           flutter pub get
-
-      # 디버깅 Generated.xcconfig 생성
-      - name: Debug List ios/Flutter directory
-        run: |
-          pwd
-          ls -la ios/Flutter
-          flutter --version
 
       # 🔥 iOS 의존성 설치
       - name: Install iOS dependencies
@@ -101,6 +137,6 @@ jobs:
           pod update Firebase/CoreOnly
           cd ..
 
-      # iOS 빌드
+      # 🔥 iOS 빌드
       - name: Build iOS
         run: flutter build ios --no-codesign

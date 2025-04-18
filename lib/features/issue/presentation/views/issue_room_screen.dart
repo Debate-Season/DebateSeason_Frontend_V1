@@ -13,7 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class IssueRoomScreen extends GetView<IssueRoomViewModel> {
-  const IssueRoomScreen({super.key}); 
+  const IssueRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
