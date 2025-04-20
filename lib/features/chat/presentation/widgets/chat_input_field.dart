@@ -49,21 +49,21 @@ class _ChatInputFieldState extends State<ChatInputField> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            width: 48.0,
-            height: 48.0,
-            padding: DeDimensions.all10,
-            decoration: BoxDecoration(),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                DeIcons.icAddGrey30,
-                width: 24.0,
-                height: 24.0,
-              ),
-              onPressed: () {},
-            ),
-          ),
-          DeGaps.h12,
+          // Container(
+          //   width: 48.0,
+          //   height: 48.0,
+          //   padding: DeDimensions.all10,
+          //   decoration: BoxDecoration(),
+          //   child: IconButton(
+          //     icon: SvgPicture.asset(
+          //       DeIcons.icAddGrey30,
+          //       width: 24.0,
+          //       height: 24.0,
+          //     ),
+          //     onPressed: () {},
+          //   ),
+          // ),
+          // DeGaps.h12,
           Expanded(
             child: DeTextField(
               controller: _textController,
