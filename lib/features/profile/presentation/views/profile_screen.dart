@@ -13,9 +13,9 @@ import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends GetView<ProfileViewModel> {
   const ProfileScreen({super.key});
@@ -233,14 +233,15 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
-            await Clipboard.setData(
-              ClipboardData(text: ProfileConstants.profileSupportEmail),
-            );
+            final Uri url = Uri.parse('https://pf.kakao.com/_SZNxln'); // 원하는 외부 링크
+            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+              throw '카카오채널 연결 실패';
+            }
           },
           child: Row(
             children: [
               DeText(
-                'tmddnjs1411@gmail.com',
+                ProfileConstants.profileSupportEmail,
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h8,
@@ -251,7 +252,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DeText(
-                  '복사',
+                  '연결',
                   style: DeFonts.body14M.copyWith(color: DeColors.grey50),
                 ),
               )
