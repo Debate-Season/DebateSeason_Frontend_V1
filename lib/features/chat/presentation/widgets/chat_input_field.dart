@@ -63,7 +63,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           //     onPressed: () {},
           //   ),
           // ),
-          // DeGaps.h12,
+          DeGaps.h12,
           Expanded(
             child: DeTextField(
               controller: _textController,
