@@ -32,6 +32,22 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           style: DeFonts.header18Sb,
         ),
       ),
+      // actions: [
+      //   DeGestureDetector(
+      //     onTap: () {},
+      //     child: Padding(
+      //       padding: DeDimensions.all8,
+      //       child: SvgPicture.asset(DeIcons.icBookmarkGrey50),
+      //     ),
+      //   ),
+      //   DeGestureDetector(
+      //     onTap: () {},
+      //     child: Padding(
+      //       padding: DeDimensions.all8,
+      //       child: SvgPicture.asset(DeIcons.icAssistantGrey50),
+      //     ),
+      //   ),
+      // ],
       isCenter: false,
     );
   }
@@ -43,7 +59,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // _newChatCount(),
-          // Gaps.v40,
+          // DeGaps.v40,
           _joinedCommunities(),
           DeGaps.v40,
           Expanded(
@@ -54,30 +70,57 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
     );
   }
 
-  /*Widget _newChatCount() {
-    return Container(
-      padding: DeDimensions.vertical12,
-      decoration: ShapeDecoration(
-        color: DeColors.grey120,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-      ),
-      child: Column(
-        children: [
-          DeText(
-            IssueConstants.todayNewChat,
-            style: DeFonts.body16M.copyWith(color: DeColors.grey50),
-          ),
-          DeGaps.v12,
-          DeText(
-            IssueConstants.todayNewChatCount,
-            style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
-          ),
-        ],
-      ),
-    );
-  }*/
+  // Widget _newChatCount() {
+  //   return Container(
+  //     padding: DeDimensions.vertical12,
+  //     decoration: ShapeDecoration(
+  //       color: DeColors.grey110,
+  //       shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(12.0),
+  //       ),
+  //     ),
+  //     child: Row(
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Expanded(
+  //           child: Column(
+  //             children: [
+  //               DeText(
+  //                 '관심 등록',
+  //                 style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+  //               ),
+  //               DeGaps.v4,
+  //               DeText(
+  //                 '9.9천만명',
+  //                 style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           width: 1,
+  //           height: 40,
+  //           decoration: BoxDecoration(color: DeColors.grey100),
+  //         ),
+  //         Expanded(
+  //           child: Column(
+  //             children: [
+  //               DeText(
+  //                 IssueConstants.todayNewChat,
+  //                 style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+  //               ),
+  //               DeGaps.v4,
+  //               DeText(
+  //                 IssueConstants.todayNewChatCount,
+  //                 style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _joinedCommunities() {
     return Column(
@@ -87,7 +130,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           IssueConstants.joinedCommunities,
           style: DeFonts.header18Sb,
         ),
-        DeGaps.v16,
+        DeGaps.v12,
         _comm(),
       ],
     );
@@ -168,7 +211,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
           IssueConstants.debateTopicDescription,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
-        DeGaps.v8,
+        DeGaps.v12,
         Expanded(child: _debateList()),
       ],
     );
@@ -181,8 +224,7 @@ class IssueRoomScreen extends GetView<IssueRoomViewModel> {
       return issueData.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         success: (issueData) {
-          final chatRoomMap = issueData.chatRoomMap;
-          final int len = chatRoomMap.length;
+          final int len = issueData.chatRoomMap.length;
           return ListView.separated(
             itemBuilder: (context, index) {
               return _debateItem(index);

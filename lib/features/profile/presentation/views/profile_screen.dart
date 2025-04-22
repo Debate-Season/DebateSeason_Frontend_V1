@@ -8,13 +8,14 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends GetView<ProfileViewModel> {
   const ProfileScreen({super.key});
@@ -38,51 +39,49 @@ class ProfileScreen extends GetView<ProfileViewModel> {
   }
 
   Widget _body() {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Column(
-              children: [
-                Obx(() {
-                  final profile = controller.profile;
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Column(
+          children: [
+            Obx(() {
+              final profile = controller.profile;
 
-                  return profile.when(
-                    loading: () {
-                      return const Center(
-                        child: DeProgressIndicator(),
-                      );
-                    },
-                    success: (profile) {
-                      return Column(
-                        children: [
-                          _profile(profile: profile),
-                          DeGaps.v40,
-                          _myCommunity(profile: profile),
-                        ],
-                      );
-                    },
-                    failure: (error) {
-                      return Center(
-                        child: DeText(
-                          error,
-                          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
-                        ),
-                      );
-                    },
+              return profile.when(
+                loading: () {
+                  return const Center(
+                    child: DeProgressIndicator(),
                   );
-                }),
-                DeGaps.v40,
-                _account(),
-                DeGaps.v40,
-                _support(),
-              ],
-            ),
-          ),
+                },
+                success: (profile) {
+                  return Column(
+                    children: [
+                      _profile(profile: profile),
+                      DeGaps.v40,
+                      _myCommunity(profile: profile),
+                    ],
+                  );
+                },
+                failure: (error) {
+                  return Center(
+                    child: DeText(
+                      error,
+                      style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+                    ),
+                  );
+                },
+              );
+            }),
+            DeGaps.v40,
+            _support(),
+            DeGaps.v40,
+            _policy(),
+            DeGaps.v40,
+            _account(),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -174,6 +173,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   result.when(
                     loading: () {},
                     success: (_) {
+                      controller.clearStorage();
                       if (Platform.isAndroid) {
                         controller.kakaoLogout().then((_) {
                           Get.offAllNamed(GetRouterName.auth);
@@ -233,14 +233,15 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
-            await Clipboard.setData(
-              ClipboardData(text: ProfileConstants.profileSupportEmail),
-            );
+            final Uri url = Uri.parse('https://pf.kakao.com/_SZNxln'); // 원하는 외부 링크
+            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+              throw '카카오채널 연결 실패';
+            }
           },
           child: Row(
             children: [
               DeText(
-                'tmddnjs1411@gmail.com',
+                ProfileConstants.profileSupportEmail,
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h8,
@@ -251,10 +252,82 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DeText(
-                  '복사',
+                  '연결',
                   style: DeFonts.body14M.copyWith(color: DeColors.grey50),
                 ),
               )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _policy() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DeText(
+          '약관 및 개인정보 처리',
+          style: DeFonts.header18Sb,
+        ),
+        DeGaps.v16,
+        DeGestureDetector(
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url:
+                      'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
+                  title: '서비스 이용 약관',
+                ));
+          },
+          child: Row(
+            children: [
+              DeText(
+                '서비스 이용 약관',
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
+              ),
+              DeGaps.h4,
+              SvgPicture.asset(DeIcons.icArrowRightGrey50),
+            ],
+          ),
+        ),
+        DeGaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url:
+                      'https://hurricane-ticket-d3c.notion.site/191034a1724480c291faf94db9e895ef',
+                  title: '아동 안전 표준 정책',
+                ));
+          },
+          child: Row(
+            children: [
+              DeText(
+                '아동 안전 표준 정책',
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
+              ),
+              DeGaps.h4,
+              SvgPicture.asset(DeIcons.icArrowRightGrey50),
+            ],
+          ),
+        ),
+        DeGaps.v8,
+        DeGestureDetector(
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url:
+                      'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
+                  title: '개인정보 수집/이용 약관',
+                ));
+          },
+          child: Row(
+            children: [
+              DeText(
+                '개인정보 수집/이용 약관',
+                style: DeFonts.body16M.copyWith(color: DeColors.grey50),
+              ),
+              DeGaps.h4,
+              SvgPicture.asset(DeIcons.icArrowRightGrey50),
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_logout_repository.dart';
@@ -9,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class ProfileViewModel extends GetxController {
+  final _storage = SecureStorageService();
+  final _pref = SharedPreferencesService();
   late final ProfileRepository _profileRepository;
   late final UsersLogoutRepository _usersLogoutRepository;
   late final UsersWithdrawRepository _usersWithdrawRepository;
@@ -62,4 +66,9 @@ class ProfileViewModel extends GetxController {
       loggingEnabled: true,
     );
   }
+
+  Future<void> clearStorage() async => await Future.wait([
+        _storage.clear(),
+        _pref.clear(),
+      ]);
 }

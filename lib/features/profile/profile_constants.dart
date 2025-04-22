@@ -5,7 +5,7 @@ class ProfileConstants {
   static const validOverlapNickname = '중복된 닉네임입니다.';
   static const profileCreateBtnText = '토론철 시작하기';
   static const profileModifyBtnText = '완료';
-  static const profileSupportEmail = 'tmddnjs1411@gmail.com';
+  static const profileSupportEmail = '카카오채널';
   static const profileWithdrawPolicyTitle = '탈퇴 정책 안내';
   static const profileWithdrawPolicyDescription = '탈퇴 정책 안내';
   static const profileWithdrawProcedureTitle = '절차';
@@ -25,4 +25,8 @@ class ProfileConstants {
   static const profileWithdrawDialogCancelText = '탈퇴 취소';
   static const profileWithdrawDoneText = '탈퇴 신청하기';
   static const profileWithdrawSuccessMessage = '회원탈퇴 되었습니다.';
+  static const Map<String, String> termsTitleMap = {
+    'SERVICE': '서비스 이용 약관',
+    'PRIVACY': '개인정보 수집/이용 동의',
+  };
 }

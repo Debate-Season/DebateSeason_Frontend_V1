@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    constant_identifier_names: false
   # 필요에 따라 다른 린트 규칙 추가 가능
   # avoid_print: false
   # prefer_single_quotes: true
@@ -10,3 +11,6 @@ analyzer:
   errors:
     asset_does_not_exist: ignore
     invalid_annotation_target: ignore
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"

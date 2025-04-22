@@ -11,7 +11,7 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
   UsersLoginRepositoryImpl(this.dataSource);
 
   @override
-  Future<bool> postUsersLogin({
+  Future<(bool, bool)> postUsersLogin({
     required UsersLoginEntity entity,
   }) async {
     final storage = SecureStorageService();
@@ -23,11 +23,11 @@ class UsersLoginRepositoryImpl implements UsersLoginRepository {
     await Future.wait([
       storage.setAccessToken(accessToken: response.data.accessToken),
       storage.setRefreshToken(refreshToken: response.data.refreshToken),
-      storage.setIdentifier(identifier: entity.identifier),
       pref.setSocialType(socialType: entity.socialType),
       pref.setProfileStatus(profileStatus: response.data.profileStatus),
+      pref.setTermsStatus(termsStatus: response.data.termsStatus),
     ]);
 
-    return response.data.profileStatus;
+    return (response.data.profileStatus, response.data.termsStatus);
   }
 }

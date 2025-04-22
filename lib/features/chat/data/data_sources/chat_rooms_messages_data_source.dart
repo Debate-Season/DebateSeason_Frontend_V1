@@ -1,6 +1,7 @@
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/chat_room_messages_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:dio/dio.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'chat_rooms_messages_data_source.g.dart';
@@ -14,4 +15,28 @@ abstract class ChatRoomsMessagesDataSource {
     @Path('roomId') required int roomId,
     @Query('cursor') int? cursor,
   });
+}
+
+// 내부적으로 사용되지 않는 일회용 클래스이므로 data_source 에 정의함.
+@JsonSerializable()
+class ChatRoomsMessagesRes {
+  final List<ChatMessageEntity> items;
+  @JsonKey(fromJson: _stringToInt)
+  final int nextCursor;
+  final bool hasMore;
+  final int totalCount;
+
+  ChatRoomsMessagesRes({
+    required this.items,
+    required this.nextCursor,
+    required this.hasMore,
+    required this.totalCount,
+  });
+
+  factory ChatRoomsMessagesRes.fromJson(Map<String, dynamic> json) =>
+      _$ChatRoomsMessagesResFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ChatRoomsMessagesResToJson(this);
+
+  static int _stringToInt(dynamic value) => int.tryParse(value.toString()) ?? 0;
 }

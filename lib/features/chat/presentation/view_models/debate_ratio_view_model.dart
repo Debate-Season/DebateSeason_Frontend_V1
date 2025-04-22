@@ -1,4 +1,4 @@
-import 'package:debateseason_frontend_v1/features/chat/data/models/response/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
 
 getPercentages(RoomRes room) {
   int total = room.agree + room.disagree;

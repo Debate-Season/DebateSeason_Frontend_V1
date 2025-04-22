@@ -52,11 +52,20 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (profileStatus) {
-                      if (profileStatus) {
-                        Get.offNamed(GetRouterName.issuemap);
+                    success: (loginStatus) {
+                      //termsStatus
+                      if (loginStatus.$2) {
+                        //profileStatus
+                        if (loginStatus.$1) {
+                          Get.offNamed(GetRouterName.issuemap);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
                       } else {
-                        Get.offNamed(GetRouterName.profileInput);
+                        Get.offNamed(
+                          GetRouterName.terms,
+                          arguments: loginStatus.$1,
+                        );
                       }
                     },
                     failure: (msg) {
@@ -77,11 +86,20 @@ class AuthScreen extends GetView<AuthViewModel> {
                     loading: () {
                       log.d('로딩중...');
                     },
-                    success: (profileStatus) {
-                      if (profileStatus) {
-                        Get.offNamed(GetRouterName.issuemap);
+                    success: (loginStatus) {
+                      // termsStatus
+                      if (loginStatus.$2) {
+                        // profileStatus
+                        if (loginStatus.$1) {
+                          Get.offNamed(GetRouterName.issuemap);
+                        } else {
+                          Get.offNamed(GetRouterName.profileInput);
+                        }
                       } else {
-                        Get.offNamed(GetRouterName.profileInput);
+                        Get.offNamed(
+                          GetRouterName.terms,
+                          arguments: loginStatus.$1,
+                        );
                       }
                     },
                     failure: (msg) {

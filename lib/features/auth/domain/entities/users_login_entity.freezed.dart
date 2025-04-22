@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UsersLoginEntity {
-  String get identifier => throw _privateConstructorUsedError;
+  String get idToken => throw _privateConstructorUsedError;
   String get socialType => throw _privateConstructorUsedError;
   bool get profileStatus => throw _privateConstructorUsedError;
+  bool get termsStatus => throw _privateConstructorUsedError;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +34,11 @@ abstract class $UsersLoginEntityCopyWith<$Res> {
           UsersLoginEntity value, $Res Function(UsersLoginEntity) then) =
       _$UsersLoginEntityCopyWithImpl<$Res, UsersLoginEntity>;
   @useResult
-  $Res call({String identifier, String socialType, bool profileStatus});
+  $Res call(
+      {String idToken,
+      String socialType,
+      bool profileStatus,
+      bool termsStatus});
 }
 
 /// @nodoc
@@ -51,14 +56,15 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? identifier = null,
+    Object? idToken = null,
     Object? socialType = null,
     Object? profileStatus = null,
+    Object? termsStatus = null,
   }) {
     return _then(_value.copyWith(
-      identifier: null == identifier
-          ? _value.identifier
-          : identifier // ignore: cast_nullable_to_non_nullable
+      idToken: null == idToken
+          ? _value.idToken
+          : idToken // ignore: cast_nullable_to_non_nullable
               as String,
       socialType: null == socialType
           ? _value.socialType
@@ -67,6 +73,10 @@ class _$UsersLoginEntityCopyWithImpl<$Res, $Val extends UsersLoginEntity>
       profileStatus: null == profileStatus
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
+      termsStatus: null == termsStatus
+          ? _value.termsStatus
+          : termsStatus // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -80,7 +90,11 @@ abstract class _$$UsersLoginEntityImplCopyWith<$Res>
       __$$UsersLoginEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String identifier, String socialType, bool profileStatus});
+  $Res call(
+      {String idToken,
+      String socialType,
+      bool profileStatus,
+      bool termsStatus});
 }
 
 /// @nodoc
@@ -96,14 +110,15 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? identifier = null,
+    Object? idToken = null,
     Object? socialType = null,
     Object? profileStatus = null,
+    Object? termsStatus = null,
   }) {
     return _then(_$UsersLoginEntityImpl(
-      identifier: null == identifier
-          ? _value.identifier
-          : identifier // ignore: cast_nullable_to_non_nullable
+      idToken: null == idToken
+          ? _value.idToken
+          : idToken // ignore: cast_nullable_to_non_nullable
               as String,
       socialType: null == socialType
           ? _value.socialType
@@ -113,6 +128,10 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
           ? _value.profileStatus
           : profileStatus // ignore: cast_nullable_to_non_nullable
               as bool,
+      termsStatus: null == termsStatus
+          ? _value.termsStatus
+          : termsStatus // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -121,21 +140,27 @@ class __$$UsersLoginEntityImplCopyWithImpl<$Res>
 
 class _$UsersLoginEntityImpl implements _UsersLoginEntity {
   _$UsersLoginEntityImpl(
-      {this.identifier = '', this.socialType = '', this.profileStatus = false});
+      {this.idToken = '',
+      this.socialType = '',
+      this.profileStatus = false,
+      this.termsStatus = false});
 
   @override
   @JsonKey()
-  final String identifier;
+  final String idToken;
   @override
   @JsonKey()
   final String socialType;
   @override
   @JsonKey()
   final bool profileStatus;
+  @override
+  @JsonKey()
+  final bool termsStatus;
 
   @override
   String toString() {
-    return 'UsersLoginEntity(identifier: $identifier, socialType: $socialType, profileStatus: $profileStatus)';
+    return 'UsersLoginEntity(idToken: $idToken, socialType: $socialType, profileStatus: $profileStatus, termsStatus: $termsStatus)';
   }
 
   @override
@@ -143,17 +168,18 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UsersLoginEntityImpl &&
-            (identical(other.identifier, identifier) ||
-                other.identifier == identifier) &&
+            (identical(other.idToken, idToken) || other.idToken == idToken) &&
             (identical(other.socialType, socialType) ||
                 other.socialType == socialType) &&
             (identical(other.profileStatus, profileStatus) ||
-                other.profileStatus == profileStatus));
+                other.profileStatus == profileStatus) &&
+            (identical(other.termsStatus, termsStatus) ||
+                other.termsStatus == termsStatus));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, identifier, socialType, profileStatus);
+      Object.hash(runtimeType, idToken, socialType, profileStatus, termsStatus);
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -167,16 +193,19 @@ class _$UsersLoginEntityImpl implements _UsersLoginEntity {
 
 abstract class _UsersLoginEntity implements UsersLoginEntity {
   factory _UsersLoginEntity(
-      {final String identifier,
+      {final String idToken,
       final String socialType,
-      final bool profileStatus}) = _$UsersLoginEntityImpl;
+      final bool profileStatus,
+      final bool termsStatus}) = _$UsersLoginEntityImpl;
 
   @override
-  String get identifier;
+  String get idToken;
   @override
   String get socialType;
   @override
   bool get profileStatus;
+  @override
+  bool get termsStatus;
 
   /// Create a copy of UsersLoginEntity
   /// with the given fields replaced by the non-null parameter values.

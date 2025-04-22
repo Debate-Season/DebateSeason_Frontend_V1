@@ -6,8 +6,8 @@ part 'chat_room_message_entity.freezed.dart';
 @freezed
 class ChatRoomMessageEntity with _$ChatRoomMessageEntity {
   factory ChatRoomMessageEntity({
-    required String date,
-    required List<ChatMessageEntity> messages,
+    required String nextCursor,
+    required List<ChatMessageEntity> items,
     required bool hasMore,
     required int totalCount,
   }) = _ChatRoomMessageEntity;
