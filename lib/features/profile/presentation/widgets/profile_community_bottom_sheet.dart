@@ -1,8 +1,9 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/community_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_progress_indicator.dart';
@@ -83,7 +84,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
         children: [
           DeTextField(
             controller: controller.communitySearchController,
-            hintText: '내용을 입력해 주세요.',
+            hintText: ProfileConstants.PROFILE_EMPTY_HINT_TEXT,
             fillColor: DeColors.grey90,
             onChanged: (searchWord) =>
                 controller.onChangedCommunity(searchWord: searchWord),
@@ -128,7 +129,7 @@ class ProfileCommunityBottomSheet extends GetView<ProfileInputViewModel> {
             final selectedCommunityId = controller.selectedCommunityId;
 
             return DeButtonLarge(
-              '등록하기',
+              ProfileConstants.PROFILE_REGISTER,
               onPressed: () {
                 controller.setCommunityId(
                   communityId: selectedCommunityId,

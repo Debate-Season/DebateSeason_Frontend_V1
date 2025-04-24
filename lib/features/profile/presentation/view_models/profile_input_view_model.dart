@@ -5,6 +5,8 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/community_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_nickname_check_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/district_type.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/province_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -14,14 +16,16 @@ import 'package:get/get.dart';
 
 class ProfileInputViewModel extends GetxController {
   late ProfileViewModel _profileViewModel;
+  late ProfileRepository _profileRepository;
+  late CommunityRepository _communityRepository;
+  late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
   late TextEditingController nicknameController;
   late FocusNode nicknameFocusNode;
   late TextEditingController communityController;
   late TextEditingController communitySearchController;
   late TextEditingController ageController;
-  late ProfileRepository _profileRepository;
-  late CommunityRepository _communityRepository;
-  late ProfileNicknameCheckRepository _profileNicknameCheckRepository;
+  late TextEditingController residenceController;
+  late TextEditingController homeTownController;
   Timer? _debounceNickname;
   Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(ProfileEntity(
@@ -40,6 +44,10 @@ class ProfileInputViewModel extends GetxController {
   final _selectedAge = ''.obs;
   final _isModifyScreen = false.obs;
   final _isApiLoading = false.obs;
+  final _selectedResidenceProvince = Rx<ProvinceType>(ProvinceType.seoul);
+  final _selectedResidenceDistrict = Rx<DistrictType?>(null);
+  final _selectedHomeTownProvince = Rx<ProvinceType>(ProvinceType.seoul);
+  final _selectedHomeTownDistrict = Rx<DistrictType?>(null);
 
   ProfileEntity get profile => _profile.value;
 
@@ -60,6 +68,16 @@ class ProfileInputViewModel extends GetxController {
 
   bool get isApiLoading => _isApiLoading.value;
 
+  ProvinceType get selectedResidenceProvince =>
+      _selectedResidenceProvince.value;
+
+  DistrictType? get selectedResidenceDistrict =>
+      _selectedResidenceDistrict.value;
+
+  ProvinceType get selectedHomeTownProvince => _selectedHomeTownProvince.value;
+
+  DistrictType? get selectedHomeTownDistrict => _selectedHomeTownDistrict.value;
+
   @override
   void onInit() {
     super.onInit();
@@ -69,6 +87,8 @@ class ProfileInputViewModel extends GetxController {
     communityController = TextEditingController();
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
+    residenceController = TextEditingController();
+    homeTownController = TextEditingController();
     _debounceNickname?.cancel();
     _debounceCommunity?.cancel();
     _profileRepository = Get.find<ProfileRepository>();
@@ -104,6 +124,8 @@ class ProfileInputViewModel extends GetxController {
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
+    residenceController.dispose();
+    homeTownController.dispose();
 
     super.dispose();
   }
@@ -117,13 +139,13 @@ class ProfileInputViewModel extends GetxController {
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
       case 400:
-        _nicknameErrorText.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       case 409:
         if (_previousNickname.value != nickname) {
-          _nicknameErrorText.value = ProfileConstants.validOverlapNickname;
+          _nicknameErrorText.value = ProfileConstants.VALID_OVERLAP_NICKNAME;
         }
       default:
-        _nicknameErrorText.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
     }
   }
 
@@ -220,13 +242,13 @@ class ProfileInputViewModel extends GetxController {
 
   bool isValidNickname(String nickname) {
     if (nickname.length < 2 || nickname.length > 8) {
-      _nicknameErrorText.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       return false;
     }
 
-    RegExp regex = RegExp(r'^[가-힣a-zA-Z]{1,8}$');
+    RegExp regex = RegExp(ProfileConstants.PROFILE_NICK_NAME_VALIDITY_REG_EXP);
     if (regex.hasMatch(nickname) == false) {
-      _nicknameErrorText.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       return false;
     } else {
       return true;
@@ -242,6 +264,78 @@ class ProfileInputViewModel extends GetxController {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void setSelectedResidenceProvince({required ProvinceType province}) {
+    _selectedResidenceProvince.value = province;
+    _selectedResidenceDistrict.value = null;
+  }
+
+  void setSelectedResidenceDistrict(DistrictType district) {
+    _selectedResidenceDistrict.value = district;
+  }
+
+  void setSelectedHomeTownProvince({required ProvinceType province}) {
+    _selectedHomeTownProvince.value = province;
+    _selectedHomeTownDistrict.value = null;
+  }
+
+  void setSelectedHomeTownDistrict(DistrictType district) {
+    _selectedHomeTownDistrict.value = district;
+  }
+
+  void checkSameToResidence() {
+    if (_selectedResidenceDistrict.value != null) {
+      _selectedHomeTownProvince.value = _selectedResidenceProvince.value;
+      _selectedHomeTownDistrict.value = _selectedResidenceDistrict.value;
+
+      homeTownController.text =
+          '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
+    }
+  }
+
+  void uncheckSameToResidence() {
+    _selectedHomeTownProvince.value = ProvinceType.seoul;
+    _selectedHomeTownDistrict.value = null;
+  }
+
+  List<DistrictType> getDistrictList(ProvinceType province) {
+    switch (province) {
+      case ProvinceType.seoul:
+        return DistrictType.seoul;
+      case ProvinceType.busan:
+        return DistrictType.busan;
+      case ProvinceType.daegu:
+        return DistrictType.daegu;
+      case ProvinceType.incheon:
+        return DistrictType.incheon;
+      case ProvinceType.gwangju:
+        return DistrictType.gwangju;
+      case ProvinceType.daejeon:
+        return DistrictType.daejeon;
+      case ProvinceType.ulsan:
+        return DistrictType.ulsan;
+      case ProvinceType.sejong:
+        return DistrictType.sejong;
+      case ProvinceType.gyeonggi:
+        return DistrictType.gyeonggi;
+      case ProvinceType.gangwon:
+        return DistrictType.gangwon;
+      case ProvinceType.chungbuk:
+        return DistrictType.chungbuk;
+      case ProvinceType.chungnam:
+        return DistrictType.chungnam;
+      case ProvinceType.jeonbuk:
+        return DistrictType.jeonbuk;
+      case ProvinceType.jeonnam:
+        return DistrictType.jeonnam;
+      case ProvinceType.gyeongbuk:
+        return DistrictType.gyeongbuk;
+      case ProvinceType.gyeongnam:
+        return DistrictType.gyeongnam;
+      case ProvinceType.jeju:
+        return DistrictType.jeju;
     }
   }
 }

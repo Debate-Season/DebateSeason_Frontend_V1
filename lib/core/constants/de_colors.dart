@@ -28,5 +28,13 @@ class DeColors {
   static const blueDark = Color(0xFF242345);
   static const blueMine = Color(0xFF4F4C71);
 
+  static const imageRed = Color(0xFFFE2222);
+  static const imageOrange = Color(0xFFFF813D);
+  static const imageYellow = Color(0xFFFFE93F);
+  static const imageGreen = Color(0xFF2CCD3F);
+  static const imageBlue = Color(0xFF371DFF);
+  static const imageNavy = Color(0xFF350FC1);
+  static const imagePurple = Color(0xFF9500AF);
+
   static const kakao = Color(0xFFFEE500);
 }
