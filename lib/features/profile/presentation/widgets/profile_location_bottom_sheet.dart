@@ -45,49 +45,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
               child: Row(
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      child: ListView.builder(
-                        itemCount: ProvinceType.values.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final province = ProvinceType.values[index];
-
-                          return Obx(() {
-                            var isSelected = false;
-                            if (title == ProfileConstants.PROFILE_RESIDENCE) {
-                              isSelected =
-                                  controller.selectedResidenceProvince ==
-                                      province;
-                            } else {
-                              isSelected =
-                                  controller.selectedHomeTownProvince ==
-                                      province;
-                            }
-
-                            return DeGestureDetector(
-                              onTap: () {
-                                controller.setSelectedResidenceProvince(
-                                    province: province);
-                              },
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                color: isSelected
-                                    ? DeColors.grey80
-                                    : DeColors.grey90,
-                                child: DeText(
-                                  province.name,
-                                  style: DeFonts.body16Sb
-                                      .copyWith(color: DeColors.grey30),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            );
-                          });
-                        },
-                      ),
-                    ),
+                    child: _widgetProvince(context: context),
                   ),
                   Container(
                     width: 2,
@@ -95,58 +53,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
                     color: DeColors.grey90,
                   ),
                   Expanded(
-                    child: Obx(() {
-                      ProvinceType selectedProvince = ProvinceType.seoul;
-                      DistrictType? selectedDistrict;
-                      if (title == ProfileConstants.PROFILE_RESIDENCE) {
-                        selectedProvince = controller.selectedResidenceProvince;
-                        selectedDistrict = controller.selectedResidenceDistrict;
-                      } else {
-                        selectedProvince = controller.selectedHomeTownProvince;
-                        selectedDistrict = controller.selectedHomeTownDistrict;
-                      }
-
-                      return Container(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        color: DeColors.grey80,
-                        child: ListView.builder(
-                          itemCount: controller
-                              .getDistrictList(selectedProvince)
-                              .length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final district = controller
-                                .getDistrictList(selectedProvince)[index];
-                            final isSelected = selectedDistrict == district;
-
-                            return DeGestureDetector(
-                              onTap: () {
-                                if (title == ProfileConstants.PROFILE_RESIDENCE) {
-                                  controller
-                                      .setSelectedResidenceDistrict(district);
-                                } else {
-                                  controller
-                                      .setSelectedHomeTownDistrict(district);
-                                }
-                              },
-                              child: Container(
-                                color: isSelected
-                                    ? DeColors.grey70
-                                    : DeColors.grey80,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                child: DeText(
-                                  district.name,
-                                  style: DeFonts.body16Sb
-                                      .copyWith(color: DeColors.grey30),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }),
+                    child: _widgetDistrict(context: context),
                   ),
                 ],
               ),
@@ -225,6 +132,90 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
             Get.back();
           },
           enable: selectedDistrict.isNotEmpty,
+        ),
+      );
+    });
+  }
+
+  Widget _widgetProvince({required BuildContext context}) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: ListView.builder(
+        itemCount: ProvinceType.values.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          final province = ProvinceType.values[index];
+
+          return Obx(() {
+            var isSelected = false;
+            if (title == ProfileConstants.PROFILE_RESIDENCE) {
+              isSelected = controller.selectedResidenceProvince == province;
+            } else {
+              isSelected = controller.selectedHomeTownProvince == province;
+            }
+
+            return DeGestureDetector(
+              onTap: () {
+                controller.setSelectedResidenceProvince(province: province);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                color: isSelected ? DeColors.grey80 : DeColors.grey90,
+                child: DeText(
+                  province.name,
+                  style: DeFonts.body16Sb.copyWith(color: DeColors.grey30),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _widgetDistrict({required BuildContext context}) {
+    return Obx(() {
+      ProvinceType selectedProvince = ProvinceType.seoul;
+      DistrictType? selectedDistrict;
+      if (title == ProfileConstants.PROFILE_RESIDENCE) {
+        selectedProvince = controller.selectedResidenceProvince;
+        selectedDistrict = controller.selectedResidenceDistrict;
+      } else {
+        selectedProvince = controller.selectedHomeTownProvince;
+        selectedDistrict = controller.selectedHomeTownDistrict;
+      }
+
+      return Container(
+        height: MediaQuery.of(context).size.height * 0.7,
+        color: DeColors.grey80,
+        child: ListView.builder(
+          itemCount: controller.getDistrictList(selectedProvince).length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final district =
+                controller.getDistrictList(selectedProvince)[index];
+            final isSelected = selectedDistrict == district;
+
+            return DeGestureDetector(
+              onTap: () {
+                if (title == ProfileConstants.PROFILE_RESIDENCE) {
+                  controller.setSelectedResidenceDistrict(district);
+                } else {
+                  controller.setSelectedHomeTownDistrict(district);
+                }
+              },
+              child: Container(
+                color: isSelected ? DeColors.grey70 : DeColors.grey80,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: DeText(
+                  district.name,
+                  style: DeFonts.body16Sb.copyWith(color: DeColors.grey30),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          },
         ),
       );
     });

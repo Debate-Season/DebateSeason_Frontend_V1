@@ -70,37 +70,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 DeGaps.v32,
                 _widgetHomeTown(),
                 DeGaps.v40,
-                Obx(() {
-                  return DeButtonLarge(
-                    controller.isModifyScreen
-                        ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
-                        : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
-                    onPressed: controller.isModifyScreen
-                        ? () => controller.patchProfile().then((result) {
-                              result.when(loading: () {
-                                controller.setApiLoading(isApiLoading: true);
-                              }, success: (_) {
-                                controller.setApiLoading(isApiLoading: false);
-                                Get.back();
-                              }, failure: (msg) {
-                                controller.setApiLoading(isApiLoading: false);
-                                deSnackBar(msg);
-                              });
-                            })
-                        : () => controller.postProfile().then((result) {
-                              result.when(loading: () {
-                                controller.setApiLoading(isApiLoading: true);
-                              }, success: (_) {
-                                controller.setApiLoading(isApiLoading: false);
-                                Get.offAllNamed(GetRouterName.issuemap);
-                              }, failure: (msg) {
-                                controller.setApiLoading(isApiLoading: false);
-                                deSnackBar(msg);
-                              });
-                            }),
-                    enable: controller.isValidStartBtn(),
-                  );
-                }),
+                _widgetBottomButton(),
                 DeGaps.v20,
               ],
             ),
@@ -483,5 +453,39 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         ),
       ],
     );
+  }
+
+  Widget _widgetBottomButton() {
+    return Obx(() {
+      return DeButtonLarge(
+        controller.isModifyScreen
+            ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
+            : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
+        onPressed: controller.isModifyScreen
+            ? () => controller.patchProfile().then((result) {
+                  result.when(loading: () {
+                    controller.setApiLoading(isApiLoading: true);
+                  }, success: (_) {
+                    controller.setApiLoading(isApiLoading: false);
+                    Get.back();
+                  }, failure: (msg) {
+                    controller.setApiLoading(isApiLoading: false);
+                    deSnackBar(msg);
+                  });
+                })
+            : () => controller.postProfile().then((result) {
+                  result.when(loading: () {
+                    controller.setApiLoading(isApiLoading: true);
+                  }, success: (_) {
+                    controller.setApiLoading(isApiLoading: false);
+                    Get.offAllNamed(GetRouterName.issuemap);
+                  }, failure: (msg) {
+                    controller.setApiLoading(isApiLoading: false);
+                    deSnackBar(msg);
+                  });
+                }),
+        enable: controller.isValidStartBtn(),
+      );
+    });
   }
 }
