@@ -14,10 +14,10 @@ import 'package:debateseason_frontend_v1/features/main/main_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/terms_binding.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/terms_page.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_page.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_screen.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/terms_screen.dart';
 import 'package:debateseason_frontend_v1/features/splash/presentation/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -44,17 +44,17 @@ class GetRouter {
     ),
     GetPage(
       name: GetRouterName.terms,
-      page: () => TermsPage(),
+      page: () => TermsScreen(),
       binding: TermsBinding(),
     ),
     GetPage(
       name: GetRouterName.profileInput,
-      page: () => ProfileInputPage(),
+      page: () => ProfileInputScreen(),
       binding: ProfileInputBinding(),
     ),
     GetPage(
       name: GetRouterName.profileWithdraw,
-      page: () => ProfileWithdrawPage(),
+      page: () => ProfileWithdrawScreen(),
     ),
     GetPage(
       name: GetRouterName.chat,

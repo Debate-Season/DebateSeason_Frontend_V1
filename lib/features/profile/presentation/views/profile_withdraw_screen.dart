@@ -16,8 +16,8 @@ import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileWithdrawPage extends GetView<ProfileViewModel> {
-  const ProfileWithdrawPage({super.key});
+class ProfileWithdrawScreen extends GetView<ProfileViewModel> {
+  const ProfileWithdrawScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +79,13 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               style: DeFonts.body14M.copyWith(color: DeColors.grey30),
               children: [
                 TextSpan(
-                  text: ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION2,
+                  text: ProfileConstants
+                      .PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION2,
                   style: DeFonts.body14M.copyWith(color: DeColors.brand),
                 ),
                 TextSpan(
-                  text: ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION3,
+                  text: ProfileConstants
+                      .PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION3,
                   style: DeFonts.body14M.copyWith(color: DeColors.grey30),
                 ),
               ],
@@ -94,8 +96,10 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
             onTap: () {
               DeDialog.show(
                 dialogTitle: ProfileConstants.PROFILE_WITHDRAW_DIALOG_TITLE,
-                dialogText: ProfileConstants.PROFILE_WITHDRAW_DIALOG_DESCRIPTION,
-                cancelText: ProfileConstants.PROFILE_WITHDRAW_DIALOG_CANCEL_TEXT,
+                dialogText:
+                    ProfileConstants.PROFILE_WITHDRAW_DIALOG_DESCRIPTION,
+                cancelText:
+                    ProfileConstants.PROFILE_WITHDRAW_DIALOG_CANCEL_TEXT,
                 doneText: ProfileConstants.PROFILE_WITHDRAW_DONE_TEXT,
                 onTapDone: () {
                   controller.postWithdraw().then((result) {
@@ -106,8 +110,8 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                         if (Platform.isAndroid) {
                           controller.kakaoLogout().then((_) {
                             Get.offAllNamed(GetRouterName.auth);
-                            deSnackBar(
-                                ProfileConstants.PROFILE_WITHDRAW_SUCCESS_MESSAGE);
+                            deSnackBar(ProfileConstants
+                                .PROFILE_WITHDRAW_SUCCESS_MESSAGE);
                           });
                         } else {
                           Get.offAllNamed(GetRouterName.auth);

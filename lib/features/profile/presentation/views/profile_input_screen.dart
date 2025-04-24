@@ -13,8 +13,8 @@ import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileInputPage extends GetView<ProfileInputViewModel> {
-  const ProfileInputPage({super.key});
+class ProfileInputScreen extends GetView<ProfileInputViewModel> {
+  const ProfileInputScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
