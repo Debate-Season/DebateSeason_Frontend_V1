@@ -12,8 +12,10 @@ import 'package:debateseason_frontend_v1/features/issuemap/presentation/views/is
 import 'package:debateseason_frontend_v1/features/main/main_binding.dart';
 import 'package:debateseason_frontend_v1/features/main/main_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
+import 'package:debateseason_frontend_v1/features/profile/bindings/profile_image_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/terms_binding.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_image_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_screen.dart';
@@ -51,6 +53,11 @@ class GetRouter {
       name: GetRouterName.profileInput,
       page: () => ProfileInputScreen(),
       binding: ProfileInputBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.profileImage,
+      page: () => ProfileImageScreen(),
+      binding: ProfileImageBinding(),
     ),
     GetPage(
       name: GetRouterName.profileWithdraw,

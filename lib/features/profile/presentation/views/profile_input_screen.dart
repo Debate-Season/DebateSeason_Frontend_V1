@@ -461,6 +461,7 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
         controller.isModifyScreen
             ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
             : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
+        // onPressed: () => Get.offAllNamed(GetRouterName.profileImage),
         onPressed: controller.isModifyScreen
             ? () => controller.patchProfile().then((result) {
                   result.when(loading: () {
