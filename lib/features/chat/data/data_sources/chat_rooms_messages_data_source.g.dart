@@ -3,6 +3,30 @@
 part of 'chat_rooms_messages_data_source.dart';
 
 // **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ChatRoomsMessagesRes _$ChatRoomsMessagesResFromJson(
+        Map<String, dynamic> json) =>
+    ChatRoomsMessagesRes(
+      items: (json['items'] as List<dynamic>)
+          .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      nextCursor: ChatRoomsMessagesRes._stringToInt(json['nextCursor']),
+      hasMore: json['hasMore'] as bool,
+      totalCount: (json['totalCount'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$ChatRoomsMessagesResToJson(
+        ChatRoomsMessagesRes instance) =>
+    <String, dynamic>{
+      'items': instance.items,
+      'nextCursor': instance.nextCursor,
+      'hasMore': instance.hasMore,
+      'totalCount': instance.totalCount,
+    };
+
+// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 

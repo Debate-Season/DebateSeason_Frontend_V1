@@ -1,21 +1,20 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/chat/chat_constants.dart';
-import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ChatInputField extends StatefulWidget {
-  final ChatRoomViewModel chatRoomViewModel;
+  final Function(String) sendMessage;
 
   const ChatInputField({
     super.key,
-    required this.chatRoomViewModel,
+    required this.sendMessage,
   });
 
   @override
@@ -50,20 +49,20 @@ class _ChatInputFieldState extends State<ChatInputField> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            width: 48.0,
-            height: 48.0,
-            padding: DeDimensions.all10,
-            decoration: BoxDecoration(),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                DeIcons.icAddGrey30,
-                width: 24.0,
-                height: 24.0,
-              ),
-              onPressed: () {},
-            ),
-          ),
+          // Container(
+          //   width: 48.0,
+          //   height: 48.0,
+          //   padding: DeDimensions.all10,
+          //   decoration: BoxDecoration(),
+          //   child: IconButton(
+          //     icon: SvgPicture.asset(
+          //       DeIcons.icAddGrey30,
+          //       width: 24.0,
+          //       height: 24.0,
+          //     ),
+          //     onPressed: () {},
+          //   ),
+          // ),
           DeGaps.h12,
           Expanded(
             child: DeTextField(
@@ -81,12 +80,10 @@ class _ChatInputFieldState extends State<ChatInputField> {
           DeGaps.h12,
           DeGestureDetector(
             onTap: () {
-              if (_textController.text.isNotEmpty) {
-                widget.chatRoomViewModel.sendMessage(
-                  content: _textController.text,
-                );
-                _textController.clear();
-              }
+              if (_textController.text.isEmpty) return;
+
+              widget.sendMessage(_textController.text);
+              _textController.clear();
             },
             child: Container(
               padding: DeDimensions.all12,

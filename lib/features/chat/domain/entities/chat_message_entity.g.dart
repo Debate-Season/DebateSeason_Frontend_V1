@@ -6,26 +6,24 @@ part of 'chat_message_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ChatMessageEntityImpl _$$ChatMessageEntityImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ChatMessageEntityImpl(
-      messageType: json['messageType'] as String,
-      content: json['content'] as String,
+ChatMessageEntity _$ChatMessageEntityFromJson(Map<String, dynamic> json) =>
+    ChatMessageEntity(
+      id: (json['id'] as num).toInt(),
+      messageType: ChatMessageType.fromJson(json['messageType'] as String),
       sender: json['sender'] as String,
-      opinionType: json['opinionType'] as String,
+      content: json['content'] as String,
+      opinionType: OpinionType.fromJson(json['opinionType'] as String),
       userCommunity: json['userCommunity'] as String,
-      timeStamp: json['timeStamp'] == null
-          ? null
-          : DateTime.parse(json['timeStamp'] as String),
+      timeStamp: DateTime.parse(json['timeStamp'] as String),
     );
 
-Map<String, dynamic> _$$ChatMessageEntityImplToJson(
-        _$ChatMessageEntityImpl instance) =>
+Map<String, dynamic> _$ChatMessageEntityToJson(ChatMessageEntity instance) =>
     <String, dynamic>{
-      'messageType': instance.messageType,
+      'id': instance.id,
+      'messageType': ChatMessageType.toJsonUpper(instance.messageType),
       'content': instance.content,
       'sender': instance.sender,
-      'opinionType': instance.opinionType,
+      'opinionType': OpinionType.toJsonUpper(instance.opinionType),
       'userCommunity': instance.userCommunity,
-      'timeStamp': instance.timeStamp?.toIso8601String(),
+      'timeStamp': instance.timeStamp.toIso8601String(),
     };

@@ -5,9 +5,7 @@ class ProfileConstants {
   static const VALID_OVERLAP_NICKNAME = '중복된 닉네임입니다.';
   static const PROFILE_CREATE_BTN_TEXT = '토론철 시작하기';
   static const PROFILE_MODIFY_BTN_TEXT = '완료';
-
-  static const PROFILE_SUPPORT_EMAIL = 'tmddnjs1411@gmail.com';
-
+  static const PROFILE_SUPPORT_EMAIL = '카카오채널';
   static const PROFILE_WITHDRAW_POLICY_TITLE = '탈퇴 정책 안내';
   static const PROFILE_WITHDRAW_POLICY_DESCRIPTION = '탈퇴 정책 안내';
   static const PROFILE_WITHDRAW_PROCEDURE_TITLE = '절차';

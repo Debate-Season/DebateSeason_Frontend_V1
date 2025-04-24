@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChatRoomMessageEntity {
-  String get date => throw _privateConstructorUsedError;
-  List<ChatMessageEntity> get messages => throw _privateConstructorUsedError;
+  String get nextCursor => throw _privateConstructorUsedError;
+  List<ChatMessageEntity> get items => throw _privateConstructorUsedError;
   bool get hasMore => throw _privateConstructorUsedError;
   int get totalCount => throw _privateConstructorUsedError;
 
@@ -35,8 +35,8 @@ abstract class $ChatRoomMessageEntityCopyWith<$Res> {
       _$ChatRoomMessageEntityCopyWithImpl<$Res, ChatRoomMessageEntity>;
   @useResult
   $Res call(
-      {String date,
-      List<ChatMessageEntity> messages,
+      {String nextCursor,
+      List<ChatMessageEntity> items,
       bool hasMore,
       int totalCount});
 }
@@ -57,19 +57,19 @@ class _$ChatRoomMessageEntityCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? messages = null,
+    Object? nextCursor = null,
+    Object? items = null,
     Object? hasMore = null,
     Object? totalCount = null,
   }) {
     return _then(_value.copyWith(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      nextCursor: null == nextCursor
+          ? _value.nextCursor
+          : nextCursor // ignore: cast_nullable_to_non_nullable
               as String,
-      messages: null == messages
-          ? _value.messages
-          : messages // ignore: cast_nullable_to_non_nullable
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<ChatMessageEntity>,
       hasMore: null == hasMore
           ? _value.hasMore
@@ -93,8 +93,8 @@ abstract class _$$ChatRoomMessageEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String date,
-      List<ChatMessageEntity> messages,
+      {String nextCursor,
+      List<ChatMessageEntity> items,
       bool hasMore,
       int totalCount});
 }
@@ -113,19 +113,19 @@ class __$$ChatRoomMessageEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? messages = null,
+    Object? nextCursor = null,
+    Object? items = null,
     Object? hasMore = null,
     Object? totalCount = null,
   }) {
     return _then(_$ChatRoomMessageEntityImpl(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      nextCursor: null == nextCursor
+          ? _value.nextCursor
+          : nextCursor // ignore: cast_nullable_to_non_nullable
               as String,
-      messages: null == messages
-          ? _value._messages
-          : messages // ignore: cast_nullable_to_non_nullable
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<ChatMessageEntity>,
       hasMore: null == hasMore
           ? _value.hasMore
@@ -143,20 +143,20 @@ class __$$ChatRoomMessageEntityImplCopyWithImpl<$Res>
 
 class _$ChatRoomMessageEntityImpl implements _ChatRoomMessageEntity {
   _$ChatRoomMessageEntityImpl(
-      {required this.date,
-      required final List<ChatMessageEntity> messages,
+      {required this.nextCursor,
+      required final List<ChatMessageEntity> items,
       required this.hasMore,
       required this.totalCount})
-      : _messages = messages;
+      : _items = items;
 
   @override
-  final String date;
-  final List<ChatMessageEntity> _messages;
+  final String nextCursor;
+  final List<ChatMessageEntity> _items;
   @override
-  List<ChatMessageEntity> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
+  List<ChatMessageEntity> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
+    return EqualUnmodifiableListView(_items);
   }
 
   @override
@@ -166,7 +166,7 @@ class _$ChatRoomMessageEntityImpl implements _ChatRoomMessageEntity {
 
   @override
   String toString() {
-    return 'ChatRoomMessageEntity(date: $date, messages: $messages, hasMore: $hasMore, totalCount: $totalCount)';
+    return 'ChatRoomMessageEntity(nextCursor: $nextCursor, items: $items, hasMore: $hasMore, totalCount: $totalCount)';
   }
 
   @override
@@ -174,16 +174,17 @@ class _$ChatRoomMessageEntityImpl implements _ChatRoomMessageEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChatRoomMessageEntityImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(other._messages, _messages) &&
+            (identical(other.nextCursor, nextCursor) ||
+                other.nextCursor == nextCursor) &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
             (identical(other.totalCount, totalCount) ||
                 other.totalCount == totalCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, date,
-      const DeepCollectionEquality().hash(_messages), hasMore, totalCount);
+  int get hashCode => Object.hash(runtimeType, nextCursor,
+      const DeepCollectionEquality().hash(_items), hasMore, totalCount);
 
   /// Create a copy of ChatRoomMessageEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -197,15 +198,15 @@ class _$ChatRoomMessageEntityImpl implements _ChatRoomMessageEntity {
 
 abstract class _ChatRoomMessageEntity implements ChatRoomMessageEntity {
   factory _ChatRoomMessageEntity(
-      {required final String date,
-      required final List<ChatMessageEntity> messages,
+      {required final String nextCursor,
+      required final List<ChatMessageEntity> items,
       required final bool hasMore,
       required final int totalCount}) = _$ChatRoomMessageEntityImpl;
 
   @override
-  String get date;
+  String get nextCursor;
   @override
-  List<ChatMessageEntity> get messages;
+  List<ChatMessageEntity> get items;
   @override
   bool get hasMore;
   @override
