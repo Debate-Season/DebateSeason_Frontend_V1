@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/type/district_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/type/province_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,7 +55,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
 
                           return Obx(() {
                             var isSelected = false;
-                            if (title == '거주지') {
+                            if (title == ProfileConstants.PROFILE_RESIDENCE) {
                               isSelected =
                                   controller.selectedResidenceProvince ==
                                       province;
@@ -97,7 +98,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
                     child: Obx(() {
                       ProvinceType selectedProvince = ProvinceType.seoul;
                       DistrictType? selectedDistrict;
-                      if (title == '거주지') {
+                      if (title == ProfileConstants.PROFILE_RESIDENCE) {
                         selectedProvince = controller.selectedResidenceProvince;
                         selectedDistrict = controller.selectedResidenceDistrict;
                       } else {
@@ -120,7 +121,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
 
                             return DeGestureDetector(
                               onTap: () {
-                                if (title == '거주지') {
+                                if (title == ProfileConstants.PROFILE_RESIDENCE) {
                                   controller
                                       .setSelectedResidenceDistrict(district);
                                 } else {
@@ -201,7 +202,7 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
       String selectedProvince = ProvinceType.seoul.name;
       String selectedDistrict = '';
 
-      if (title == '거주지') {
+      if (title == ProfileConstants.PROFILE_RESIDENCE) {
         selectedProvince = controller.selectedResidenceProvince.name;
         selectedDistrict = controller.selectedResidenceDistrict?.name ?? '';
       } else {
@@ -212,9 +213,9 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: DeButtonLarge(
-          '선택하기',
+          ProfileConstants.PROFILE_CHOICE,
           onPressed: () {
-            if (title == '거주지') {
+            if (title == ProfileConstants.PROFILE_RESIDENCE) {
               controller.residenceController.text =
                   '$selectedProvince $selectedDistrict';
             } else {

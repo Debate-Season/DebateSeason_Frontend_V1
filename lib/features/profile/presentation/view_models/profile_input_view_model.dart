@@ -139,13 +139,13 @@ class ProfileInputViewModel extends GetxController {
         _profile.value = _profile.value.copyWith(nickname: nickname);
         _nicknameErrorText.value = '';
       case 400:
-        _nicknameErrorText.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       case 409:
         if (_previousNickname.value != nickname) {
-          _nicknameErrorText.value = ProfileConstants.validOverlapNickname;
+          _nicknameErrorText.value = ProfileConstants.VALID_OVERLAP_NICKNAME;
         }
       default:
-        _nicknameErrorText.value = ProfileConstants.validNickname;
+        _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
     }
   }
 
@@ -242,13 +242,13 @@ class ProfileInputViewModel extends GetxController {
 
   bool isValidNickname(String nickname) {
     if (nickname.length < 2 || nickname.length > 8) {
-      _nicknameErrorText.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       return false;
     }
 
-    RegExp regex = RegExp(r'^[가-힣a-zA-Z]{1,8}$');
+    RegExp regex = RegExp(ProfileConstants.PROFILE_NICK_NAME_VALIDITY_REG_EXP);
     if (regex.hasMatch(nickname) == false) {
-      _nicknameErrorText.value = ProfileConstants.validNickname;
+      _nicknameErrorText.value = ProfileConstants.VALID_NICKNAME;
       return false;
     } else {
       return true;

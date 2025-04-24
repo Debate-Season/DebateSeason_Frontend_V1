@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +15,6 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> ageRange = [
-      '10대',
-      '20대',
-      '30대',
-      '40대',
-      '50대',
-      '60대',
-      '70대',
-      '80대',
-      '90대 이상',
-    ];
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -39,9 +28,9 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
             mainAxisSpacing: 8,
             childAspectRatio: 1,
           ),
-          itemCount: ageRange.length,
+          itemCount: ProfileConstants.PROFILE_AGE_RANGE.length,
           itemBuilder: (context, index) {
-            final age = ageRange[index];
+            final age = ProfileConstants.PROFILE_AGE_RANGE[index];
 
             return Obx(() {
               final selectedAge = controller.selectedAge;
@@ -50,7 +39,8 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
                 onTap: () => controller.setSelectedAge(selectedAge: age),
                 child: ProfileTextCard(
                   age,
-                  isSelected: selectedAge == ageRange[index],
+                  isSelected:
+                      selectedAge == ProfileConstants.PROFILE_AGE_RANGE[index],
                 ),
               );
             });
@@ -61,7 +51,7 @@ class ProfileAgeBottomSheet extends GetView<ProfileInputViewModel> {
           final selectedAge = controller.selectedAge;
 
           return DeButtonLarge(
-            '선택하기',
+            ProfileConstants.PROFILE_CHOICE,
             onPressed: () {
               controller.setAgeRange(ageRange: selectedAge);
               Get.back();

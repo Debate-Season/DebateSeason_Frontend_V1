@@ -30,8 +30,8 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
     return DeAppBar(
       title: DeText(
         isModifyScreen
-            ? ProfileConstants.profileModifyAppbarText
-            : ProfileConstants.profileCreateAppbarText,
+            ? ProfileConstants.PROFILE_MODIFY_APPBAR_TEXT
+            : ProfileConstants.PROFILE_CREATE_APPBAR_TEXT,
         style: DeFonts.header20B,
       ),
       isBack: isModifyScreen,
@@ -73,8 +73,8 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 Obx(() {
                   return DeButtonLarge(
                     controller.isModifyScreen
-                        ? ProfileConstants.profileModifyBtnText
-                        : ProfileConstants.profileCreateBtnText,
+                        ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
+                        : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
                     onPressed: controller.isModifyScreen
                         ? () => controller.patchProfile().then((result) {
                               result.when(loading: () {
@@ -145,11 +145,11 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '닉네임',
+              ProfileConstants.PROFILE_NICK_NAME,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             ),
           ],
@@ -157,7 +157,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         DeGaps.v8,
         DeTextField(
           style: DeFonts.body16M,
-          hintText: '한글, 영문 조합 최대 8자',
+          hintText: ProfileConstants.PROFILE_NICK_NAME_HINT_TEXT,
           controller: controller.nicknameController,
           focusNode: controller.nicknameFocusNode,
           autofocus: false,
@@ -194,11 +194,11 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '소속 커뮤니티',
+              ProfileConstants.PROFILE_AFFILIATED_COMMUNITY,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
@@ -206,14 +206,13 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         DeGaps.v8,
         DeGestureDetector(
           onTap: () {
-            // 커뮤니티 선택 바텀시트
             if (Get.context != null) {
               showModalBottomSheet(
                 context: Get.context!,
                 isScrollControlled: true,
                 builder: (context) {
                   return DeBottomSheet(
-                    '소속 커뮤니티',
+                    ProfileConstants.PROFILE_AFFILIATED_COMMUNITY,
                     widget: ProfileCommunityBottomSheet(),
                   );
                 },
@@ -230,7 +229,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           },
           child: DeTextField(
             style: DeFonts.body16M,
-            hintText: '주로 활동하는 커뮤니티를 등록해 주세요.',
+            hintText: ProfileConstants.PROFILE_COMMUNITY_HINT_TEXT,
             controller: controller.communityController,
             enabled: false,
             isCleanIcon: false,
@@ -241,9 +240,9 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
   }
 
   Widget _widgetGender() {
-    const genderMan = '남성';
-    const genderWomen = '여성';
-    const genderOther = '무응답';
+    const genderMan = ProfileConstants.PROFILE_GENDER_MAN;
+    const genderWomen = ProfileConstants.PROFILE_GENDER_WOMEN;
+    const genderOther = ProfileConstants.PROFILE_GENDER_OTHER;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,18 +250,18 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '성별',
+              ProfileConstants.PROFILE_GENDER,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
         ),
         DeGaps.v4,
         DeText(
-          '본 정보는 타인에게 공개되지 않습니다.',
+          ProfileConstants.PROFILE_PRIVACY_NOTICE,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         DeGaps.v8,
@@ -317,18 +316,18 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '연령대',
+              ProfileConstants.PROFILE_AGE,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
         ),
         DeGaps.v4,
         DeText(
-          '본 정보는 타인에게 공개되지 않습니다.',
+          ProfileConstants.PROFILE_PRIVACY_NOTICE,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         DeGaps.v8,
@@ -340,7 +339,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 isScrollControlled: true,
                 builder: (context) {
                   return DeBottomSheet(
-                    '나이대',
+                    ProfileConstants.PROFILE_AGE,
                     widget: ProfileAgeBottomSheet(),
                   );
                 },
@@ -351,7 +350,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           },
           child: DeTextField(
             style: DeFonts.body16M,
-            hintText: '나이대를 선택해주세요.',
+            hintText: ProfileConstants.PROFILE_AGE_HINT_TEXT,
             controller: controller.ageController,
             enabled: false,
             isCleanIcon: false,
@@ -368,18 +367,18 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '거주지',
+              ProfileConstants.PROFILE_RESIDENCE,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
         ),
         DeGaps.v4,
         DeText(
-          '본 정보는 타인에게 공개되지 않습니다.',
+          ProfileConstants.PROFILE_PRIVACY_NOTICE,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         DeGaps.v8,
@@ -391,7 +390,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 isScrollControlled: true,
                 builder: (context) {
                   return ProfileLocationBottomSheet(
-                    title: '거주지',
+                    title: ProfileConstants.PROFILE_RESIDENCE,
                   );
                 },
               );
@@ -399,7 +398,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           },
           child: DeTextField(
             style: DeFonts.body16M,
-            hintText: '거주지를 선택해주세요.',
+            hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
             controller: controller.residenceController,
             enabled: false,
             isCleanIcon: false,
@@ -416,18 +415,18 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '출신지',
+              ProfileConstants.PROFILE_HOME_TOWN,
               style: DeFonts.body14Sb,
             ),
             DeText(
-              '*',
+              ProfileConstants.PROFILE_ESSENTIAL_STAR,
               style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
         ),
         DeGaps.v4,
         DeText(
-          '본 정보는 타인에게 공개되지 않습니다.',
+          ProfileConstants.PROFILE_PRIVACY_NOTICE,
           style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
         ),
         DeGaps.v8,
@@ -439,7 +438,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
                 isScrollControlled: true,
                 builder: (context) {
                   return ProfileLocationBottomSheet(
-                    title: '출신지',
+                    title: ProfileConstants.PROFILE_HOME_TOWN,
                   );
                 },
               );
@@ -447,7 +446,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
           },
           child: DeTextField(
             style: DeFonts.body16M,
-            hintText: '출신지를 선택해주세요.',
+            hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
             controller: controller.homeTownController,
             enabled: false,
             isCleanIcon: false,
@@ -457,7 +456,7 @@ class ProfileInputPage extends GetView<ProfileInputViewModel> {
         Row(
           children: [
             DeText(
-              '거주지와 동일',
+              ProfileConstants.PROFILE_SAME_TO_RESIDENCE,
               style: DeFonts.body14M.copyWith(color: DeColors.grey50),
             ),
             const Spacer(),

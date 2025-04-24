@@ -101,7 +101,7 @@ class TermsPage extends GetView<TermsViewModel> {
   }
 
   Widget _termsTitle(String url, String type) {
-    String title = ProfileConstants.termsTitleMap[type] ?? '';
+    String title = ProfileConstants.TERMS_TITLE_MAP[type] ?? '';
 
     return DeGestureDetector(
       onTap: () {

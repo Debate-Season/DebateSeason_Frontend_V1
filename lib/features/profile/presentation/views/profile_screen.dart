@@ -234,7 +234,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGestureDetector(
           onTap: () async {
             await Clipboard.setData(
-              ClipboardData(text: ProfileConstants.profileSupportEmail),
+              ClipboardData(text: ProfileConstants.PROFILE_SUPPORT_EMAIL),
             );
           },
           child: Row(

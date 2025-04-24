@@ -45,45 +45,45 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
         children: [
           DeGaps.v12,
           DeText(
-            ProfileConstants.profileWithdrawPolicyTitle,
+            ProfileConstants.PROFILE_WITHDRAW_POLICY_TITLE,
             style: DeFonts.header20B,
           ),
           DeGaps.v8,
           DeText(
-            ProfileConstants.profileWithdrawPolicyDescription,
+            ProfileConstants.PROFILE_WITHDRAW_POLICY_DESCRIPTION,
             style: DeFonts.caption12M.copyWith(color: DeColors.grey30),
           ),
           DeGaps.v20,
           DeText(
-            ProfileConstants.profileWithdrawProcedureTitle,
+            ProfileConstants.PROFILE_WITHDRAW_PROCEDURE_TITLE,
             style: DeFonts.header20B,
           ),
           DeGaps.v8,
           DeText(
-            ProfileConstants.profileWithdrawProcedureDescription,
+            ProfileConstants.PROFILE_WITHDRAW_PROCEDURE_DESCRIPTION,
             style: DeFonts.body14M.copyWith(color: DeColors.grey30),
           ),
           DeText(
-            ProfileConstants.profileWithdrawWarning,
+            ProfileConstants.PROFILE_WITHDRAW_WARNING,
             style: DeFonts.body14M.copyWith(color: DeColors.red),
           ),
           DeGaps.v20,
           DeText(
-            ProfileConstants.profileWithdrawDeletedInfoTitle,
+            ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_TITLE,
             style: DeFonts.header20B,
           ),
           DeGaps.v8,
           Text.rich(
             TextSpan(
-              text: ProfileConstants.profileWithdrawDeletedInfoDescription1,
+              text: ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION1,
               style: DeFonts.body14M.copyWith(color: DeColors.grey30),
               children: [
                 TextSpan(
-                  text: ProfileConstants.profileWithdrawDeletedInfoDescription2,
+                  text: ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION2,
                   style: DeFonts.body14M.copyWith(color: DeColors.brand),
                 ),
                 TextSpan(
-                  text: ProfileConstants.profileWithdrawDeletedInfoDescription3,
+                  text: ProfileConstants.PROFILE_WITHDRAW_DELETED_INFO_DESCRIPTION3,
                   style: DeFonts.body14M.copyWith(color: DeColors.grey30),
                 ),
               ],
@@ -93,10 +93,10 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
           DeGestureDetector(
             onTap: () {
               DeDialog.show(
-                dialogTitle: ProfileConstants.profileWithdrawDialogTitle,
-                dialogText: ProfileConstants.profileWithdrawDialogDescription,
-                cancelText: ProfileConstants.profileWithdrawDialogCancelText,
-                doneText: ProfileConstants.profileWithdrawDoneText,
+                dialogTitle: ProfileConstants.PROFILE_WITHDRAW_DIALOG_TITLE,
+                dialogText: ProfileConstants.PROFILE_WITHDRAW_DIALOG_DESCRIPTION,
+                cancelText: ProfileConstants.PROFILE_WITHDRAW_DIALOG_CANCEL_TEXT,
+                doneText: ProfileConstants.PROFILE_WITHDRAW_DONE_TEXT,
                 onTapDone: () {
                   controller.postWithdraw().then((result) {
                     result.when(
@@ -107,7 +107,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
                           controller.kakaoLogout().then((_) {
                             Get.offAllNamed(GetRouterName.auth);
                             deSnackBar(
-                                ProfileConstants.profileWithdrawSuccessMessage);
+                                ProfileConstants.PROFILE_WITHDRAW_SUCCESS_MESSAGE);
                           });
                         } else {
                           Get.offAllNamed(GetRouterName.auth);
@@ -130,7 +130,7 @@ class ProfileWithdrawPage extends GetView<ProfileViewModel> {
               ),
               child: Center(
                   child: DeText(
-                ProfileConstants.profileWithdrawDoneText,
+                ProfileConstants.PROFILE_WITHDRAW_DONE_TEXT,
                 style: DeFonts.body16M,
               )),
             ),
