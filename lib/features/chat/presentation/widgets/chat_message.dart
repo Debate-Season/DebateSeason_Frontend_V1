@@ -76,13 +76,16 @@ class _ChatMessageState extends State<ChatMessage> {
               left: left,
               child: Material(
                 color: Colors.transparent,
-                child: ReactionPicker(
-                  onReactionSelect: (emoji) {
-                    Navigator.pop(context);
-                  },
-                  onInappropriateChatReport: () => widget
-                      .onInappropriateChatReport(widget.chatMessageEntity.id),
-                ),
+                child: ReactionPicker(onReactionSelect: (emoji) {
+                  Navigator.pop(context);
+                }, onInappropriateChatReport: () {
+                  Navigator.pop(context);
+                  Future.microtask(() {
+                    // 팝업창 닫히는 것 보장.
+                    widget
+                        .onInappropriateChatReport(widget.chatMessageEntity.id);
+                  });
+                }),
               ),
             ),
           ],
