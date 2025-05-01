@@ -5,6 +5,7 @@ import 'package:debateseason_frontend_v1/features/chat/bindings/chat_binding.dar
 import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/bindings/issuemap_binding.dart';
@@ -60,6 +61,11 @@ class GetRouter {
       name: GetRouterName.chat,
       page: () => ChatRoomScreen(),
       binding: ChatBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.reportMessage,
+      page: () => InappropriateChatReportScreen(),
+      binding: null,
     ),
     GetPage(
       name: GetRouterName.profile,

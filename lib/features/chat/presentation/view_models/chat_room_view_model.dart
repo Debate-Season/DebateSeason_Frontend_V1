@@ -1,4 +1,5 @@
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
@@ -80,7 +81,12 @@ class ChatRoomViewModel extends GetxController {
     );
   }
 
-  void reportInappropriateChat(int index) {}
+  Future<String?> reportInappropriateChat(int messageId) async {
+    final data = await Get.toNamed(
+      GetRouterName.reportMessage,
+    );
+
+  }
 
   void sendMessage(String content) {
     try {
