@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/chat/data/models/report_reason_req.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:dio/dio.dart';
@@ -14,6 +15,12 @@ abstract class ChatRoomsMessagesDataSource {
   Future<BaseRes<ChatRoomsMessagesRes>> getChatRoomsMessages({
     @Path('roomId') required int roomId,
     @Query('cursor') int? cursor,
+  });
+
+  @POST('/api/v1/chat/messages/{messageId}/report')
+  Future<BaseRes> reportMessage({
+    @Path() required int messageId,
+    @Body() required ReportReasonReq body,
   });
 }
 
