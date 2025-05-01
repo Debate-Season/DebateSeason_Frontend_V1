@@ -34,7 +34,9 @@ class _InappropriateChatReportScreenState
         child: Column(
           children: [
             Text(
-              "허위 신고일 경우, 신고자의 서비스 활동이 제한될 수 있으니 유의해주세요.",
+              "신고 누적 시 해당 대화가 삭제되거나 작성자의 서비스 이용이 "
+              "제한됩니다. 신고는 제출 후 수정이 불가하며, 허위 신고 시 "
+              "신고자의 서비스 이용이 제한될 수 있으니 주의해 주세요.",
               style: DeFonts.body14M.copyWith(color: DeColors.grey30),
             ),
             DeGaps.v28,
