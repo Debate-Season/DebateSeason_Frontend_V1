@@ -17,6 +17,8 @@ class InappropriateChatReportScreen extends StatefulWidget {
 class _InappropriateChatReportScreenState
     extends State<InappropriateChatReportScreen> {
   List<bool> isCheckedList = List.generate(7, (index) => false); // 체크 상태 리스트
+  bool isCustomReasonVisible = false;
+  late TextEditingController customReasonController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class _InappropriateChatReportScreenState
             DeGaps.v20,
             renderCheckbox("개인 정보 노출, 유포, 거래", 5),
             DeGaps.v20,
-            renderCheckbox("기타", 6),
+            renderCheckboxWithReason("기타", 6),
             Spacer(),
             DeButtonLarge(
               "확인",
@@ -79,6 +81,43 @@ class _InappropriateChatReportScreenState
             });
           },
         ),
+      ],
+    );
+  }
+
+  Widget renderCheckboxWithReason(String text, int index) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: DeFonts.body16M,
+            ),
+            CustomCheckbox(
+              isChecked: isCheckedList[index],
+              onChanged: (newValue) {
+                setState(() {
+                  isCustomReasonVisible = newValue;
+                  isCheckedList[index] = newValue;
+                });
+              },
+            ),
+          ],
+        ),
+        DeGaps.v12,
+        if (isCustomReasonVisible)
+          SizedBox(
+            height: 120,
+            child: DeTextField(
+              textAlignVertical: TextAlignVertical.top, // 글자 상단 정렬
+              controller: customReasonController,
+              isCleanIcon: false, // 삭제 버튼 없앰
+              expands: true,
+              maxLines: null,
+            ),
+          ),
       ],
     );
   }
