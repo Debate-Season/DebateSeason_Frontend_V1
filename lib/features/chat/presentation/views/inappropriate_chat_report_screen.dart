@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/models/report_reason_selection.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/custom_checkbox.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,19 @@ class _InappropriateChatReportScreenState
             DeButtonLarge(
               "확인",
               onPressed: () async {
-                Get.back<List<bool>>(result: isCheckedList);
+                // 신고 항목 전달.
+                Get.back<ReportReasonSelection>(
+                    result: ReportReasonSelection(
+                        isAbusive: isCheckedList[0],
+                        isSexual: isCheckedList[1],
+                        isFalseInfo: isCheckedList[2],
+                        isSpam: isCheckedList[3],
+                        isPromotion: isCheckedList[4],
+                        isPrivacyLeak: isCheckedList[5],
+                        isEtc: isCheckedList[6],
+                        etcDescription: isCheckedList[6]
+                            ? customReasonController.text
+                            : null));
               },
               enable: isCheckedList.contains(true) ? true : false,
             ),
