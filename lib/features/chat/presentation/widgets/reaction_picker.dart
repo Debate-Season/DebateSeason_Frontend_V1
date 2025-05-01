@@ -1,6 +1,5 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:flutter/material.dart';
 
 class ReactionPicker extends StatelessWidget {
@@ -20,47 +19,50 @@ class ReactionPicker extends StatelessWidget {
       child: Column(
         children: [
           // 리액션
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            decoration: BoxDecoration(
-              color: DeColors.grey70,
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: IntrinsicHeight(
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
-                Image.asset(
-                  'assets/images/logic_minus.png',
-                  width: 24,
-                  height: 24,
-                ),
-                DeGaps.h12,
-                Image.asset(
-                  'assets/images/logic_plus.png',
-                  width: 24,
-                  height: 24,
-                ),
-                VerticalDivider(
-                  color: DeColors.grey50,
-                  width: 25,
-                  thickness: 1,
-                  indent: 6,
-                  endIndent: 6,
-                ),
-                Image.asset(
-                  'assets/images/attitude_minus.png',
-                  width: 24,
-                  height: 24,
-                ),
-                DeGaps.h12,
-                Image.asset(
-                  'assets/images/attitude_plus.png',
-                  width: 24,
-                  height: 24,
-                ),
-              ]),
-            ),
-          ),
-          DeGaps.v4,
+          // Container(
+          //   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          //   decoration: BoxDecoration(
+          //     color: DeColors.grey70,
+          //     borderRadius: BorderRadius.circular(40),
+          //   ),
+          //   child: IntrinsicHeight(
+          //     child: Row(
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         Image.asset(
+          //           'assets/images/logic_minus.png',
+          //           width: 24,
+          //           height: 24,
+          //         ),
+          //         DeGaps.h12,
+          //         Image.asset(
+          //           'assets/images/logic_plus.png',
+          //           width: 24,
+          //           height: 24,
+          //         ),
+          //         VerticalDivider(
+          //           color: DeColors.grey50,
+          //           width: 25,
+          //           thickness: 1,
+          //           indent: 6,
+          //           endIndent: 6,
+          //         ),
+          //         Image.asset(
+          //           'assets/images/attitude_minus.png',
+          //           width: 24,
+          //           height: 24,
+          //         ),
+          //         DeGaps.h12,
+          //         Image.asset(
+          //           'assets/images/attitude_plus.png',
+          //           width: 24,
+          //           height: 24,
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // DeGaps.v4,
           // 신고
           Container(
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

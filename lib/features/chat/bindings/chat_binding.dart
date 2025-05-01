@@ -16,6 +16,11 @@ class ChatBinding extends Bindings {
         Get.find<ChatRoomsMessagesDataSource>(),
       ),
     );
+    Get.lazyPut<ChatRoomsMessagesRepositoryImpl>(
+      () => ChatRoomsMessagesRepositoryImpl(
+        Get.find<ChatRoomsMessagesDataSource>(),
+      ),
+    );
 
     Get.lazyPut(() => ChatRoomViewModel());
   }

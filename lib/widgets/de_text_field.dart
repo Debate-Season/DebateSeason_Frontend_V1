@@ -1,7 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +27,7 @@ class DeTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool? enabled;
   final bool isCleanIcon;
+  final TextAlignVertical? textAlignVertical;
 
   const DeTextField({
     super.key,
@@ -49,6 +50,7 @@ class DeTextField extends StatelessWidget {
     this.inputFormatters,
     this.enabled,
     this.isCleanIcon = true,
+    this.textAlignVertical,
   });
 
   @override
@@ -88,8 +90,7 @@ class DeTextField extends StatelessWidget {
                           onTap: () => controller.clear(),
                           child: Padding(
                             padding: DeDimensions.all10,
-                            child: SvgPicture.asset(
-                                DeIcons.icXGrey50),
+                            child: SvgPicture.asset(DeIcons.icXGrey50),
                           ),
                         )
                       : null)
@@ -118,6 +119,7 @@ class DeTextField extends StatelessWidget {
         },
         inputFormatters: inputFormatters,
         enabled: enabled,
+        textAlignVertical: textAlignVertical,
       ),
     );
   }

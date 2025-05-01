@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart
 import 'package:debateseason_frontend_v1/features/chat/data/data_sources/chat_rooms_messages_data_source.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/models/report_reason_selection.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
@@ -33,6 +34,22 @@ class ChatRoomsMessagesRepositoryImpl implements ChatRoomsMessagesRepository {
       ),
     );
 
+    // handle response
+    switch (response.status) {
+      case 200:
+        return UiState.success(response.data);
+      default:
+        return UiState.failure(
+            response.message.isEmpty ? "서버 통신에 문제가 발생했습니다" : response.message);
+    }
+  }
+
+  Future<UiState> reportMessage({
+    required int messageId,
+    required ReportReasonSelection reasons,
+  }) async {
+    final response = await dataSource.reportMessage(
+        messageId: messageId, body: reasons.toReq());
     // handle response
     switch (response.status) {
       case 200:
