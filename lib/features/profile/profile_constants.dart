@@ -28,5 +28,6 @@ class ProfileConstants {
   static const Map<String, String> termsTitleMap = {
     'SERVICE': '서비스 이용 약관',
     'PRIVACY': '개인정보 수집/이용 동의',
+    'THIRD_PARTY': '개인정보 제3자 제공 동의',
   };
 }
