@@ -1,7 +1,9 @@
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
+import 'package:debateseason_frontend_v1/features/chat/data/repository_impls/chat_rooms_messages_repository_impl.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/enums/chat_message_type.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/repositories/chat_rooms_messages_repository.dart';
@@ -80,7 +82,25 @@ class ChatRoomViewModel extends GetxController {
     );
   }
 
-  void reportInappropriateChat(int index) {}
+  Future<String?> reportInappropriateChat(int messageId) async {
+    final data = await Get.toNamed(
+      GetRouterName.reportMessage,
+    );
+
+    // 뒤로가기 했을 경우에는 생략.
+    if (data == null) return null;
+
+    final repo = Get.find<ChatRoomsMessagesRepositoryImpl>();
+    final status =
+        await repo.reportMessage(messageId: messageId, reasons: data);
+    // message 신고 후, 서버로부터의 응답여부에 따라 토스트 여부 결정
+
+    return status.when(
+      loading: () => "서버에 문제가 있습니다.",
+      success: (data) => data,
+      failure: (data) => data,
+    );
+  }
 
   void sendMessage(String content) {
     try {
