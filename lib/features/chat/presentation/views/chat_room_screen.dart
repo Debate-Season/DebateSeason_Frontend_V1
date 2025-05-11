@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +156,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 return ChatMessage(
                   chatMessageModel,
                   parentHeight: parentHeight,
-                  onInappropriateChatReport: viewModel.reportInappropriateChat,
+                  onInappropriateChatReport: (messageId) async {
+                    final reportMessage =
+                        await viewModel.reportInappropriateChat(messageId);
+                    if (reportMessage != null) deSnackBar(reportMessage);
+                  },
                 );
               },
               separatorBuilder: (context, index) {

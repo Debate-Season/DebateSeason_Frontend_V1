@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class TermsPage extends GetView<TermsViewModel> {
-  const TermsPage({super.key});
+class TermsScreen extends GetView<TermsViewModel> {
+  const TermsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class TermsPage extends GetView<TermsViewModel> {
   }
 
   Widget _termsTitle(String url, String type) {
-    String title = ProfileConstants.termsTitleMap[type] ?? '';
+    String title = ProfileConstants.TERMS_TITLE_MAP[type] ?? '';
 
     return DeGestureDetector(
       onTap: () {
