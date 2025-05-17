@@ -6,6 +6,8 @@ import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.d
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/home_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/home_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/bindings/issuemap_binding.dart';
@@ -94,5 +96,10 @@ class GetRouter {
       page: () => DebateRoomScreen(),
       binding: DebateBinding(),
     ),
+    GetPage(
+      name: GetRouterName.recommend,
+      page: () => HomeScreen(),
+      binding: HomeBinding(),
+    )
   ];
 }
