@@ -29,6 +29,7 @@
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
 		<key>UISupportedInterfaceOrientations</key>
+		
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>
@@ -52,5 +53,7 @@
           <string>https</string>
           <string>http</string>
         </array>
+		<!-- 앱 수출 규정 누락 메시지 제거 -->
+		<key>ITSAppUsesNonExemptEncryption</key> <No>
 	</dict>
 </plist>
