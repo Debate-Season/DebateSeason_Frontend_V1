@@ -1,7 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
-import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ void main() async {
     await dotenv.load(fileName: '.env.dev');
   } else {
     await dotenv.load(fileName: '.env.prod');
-    AmplitudeUtil.init();
+    // AmplitudeUtil.init();
   }
 
   _initUiSettings();
