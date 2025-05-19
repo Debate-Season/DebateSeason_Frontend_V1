@@ -3,7 +3,7 @@ import 'package:debateseason_frontend_v1/features/home/domain/entities/recommend
 import 'package:debateseason_frontend_v1/features/home/domain/repositories/recommend_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
-class  RecommendRepositoryImpl implements RecommendRepository {
+class RecommendRepositoryImpl implements RecommendRepository {
   final RecommendDataSource dataSource;
 
   RecommendRepositoryImpl(this.dataSource);

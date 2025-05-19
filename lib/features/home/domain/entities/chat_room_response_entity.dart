@@ -10,12 +10,12 @@ class ChatRoomResponseEntity {
   final OpinionType opinion;
 
   ChatRoomResponseEntity({
-  required this.chatRoomId,
-  required this.title,
-  required this.content,
-  required this.agree,
-  required this.disagree,
-  required this.createdAt,
-  required this.opinion,
+    required this.chatRoomId,
+    required this.title,
+    required this.content,
+    required this.agree,
+    required this.disagree,
+    required this.createdAt,
+    required this.opinion,
   });
 }

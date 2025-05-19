@@ -1,7 +1,6 @@
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/home_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
-import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,7 @@ class HomeScreen extends GetView<HomeViewModel> {
   Widget build(BuildContext context) {
     return DeScaffold(
       body: Obx(
-            () => Text(
+        () => Text(
           controller.recommendData.when(
             loading: () => '로딩중',
             success: (issueData) => 'recommendData.title',

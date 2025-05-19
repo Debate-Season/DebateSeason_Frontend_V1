@@ -23,7 +23,6 @@ class HomeViewModel extends GetxController {
     _recommendRepository = Get.find<RecommendRepository>();
     _mediaRepository = Get.find<MediaRepository>();
     fetchRecommendData();
-
   }
 
   Future<void> fetchRecommendData() async {
@@ -34,5 +33,4 @@ class HomeViewModel extends GetxController {
       log.d(e);
     }
   }
-
 }
