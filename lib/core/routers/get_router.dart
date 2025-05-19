@@ -100,6 +100,11 @@ class GetRouter {
       name: GetRouterName.recommend,
       page: () => HomeScreen(),
       binding: HomeBinding(),
-    )
+    ),
+    GetPage(
+      name: GetRouterName.media,
+      page: () => HomeScreen(),
+      binding: HomeBinding(),
+    ),
   ];
 }
