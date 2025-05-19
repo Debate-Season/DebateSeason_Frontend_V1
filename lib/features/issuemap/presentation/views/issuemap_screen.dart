@@ -49,7 +49,6 @@ class IssuemapScreen extends GetView<IssuemapViewModel> {
             child: SvgPicture.asset(DeIcons.icProfileGrey10),
           ),
         ),
-        DeGaps.h20,
       ],
     );
   }
