@@ -53,7 +53,7 @@
           <string>https</string>
           <string>http</string>
         </array>
-		<!-- 앱 수출 규정 누락 메시지 제거 -->
-		<key>ITSAppUsesNonExemptEncryption</key> <No>
+		<key>ITSAppUsesNonExemptEncryption</key> 
+		<false/>
 	</dict>
 </plist>
