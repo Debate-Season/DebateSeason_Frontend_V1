@@ -15,6 +15,7 @@ class DeIcons {
   static const icSignOutGrey50 = 'assets/icons/ic_sign_out_grey50.svg';
   static const icBookmarkGrey50 = 'assets/icons/ic_bookmark_grey50.svg';
   static const icAssistantGrey50 = 'assets/icons/ic_assistant_grey50.svg';
+  static const icInfoGrey50 = 'assets/icons/ic_info_grey50.svg';
 
   //none colorable
   static const icKakaoLogin = 'assets/icons/ic_kakao_login.svg';
