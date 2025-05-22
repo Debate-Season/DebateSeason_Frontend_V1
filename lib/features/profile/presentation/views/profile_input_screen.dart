@@ -6,7 +6,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/profile_location_bottom_sheet.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
@@ -65,10 +64,10 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
                 _widgetGender(),
                 DeGaps.v32,
                 _widgetAge(),
-                DeGaps.v32,
-                _widgetResidence(),
-                DeGaps.v32,
-                _widgetHomeTown(),
+                // DeGaps.v32,
+                // _widgetResidence(),
+                // DeGaps.v32,
+                // _widgetHomeTown(),
                 DeGaps.v40,
                 _widgetBottomButton(),
                 DeGaps.v20,
@@ -330,131 +329,131 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
     );
   }
 
-  Widget _widgetResidence() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            DeText(
-              ProfileConstants.PROFILE_RESIDENCE,
-              style: DeFonts.body14Sb,
-            ),
-            DeText(
-              ProfileConstants.PROFILE_ESSENTIAL_STAR,
-              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
-            )
-          ],
-        ),
-        DeGaps.v4,
-        DeText(
-          ProfileConstants.PROFILE_PRIVACY_NOTICE,
-          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
-        ),
-        DeGaps.v8,
-        DeGestureDetector(
-          onTap: () {
-            if (Get.context != null) {
-              showModalBottomSheet(
-                context: Get.context!,
-                isScrollControlled: true,
-                builder: (context) {
-                  return ProfileLocationBottomSheet(
-                    title: ProfileConstants.PROFILE_RESIDENCE,
-                  );
-                },
-              );
-            }
-          },
-          child: DeTextField(
-            style: DeFonts.body16M,
-            hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
-            controller: controller.residenceController,
-            enabled: false,
-            isCleanIcon: false,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _widgetHomeTown() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            DeText(
-              ProfileConstants.PROFILE_HOME_TOWN,
-              style: DeFonts.body14Sb,
-            ),
-            DeText(
-              ProfileConstants.PROFILE_ESSENTIAL_STAR,
-              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
-            )
-          ],
-        ),
-        DeGaps.v4,
-        DeText(
-          ProfileConstants.PROFILE_PRIVACY_NOTICE,
-          style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
-        ),
-        DeGaps.v8,
-        DeGestureDetector(
-          onTap: () {
-            if (Get.context != null) {
-              showModalBottomSheet(
-                context: Get.context!,
-                isScrollControlled: true,
-                builder: (context) {
-                  return ProfileLocationBottomSheet(
-                    title: ProfileConstants.PROFILE_HOME_TOWN,
-                  );
-                },
-              );
-            }
-          },
-          child: DeTextField(
-            style: DeFonts.body16M,
-            hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
-            controller: controller.homeTownController,
-            enabled: false,
-            isCleanIcon: false,
-          ),
-        ),
-        DeGaps.v12,
-        Row(
-          children: [
-            DeText(
-              ProfileConstants.PROFILE_SAME_TO_RESIDENCE,
-              style: DeFonts.body14M.copyWith(color: DeColors.grey50),
-            ),
-            const Spacer(),
-            Obx(() {
-              bool isChecked = false;
-              isChecked = controller.selectedResidenceDistrict != null &&
-                  controller.selectedResidenceProvince ==
-                      controller.selectedHomeTownProvince &&
-                  controller.selectedResidenceDistrict ==
-                      controller.selectedHomeTownDistrict;
-
-              return Checkbox(
-                value: isChecked,
-                onChanged: (value) {
-                  if (value ?? false) {
-                    controller.checkSameToResidence();
-                  } else {
-                    controller.uncheckSameToResidence();
-                  }
-                },
-              );
-            }),
-          ],
-        ),
-      ],
-    );
-  }
-
+// Widget _widgetResidence() {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Row(
+//         children: [
+//           DeText(
+//             ProfileConstants.PROFILE_RESIDENCE,
+//             style: DeFonts.body14Sb,
+//           ),
+//           DeText(
+//             ProfileConstants.PROFILE_ESSENTIAL_STAR,
+//             style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+//           )
+//         ],
+//       ),
+//       DeGaps.v4,
+//       DeText(
+//         ProfileConstants.PROFILE_PRIVACY_NOTICE,
+//         style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+//       ),
+//       DeGaps.v8,
+//       DeGestureDetector(
+//         onTap: () {
+//           if (Get.context != null) {
+//             showModalBottomSheet(
+//               context: Get.context!,
+//               isScrollControlled: true,
+//               builder: (context) {
+//                 return ProfileLocationBottomSheet(
+//                   title: ProfileConstants.PROFILE_RESIDENCE,
+//                 );
+//               },
+//             );
+//           }
+//         },
+//         child: DeTextField(
+//           style: DeFonts.body16M,
+//           hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
+//           controller: controller.residenceController,
+//           enabled: false,
+//           isCleanIcon: false,
+//         ),
+//       ),
+//     ],
+//   );
+// }
+//
+// Widget _widgetHomeTown() {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       Row(
+//         children: [
+//           DeText(
+//             ProfileConstants.PROFILE_HOME_TOWN,
+//             style: DeFonts.body14Sb,
+//           ),
+//           DeText(
+//             ProfileConstants.PROFILE_ESSENTIAL_STAR,
+//             style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
+//           )
+//         ],
+//       ),
+//       DeGaps.v4,
+//       DeText(
+//         ProfileConstants.PROFILE_PRIVACY_NOTICE,
+//         style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+//       ),
+//       DeGaps.v8,
+//       DeGestureDetector(
+//         onTap: () {
+//           if (Get.context != null) {
+//             showModalBottomSheet(
+//               context: Get.context!,
+//               isScrollControlled: true,
+//               builder: (context) {
+//                 return ProfileLocationBottomSheet(
+//                   title: ProfileConstants.PROFILE_HOME_TOWN,
+//                 );
+//               },
+//             );
+//           }
+//         },
+//         child: DeTextField(
+//           style: DeFonts.body16M,
+//           hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
+//           controller: controller.homeTownController,
+//           enabled: false,
+//           isCleanIcon: false,
+//         ),
+//       ),
+//       DeGaps.v12,
+//       Row(
+//         children: [
+//           DeText(
+//             ProfileConstants.PROFILE_SAME_TO_RESIDENCE,
+//             style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+//           ),
+//           const Spacer(),
+//           Obx(() {
+//             bool isChecked = false;
+//             isChecked = controller.selectedResidenceDistrict != null &&
+//                 controller.selectedResidenceProvince ==
+//                     controller.selectedHomeTownProvince &&
+//                 controller.selectedResidenceDistrict ==
+//                     controller.selectedHomeTownDistrict;
+//
+//             return Checkbox(
+//               value: isChecked,
+//               onChanged: (value) {
+//                 if (value ?? false) {
+//                   controller.checkSameToResidence();
+//                 } else {
+//                   controller.uncheckSameToResidence();
+//                 }
+//               },
+//             );
+//           }),
+//         ],
+//       ),
+//     ],
+//   );
+// }
+//
   Widget _widgetBottomButton() {
     return Obx(() {
       return DeButtonLarge(
