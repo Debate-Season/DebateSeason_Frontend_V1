@@ -10,6 +10,7 @@ class MediaItemRes {
   final String supplier;
   final DateTime outdated;
   final String url;
+  final String? src;
 
   MediaItemRes({
     required this.id,
@@ -17,6 +18,7 @@ class MediaItemRes {
     required this.supplier,
     required this.outdated,
     required this.url,
+    this.src,
   });
 
   factory MediaItemRes.fromJson(Map<String, dynamic> json) =>
@@ -30,5 +32,6 @@ class MediaItemRes {
         supplier: supplier,
         outdated: outdated,
         url: url,
+        src: src,
       );
 }

@@ -12,6 +12,7 @@ MediaItemRes _$MediaItemResFromJson(Map<String, dynamic> json) => MediaItemRes(
       supplier: json['supplier'] as String,
       outdated: DateTime.parse(json['outdated'] as String),
       url: json['url'] as String,
+      src: json['src'] as String?,
     );
 
 Map<String, dynamic> _$MediaItemResToJson(MediaItemRes instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$MediaItemResToJson(MediaItemRes instance) =>
       'supplier': instance.supplier,
       'outdated': instance.outdated.toIso8601String(),
       'url': instance.url,
+      'src': instance.src,
     };
