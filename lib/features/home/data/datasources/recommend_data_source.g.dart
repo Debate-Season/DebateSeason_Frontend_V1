@@ -27,7 +27,7 @@ class _RecommendDataSource implements RecommendDataSource {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/v1/home/refresh',
+            '/api/v1/home/recommend',
             queryParameters: queryParameters,
             data: _data,
           )

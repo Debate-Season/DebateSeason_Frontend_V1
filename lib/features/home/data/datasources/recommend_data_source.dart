@@ -9,9 +9,6 @@ part 'recommend_data_source.g.dart';
 abstract class RecommendDataSource {
   factory RecommendDataSource(Dio dio) = _RecommendDataSource;
 
-  @GET('/api/v1/home/refresh')
+  @GET('/api/v1/home/recommend')
   Future<BaseRes<RecommendRes>> getRecommend();
-
-  // @GET('/api/v1/home/recommend')
-  // Future<BaseRes<RecommendRes>> getRecommend();
 }
