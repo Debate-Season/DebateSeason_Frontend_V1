@@ -6,7 +6,8 @@ import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.d
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
-import 'package:debateseason_frontend_v1/features/home/bindings/home_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/media_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/recommend_binding.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/views/home_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
@@ -99,12 +100,12 @@ class GetRouter {
     GetPage(
       name: GetRouterName.recommend,
       page: () => HomeScreen(),
-      binding: HomeBinding(),
+      binding: RecommendBinding(),
     ),
     GetPage(
       name: GetRouterName.media,
       page: () => HomeScreen(),
-      binding: HomeBinding(),
+      binding: MediaBinding(),
     ),
   ];
 }
