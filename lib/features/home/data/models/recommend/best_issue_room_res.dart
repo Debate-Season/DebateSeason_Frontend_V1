@@ -1,4 +1,3 @@
-import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_issue_room_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 

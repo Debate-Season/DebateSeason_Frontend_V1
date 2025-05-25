@@ -1,7 +1,7 @@
-import 'package:debateseason_frontend_v1/features/home/data/models/best_chat_room_res.dart';
-import 'package:debateseason_frontend_v1/features/home/data/models/best_issue_room_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/best_chat_room_res.dart';
 import 'package:debateseason_frontend_v1/features/home/data/models/breaking_news_res.dart';
-import 'package:debateseason_frontend_v1/features/home/data/models/chat_room_response_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/best_issue_room_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/chat_room_response_res.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/recommend_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
