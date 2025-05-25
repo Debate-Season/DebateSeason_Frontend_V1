@@ -14,7 +14,7 @@ ChatRoomResponseRes _$ChatRoomResponseResFromJson(Map<String, dynamic> json) =>
       agree: (json['agree'] as num).toInt(),
       disagree: (json['disagree'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      opinion: $enumDecode(_$OpinionTypeEnumMap, json['opinion']),
+      opinion: OpinionType.fromJson(json['opinion'] as String),
     );
 
 Map<String, dynamic> _$ChatRoomResponseResToJson(
@@ -26,11 +26,5 @@ Map<String, dynamic> _$ChatRoomResponseResToJson(
       'agree': instance.agree,
       'disagree': instance.disagree,
       'createdAt': instance.createdAt.toIso8601String(),
-      'opinion': _$OpinionTypeEnumMap[instance.opinion]!,
+      'opinion': OpinionType.toJsonUpper(instance.opinion),
     };
-
-const _$OpinionTypeEnumMap = {
-  OpinionType.agree: 'agree',
-  OpinionType.disagree: 'disagree',
-  OpinionType.neutral: 'neutral',
-};

@@ -12,6 +12,7 @@ class ChatRoomResponseRes {
   final int agree;
   final int disagree;
   final DateTime createdAt;
+  @JsonKey(fromJson: OpinionType.fromJson, toJson: OpinionType.toJsonUpper) //서버에서는 String이라고 하는데, 일단 enum으로 처리해줌
   final OpinionType opinion;
 
   ChatRoomResponseRes({
