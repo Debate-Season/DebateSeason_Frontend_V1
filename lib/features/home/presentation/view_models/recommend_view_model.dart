@@ -1,3 +1,7 @@
+import 'package:debateseason_frontend_v1/features/home/data/models/breaking_news_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/best_chat_room_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/best_issue_room_res.dart';
+import 'package:debateseason_frontend_v1/features/home/data/models/recommend/chat_room_response_res.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/recommend_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/repositories/recommend_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
@@ -9,6 +13,11 @@ class RecommendViewModel extends GetxController {
   final _recommendData = Rx<UiState<RecommendEntity>>(const UiState.loading());
 
   UiState<RecommendEntity> get recommendData => _recommendData.value;
+
+  final RxList<BreakingNewsRes> breakingNews = <BreakingNewsRes>[].obs;
+  final RxList<BestChatRoomRes> top5BestChatRooms = <BestChatRoomRes>[].obs;
+  final RxList<BestIssueRoomRes> top5BestIssueRooms = <BestIssueRoomRes>[].obs;
+  final Rxn<List<ChatRoomResponseRes>> chatRoomResponse = Rxn<List<ChatRoomResponseRes>>();
 
   @override
   void onInit() {
