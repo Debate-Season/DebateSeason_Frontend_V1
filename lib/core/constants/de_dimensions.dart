@@ -34,6 +34,7 @@ class DeDimensions {
   static const EdgeInsets horizontal20 = EdgeInsets.symmetric(horizontal: 20);
 
   static const EdgeInsets vertical2 = EdgeInsets.symmetric(vertical: 2);
+  static const EdgeInsets vertical8 = EdgeInsets.symmetric(vertical: 8);
   static const EdgeInsets vertical10 = EdgeInsets.symmetric(vertical: 10);
   static const EdgeInsets vertical12 = EdgeInsets.symmetric(vertical: 12);
   static const EdgeInsets vertical16 = EdgeInsets.symmetric(vertical: 16);

@@ -5,6 +5,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/media_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet_notitle.dart';
+import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -36,6 +37,17 @@ class HomeMediaPage extends GetView<MediaViewModel> {
   Widget _mainMedia(BuildContext context) {
     return Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DeGaps.h20,
+            DeText(
+              '실시간 Live',
+              style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
+            ),
+          ],
+        ),
+        DeGaps.v12,
         DeGestureDetector(
           onTap: () {},
           child: Container(
@@ -45,7 +57,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
           child: Column(
             children: [
               Row(
@@ -78,8 +90,8 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                                       ),
                                       DeGaps.h16,
                                       DeText('URL 복사하기',
-                                          style: DeFonts.body16M
-                                              .copyWith(color: DeColors.grey10)),
+                                          style: DeFonts.body16M.copyWith(
+                                              color: DeColors.grey10)),
                                     ],
                                   )),
                                 ),
@@ -115,7 +127,34 @@ class HomeMediaPage extends GetView<MediaViewModel> {
               ),
             ],
           ),
-        )
+        ),
+        DeGaps.v20,
+        DeGaps.v20,
+        Padding(
+          padding: DeDimensions.horizontal20,
+          child: DeGestureDetector(
+            onTap: () {},
+            child: Container(
+              width: double.infinity,
+              padding: DeDimensions.vertical8,
+              decoration: ShapeDecoration(
+                color: DeColors.grey110,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DeText(
+                    '라이브 모두 보기',
+                    style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -128,7 +167,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DeText(
-            '모아보기',
+            '실시간 미디어',
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
           DeGaps.v16,
@@ -185,7 +224,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
       itemBuilder: (context, index) {
         return _mediaItem(index);
       },
-      separatorBuilder: (context, index) => DeGaps.v12,
+      separatorBuilder: (context, index) => DeGaps.v16,
       itemCount: 4,
     );
   }
