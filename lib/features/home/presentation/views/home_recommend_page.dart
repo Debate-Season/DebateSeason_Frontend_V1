@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/view_models/recommend_view_model.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
@@ -12,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class HomeRecommendPage extends StatelessWidget {
+class HomeRecommendPage extends GetView<RecommendViewModel> {
   const HomeRecommendPage({super.key});
 
   @override

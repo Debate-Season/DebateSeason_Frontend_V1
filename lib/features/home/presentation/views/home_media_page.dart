@@ -3,14 +3,16 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/view_models/media_view_model.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet_notitle.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class HomeMediaPage extends StatelessWidget {
+class HomeMediaPage extends GetView<MediaViewModel> {
   const HomeMediaPage({super.key});
 
   @override
