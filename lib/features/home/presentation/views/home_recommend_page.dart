@@ -26,13 +26,39 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _body() {
     return ListView(
       children: [
+        _headlineNews(),
         DeGaps.v20,
         _bestDebate(),
         DeGaps.v40,
         _bestIssue(),
-        DeGaps.v42,
+        DeGaps.v40,
         _myDebate(),
+        DeGaps.v40,
+        _recommendDebate(),
       ],
+    );
+  }
+
+  Widget _headlineNews() {
+    return Padding(
+      padding: DeDimensions.horizontal20,
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: DeDimensions.padding10x8,
+            decoration: BoxDecoration(
+              color: DeColors.grey110,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DeText(
+              '속보나올 자리',
+              style: DeFonts.body14M,
+            ),
+          ),
+          DeGaps.v4,
+        ],
+      ),
     );
   }
 
@@ -43,7 +69,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
         Padding(
           padding: DeDimensions.horizontal20,
           child: DeText(
-            '인기 토론',
+            '뜨겁게 논쟁 중인 찬반토론',
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
         ),
@@ -128,7 +154,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
         Padding(
           padding: DeDimensions.horizontal20,
           child: DeText(
-            '인기 이슈',
+            '이런 이슈는 어때요?',
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
         ),
@@ -260,5 +286,23 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
       },
       child: IssueCard(chatroom: ['tdddd']),
     );
+  }
+
+  Widget _recommendDebate() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: DeDimensions.horizontal20,
+          child: DeText('이런 토론을 추천해요', style: DeFonts.header18Sb),
+        ),
+        DeGaps.v12,
+        _recommendDebateList(),
+      ],
+    );
+  }
+
+  Widget _recommendDebateList(){
+    return DeText('asdf');
   }
 }
