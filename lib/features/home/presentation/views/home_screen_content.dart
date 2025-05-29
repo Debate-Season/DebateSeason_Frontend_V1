@@ -22,7 +22,7 @@ class _HomeScreenContentState extends State<HomeScreenContent>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  final List<String> tabs = ['추천', '미디어'];
+  final List<String> tabs = ['미디어', '이슈 · 토론'];
 
   @override
   void initState() {
@@ -40,21 +40,21 @@ class _HomeScreenContentState extends State<HomeScreenContent>
   Widget build(BuildContext context) {
     return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
-        SliverAppBar(
-          pinned: true,
-          floating: false,
-          titleSpacing: 0,
-          title: _headlineNews(),
-          backgroundColor: DeColors.grey120,
-          surfaceTintColor: Colors.transparent,
-        ),
+        // SliverAppBar(
+        //   pinned: true,
+        //   floating: false,
+        //   titleSpacing: 0,
+        //   title: _headlineNews(),
+        //   backgroundColor: DeColors.grey120,
+        //   surfaceTintColor: Colors.transparent,
+        // ),
         SliverPersistentHeader(
           pinned: false,
           delegate: _TabBarDelegate(Padding(
             padding: DeDimensions.horizontal20,
             child: HomeTabBar(
               tabController: _tabController,
-              tabs: tabs.map((e) => Tab(text: e)).toList(),
+              tabs: tabs,
             ),
           )),
         ),
@@ -62,8 +62,8 @@ class _HomeScreenContentState extends State<HomeScreenContent>
       body: HomeTabView(
         tabController: _tabController,
         tabViews: [
-          HomeRecommendPage(),
           HomeMediaPage(),
+          HomeRecommendPage(),
         ],
       ),
     );
