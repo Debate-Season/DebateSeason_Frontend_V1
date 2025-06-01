@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
@@ -10,8 +11,10 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:debateseason_frontend_v1/widgets/de_dialog_with_single_button.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChatRoomScreen extends StatefulWidget {
@@ -79,6 +82,35 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         ),
       ),
       isCenter: false,
+      actions: [
+        Row(
+          children: [
+            DeText(
+              "신고 방침",
+              style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
+            ),
+            DeGaps.h2,
+            GestureDetector(
+              child: SvgPicture.asset(
+                DeIcons.icInfoGrey50,
+                width: 16.0,
+                height: 16.0,
+              ),
+              onTap: () {
+                DeDialogWithSingleButton.show(
+                    dialogTitle: "신고 방침",
+                    dialogTexts: [
+                      "• 신고 3회 누적 시, 해당 대화 작성자에 대한 신고가 진행됩니다.",
+                      "• 신고는 제출 후 수정이 불가하며, 신고는 접수 후 24시간 이내에 처리됩니다.",
+                      "• 허위 신고 시 신고자의 서비스 이용이 제한될 수 있으니 주의해 주세요."
+                    ],
+                    doneText: "확인",
+                    onTapDone: () {});
+              },
+            ),
+          ],
+        )
+      ],
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0),
         child: Container(
