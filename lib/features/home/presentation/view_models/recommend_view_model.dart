@@ -14,10 +14,11 @@ class RecommendViewModel extends GetxController {
 
   UiState<RecommendEntity> get recommendData => _recommendData.value;
 
-  final RxList<BreakingNewsRes> breakingNews = <BreakingNewsRes>[].obs;
-  final RxList<BestChatRoomRes> top5BestChatRooms = <BestChatRoomRes>[].obs;
-  final RxList<BestIssueRoomRes> top5BestIssueRooms = <BestIssueRoomRes>[].obs;
-  final Rxn<List<ChatRoomResponseRes>> chatRoomResponse = Rxn<List<ChatRoomResponseRes>>();
+  //final RxList<BreakingNewsRes> breakingNews = <BreakingNewsRes>[].obs;
+  //final RxList<BestChatRoomRes> top5BestChatRooms = <BestChatRoomRes>[].obs;
+  //final RxList<BestIssueRoomRes> top5BestIssueRooms = <BestIssueRoomRes>[].obs;
+  //final Rxn<List<ChatRoomResponseRes>> chatRoomResponse = Rxn<List<ChatRoomResponseRes>>();
+  //final RxList<ChatRoomResponseRes> chatRoomResponse = <ChatRoomResponseRes>[].obs;
 
   @override
   void onInit() {
