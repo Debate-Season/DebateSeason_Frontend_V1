@@ -46,15 +46,15 @@ class DebateCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Row(
-            children: [
-              DeText('관심등록 ',
-                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
-              DeText('198만',
-                  style: DeFonts.caption12M.copyWith(color: DeColors.grey30))
-            ],
-          ),
-          DeGaps.v8,
+          //Row(
+          //  children: [
+          //    DeText('관심등록 ',
+          //        style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
+          //    DeText('198만',
+          //        style: DeFonts.caption12M.copyWith(color: DeColors.grey30))
+          //  ],
+          //),
+          //DeGaps.v8,
           DeText(bestChatRoom.time,
               style: DeFonts.caption12M.copyWith(color: DeColors.brand)),
         ],

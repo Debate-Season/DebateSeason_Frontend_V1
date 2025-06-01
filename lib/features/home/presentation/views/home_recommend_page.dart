@@ -5,9 +5,11 @@ import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/best_issue_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/recommend_view_model.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/debate_card.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card_new.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
@@ -102,7 +104,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _bestDebateList() {
     return Obx(() {
       final scrollController = ScrollController(
-        initialScrollOffset: (320)* 500,
+        initialScrollOffset: (317) * 500,
       );
       final debateData = controller.recommendData;
 
@@ -112,7 +114,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
           final debaterooms = debateData.top5BestChatRooms;
           final int len = debaterooms.length;
           return SizedBox(
-            height: 158,
+            height: 140,
             child: ListView.separated(
               controller: scrollController,
               itemCount: 1000,
