@@ -8,6 +8,7 @@ class ChatRoomResponseEntity {
   final int disagree;
   final DateTime createdAt;
   final OpinionType opinion;
+  final String time;
 
   ChatRoomResponseEntity({
     required this.chatRoomId,
@@ -17,5 +18,6 @@ class ChatRoomResponseEntity {
     required this.disagree,
     required this.createdAt,
     required this.opinion,
+    required this.time,
   });
 }
