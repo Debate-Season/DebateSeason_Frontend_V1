@@ -155,81 +155,45 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   }
 
   Widget _bestIssueList() {
-    return SizedBox(
-      height: 102, // todo 높이 조정
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              if (index == 0) DeGaps.h20,
-              bestIssueItem(),
-              DeGaps.h8,
-            ],
-          );
-        },
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
+    return Obx(() {
+      final issueData = controller.recommendData;
+      return issueData.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          success: (issueData) {
+            final issuerooms = issueData.top5BestIssueRooms;
+            return SizedBox(
+              height: 90, // todo 높이 조정
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      if (index == 0) DeGaps.h20,
+                      bestIssueItem(issuerooms[index]),
+                      DeGaps.h8,
+                    ],
+                  );
+                },
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
+              ),
+            );
+          },
+          failure: (error) => Center(
+                  child: DeText(
+                error,
+                style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+              )));
+    });
   }
 
-  Widget bestIssueItem() {
-    return Container(
-      width: 200,
-      padding: DeDimensions.all16,
-      decoration: BoxDecoration(
-          color: DeColors.grey110,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: DeColors.grey90,
-            width: 1,
-          )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DeText(
-            '동덕여자대학교 남녀공학 전환 반대 시위',
-            style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
-            overflow: TextOverflow.ellipsis,
-          ),
-          DeGaps.v8,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      DeText('관심등록 ',
-                          style: DeFonts.caption12M
-                              .copyWith(color: DeColors.grey50)),
-                      DeText('27만',
-                          style: DeFonts.caption12M
-                              .copyWith(color: DeColors.grey30))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      DeText('토론주제 ',
-                          style: DeFonts.caption12M
-                              .copyWith(color: DeColors.grey50)),
-                      DeText('8개',
-                          style: DeFonts.caption12M
-                              .copyWith(color: DeColors.grey30))
-                    ],
-                  ),
-                ],
-              ),
-              SvgPicture.asset(
-                DeIcons.icArrowRightGrey50,
-                width: 20,
-                height: 20,
-              )
-            ],
-          ),
-        ],
-      ),
+  Widget bestIssueItem(BestIssueRoomEntity issue) {
+    return DeGestureDetector(
+      onTap: () {
+        Get.toNamed(GetRouterName.issue, arguments: {
+          'issue_id': issue.issueId,
+        });
+      },
+      child: IssueCardNew(bestIssueRoom: issue),
     );
   }
 
