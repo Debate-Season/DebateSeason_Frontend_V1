@@ -7,11 +7,16 @@ part of 'media_res.dart';
 // **************************************************************************
 
 MediaRes _$MediaResFromJson(Map<String, dynamic> json) => MediaRes(
-      mediaMap: (json['mediaMap'] as List<dynamic>)
-          .map((e) => MediaItemRes.fromJson(e as Map<String, dynamic>))
+      youtubeLiveContainer: json['youtubeLiveContainer'] == null
+          ? null
+          : YoutubeLiveContainerRes.fromJson(
+              json['youtubeLiveContainer'] as Map<String, dynamic>),
+      items: (json['items'] as List<dynamic>?)
+          ?.map((e) => MediaItemRes.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$MediaResToJson(MediaRes instance) => <String, dynamic>{
-      'mediaMap': instance.mediaMap,
+      'youtubeLiveContainer': instance.youtubeLiveContainer,
+      'items': instance.items,
     };

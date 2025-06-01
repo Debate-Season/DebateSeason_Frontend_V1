@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MediaEntity {
-  List<MediaItemEntity> get mediaMap => throw _privateConstructorUsedError;
+  YoutubeLiveEntity? get youtubeLive => throw _privateConstructorUsedError;
+  List<MediaItemEntity> get items => throw _privateConstructorUsedError;
 
   /// Create a copy of MediaEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +32,7 @@ abstract class $MediaEntityCopyWith<$Res> {
           MediaEntity value, $Res Function(MediaEntity) then) =
       _$MediaEntityCopyWithImpl<$Res, MediaEntity>;
   @useResult
-  $Res call({List<MediaItemEntity> mediaMap});
+  $Res call({YoutubeLiveEntity? youtubeLive, List<MediaItemEntity> items});
 }
 
 /// @nodoc
@@ -49,12 +50,17 @@ class _$MediaEntityCopyWithImpl<$Res, $Val extends MediaEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mediaMap = null,
+    Object? youtubeLive = freezed,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      mediaMap: null == mediaMap
-          ? _value.mediaMap
-          : mediaMap // ignore: cast_nullable_to_non_nullable
+      youtubeLive: freezed == youtubeLive
+          ? _value.youtubeLive
+          : youtubeLive // ignore: cast_nullable_to_non_nullable
+              as YoutubeLiveEntity?,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<MediaItemEntity>,
     ) as $Val);
   }
@@ -68,7 +74,7 @@ abstract class _$$MediaEntityImplCopyWith<$Res>
       __$$MediaEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<MediaItemEntity> mediaMap});
+  $Res call({YoutubeLiveEntity? youtubeLive, List<MediaItemEntity> items});
 }
 
 /// @nodoc
@@ -84,12 +90,17 @@ class __$$MediaEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mediaMap = null,
+    Object? youtubeLive = freezed,
+    Object? items = null,
   }) {
     return _then(_$MediaEntityImpl(
-      mediaMap: null == mediaMap
-          ? _value._mediaMap
-          : mediaMap // ignore: cast_nullable_to_non_nullable
+      youtubeLive: freezed == youtubeLive
+          ? _value.youtubeLive
+          : youtubeLive // ignore: cast_nullable_to_non_nullable
+              as YoutubeLiveEntity?,
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
               as List<MediaItemEntity>,
     ));
   }
@@ -98,20 +109,23 @@ class __$$MediaEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MediaEntityImpl implements _MediaEntity {
-  _$MediaEntityImpl({required final List<MediaItemEntity> mediaMap})
-      : _mediaMap = mediaMap;
+  _$MediaEntityImpl(
+      {required this.youtubeLive, required final List<MediaItemEntity> items})
+      : _items = items;
 
-  final List<MediaItemEntity> _mediaMap;
   @override
-  List<MediaItemEntity> get mediaMap {
-    if (_mediaMap is EqualUnmodifiableListView) return _mediaMap;
+  final YoutubeLiveEntity? youtubeLive;
+  final List<MediaItemEntity> _items;
+  @override
+  List<MediaItemEntity> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_mediaMap);
+    return EqualUnmodifiableListView(_items);
   }
 
   @override
   String toString() {
-    return 'MediaEntity(mediaMap: $mediaMap)';
+    return 'MediaEntity(youtubeLive: $youtubeLive, items: $items)';
   }
 
   @override
@@ -119,12 +133,14 @@ class _$MediaEntityImpl implements _MediaEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MediaEntityImpl &&
-            const DeepCollectionEquality().equals(other._mediaMap, _mediaMap));
+            (identical(other.youtubeLive, youtubeLive) ||
+                other.youtubeLive == youtubeLive) &&
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_mediaMap));
+  int get hashCode => Object.hash(
+      runtimeType, youtubeLive, const DeepCollectionEquality().hash(_items));
 
   /// Create a copy of MediaEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -136,11 +152,14 @@ class _$MediaEntityImpl implements _MediaEntity {
 }
 
 abstract class _MediaEntity implements MediaEntity {
-  factory _MediaEntity({required final List<MediaItemEntity> mediaMap}) =
-      _$MediaEntityImpl;
+  factory _MediaEntity(
+      {required final YoutubeLiveEntity? youtubeLive,
+      required final List<MediaItemEntity> items}) = _$MediaEntityImpl;
 
   @override
-  List<MediaItemEntity> get mediaMap;
+  YoutubeLiveEntity? get youtubeLive;
+  @override
+  List<MediaItemEntity> get items;
 
   /// Create a copy of MediaEntity
   /// with the given fields replaced by the non-null parameter values.
