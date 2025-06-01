@@ -255,8 +255,8 @@ class HomeMediaPage extends GetView<MediaViewModel> {
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
           DeGaps.v16,
-          _mediaCategory(),
-          DeGaps.v20,
+          //_mediaCategory(),
+          //DeGaps.v20,
           _mediaList(),
         ],
       ),
@@ -302,20 +302,43 @@ class HomeMediaPage extends GetView<MediaViewModel> {
   }
 
   Widget _mediaList() {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return _mediaItem(index);
-      },
-      separatorBuilder: (context, index) => DeGaps.v16,
-      itemCount: 4,
-    );
+    return Obx(() {
+      final mediaData = controller.mediaData;
+      return mediaData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        success: (mediaData) {
+          final medias = mediaData.items;
+          log.d('mediaData : $mediaData');
+          log.d('medias : $medias');
+          final int len = medias.length;
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return _mediaItem(medias[index]);
+            },
+            separatorBuilder: (context, index) => DeGaps.v16,
+            itemCount: len,
+          );
+        },
+        failure: (error) => Center(
+          child: DeText(
+            error,
+            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          ),
+        ),
+      );
+    });
   }
 
-  Widget _mediaItem(int index) {
+  Widget _mediaItem(MediaItemEntity media) {
     return DeGestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => WebViewPage(
+              url: media.url,
+              title: media.title,
+            ));
+      },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -332,26 +355,26 @@ class HomeMediaPage extends GetView<MediaViewModel> {
               children: [
                 Positioned.fill(
                   child: Image.network(
-                    'https://picsum.photos/seed/picsum/200/300',
+                    media.src ?? '',
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  right: 6,
-                  top: 6,
-                  child: Container(
-                      width: 28,
-                      height: 28,
-                      padding: DeDimensions.all8,
-                      // todo padding 수정필요
-                      decoration: BoxDecoration(
-                        color: DeColors.trans50,
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset(
-                        DeIcons.icExitGrey10,
-                      )),
-                ),
+                // Positioned(
+                //   right: 6,
+                //   top: 6,
+                //   child: Container(
+                //       width: 28,
+                //       height: 28,
+                //       padding: DeDimensions.all8,
+                //       // todo padding 수정필요
+                //       decoration: BoxDecoration(
+                //         color: DeColors.trans50,
+                //         shape: BoxShape.circle,
+                //       ),
+                //       child: SvgPicture.asset(
+                //         DeIcons.icExitGrey10,
+                //       )),
+                // ),
               ],
             ),
           ),
@@ -364,14 +387,49 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                   children: [
                     Expanded(
                       child: DeText(
-                        '[단독]구귀비 구귀비 텃구귀비 텃구귀비 텃텃',
+                        media.title,
                         style: DeFonts.body16M.copyWith(color: DeColors.grey10),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     DeGaps.h12,
                     DeGestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        // showModalBottomSheet(
+                        //   context: context, //todo context 넣은 부모위젯들 삭제
+                        //   builder: (context) {
+                        //     return DeBottomSheetNoTitle(
+                        //       widget: Column(
+                        //         children: [
+                        //           DeGestureDetector(
+                        //             onTap: () {
+                        //               Clipboard.setData(ClipboardData(
+                        //                   text:
+                        //                   'https://youtube.com/${media.url}'));
+                        //               DeToast.showToast(
+                        //                 msg: 'URL이 복사되었습니다.',
+                        //               );
+                        //             },
+                        //             child: (Row(
+                        //               children: [
+                        //                 SvgPicture.asset(
+                        //                   DeIcons.icCopyGrey10,
+                        //                 ),
+                        //                 DeGaps.h16,
+                        //                 DeText('URL 복사하기',
+                        //                     style: DeFonts.body16M.copyWith(
+                        //                         color: DeColors.grey10)),
+                        //               ],
+                        //             )),
+                        //           ),
+                        //           DeGaps.v16,
+                        //           DeGaps.v16,
+                        //         ],
+                        //       ),
+                        //     );
+                        //   },
+                        // );
+                      },
                       child: SvgPicture.asset(
                         DeIcons.icMoreGrey50,
                       ),
@@ -381,7 +439,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                 DeGaps.v4,
                 Row(
                   children: [
-                    DeText('공급자',
+                    DeText(media.supplier,
                         style: DeFonts.caption12M
                             .copyWith(color: DeColors.grey50)),
                     DeGaps.h6,
@@ -389,7 +447,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       DeIcons.icDotGrey50,
                     ),
                     DeGaps.h6,
-                    DeText('1일 전',
+                    DeText(media.outdated.toString().substring(0,10),
                         style: DeFonts.caption12M
                             .copyWith(color: DeColors.grey50)),
                   ],

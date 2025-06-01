@@ -32,7 +32,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _body() {
     return ListView(
       children: [
-        _headlineNews(),
+        //_headlineNews(),
         DeGaps.v20,
         _bestDebate(),
         DeGaps.v40,
@@ -40,7 +40,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
         DeGaps.v40,
         _myDebate(),
         DeGaps.v40,
-        _recommendDebate(),
+        //_recommendDebate(),
       ],
     );
   }
@@ -90,13 +90,13 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _bestDebateItem(BestChatRoomEntity debate) {
     return DeGestureDetector(
       onTap: () {
-         Get.toNamed(
-           GetRouterName.debate,
-           arguments: {
-             'chatroom_id': debate.debateId,
-             'issue_title': debate.issueTitle,
-           },
-         );
+        Get.toNamed(
+          GetRouterName.debate,
+          arguments: {
+            'chatroom_id': debate.debateId,
+            'issue_title': debate.issueTitle,
+          },
+        );
       },
       child: DebateCard(bestChatRoom: debate),
     );
@@ -105,7 +105,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _bestDebateList() {
     return Obx(() {
       final scrollController = ScrollController(
-        initialScrollOffset: (317) * 500,
+        initialScrollOffset: (320) * 500,
       );
       final debateData = controller.recommendData;
 
@@ -116,15 +116,20 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
           final int len = debaterooms.length;
           return SizedBox(
             height: 140,
-            child: ListView.separated(
-              controller: scrollController,
-              itemCount: 1000,
+            child: ListView.builder(
+              //controller: scrollController,
+              itemCount: debaterooms.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final realIndex = index % len;
-                return _bestDebateItem(debaterooms[realIndex]);
+                return Row(
+                  children: [
+                    if (index == 0) DeGaps.h20,
+                    _bestDebateItem(debaterooms[index]),
+                    DeGaps.h8,
+                  ],
+                );
               },
-              separatorBuilder: (context, index) => DeGaps.h8,
+              //separatorBuilder: (context, index) => DeGaps.h8,
             ),
           );
         },
@@ -165,7 +170,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
           success: (issueData) {
             final issuerooms = issueData.top5BestIssueRooms;
             return SizedBox(
-              height: 90, // todo 높이 조정
+              height: 95, // todo 높이 조정
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return Row(
@@ -176,7 +181,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
                     ],
                   );
                 },
-                itemCount: 5,
+                itemCount: issuerooms.length,
                 scrollDirection: Axis.horizontal,
               ),
             );
@@ -218,14 +223,14 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   }
 
   Widget _debateList() {
-    return Obx((){
+    return Obx(() {
       final mydebateData = controller.recommendData;
       return mydebateData.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        success: (mydebateData){
+        success: (mydebateData) {
           final mydebates = mydebateData.chatRoomResponse;
           final int len = mydebates?.length ?? 0;
-          if(len == 0){
+          if (len == 0) {
             return DeText(
               '참여 중인 토론이 없습니다. 지금 바로 토론에 참여해보세요.',
               style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
@@ -245,15 +250,13 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
           );
         },
         failure: (error) => Center(
-        child: DeText(
-          error,
-          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          child: DeText(
+            error,
+            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          ),
         ),
-      ),
       );
-
     });
-
   }
 
   Widget _debateItem(ChatRoomResponseEntity chat) {
