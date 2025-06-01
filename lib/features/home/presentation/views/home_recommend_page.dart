@@ -2,7 +2,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_issue_room_entity.dart';
@@ -11,12 +10,10 @@ import 'package:debateseason_frontend_v1/features/home/presentation/view_models/
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/debate_card.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card_new.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class HomeRecommendPage extends GetView<RecommendViewModel> {
@@ -45,7 +42,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
-  Widget _headlineNews() {
+  /*Widget _headlineNews() {
     return Padding(
       padding: DeDimensions.horizontal20,
       child: Column(
@@ -66,7 +63,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
         ],
       ),
     );
-  }
+  }*/
 
   //--------------------------------------------------
 
@@ -104,20 +101,15 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
 
   Widget _bestDebateList() {
     return Obx(() {
-      final scrollController = ScrollController(
-        initialScrollOffset: (320) * 500,
-      );
       final debateData = controller.recommendData;
 
       return debateData.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         success: (debateData) {
           final debaterooms = debateData.top5BestChatRooms;
-          final int len = debaterooms.length;
           return SizedBox(
             height: 140,
             child: ListView.builder(
-              //controller: scrollController,
               itemCount: debaterooms.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -129,7 +121,6 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
                   ],
                 );
               },
-              //separatorBuilder: (context, index) => DeGaps.h8,
             ),
           );
         },
@@ -276,7 +267,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
 
   //--------------------------------------------------
 
-  Widget _recommendDebate() {
+  /*Widget _recommendDebate() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -292,5 +283,5 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
 
   Widget _recommendDebateList() {
     return DeText('asdf');
-  }
+  }*/
 }

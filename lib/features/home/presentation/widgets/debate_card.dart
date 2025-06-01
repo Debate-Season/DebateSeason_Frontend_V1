@@ -3,7 +3,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/cupertino.dart';
 

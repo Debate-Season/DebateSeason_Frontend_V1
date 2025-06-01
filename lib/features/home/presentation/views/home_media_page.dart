@@ -9,8 +9,6 @@ import 'package:debateseason_frontend_v1/features/profile/presentation/views/web
 import 'package:debateseason_frontend_v1/utils/de_toast.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet_notitle.dart';
-import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
-import 'package:debateseason_frontend_v1/widgets/de_dialog.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -263,7 +261,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
     );
   }
 
-  Widget _mediaCategory() {
+  /*Widget _mediaCategory() {
     Widget categoryBtn(String title) {
       final bool isSelected = title == '모두';
 
@@ -299,7 +297,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _mediaList() {
     return Obx(() {
