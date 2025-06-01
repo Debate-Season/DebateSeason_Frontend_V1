@@ -4,8 +4,11 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/recommend_view_model.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/widgets/debate_card.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -79,73 +82,58 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
-  Widget bestDebateItem() {
-    return Container(
-      width: 320,
-      padding: DeDimensions.all16,
-      decoration: BoxDecoration(
-          color: DeColors.grey110,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: DeColors.grey90,
-            width: 1,
-          )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: DeDimensions.padding6x2,
-            decoration: BoxDecoration(
-                color: DeColors.tag, borderRadius: BorderRadius.circular(6)),
-            child: DeText(
-              '동덕여자대학교 남녀공학 전환 반대 시위',
-              style: DeFonts.caption12M.copyWith(color: DeColors.grey10),
-            ),
-          ),
-          DeGaps.v8,
-          SizedBox(
-            height: 48, // fontsize * lineHeight * 2
-            child: DeText(
-              '대한민국 헌법상 계엄령 조항은 시대에 맞게 개정될 필요가 있는가?',
-              style: DeFonts.body16M.copyWith(color: DeColors.grey10),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Row(
-            children: [
-              DeText('관심등록 ',
-                  style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
-              DeText('198만',
-                  style: DeFonts.caption12M.copyWith(color: DeColors.grey30))
-            ],
-          ),
-          DeGaps.v8,
-          DeText('4분 전 대화',
-              style: DeFonts.caption12M.copyWith(color: DeColors.brand)),
-        ],
-      ),
+  Widget _bestDebateItem(BestChatRoomEntity debate) {
+    return DeGestureDetector(
+      onTap: () {
+        // Get.toNamed(
+        //   GetRouterName.debate,
+        //   arguments: {
+        //     'chatroom_id': debate.chatRoomId,
+        //     'issue_title': debate.title,
+        //   },
+        // );
+      },
+      child: DebateCard(bestChatRoom: debate),
     );
   }
 
   Widget _bestDebateList() {
-    final scrollController = ScrollController(
-      initialScrollOffset: (320 + 20) * 5000,
-    );
-    return SizedBox(
-      height: 158,
-      child: ListView.separated(
-        controller: scrollController,
-        itemBuilder: (context, index) {
-          //final realIndex = index % 5;
-          return bestDebateItem();
+    return Obx(() {
+      final scrollController = ScrollController(
+        initialScrollOffset: (320)* 500,
+      );
+      final debateData = controller.recommendData;
+
+      return debateData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        success: (debateData) {
+          final debaterooms = debateData.top5BestChatRooms;
+          final int len = debaterooms.length;
+          return SizedBox(
+            height: 158,
+            child: ListView.separated(
+              controller: scrollController,
+              itemCount: 1000,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final realIndex = index % len;
+                return _bestDebateItem(debaterooms[realIndex]);
+              },
+              separatorBuilder: (context, index) => DeGaps.h8,
+            ),
+          );
         },
-        separatorBuilder: (context, index) => DeGaps.h8,
-        itemCount: 10000,
-        scrollDirection: Axis.horizontal,
-      ),
-    );
+        failure: (error) => Center(
+          child: DeText(
+            error,
+            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          ),
+        ),
+      );
+    });
   }
+
+  //--------------------------------------------------
 
   Widget _bestIssue() {
     return Column(
