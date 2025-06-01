@@ -65,6 +65,8 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
+  //--------------------------------------------------
+
   Widget _bestDebate() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,6 +233,8 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
+  //--------------------------------------------------
+
   Widget _myDebate() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -276,6 +280,8 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
+  //--------------------------------------------------
+
   Widget _recommendDebate() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +296,7 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
     );
   }
 
-  Widget _recommendDebateList(){
+  Widget _recommendDebateList() {
     return DeText('asdf');
   }
 }
