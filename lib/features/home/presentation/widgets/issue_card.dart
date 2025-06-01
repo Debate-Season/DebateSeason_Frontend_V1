@@ -1,12 +1,14 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/chat_room_response_entity.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/view_models/ratio_view_model.dart';
 import 'package:debateseason_frontend_v1/features/issue/issue_constants.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 
 class IssueCard extends StatelessWidget {
-  final List<String> chatroom;
+  final ChatRoomResponseEntity chatroom;
 
   const IssueCard({
     super.key,
@@ -38,15 +40,14 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueDate() {
     return DeText(
-      //chatroom.createdAt.toString().substring(0, 10),
-      '1111-22-33',
+      chatroom.createdAt.toString().substring(0, 10),
       style: DeFonts.caption12M.copyWith(color: DeColors.grey50),
     );
   }
 
   Widget _issueTitle() {
     return DeText(
-      'chatroom.title',
+      chatroom.title,
       style: DeFonts.body16Sb.copyWith(
         color: Color(0xFFF3F0F4),
       ),
@@ -54,12 +55,12 @@ class IssueCard extends StatelessWidget {
     );
   }
 
-  /*Widget _issueRecent() {
+  Widget _issueRecent() {
     return DeText(
-      '최근', //'3분 전 대화', todo: 대화 시간 표시
-      style: DeFonts.caption12M.copyWith(color: DeColors.brandColor),
+      chatroom.time, //'3분 전 대화', todo: 대화 시간 표시
+      style: DeFonts.caption12M.copyWith(color: DeColors.brand),
     );
-  }*/
+  }
 
   Widget _issueStatus() {
     return Row(
@@ -79,11 +80,10 @@ class IssueCard extends StatelessWidget {
 
   Widget _widgetBtn(String data) {
     final widgetColor = data == '찬성' ? DeColors.red : DeColors.blue;
-    final agree = 390;
-    final disagree = 390;
+    final agree = chatroom.agree;
+    final disagree = chatroom.disagree;
 
-    //final percentages = getPercentages(chatroom);
-    final percentages = [100, 50];
+    final percentages = getPercentages(agree, disagree);
     final agreeRatioText = percentages[0];
     final disagreeRatioText = percentages[1];
 

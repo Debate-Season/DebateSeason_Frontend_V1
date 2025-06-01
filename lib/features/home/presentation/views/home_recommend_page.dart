@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_chat_room_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/best_issue_room_entity.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/chat_room_response_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/recommend_view_model.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/debate_card.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/widgets/issue_card.dart';
@@ -217,32 +218,56 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   }
 
   Widget _debateList() {
-    return Padding(
-      padding: DeDimensions.horizontal20,
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return _debateItem(index);
+    return Obx((){
+      final mydebateData = controller.recommendData;
+      return mydebateData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        success: (mydebateData){
+          final mydebates = mydebateData.chatRoomResponse;
+          final int len = mydebates?.length ?? 0;
+          if(len == 0){
+            return DeText(
+              '참여 중인 토론이 없습니다. 지금 바로 토론에 참여해보세요.',
+              style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+            );
+          }
+          return Padding(
+            padding: DeDimensions.horizontal20,
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return _debateItem(mydebates![index]);
+              },
+              separatorBuilder: (context, index) => DeGaps.v12,
+              itemCount: len,
+            ),
+          );
         },
-        separatorBuilder: (context, index) => DeGaps.v12,
-        itemCount: 4,
+        failure: (error) => Center(
+        child: DeText(
+          error,
+          style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+        ),
       ),
-    );
+      );
+
+    });
+
   }
 
-  Widget _debateItem(int index) {
+  Widget _debateItem(ChatRoomResponseEntity chat) {
     return DeGestureDetector(
       onTap: () {
         Get.toNamed(
           GetRouterName.debate,
           arguments: {
-            'chatroom_id': 1,
-            'issue_title': 'issueData.title',
+            'chatroom_id': chat.chatRoomId,
+            'issue_title': chat.title, //todo issuetitle와야함
           },
         );
       },
-      child: IssueCard(chatroom: ['tdddd']),
+      child: IssueCard(chatroom: chat),
     );
   }
 
