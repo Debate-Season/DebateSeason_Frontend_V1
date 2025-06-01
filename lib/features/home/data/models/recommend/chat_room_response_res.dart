@@ -14,6 +14,7 @@ class ChatRoomResponseRes {
   final DateTime createdAt;
   @JsonKey(fromJson: OpinionType.fromJson, toJson: OpinionType.toJsonUpper) //서버에서는 String이라고 하는데, 일단 enum으로 처리해줌
   final OpinionType opinion;
+  final String time;
 
   ChatRoomResponseRes({
     required this.chatRoomId,
@@ -23,6 +24,7 @@ class ChatRoomResponseRes {
     required this.disagree,
     required this.createdAt,
     required this.opinion,
+    required this.time,
   });
 
   factory ChatRoomResponseRes.fromJson(Map<String, dynamic> json) =>
@@ -37,5 +39,6 @@ class ChatRoomResponseRes {
       agree: agree,
       disagree: disagree,
       createdAt: createdAt,
-      opinion: opinion);
+      opinion: opinion,
+      time: time);
 }

@@ -15,6 +15,7 @@ ChatRoomResponseRes _$ChatRoomResponseResFromJson(Map<String, dynamic> json) =>
       disagree: (json['disagree'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       opinion: OpinionType.fromJson(json['opinion'] as String),
+      time: json['time'] as String,
     );
 
 Map<String, dynamic> _$ChatRoomResponseResToJson(
@@ -27,4 +28,5 @@ Map<String, dynamic> _$ChatRoomResponseResToJson(
       'disagree': instance.disagree,
       'createdAt': instance.createdAt.toIso8601String(),
       'opinion': OpinionType.toJsonUpper(instance.opinion),
+      'time': instance.time,
     };
