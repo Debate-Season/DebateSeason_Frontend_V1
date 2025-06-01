@@ -87,13 +87,13 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
   Widget _bestDebateItem(BestChatRoomEntity debate) {
     return DeGestureDetector(
       onTap: () {
-        // Get.toNamed(
-        //   GetRouterName.debate,
-        //   arguments: {
-        //     'chatroom_id': debate.chatRoomId,
-        //     'issue_title': debate.title,
-        //   },
-        // );
+         Get.toNamed(
+           GetRouterName.debate,
+           arguments: {
+             'chatroom_id': debate.debateId,
+             'issue_title': debate.issueTitle,
+           },
+         );
       },
       child: DebateCard(bestChatRoom: debate),
     );
