@@ -1,6 +1,9 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
+import 'package:debateseason_frontend_v1/features/main/pip_overlay.dart';
 import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
+import 'package:debateseason_frontend_v1/widgets/de_pip.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,8 @@ void main() async {
 
   _initUiSettings();
 
+  Get.put(PipController());
+
   runApp(const MyApp());
 }
 
@@ -44,7 +49,12 @@ class MyApp extends StatelessWidget {
         return MediaQuery(
           data: MediaQuery.of(context)
               .copyWith(textScaler: TextScaler.linear(1.0)),
-          child: widget!,
+          child: Stack(
+            children: [
+              widget!,
+              const PipOverlay(),
+            ],
+          ),
         );
       },
     );
