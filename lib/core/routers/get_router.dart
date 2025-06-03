@@ -9,6 +9,7 @@ import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappr
 import 'package:debateseason_frontend_v1/features/home/bindings/media_binding.dart';
 import 'package:debateseason_frontend_v1/features/home/bindings/recommend_binding.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/views/home_screen.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/live_all_page.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/bindings/issuemap_binding.dart';
@@ -107,5 +108,10 @@ class GetRouter {
       page: () => HomeScreen(),
       binding: MediaBinding(),
     ),
+    GetPage(
+      name: GetRouterName.lives,
+      page: () => LiveAllPage(),
+      binding: MediaBinding(),
+    )
   ];
 }
