@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,13 @@ class DebateTopicScreen extends StatefulWidget {
 }
 
 class _DebateTopicScreenState extends State<DebateTopicScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    AmplitudeUtil.trackEvent(eventName: 'DebateTopic');
+  }
+
   @override
   Widget build(BuildContext context) {
     return DeScaffold(

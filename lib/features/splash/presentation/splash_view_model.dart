@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/core/services/secure_storage_service.da
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/splash/domain/app_version_entity.dart';
 import 'package:debateseason_frontend_v1/features/splash/domain/app_version_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class SplashViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'Splash');
     _appVersionRepository = Get.find<AppVersionRepository>();
     _startSplash();
   }

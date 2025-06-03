@@ -8,6 +8,7 @@ import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_mess
 import 'package:debateseason_frontend_v1/features/chat/presentation/view_models/chat_room_view_model.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_input_field.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/chat_message.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/date_format_util.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
@@ -30,6 +31,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   void initState() {
     super.initState();
+
+    AmplitudeUtil.trackEvent(eventName: 'ChatRoom');
+
     // 메시지 로딩 후 가장 아래로 스크롤
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {

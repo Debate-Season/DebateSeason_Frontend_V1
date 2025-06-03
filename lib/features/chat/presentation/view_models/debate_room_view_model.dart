@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/features/chat/data/data_sources/vote_da
 import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_topic_screen.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/view_models/issue_room_view_model.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,7 @@ class DebateRoomViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    AmplitudeUtil.trackEvent(eventName: 'DebateRoom');
     _roomDataSource = Get.find<RoomDataSource>();
     _voteDataSource = Get.find<VoteDataSource>();
 

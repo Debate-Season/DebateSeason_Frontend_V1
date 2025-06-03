@@ -2,6 +2,7 @@ import 'package:debateseason_frontend_v1/common/constants/error_constants.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/terms_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class TermsViewModel extends GetxController {
   void onInit() async {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'Terms');
     _profileStatus.value = Get.arguments as bool;
     _termsRepository = Get.find<TermsRepository>();
     await getTerms();

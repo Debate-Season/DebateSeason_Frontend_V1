@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/models/report_reason_selection.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/custom_checkbox.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,13 @@ class _InappropriateChatReportScreenState
   List<bool> isCheckedList = List.generate(7, (index) => false); // 체크 상태 리스트
   bool isCustomReasonVisible = false;
   late TextEditingController customReasonController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    AmplitudeUtil.trackEvent(eventName: 'InappropriateChatReport');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +134,11 @@ class _InappropriateChatReportScreenState
           SizedBox(
             height: 120,
             child: DeTextField(
-              textAlignVertical: TextAlignVertical.top, // 글자 상단 정렬
+              textAlignVertical: TextAlignVertical.top,
+              // 글자 상단 정렬
               controller: customReasonController,
-              isCleanIcon: false, // 삭제 버튼 없앰
+              isCleanIcon: false,
+              // 삭제 버튼 없앰
               expands: true,
               maxLines: null,
             ),

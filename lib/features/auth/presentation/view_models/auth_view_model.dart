@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/users_login_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,6 +20,7 @@ class AuthViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'Auth');
     _usersLoginRepository = Get.find<UsersLoginRepository>();
     _profileRepository = Get.find<ProfileRepository>();
     _kakaoSdkInit();
