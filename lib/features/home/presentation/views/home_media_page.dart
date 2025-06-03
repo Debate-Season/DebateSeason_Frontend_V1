@@ -3,6 +3,8 @@ import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/media_item_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/media_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
@@ -20,6 +22,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class HomeMediaPage extends GetView<MediaViewModel> {
   const HomeMediaPage({super.key});
+
+  PipController get pipController => Get.find<PipController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,45 +43,8 @@ class HomeMediaPage extends GetView<MediaViewModel> {
             _medias(),
           ],
         ),
-        _pipOverlay(context),
       ],
     );
-  }
-
-  Widget _pipOverlay(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final pipWidth = screenSize.width * 0.5;
-    final pipHeight = pipWidth * 9 / 16;
-
-    return Obx(() {
-      if (!controller.showPip.value) return const SizedBox.shrink();
-
-      return Positioned(
-        bottom: 20,
-        right: 20,
-        child: GestureDetector(
-          onTap: () {
-            controller.showPip.value = false; // 탭 시 닫기
-          },
-          child: Container(
-            width: pipWidth,
-            height: pipHeight,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: YoutubePlayer(
-                controller: controller.youtubePlayerController,
-                showVideoProgressIndicator: true,
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 
   Widget _mainMedia(BuildContext context) {
@@ -87,7 +54,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
         loading: () => const Center(child: CircularProgressIndicator()),
         success: (youtubeData) {
           final youtube = youtubeData.youtubeLive;
-          if (youtube == null) {
+          if (youtube.isEmpty) {
             return Container();
           }
           return Column(
@@ -109,14 +76,16 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                   //   url: 'https://youtube.com/${youtube.videoId}',
                   //   title: youtube.title,
                   // ));
-                  controller.togglePip(youtube.videoId);
+                  //controller.togglePip(youtube[0].videoId);
+                  pipController.show(youtube[0].videoId);
                 },
                 child: Container(
                   width: double.infinity,
                   height: 180,
                   color: DeColors.brand,
                   child: Image.network(
-                    'https://img.youtube.com/vi/${youtube.videoId}/hqdefault.jpg',
+                    'https://img.youtube.com/vi/${youtube[0].videoId}/hqdefault.jpg',
+                    //youtube[0].src.toString(), 이거 화질 안 좋다
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -131,7 +100,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                           child: DeGestureDetector(
                             onTap: () {},
                             child: DeText(
-                              youtube.title,
+                              youtube[0].title,
                               style: DeFonts.body16M
                                   .copyWith(color: DeColors.grey10),
                               overflow: TextOverflow.ellipsis,
@@ -151,7 +120,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                                         onTap: () {
                                           Clipboard.setData(ClipboardData(
                                               text:
-                                                  'https://youtube.com/${youtube.videoId}'));
+                                                  'https://youtube.com/${youtube[0].videoId}'));
                                           DeToast.showToast(
                                             msg: 'URL이 복사되었습니다.',
                                           );
@@ -185,49 +154,51 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                     DeGaps.v4,
                     Row(
                       children: [
-                        DeText(youtube.supplier,
+                        DeText(youtube[0].supplier,
                             style: DeFonts.caption12M
                                 .copyWith(color: DeColors.grey50)),
                         DeGaps.h6,
-                        // SvgPicture.asset(
-                        //   DeIcons.icDotGrey50,
-                        // ),
-                        // DeGaps.h6,
-                        // DeText(youtube.createAt.toString(),
-                        //     style: DeFonts.caption12M
-                        //         .copyWith(color: DeColors.grey50)),
+                        SvgPicture.asset(
+                          DeIcons.icDotGrey50,
+                        ),
+                        DeGaps.h6,
+                        DeText(youtube[0].createAt.toString().substring(0, 10),
+                            style: DeFonts.caption12M
+                                .copyWith(color: DeColors.grey50)),
                       ],
                     ),
                   ],
                 ),
               ),
-              //DeGaps.v20,
-              // DeGaps.v20,
-              // Padding(
-              //   padding: DeDimensions.horizontal20,
-              //   child: DeGestureDetector(
-              //     onTap: () {},
-              //     child: Container(
-              //       width: double.infinity,
-              //       padding: DeDimensions.vertical8,
-              //       decoration: ShapeDecoration(
-              //         color: DeColors.grey110,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(8),
-              //         ),
-              //       ),
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           DeText(
-              //             '라이브 모두 보기',
-              //             style: DeFonts.body14M.copyWith(color: DeColors.grey50),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              DeGaps.v20,
+              DeGaps.v20,
+              Padding(
+                padding: DeDimensions.horizontal20,
+                child: DeGestureDetector(
+                  onTap: () {
+                    Get.toNamed(GetRouterName.lives);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: DeDimensions.vertical8,
+                    decoration: ShapeDecoration(
+                      color: DeColors.grey110,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        DeText(
+                          '라이브 모두 보기',
+                          style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         },
