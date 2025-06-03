@@ -9,6 +9,8 @@ class GetRouterName {
   static const String category = '/category';
   static const String debate = '/debate';
   static const String reportMessage = '/report_message';
+  static const String recommend = '/home/recommend';
+  static const String media = '/home/media';
 
   /// Profile
   static const String profile = '/profile';

@@ -71,7 +71,7 @@ class SplashViewModel extends GetxController {
     if (accessToken.isNotEmpty) {
       if (termsStatus) {
         if (profileStatus) {
-          nextRoute.value = GetRouterName.issuemap;
+          nextRoute.value = GetRouterName.main;
         } else {
           nextRoute.value = GetRouterName.profileInput;
         }
