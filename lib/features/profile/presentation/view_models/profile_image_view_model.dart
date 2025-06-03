@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,7 @@ class ProfileImageViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'ProfileImage');
     scrollController = ScrollController();
     _setRandomImage();
   }

@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/widgets/import_profile.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
@@ -460,7 +461,6 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
         controller.isModifyScreen
             ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
             : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
-        // onPressed: () => Get.offAllNamed(GetRouterName.profileImage),
         onPressed: controller.isModifyScreen
             ? () => controller.patchProfile().then((result) {
                   result.when(loading: () {
@@ -478,6 +478,7 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
                     controller.setApiLoading(isApiLoading: true);
                   }, success: (_) {
                     controller.setApiLoading(isApiLoading: false);
+                    AmplitudeUtil.trackEvent(eventName: '토론철 시작하기');
                     Get.offAllNamed(GetRouterName.issuemap);
                   }, failure: (msg) {
                     controller.setApiLoading(isApiLoading: false);

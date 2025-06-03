@@ -9,6 +9,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/type/district_t
 import 'package:debateseason_frontend_v1/features/profile/domain/type/province_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,7 @@ class ProfileInputViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'ProfileInput');
     nicknameController = TextEditingController();
     nicknameFocusNode = FocusNode();
     communityController = TextEditingController();

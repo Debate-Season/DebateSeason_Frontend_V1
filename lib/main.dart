@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
+import 'utils/amplitude_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ void main() async {
     await dotenv.load(fileName: '.env.dev');
   } else {
     await dotenv.load(fileName: '.env.prod');
-    // AmplitudeUtil.init();
+    AmplitudeUtil.init();
   }
 
   _initUiSettings();

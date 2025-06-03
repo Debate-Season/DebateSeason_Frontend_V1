@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/features/issue/domain/entities/issue_entity.dart';
 import 'package:debateseason_frontend_v1/features/issue/domain/repositories/issue_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class IssueRoomViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    AmplitudeUtil.trackEvent(eventName: 'IssueRoom');
     _issueRepository = Get.find<IssueRepository>();
 
     final arguments = Get.arguments as Map<String, int>;
