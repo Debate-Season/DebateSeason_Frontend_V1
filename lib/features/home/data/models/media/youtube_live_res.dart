@@ -1,4 +1,5 @@
 import 'package:debateseason_frontend_v1/features/home/domain/entities/youtube_live_entity.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'youtube_live_res.g.dart';
@@ -23,8 +24,9 @@ class YoutubeLiveRes {
     this.src,
   });
 
-  factory YoutubeLiveRes.fromJson(Map<String, dynamic> json) =>
-      _$YoutubeLiveResFromJson(json);
+  factory YoutubeLiveRes.fromJson(Map<String, dynamic> json) {
+      log.d('🐛 YoutubeLiveRes.fromJson() json: $json');
+      return _$YoutubeLiveResFromJson(json);}
 
   Map<String, dynamic> toJson() => _$YoutubeLiveResToJson(this);
 
