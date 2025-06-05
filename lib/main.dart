@@ -1,7 +1,6 @@
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
-import 'package:debateseason_frontend_v1/features/main/pip_overlay.dart';
 import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
 import 'package:debateseason_frontend_v1/widgets/de_pip.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
           child: Stack(
             children: [
               widget!,
-              const PipOverlay(),
+              const DePip(),
             ],
           ),
         );
