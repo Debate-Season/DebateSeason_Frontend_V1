@@ -17,7 +17,12 @@ class PipController extends GetxController {
     youtubePlayerController?.dispose();
     youtubePlayerController = YoutubePlayerController(
       initialVideoId: videoId,
-      flags: const YoutubePlayerFlags(autoPlay: true, mute: false),
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+        disableDragSeek: true,
+        hideControls: false,
+      ),
     );
   }
 
