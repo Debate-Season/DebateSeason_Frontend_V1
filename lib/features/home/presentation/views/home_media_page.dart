@@ -161,7 +161,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                           DeIcons.icDotGrey50,
                         ),
                         DeGaps.h6,
-                        DeText(youtube[0].createAt.toString().substring(0, 10),
+                        DeText(youtube[0].createAt.toString().substring(0, 16),
                             style: DeFonts.caption12M
                                 .copyWith(color: DeColors.grey50)),
                       ],
