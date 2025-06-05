@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -5,6 +7,8 @@ class PipController extends GetxController {
   YoutubePlayerController? youtubePlayerController;
   final showPip = false.obs;
   String? currentVideoId;
+
+  final pipOffset = Rx<Offset>(const Offset(20, 100));
 
   void initYoutube(String videoId) {
     if (currentVideoId == videoId && youtubePlayerController != null) return;
@@ -17,29 +21,60 @@ class PipController extends GetxController {
     );
   }
 
-  void togglePip(String videoId) {
-    if (!showPip.value) {
-      initYoutube(videoId);
-    }
-    showPip.toggle();
-  }
+  // void togglePip(String videoId) {
+  //   if (!showPip.value) {
+  //     initYoutube(videoId);
+  //   }
+  //   showPip.toggle();
+  // }
 
   void show(String videoId) {
-    // 이미 초기화된 경우 dispose 해주기
-    if (youtubePlayerController != null) {
-      youtubePlayerController!.dispose();
+    // // 이미 초기화된 경우 dispose 해주기
+    // if (youtubePlayerController != null) {
+    //   youtubePlayerController!.dispose();
+    // }
+    if (currentVideoId != videoId) {
+      initYoutube(videoId);
     }
-
-    youtubePlayerController = YoutubePlayerController(
-      initialVideoId: videoId,
-      flags: const YoutubePlayerFlags(autoPlay: true),
-    );
     showPip.value = true;
   }
 
   void hide() {
     showPip.value = false;
     youtubePlayerController?.pause();
+  }
+
+  void updateOffset(Offset delta) {
+    pipOffset.value += delta;
+  }
+
+  void snapToCorner(Size screenSize, Size pipSize) {
+    final Offset current = pipOffset.value;
+    final double screenW = screenSize.width;
+    final double screenH = screenSize.height;
+    final double pipW = pipSize.width;
+    final double pipH = pipSize.height;
+
+    final List<Offset> corners = [
+      const Offset(20, 20), // top-left
+      Offset(screenW - pipW - 20, 20), // top-right
+      Offset(20, screenH - pipH - 20), // bottom-left
+      Offset(screenW - pipW - 20, screenH - pipH - 20), // bottom-right
+    ];
+
+    // 가장 가까운 코너 계산
+    Offset closest = corners.first;
+    double minDistance = (current - closest).distance;
+
+    for (var corner in corners) {
+      double distance = (current - corner).distance;
+      if (distance < minDistance) {
+        minDistance = distance;
+        closest = corner;
+      }
+    }
+
+    pipOffset.value = closest;
   }
 
   @override
