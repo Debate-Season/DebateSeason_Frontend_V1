@@ -1,4 +1,3 @@
-import 'package:debateseason_frontend_v1/features/home/data/models/media/media_item_res.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/media_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/repositories/media_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';

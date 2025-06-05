@@ -1,12 +1,10 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
-import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/entities/youtube_live_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/live_view_model.dart';
-import 'package:debateseason_frontend_v1/features/home/presentation/view_models/media_view_model.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
