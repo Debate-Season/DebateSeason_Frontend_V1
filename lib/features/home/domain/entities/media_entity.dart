@@ -7,7 +7,7 @@ part 'media_entity.freezed.dart';
 @freezed
 class MediaEntity with _$MediaEntity {
   factory MediaEntity({
-    required YoutubeLiveEntity? youtubeLive,
+    required List<YoutubeLiveEntity> youtubeLive,
     required List<MediaItemEntity> items,
   }) = _MediaEntity;
 }

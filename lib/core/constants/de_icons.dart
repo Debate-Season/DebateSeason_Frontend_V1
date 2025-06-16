@@ -18,6 +18,7 @@ class DeIcons {
   static const icBookmarkGrey50 = 'assets/icons/ic_bookmark_grey50.svg';
   static const icAssistantGrey50 = 'assets/icons/ic_assistant_grey50.svg';
   static const icInfoGrey50 = 'assets/icons/ic_info_grey50.svg';
+  static const icYoutubeGrey50 = 'assets/icons/ic_youtube_grey50.svg';
 
   //none colorable
   static const icKakaoLogin = 'assets/icons/ic_kakao_login.svg';

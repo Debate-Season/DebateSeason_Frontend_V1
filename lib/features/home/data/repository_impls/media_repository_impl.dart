@@ -9,8 +9,8 @@ class MediaRepositoryImpl implements MediaRepository {
   MediaRepositoryImpl(this.dataSource);
 
   @override
-  Future<UiState<MediaEntity>> getMedia() async {
-    final response = await dataSource.getMedia();
+  Future<UiState<MediaEntity>> getMedia({String? type, String? time}) async {
+    final response = await dataSource.getMedia(type: type, time: time);
     switch (response.status) {
       case 200:
         return UiState.success(response.data.toEntity());

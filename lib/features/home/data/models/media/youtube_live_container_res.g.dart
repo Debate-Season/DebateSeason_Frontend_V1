@@ -9,12 +9,14 @@ part of 'youtube_live_container_res.dart';
 YoutubeLiveContainerRes _$YoutubeLiveContainerResFromJson(
         Map<String, dynamic> json) =>
     YoutubeLiveContainerRes(
-      youtubeLive:
-          YoutubeLiveRes.fromJson(json['news'] as Map<String, dynamic>),
+      youtubeLive: (json['youtubeLive'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry(k, YoutubeLiveRes.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$YoutubeLiveContainerResToJson(
         YoutubeLiveContainerRes instance) =>
     <String, dynamic>{
-      'news': instance.youtubeLive,
+      'youtubeLive': instance.youtubeLive,
     };
