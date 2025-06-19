@@ -22,16 +22,13 @@ class DePip extends StatelessWidget {
       final offset = pipController.pipOffset.value;
 
       return Positioned(
-        bottom: offset.dx,
-        right: offset.dy,
+        top: offset.dy,
+        left: offset.dx,
         child: GestureDetector(
-          // onTap: () {
-          //   pipController.showPip.value = false; // 탭 시 닫기
-          // },
           onPanUpdate: (details) {
             pipController.updateOffset(details.delta);
           },
-          onPanEnd: (_){
+          onPanEnd: (_) {
             pipController.snapToCorner(screenSize, Size(pipWidth, pipHeight));
           },
           child: Container(
