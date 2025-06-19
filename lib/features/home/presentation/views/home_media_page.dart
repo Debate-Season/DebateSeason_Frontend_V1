@@ -190,7 +190,8 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       children: [
                         DeText(
                           '라이브 모두 보기',
-                          style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                          style:
+                              DeFonts.body14M.copyWith(color: DeColors.grey50),
                         ),
                       ],
                     ),
@@ -362,40 +363,33 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                     DeGaps.h12,
                     DeGestureDetector(
                       onTap: () {
-                        // showModalBottomSheet(
-                        //   context: context, //todo context 넣은 부모위젯들 삭제
-                        //   builder: (context) {
-                        //     return DeBottomSheetNoTitle(
-                        //       widget: Column(
-                        //         children: [
-                        //           DeGestureDetector(
-                        //             onTap: () {
-                        //               Clipboard.setData(ClipboardData(
-                        //                   text:
-                        //                   'https://youtube.com/${media.url}'));
-                        //               DeToast.showToast(
-                        //                 msg: 'URL이 복사되었습니다.',
-                        //               );
-                        //             },
-                        //             child: (Row(
-                        //               children: [
-                        //                 SvgPicture.asset(
-                        //                   DeIcons.icCopyGrey10,
-                        //                 ),
-                        //                 DeGaps.h16,
-                        //                 DeText('URL 복사하기',
-                        //                     style: DeFonts.body16M.copyWith(
-                        //                         color: DeColors.grey10)),
-                        //               ],
-                        //             )),
-                        //           ),
-                        //           DeGaps.v16,
-                        //           DeGaps.v16,
-                        //         ],
-                        //       ),
-                        //     );
-                        //   },
-                        // );
+                        Get.bottomSheet(DeBottomSheetNoTitle(
+                          widget: Column(
+                            children: [
+                              DeGestureDetector(
+                                onTap: () {
+                                  Clipboard.setData(
+                                      ClipboardData(text: media.url));
+                                  DeToast.showToast(
+                                    msg: 'URL이 복사되었습니다.',
+                                  );
+                                },
+                                child: (Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      DeIcons.icCopyGrey10,
+                                    ),
+                                    DeGaps.h16,
+                                    DeText('URL 복사하기',
+                                        style: DeFonts.body16M
+                                            .copyWith(color: DeColors.grey10)),
+                                  ],
+                                )),
+                              ),
+                              DeGaps.v16,
+                            ],
+                          ),
+                        ));
                       },
                       child: SvgPicture.asset(
                         DeIcons.icMoreGrey50,
@@ -414,7 +408,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       DeIcons.icDotGrey50,
                     ),
                     DeGaps.h6,
-                    DeText(media.outdated.toString().substring(0,10),
+                    DeText(media.outdated.toString().substring(0, 10),
                         style: DeFonts.caption12M
                             .copyWith(color: DeColors.grey50)),
                   ],
