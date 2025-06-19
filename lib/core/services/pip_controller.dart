@@ -9,7 +9,7 @@ class PipController extends GetxController {
   final isControlVisible = false.obs;
   String? currentVideoId;
 
-  final pipOffset = Rx<Offset>(const Offset(20, 100));
+  final pipOffset = Rx<Offset>(const Offset(20, 40));
 
   void initYoutube(String videoId) {
     if (currentVideoId == videoId && youtubePlayerController != null) return;
@@ -51,8 +51,8 @@ class PipController extends GetxController {
     final double pipH = pipSize.height;
 
     final List<Offset> corners = [
-      const Offset(20, 20), // top-left
-      Offset(screenW - pipW - 20, 20), // top-right
+      const Offset(20, 40), // top-left
+      Offset(screenW - pipW - 20, 40), // top-right
       Offset(20, screenH - pipH - 20), // bottom-left
       Offset(screenW - pipW - 20, screenH - pipH - 20), // bottom-right
       Offset(20, (screenH - pipH) / 2), // left-center
