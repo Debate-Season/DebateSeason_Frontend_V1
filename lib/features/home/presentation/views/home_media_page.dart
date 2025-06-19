@@ -137,7 +137,6 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                                         )),
                                       ),
                                       DeGaps.v16,
-                                      DeGaps.v16,
                                     ],
                                   ),
                                 );
