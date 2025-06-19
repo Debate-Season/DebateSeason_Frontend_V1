@@ -341,7 +341,12 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                 //         shape: BoxShape.circle,
                 //       ),
                 //       child: SvgPicture.asset(
-                //         DeIcons.icExitGrey10,
+                //         {
+                //               'YOUTUBE': DeIcons.icYoutubeGrey10,
+                //               'ARTICLE': DeIcons.icArticleGrey10,
+                //               'COMM': DeIcons.icCommGrey10,
+                //             }[media.supplier] ??
+                //             '',
                 //       )),
                 // ),
               ],
