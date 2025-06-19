@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class HomeMediaPage extends GetView<MediaViewModel> {
   const HomeMediaPage({super.key});
@@ -99,7 +100,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                           child: DeGestureDetector(
                             onTap: () {},
                             child: DeText(
-                              youtube[0].title,
+                              HtmlUnescape().convert(youtube[0].title),
                               style: DeFonts.body16M
                                   .copyWith(color: DeColors.grey10),
                               overflow: TextOverflow.ellipsis,
@@ -355,7 +356,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                   children: [
                     Expanded(
                       child: DeText(
-                        media.title,
+                        HtmlUnescape().convert(media.title),
                         style: DeFonts.body16M.copyWith(color: DeColors.grey10),
                         overflow: TextOverflow.ellipsis,
                       ),
