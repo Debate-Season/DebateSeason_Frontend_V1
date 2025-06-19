@@ -55,6 +55,8 @@ class PipController extends GetxController {
       Offset(screenW - pipW - 20, 20), // top-right
       Offset(20, screenH - pipH - 20), // bottom-left
       Offset(screenW - pipW - 20, screenH - pipH - 20), // bottom-right
+      Offset(20, (screenH - pipH) / 2), // left-center
+      Offset(screenW - pipW - 20, (screenH - pipH) / 2), // right-center
     ];
 
     // 가장 가까운 코너 계산
