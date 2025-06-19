@@ -23,7 +23,6 @@ class LiveAllPage extends GetView<LiveViewModel> {
 
   @override
   Widget build(BuildContext context) {
-
     return DeScaffold(
       appBar: _appBar(),
       body: _body(),
@@ -54,7 +53,7 @@ class LiveAllPage extends GetView<LiveViewModel> {
 
   Widget _body() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20,20,20,0),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: ListView(
         children: [
           _liveList(),
@@ -64,33 +63,35 @@ class LiveAllPage extends GetView<LiveViewModel> {
   }
 
   Widget _liveList() {
-    return Obx(() {
-      final liveList = controller.liveList;
-      return liveList.when(
-        loading: () => const Center(child: DeProgressIndicator()),
-        success: (liveList) {
-          log.d(liveList.length);
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: liveList.length,
-            itemBuilder: (context, index) {
-              return _liveItem(liveList[index]);
-            },
-          );
-        },
-        failure: (error) =>
-            Center(
-                child: DeText(
-                  error,
-                  style: DeFonts.body16Sb.copyWith(color: DeColors.red),
-                )),
-      );
-    });
+    return Obx(
+      () {
+        final liveList = controller.liveList;
+        return liveList.when(
+          loading: () => const Center(child: DeProgressIndicator()),
+          success: (liveList) {
+            log.d(liveList.length);
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: liveList.length,
+              itemBuilder: (context, index) {
+                return _liveItem(liveList[index]);
+              },
+            );
+          },
+          failure: (error) => Center(
+              child: DeText(
+            error,
+            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
+          )),
+        );
+      },
+    );
   }
 
   Widget _liveItem(YoutubeLiveEntity live) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DeGestureDetector(
           onTap: () {
@@ -125,34 +126,31 @@ class LiveAllPage extends GetView<LiveViewModel> {
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SvgPicture.asset(
-              DeIcons.icYoutubeGrey50,
+              DeIcons.icYoutubeLogoGrey50,
             ),
             DeGaps.h4,
             DeText('YouTube',
-                style: DeFonts.caption12M
-                    .copyWith(color: DeColors.grey50)),
+                style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
             DeGaps.h6,
             SvgPicture.asset(
               DeIcons.icDotGrey50,
             ),
             DeGaps.h6,
             DeText(live.supplier,
-                style: DeFonts.caption12M
-                    .copyWith(color: DeColors.grey50)),
+                style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
             DeGaps.h6,
             SvgPicture.asset(
               DeIcons.icDotGrey50,
             ),
             DeGaps.h6,
             DeText(live.createAt.toString().substring(0, 16),
-                style: DeFonts.caption12M
-                    .copyWith(color: DeColors.grey50)),
+                style: DeFonts.caption12M.copyWith(color: DeColors.grey50)),
           ],
         ),
         DeGaps.v28,
-      ],);
+      ],
+    );
   }
 }
