@@ -26,18 +26,7 @@ class PipController extends GetxController {
     );
   }
 
-  // void togglePip(String videoId) {
-  //   if (!showPip.value) {
-  //     initYoutube(videoId);
-  //   }
-  //   showPip.toggle();
-  // }
-
   void show(String videoId) {
-    // // 이미 초기화된 경우 dispose 해주기
-    // if (youtubePlayerController != null) {
-    //   youtubePlayerController!.dispose();
-    // }
     if (currentVideoId != videoId) {
       initYoutube(videoId);
     }
