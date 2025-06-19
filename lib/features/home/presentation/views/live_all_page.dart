@@ -14,6 +14,7 @@ import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class LiveAllPage extends GetView<LiveViewModel> {
   const LiveAllPage({super.key});
@@ -113,11 +114,12 @@ class LiveAllPage extends GetView<LiveViewModel> {
         DeGaps.v8,
         SizedBox(
           child: DeGestureDetector(
-            onTap: () {},
+            onTap: () {
+              pipController.show(live.videoId);
+            },
             child: DeText(
-              live.title,
-              style: DeFonts.body16M
-                  .copyWith(color: DeColors.grey10),
+              HtmlUnescape().convert(live.title),
+              style: DeFonts.body16M.copyWith(color: DeColors.grey10),
               overflow: TextOverflow.ellipsis,
             ),
           ),
