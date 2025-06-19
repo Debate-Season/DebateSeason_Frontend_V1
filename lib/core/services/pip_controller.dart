@@ -6,6 +6,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class PipController extends GetxController {
   YoutubePlayerController? youtubePlayerController;
   final showPip = false.obs;
+  final isControlVisible = false.obs;
   String? currentVideoId;
 
   final pipOffset = Rx<Offset>(const Offset(20, 100));
@@ -69,6 +70,13 @@ class PipController extends GetxController {
     }
 
     pipOffset.value = closest;
+  }
+
+  void showControls() {
+    isControlVisible.value = true;
+    Future.delayed(const Duration(seconds: 3),(){
+      isControlVisible.value = false;
+    });
   }
 
   @override
