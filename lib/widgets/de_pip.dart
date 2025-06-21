@@ -28,7 +28,8 @@ class DePip extends StatelessWidget {
 
       final offset = pipController.pipOffset.value;
 
-      return Positioned(
+      return AnimatedPositioned(
+        duration: const Duration(milliseconds: 200),
         top: offset.dy,
         left: offset.dx,
         child: GestureDetector(
