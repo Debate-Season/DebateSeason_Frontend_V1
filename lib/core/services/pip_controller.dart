@@ -74,9 +74,26 @@ class PipController extends GetxController with WidgetsBindingObserver {
       Offset(screenW - pipW - 20, (screenH - pipH) / 2), // right-center
     ];
 
+    if (keyboardHeight > 0) {
+      final double snapY = bottomLimit - pipH - 10;
+      corners.addAll([
+        Offset(20, snapY), // 키보드 좌상단
+        Offset(screenW - pipW - 20, snapY), // 키보드 우상단
+      ]);
+    }
+
+    final isBelowKeyboard = current.dy + pipH > bottomLimit;
     final filtered = corners.where((offset) {
       return offset.dy + pipH <= bottomLimit;
-    });
+    }).toList();
+
+    if (isBelowKeyboard && filtered.isEmpty) {
+      pipOffset.value = Offset(
+        pipOffset.value.dx,
+        bottomLimit - pipH - 10,
+      );
+      return;
+    }
 
     Offset closest = filtered.first;
     double minDistance = (current - closest).distance;
@@ -138,8 +155,34 @@ class PipController extends GetxController with WidgetsBindingObserver {
       }
     } else {
       if (originalOffsetBeforeKeyboard != null && !movedByUserWhileKeyboardUp) {
-        pipOffset.value = originalOffsetBeforeKeyboard!;
+        final snapY = Get.height - pipSize.height - 20;
+        final wasSnappedToKeyboardTop =
+            originalOffsetBeforeKeyboard!.dy <= keyboardTop - pipSize.height;
+
+        if (wasSnappedToKeyboardTop) {
+          pipOffset.value = Offset(pipOffset.value.dx, snapY);
+        } else {
+          pipOffset.value = originalOffsetBeforeKeyboard!;
+        }
       }
+
+      if (movedByUserWhileKeyboardUp) {
+        final Offset current = pipOffset.value;
+        final screenW = Get.width;
+        final pipW = pipSize.width;
+
+        final bool isTopLeft = (current.dx - 20).abs() < 10 && (current.dy - 40).abs() < 10;
+        final bool isTopRight = (current.dx - (screenW - pipW - 20)).abs() < 10 &&
+            (current.dy - 40).abs() < 10;
+
+        if (!isTopLeft && !isTopRight) {
+          pipOffset.value = Offset(
+            current.dx,
+            Get.height - pipSize.height - 20,
+          );
+        }
+      }
+
       originalOffsetBeforeKeyboard = null;
       movedByUserWhileKeyboardUp = false;
     }
