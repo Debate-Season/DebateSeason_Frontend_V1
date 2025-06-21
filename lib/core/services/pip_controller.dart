@@ -13,6 +13,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
   final pipOffset = Rx<Offset>(const Offset(20, 40));
   late Size pipSize;
   Offset? originalOffsetBeforeKeyboard;
+  bool movedByUserWhileKeyboardUp = false;
 
   void initYoutube(String videoId) {
     if (currentVideoId == videoId && youtubePlayerController != null) return;
@@ -44,6 +45,12 @@ class PipController extends GetxController with WidgetsBindingObserver {
 
   void updateOffset(Offset delta) {
     pipOffset.value += delta;
+
+    final keyboardVisible =
+        WidgetsBinding.instance.window.viewInsets.bottom > 0;
+    if (keyboardVisible) {
+      movedByUserWhileKeyboardUp = true;
+    }
   }
 
   void snapToCorner(Size screenSize, Size size) {
@@ -87,14 +94,54 @@ class PipController extends GetxController with WidgetsBindingObserver {
 
   void showControls() {
     isControlVisible.value = true;
-    Future.delayed(const Duration(seconds: 3),(){
+    Future.delayed(const Duration(seconds: 3), () {
       isControlVisible.value = false;
     });
   }
 
   @override
   void onClose() {
+    WidgetsBinding.instance.removeObserver(this);
     youtubePlayerController?.dispose();
     super.onClose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addObserver(this);
+    super.onInit();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final viewInsets = WidgetsBinding.instance.window.viewInsets.bottom;
+    final isKeyboardVisible = viewInsets > 0;
+    final keyboardHeight = viewInsets / window.devicePixelRatio;
+
+    if (pipSize.height == 0) return;
+
+    final pipBottom = pipOffset.value.dy + pipSize.height;
+    final screenBottom = Get.height;
+    final keyboardTop = screenBottom - keyboardHeight;
+    final overlapsKeyboard = pipBottom > keyboardTop;
+
+    if (isKeyboardVisible) {
+      if (overlapsKeyboard) {
+        if (originalOffsetBeforeKeyboard == null) {
+          originalOffsetBeforeKeyboard = pipOffset.value;
+          movedByUserWhileKeyboardUp = false;
+        }
+
+        final newY = keyboardTop - pipSize.height - 20;
+        pipOffset.value = Offset(pipOffset.value.dx, newY);
+      }
+    } else {
+      if (originalOffsetBeforeKeyboard != null && !movedByUserWhileKeyboardUp) {
+        pipOffset.value = originalOffsetBeforeKeyboard!;
+      }
+      originalOffsetBeforeKeyboard = null;
+      movedByUserWhileKeyboardUp = false;
+    }
   }
 }
