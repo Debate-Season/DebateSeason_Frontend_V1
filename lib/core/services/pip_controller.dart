@@ -67,11 +67,14 @@ class PipController extends GetxController with WidgetsBindingObserver {
       Offset(screenW - pipW - 20, (screenH - pipH) / 2), // right-center
     ];
 
-    // 가장 가까운 코너 계산
-    Offset closest = corners.first;
+    final filtered = corners.where((offset) {
+      return offset.dy + pipH <= bottomLimit;
+    });
+
+    Offset closest = filtered.first;
     double minDistance = (current - closest).distance;
 
-    for (var corner in corners) {
+    for (final corner in filtered) {
       double distance = (current - corner).distance;
       if (distance < minDistance) {
         minDistance = distance;
