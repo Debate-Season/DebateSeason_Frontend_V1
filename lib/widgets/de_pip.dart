@@ -13,6 +13,13 @@ class DePip extends StatelessWidget {
     final pipWidth = screenSize.width * 0.5;
     final pipHeight = pipWidth * 9 / 16;
 
+    // ✅ pipSize 초기화 전달
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (pipController.showPip.value) {
+        pipController.pipSize = Size(pipWidth, pipHeight);
+      }
+    });
+
     return Obx(() {
       if (!pipController.showPip.value ||
           pipController.youtubePlayerController == null) {

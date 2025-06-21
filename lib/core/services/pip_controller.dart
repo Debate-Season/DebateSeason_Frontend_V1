@@ -1,15 +1,18 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class PipController extends GetxController {
+class PipController extends GetxController with WidgetsBindingObserver {
   YoutubePlayerController? youtubePlayerController;
   final showPip = false.obs;
   final isControlVisible = false.obs;
   String? currentVideoId;
 
   final pipOffset = Rx<Offset>(const Offset(20, 40));
+  late Size pipSize;
+  Offset? originalOffsetBeforeKeyboard;
 
   void initYoutube(String videoId) {
     if (currentVideoId == videoId && youtubePlayerController != null) return;
@@ -43,12 +46,17 @@ class PipController extends GetxController {
     pipOffset.value += delta;
   }
 
-  void snapToCorner(Size screenSize, Size pipSize) {
+  void snapToCorner(Size screenSize, Size size) {
+    pipSize = size;
     final Offset current = pipOffset.value;
     final double screenW = screenSize.width;
     final double screenH = screenSize.height;
     final double pipW = pipSize.width;
     final double pipH = pipSize.height;
+
+    final keyboardHeight = WidgetsBinding.instance.window.viewInsets.bottom /
+        window.devicePixelRatio;
+    final double bottomLimit = screenH - keyboardHeight;
 
     final List<Offset> corners = [
       const Offset(20, 40), // top-left
