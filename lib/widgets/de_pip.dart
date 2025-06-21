@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,6 @@ class DePip extends StatelessWidget {
     final pipWidth = screenSize.width * 0.5;
     final pipHeight = pipWidth * 9 / 16;
 
-    // ✅ pipSize 초기화 전달
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (pipController.showPip.value) {
         pipController.pipSize = Size(pipWidth, pipHeight);
@@ -76,7 +76,7 @@ class DePip extends StatelessWidget {
                         pipController.youtubePlayerController!.value.isPlaying
                             ? Icons.pause
                             : Icons.play_arrow,
-                        color: Colors.white,
+                        color: DeColors.grey10,
                         size: 40,
                       ),
                       onPressed: () {
