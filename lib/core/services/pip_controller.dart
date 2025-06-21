@@ -32,8 +32,11 @@ class PipController extends GetxController with WidgetsBindingObserver {
   }
 
   void show(String videoId) {
-    if (currentVideoId != videoId) {
+    if (youtubePlayerController == null) {
       initYoutube(videoId);
+    } else if (currentVideoId != videoId) {
+      youtubePlayerController!.load(videoId);
+      currentVideoId = videoId;
     }
     showPip.value = true;
   }
