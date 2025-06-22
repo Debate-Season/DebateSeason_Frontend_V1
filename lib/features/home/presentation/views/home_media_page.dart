@@ -34,13 +34,52 @@ class HomeMediaPage extends GetView<MediaViewModel> {
   Widget _body(BuildContext context) {
     return Stack(
       children: [
-        ListView(
-          children: [
-            DeGaps.v4, //todo 여백값 정확히 계산
-            _mainMedia(context),
-            DeGaps.v40,
-            _medias(),
-          ],
+        Positioned.fill(
+          child: Obx(() {
+            final state = controller.mediaData;
+            return state.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              failure: (msg) => Center(
+                  child: DeText(msg,
+                      style: DeFonts.body16Sb.copyWith(color: DeColors.red))),
+              success: (media) {
+                final items = media.items;
+                // 0: v4, 1: mainMedia, 2: v40, 3: header, 4~: items, 마지막: 로더
+                final totalCount =
+                    4 + items.length + (controller.hasMore ? 1 : 0);
+
+                return ListView.builder(
+                  controller: controller.scrollController,
+                  padding: EdgeInsets.zero,
+                  itemCount: totalCount,
+                  itemBuilder: (ctx, idx) {
+                    switch (idx) {
+                      case 0:
+                        return DeGaps.v4;
+                      case 1:
+                        return _mainMedia(context);
+                      case 2:
+                        return DeGaps.v40;
+                      case 3:
+                        return _mediaHeader();
+                      default:
+                        final itemIndex = idx - 4;
+                        if (itemIndex < items.length) {
+                          return Padding(
+                            padding: DeDimensions.padding20x12,
+                            child: _mediaItem(items[itemIndex]),
+                          );
+                        }
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                    }
+                  },
+                );
+              },
+            );
+          }),
         ),
       ],
     );
@@ -211,7 +250,45 @@ class HomeMediaPage extends GetView<MediaViewModel> {
     });
   }
 
-  Widget _medias() {
+  Widget _mediaHeader() {
+    /*Widget mediaCategory() {
+      Widget categoryBtn(String title) {
+        final bool isSelected = title == '모두';
+
+        return DeGestureDetector(
+          onTap: () {},
+          child: Container(
+            padding: DeDimensions.padding10x4,
+            decoration: BoxDecoration(
+              color: isSelected ? DeColors.grey10 : DeColors.grey110,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: DeText(
+              title,
+              style: DeFonts.body14Sb.copyWith(
+                  color: isSelected ? DeColors.grey120 : DeColors.grey50),
+            ),
+          ),
+        );
+      }
+
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            categoryBtn('모두'),
+            DeGaps.h12,
+            categoryBtn('뉴스 · 기사'),
+            DeGaps.h12,
+            categoryBtn('Youtube'),
+            DeGaps.h12,
+            categoryBtn('커뮤니티'),
+            DeGaps.h12,
+          ],
+        ),
+      );
+    }*/
+
     return Padding(
       padding: DeDimensions.padding20x12,
       child: Column(
@@ -223,51 +300,12 @@ class HomeMediaPage extends GetView<MediaViewModel> {
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
           DeGaps.v16,
-          //_mediaCategory(),
+          //mediaCategory(),
           //DeGaps.v20,
-          _mediaList(),
         ],
       ),
     );
   }
-
-  /*Widget _mediaCategory() {
-    Widget categoryBtn(String title) {
-      final bool isSelected = title == '모두';
-
-      return DeGestureDetector(
-        onTap: () {},
-        child: Container(
-          padding: DeDimensions.padding10x4,
-          decoration: BoxDecoration(
-            color: isSelected ? DeColors.grey10 : DeColors.grey110,
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: DeText(
-            title,
-            style: DeFonts.body14Sb.copyWith(
-                color: isSelected ? DeColors.grey120 : DeColors.grey50),
-          ),
-        ),
-      );
-    }
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          categoryBtn('모두'),
-          DeGaps.h12,
-          categoryBtn('뉴스 · 기사'),
-          DeGaps.h12,
-          categoryBtn('Youtube'),
-          DeGaps.h12,
-          categoryBtn('커뮤니티'),
-          DeGaps.h12,
-        ],
-      ),
-    );
-  }*/
 
   Widget _mediaList() {
     return Obx(() {
