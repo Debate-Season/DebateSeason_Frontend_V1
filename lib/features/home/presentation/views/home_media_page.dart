@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class HomeMediaPage extends GetView<MediaViewModel> {
   const HomeMediaPage({super.key});
@@ -138,7 +139,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                           child: DeGestureDetector(
                             onTap: () {},
                             child: DeText(
-                              youtube[0].title,
+                              HtmlUnescape().convert(youtube[0].title),
                               style: DeFonts.body16M
                                   .copyWith(color: DeColors.grey10),
                               overflow: TextOverflow.ellipsis,
@@ -176,7 +177,6 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                                         )),
                                       ),
                                       DeGaps.v16,
-                                      DeGaps.v16,
                                     ],
                                   ),
                                 );
@@ -200,7 +200,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                           DeIcons.icDotGrey50,
                         ),
                         DeGaps.h6,
-                        DeText(youtube[0].createAt.toString().substring(0, 10),
+                        DeText(youtube[0].createAt.toString().substring(0, 16),
                             style: DeFonts.caption12M
                                 .copyWith(color: DeColors.grey50)),
                       ],
@@ -390,7 +390,12 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                 //         shape: BoxShape.circle,
                 //       ),
                 //       child: SvgPicture.asset(
-                //         DeIcons.icExitGrey10,
+                //         {
+                //               'YOUTUBE': DeIcons.icYoutubeGrey10,
+                //               'ARTICLE': DeIcons.icArticleGrey10,
+                //               'COMM': DeIcons.icCommGrey10,
+                //             }[media.supplier] ??
+                //             '',
                 //       )),
                 // ),
               ],
@@ -405,7 +410,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                   children: [
                     Expanded(
                       child: DeText(
-                        media.title,
+                        HtmlUnescape().convert(media.title),
                         style: DeFonts.body16M.copyWith(color: DeColors.grey10),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -414,40 +419,33 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                     DeGaps.h12,
                     DeGestureDetector(
                       onTap: () {
-                        // showModalBottomSheet(
-                        //   context: context, //todo context 넣은 부모위젯들 삭제
-                        //   builder: (context) {
-                        //     return DeBottomSheetNoTitle(
-                        //       widget: Column(
-                        //         children: [
-                        //           DeGestureDetector(
-                        //             onTap: () {
-                        //               Clipboard.setData(ClipboardData(
-                        //                   text:
-                        //                   'https://youtube.com/${media.url}'));
-                        //               DeToast.showToast(
-                        //                 msg: 'URL이 복사되었습니다.',
-                        //               );
-                        //             },
-                        //             child: (Row(
-                        //               children: [
-                        //                 SvgPicture.asset(
-                        //                   DeIcons.icCopyGrey10,
-                        //                 ),
-                        //                 DeGaps.h16,
-                        //                 DeText('URL 복사하기',
-                        //                     style: DeFonts.body16M.copyWith(
-                        //                         color: DeColors.grey10)),
-                        //               ],
-                        //             )),
-                        //           ),
-                        //           DeGaps.v16,
-                        //           DeGaps.v16,
-                        //         ],
-                        //       ),
-                        //     );
-                        //   },
-                        // );
+                        Get.bottomSheet(DeBottomSheetNoTitle(
+                          widget: Column(
+                            children: [
+                              DeGestureDetector(
+                                onTap: () {
+                                  Clipboard.setData(
+                                      ClipboardData(text: media.url));
+                                  DeToast.showToast(
+                                    msg: 'URL이 복사되었습니다.',
+                                  );
+                                },
+                                child: (Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      DeIcons.icCopyGrey10,
+                                    ),
+                                    DeGaps.h16,
+                                    DeText('URL 복사하기',
+                                        style: DeFonts.body16M
+                                            .copyWith(color: DeColors.grey10)),
+                                  ],
+                                )),
+                              ),
+                              DeGaps.v16,
+                            ],
+                          ),
+                        ));
                       },
                       child: SvgPicture.asset(
                         DeIcons.icMoreGrey50,
