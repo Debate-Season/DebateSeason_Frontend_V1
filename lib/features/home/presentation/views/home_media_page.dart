@@ -366,10 +366,15 @@ class HomeMediaPage extends GetView<MediaViewModel> {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.network(
-                    media.src ?? '',
-                    fit: BoxFit.cover,
-                  ),
+                  child: media.src != null
+                      ? Image.network(
+                          media.src!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          'assets/images/img_media_thumbnail.png',
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 // Positioned(
                 //   right: 6,
