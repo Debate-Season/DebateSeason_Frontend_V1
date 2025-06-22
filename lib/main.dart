@@ -2,7 +2,6 @@ import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
-import 'package:debateseason_frontend_v1/widgets/de_pip.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,19 +43,12 @@ class MyApp extends StatelessWidget {
       initialBinding: SplashBinding(),
       initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
-      builder: (context, widget) {
-        // 시스템 폰트 영향 제거
-        return MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaler: TextScaler.linear(1.0)),
-          child: Stack(
-            children: [
-              widget!,
-              const DePip(),
-            ],
-          ),
-        );
-      },
+      theme: ThemeData.light().copyWith(
+        textTheme: ThemeData.light().textTheme.apply(
+              fontSizeFactor: 1.0,
+            ),
+      ),
+      builder: (context, child) => child!,
     );
   }
 }

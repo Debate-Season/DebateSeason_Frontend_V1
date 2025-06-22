@@ -18,7 +18,10 @@ class DeIcons {
   static const icBookmarkGrey50 = 'assets/icons/ic_bookmark_grey50.svg';
   static const icAssistantGrey50 = 'assets/icons/ic_assistant_grey50.svg';
   static const icInfoGrey50 = 'assets/icons/ic_info_grey50.svg';
-  static const icYoutubeGrey50 = 'assets/icons/ic_youtube_grey50.svg';
+  static const icYoutubeLogoGrey50 = 'assets/icons/ic_youtube_logo_grey50.svg';
+  static const icYoutubeGrey10 = 'assets/icons/ic_youtube_grey10.svg';
+  static const icArticleGrey10 = 'assets/icons/ic_article_grey10.svg';
+  static const icCommGrey10 = 'assets/icons/ic_comm_grey10.svg';
 
   //none colorable
   static const icKakaoLogin = 'assets/icons/ic_kakao_login.svg';
