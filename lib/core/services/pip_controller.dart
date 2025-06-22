@@ -195,9 +195,11 @@ class PipController extends GetxController with WidgetsBindingObserver {
         final screenW = Get.width;
         final pipW = pipSize.width;
 
-        final bool isTopLeft = (current.dx - 20).abs() < 10 && (current.dy - 40).abs() < 10;
-        final bool isTopRight = (current.dx - (screenW - pipW - 20)).abs() < 10 &&
-            (current.dy - 40).abs() < 10;
+        final bool isTopLeft =
+            (current.dx - 20).abs() < 10 && (current.dy - 40).abs() < 10;
+        final bool isTopRight =
+            (current.dx - (screenW - pipW - 20)).abs() < 10 &&
+                (current.dy - 40).abs() < 10;
 
         if (!isTopLeft && !isTopRight) {
           pipOffset.value = Offset(
