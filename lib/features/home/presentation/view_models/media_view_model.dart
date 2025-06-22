@@ -115,7 +115,7 @@ class MediaViewModel extends GetxController {
       );
     } catch (e, s) {
       log.e('fetchMediaData error: $e');
-      log.e('s');
+      log.e(s);
       _mediaData.value = const UiState.failure('네트워크 오류가 발생했습니다.');
     } finally {
       isAppending.value = false;

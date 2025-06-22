@@ -209,7 +209,6 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                 ),
               ),
               DeGaps.v20,
-              DeGaps.v20,
               Padding(
                 padding: DeDimensions.horizontal20,
                 child: DeGestureDetector(
@@ -300,48 +299,12 @@ class HomeMediaPage extends GetView<MediaViewModel> {
             '실시간 미디어',
             style: DeFonts.header18Sb.copyWith(color: DeColors.grey10),
           ),
-          DeGaps.v16,
+          //DeGaps.v16,
           //mediaCategory(),
           //DeGaps.v20,
         ],
       ),
     );
-  }
-
-  Widget _mediaList() {
-    return Obx(() {
-      final mediaData = controller.mediaData;
-      return mediaData.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        success: (mediaData) {
-          final medias = mediaData.items;
-          log.d('mediaData : $mediaData');
-          log.d('medias : $medias');
-          final int len = medias.length;
-          return ListView.separated(
-            controller: controller.scrollController,
-            padding: DeDimensions.padding20x12,
-            itemCount: len + (controller.hasMore ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (index == len) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-              return _mediaItem(medias[index]);
-            },
-            separatorBuilder: (context, index) => DeGaps.v16,
-          );
-        },
-        failure: (error) => Center(
-          child: DeText(
-            error,
-            style: DeFonts.body16Sb.copyWith(color: DeColors.red),
-          ),
-        ),
-      );
-    });
   }
 
   Widget _mediaItem(MediaItemEntity media) {
