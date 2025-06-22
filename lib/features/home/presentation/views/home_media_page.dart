@@ -9,7 +9,6 @@ import 'package:debateseason_frontend_v1/features/home/domain/entities/media_ite
 import 'package:debateseason_frontend_v1/features/home/presentation/view_models/media_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/utils/de_toast.dart';
-import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/de_bottom_sheet_notitle.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
