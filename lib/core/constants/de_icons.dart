@@ -24,6 +24,6 @@ class DeIcons {
   static const icCommGrey10 = 'assets/icons/ic_comm_grey10.svg';
 
   //none colorable
-  static const icKakaoLogin = 'assets/icons/ic_kakao_login.svg';
-  static const icAppleLogin = 'assets/icons/ic_apple_login.svg';
+  static const icKakaoLogin = 'assets/icons/ic_login_kakao.svg';
+  static const icAppleLogin = 'assets/icons/ic_login_apple.svg';
 }

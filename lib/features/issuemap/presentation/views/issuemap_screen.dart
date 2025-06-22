@@ -39,17 +39,6 @@ class IssuemapScreen extends GetView<IssuemapViewModel> {
         width: 84,
         height: 24,
       ),
-      actions: [
-        DeGestureDetector(
-          onTap: () {
-            Get.toNamed(GetRouterName.profile);
-          },
-          child: Padding(
-            padding: DeDimensions.all8,
-            child: SvgPicture.asset(DeIcons.icProfileGrey10),
-          ),
-        ),
-      ],
     );
   }
 

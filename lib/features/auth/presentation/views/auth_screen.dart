@@ -139,7 +139,7 @@ class AuthScreen extends GetView<AuthViewModel> {
                 ? DeIcons.icKakaoLogin
                 : DeIcons.icAppleLogin,
           ),
-          DeGaps.h8,
+          DeGaps.h4,
           Text(
             loginType == AuthConstants.kakaoLoginType
                 ? AuthConstants.kakaoLogin
