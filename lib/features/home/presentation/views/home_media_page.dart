@@ -406,6 +406,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       child: DeText(
                         media.title,
                         style: DeFonts.body16M.copyWith(color: DeColors.grey10),
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
