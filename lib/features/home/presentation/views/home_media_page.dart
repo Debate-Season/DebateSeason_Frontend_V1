@@ -280,13 +280,19 @@ class HomeMediaPage extends GetView<MediaViewModel> {
           log.d('medias : $medias');
           final int len = medias.length;
           return ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            controller: controller.scrollController,
+            padding: DeDimensions.padding20x12,
+            itemCount: len + (controller.hasMore ? 1 : 0),
             itemBuilder: (context, index) {
+              if (index == len) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
               return _mediaItem(medias[index]);
             },
             separatorBuilder: (context, index) => DeGaps.v16,
-            itemCount: len,
           );
         },
         failure: (error) => Center(
