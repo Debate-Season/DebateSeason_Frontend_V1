@@ -34,7 +34,7 @@ class MediaViewModel extends GetxController {
     );
   }
 
-  void togglePip(String videoId){
+  void togglePip(String videoId) {
     if (!showPip.value) {
       initYoutube(videoId);
     }

@@ -230,7 +230,8 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       children: [
                         DeText(
                           '라이브 모두 보기',
-                          style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                          style:
+                              DeFonts.body14M.copyWith(color: DeColors.grey50),
                         ),
                       ],
                     ),
@@ -465,7 +466,7 @@ class HomeMediaPage extends GetView<MediaViewModel> {
                       DeIcons.icDotGrey50,
                     ),
                     DeGaps.h6,
-                    DeText(media.outdated.toString().substring(0,10),
+                    DeText(media.outdated.toString().substring(0, 10),
                         style: DeFonts.caption12M
                             .copyWith(color: DeColors.grey50)),
                   ],
