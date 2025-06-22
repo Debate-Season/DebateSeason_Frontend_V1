@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:debateseason_frontend_v1/widgets/de_pip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -11,9 +12,23 @@ class PipController extends GetxController with WidgetsBindingObserver {
   String? currentVideoId;
 
   final pipOffset = Rx<Offset>(const Offset(20, 40));
-  late Size pipSize;
+  Size pipSize = Size.zero;
   Offset? originalOffsetBeforeKeyboard;
   bool movedByUserWhileKeyboardUp = false;
+
+  OverlayEntry? _overlayEntry;
+
+  void _ensureOverlay() {
+    if (_overlayEntry != null) return;
+    final overlay = Overlay.of(Get.overlayContext!)!;
+    _overlayEntry = OverlayEntry(builder: (_) => const DePip());
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
 
   void initYoutube(String videoId) {
     if (currentVideoId == videoId && youtubePlayerController != null) return;
@@ -32,6 +47,8 @@ class PipController extends GetxController with WidgetsBindingObserver {
   }
 
   void show(String videoId) {
+    _ensureOverlay();
+
     if (youtubePlayerController == null) {
       initYoutube(videoId);
     } else if (currentVideoId != videoId) {
@@ -43,6 +60,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
 
   void hide() {
     showPip.value = false;
+    _removeOverlay();
     youtubePlayerController?.pause();
   }
 
@@ -122,6 +140,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
   @override
   void onClose() {
     WidgetsBinding.instance.removeObserver(this);
+    _removeOverlay();
     youtubePlayerController?.dispose();
     super.onClose();
   }
@@ -130,11 +149,13 @@ class PipController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    super.onInit();
   }
 
   @override
   void didChangeMetrics() {
+    if (!showPip.value) return;
+    if (pipSize.height == 0) return;
+
     final viewInsets = WidgetsBinding.instance.window.viewInsets.bottom;
     final isKeyboardVisible = viewInsets > 0;
     final keyboardHeight = viewInsets / window.devicePixelRatio;
