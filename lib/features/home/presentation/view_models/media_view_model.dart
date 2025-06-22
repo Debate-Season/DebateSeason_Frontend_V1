@@ -1,7 +1,10 @@
 import 'package:debateseason_frontend_v1/features/home/domain/entities/media_entity.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/media_item_entity.dart';
+import 'package:debateseason_frontend_v1/features/home/domain/entities/youtube_live_entity.dart';
 import 'package:debateseason_frontend_v1/features/home/domain/repositories/media_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -11,8 +14,15 @@ class MediaViewModel extends GetxController {
 
   UiState<MediaEntity> get mediaData => _mediaData.value;
 
+  static const int _pageSize = 5;
   String? lastFetchedTime;
+  bool hasMore = true;
   final RxBool isAppending = false.obs;
+
+  final ScrollController scrollController = ScrollController();
+
+  final List<MediaItemEntity> _allItems = [];
+  List<YoutubeLiveEntity> _initialYoutubeLive = [];
 
   final showPip = false.obs;
   late YoutubePlayerController youtubePlayerController;
@@ -24,7 +34,7 @@ class MediaViewModel extends GetxController {
     );
   }
 
-  void togglePip(String videoId){
+  void togglePip(String videoId) {
     if (!showPip.value) {
       initYoutube(videoId);
     }
@@ -34,69 +44,81 @@ class MediaViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    log.d('📌 RecommendViewModel onInit 호출됨');
     _mediaRepository = Get.find<MediaRepository>();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        fetchMediaData();
+      }
+    });
+
     fetchMediaData();
   }
 
   @override
   void onClose() {
     youtubePlayerController.dispose();
+    scrollController
+      ..removeListener(() {})
+      ..dispose();
     super.onClose();
   }
 
-  Future<void> fetchMediaData() async {
+  Future<void> fetchMediaData({String? type}) async {
+    if (!hasMore || isAppending.value) return;
+    isAppending.value = true;
+
+    if (lastFetchedTime == null) {
+      _allItems.clear();
+      _initialYoutubeLive.clear();
+      _mediaData.value = const UiState.loading();
+    }
+
     try {
-      final response = await _mediaRepository.getMedia();
-      log.d(response);
-      _mediaData.value = response;
+      final result = await _mediaRepository.getMedia(
+        type: type,
+        time: lastFetchedTime,
+      );
+
+      result.when(
+        loading: () {
+          // 이미 loading 상태는 처리했으므로 무시
+        },
+        success: (media) {
+          if (_initialYoutubeLive.isEmpty) {
+            _initialYoutubeLive = media.youtubeLive;
+          }
+
+          // items 누적
+          if (media.items.isNotEmpty) {
+            _allItems.addAll(media.items);
+
+            lastFetchedTime = media.items.last.outdated.toIso8601String();
+
+            if (media.items.length < _pageSize) {
+              hasMore = false;
+            }
+          } else {
+            hasMore = false;
+          }
+
+          final combined = MediaEntity(
+            youtubeLive: _initialYoutubeLive,
+            items: _allItems,
+          );
+          _mediaData.value = UiState.success(combined);
+        },
+        failure: (msg) {
+          _mediaData.value = UiState.failure(msg);
+        },
+      );
     } catch (e, s) {
-      log.d(e);
-      log.d(s);
+      log.e('fetchMediaData error: $e');
+      log.e(s);
+      _mediaData.value = const UiState.failure('네트워크 오류가 발생했습니다.');
+    } finally {
+      isAppending.value = false;
     }
   }
-
-  // Future<void> appendMediaData({String? type}) async {
-  //   if (isAppending.value || lastFetchedTime == null) return;
-  //
-  //   isAppending.value = true;
-  //
-  //   try {
-  //     final response = await _mediaRepository.getMedia(
-  //       type: type,
-  //       time: lastFetchedTime,
-  //     );
-  //
-  //     // 🟡 response는 UiState<MediaEntity>니까 when으로 분기
-  //     response.when(
-  //       loading: () {
-  //         // 무시 (이미 로딩 중)
-  //       },
-  //       failure: (message) {
-  //         log.e("📛 append 실패: $message");
-  //       },
-  //       success: (newData) {
-  //         final newItems = newData.items;
-  //
-  //         // 현재 상태도 success인 경우에만 병합
-  //         _mediaData.value = _mediaData.value.maybeWhen(
-  //           success: (currentData) {
-  //             final mergedItems = [...currentData.items, ...newItems];
-  //             lastFetchedTime = newItems.isNotEmpty
-  //                 ? newItems.last.createdAt.toIso8601String()
-  //                 : lastFetchedTime;
-  //
-  //             return UiState.success(MediaEntity(items: mergedItems));
-  //           },
-  //           orElse: () => _mediaData.value, // 현재 상태 유지
-  //         );
-  //       },
-  //     );
-  //   } catch (e, s) {
-  //     log.e("🔥 append 예외 발생: $e");
-  //     log.e(s);
-  //   } finally {
-  //     isAppending.value = false;
-  //   }
-  // }
 }
