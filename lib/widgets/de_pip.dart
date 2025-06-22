@@ -45,7 +45,6 @@ class DePip extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white),
             ),
             child: Stack(
               children: [
