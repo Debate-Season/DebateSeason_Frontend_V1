@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:debateseason_frontend_v1/widgets/de_pip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -20,7 +18,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
 
   void _ensureOverlay() {
     if (_overlayEntry != null) return;
-    final overlay = Overlay.of(Get.overlayContext!)!;
+    final overlay = Overlay.of(Get.overlayContext!);
     _overlayEntry = OverlayEntry(builder: (_) => const DePip());
     overlay.insert(_overlayEntry!);
   }
@@ -68,7 +66,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
     pipOffset.value += delta;
 
     final keyboardVisible =
-        WidgetsBinding.instance.window.viewInsets.bottom > 0;
+        Get.mediaQuery.viewInsets.bottom > 0;
     if (keyboardVisible) {
       movedByUserWhileKeyboardUp = true;
     }
@@ -82,8 +80,7 @@ class PipController extends GetxController with WidgetsBindingObserver {
     final double pipW = pipSize.width;
     final double pipH = pipSize.height;
 
-    final keyboardHeight = WidgetsBinding.instance.window.viewInsets.bottom /
-        window.devicePixelRatio;
+    final keyboardHeight = Get.mediaQuery.viewInsets.bottom;
     final double bottomLimit = screenH - keyboardHeight;
 
     final List<Offset> corners = [
@@ -156,9 +153,8 @@ class PipController extends GetxController with WidgetsBindingObserver {
     if (!showPip.value) return;
     if (pipSize.height == 0) return;
 
-    final viewInsets = WidgetsBinding.instance.window.viewInsets.bottom;
-    final isKeyboardVisible = viewInsets > 0;
-    final keyboardHeight = viewInsets / window.devicePixelRatio;
+    final keyboardHeight = Get.mediaQuery.viewInsets.bottom;
+    final isKeyboardVisible = keyboardHeight > 0;
 
     if (pipSize.height == 0) return;
 
