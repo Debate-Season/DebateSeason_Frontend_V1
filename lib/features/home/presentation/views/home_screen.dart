@@ -1,10 +1,8 @@
-import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/features/home/presentation/views/home_screen_content.dart';
 import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,23 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   DeAppBar _appbar() {
     return DeAppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SvgPicture.asset(
-            'assets/icons/ic_logo.svg',
-            width: 24,
-            height: 24,
-          ),
-          DeGaps.h4,
-          SvgPicture.asset(
-            'assets/icons/ic_debateseason.svg',
-            width: 24,
-            height: 24,
-          ),
-        ],
-      ),
       isBack: false,
+      title: Image.asset(
+        'assets/images/img_debate_logo.png',
+        width: 84,
+        height: 24,
+      ),
     );
   }
 }

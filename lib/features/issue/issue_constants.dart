@@ -6,4 +6,5 @@ class IssueConstants {
   static const debateTopicDescription = 'AI가 생성한 본 이슈의 주요 토론 주제입니다.';
   static const noChatRoom = '채팅방이 개설되지 않았습니다';
   static const vs = 'VS';
+  static const voted = '참여 중';
 }
