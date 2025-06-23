@@ -8,10 +8,15 @@ class GetRouterName {
   static const String issue = '/issue';
   static const String category = '/category';
   static const String debate = '/debate';
+  static const String reportMessage = '/report_message';
+  static const String recommend = '/home/recommend';
+  static const String media = '/home/media';
+  static const String lives = '/lives';
 
   /// Profile
   static const String profile = '/profile';
   static const String profileInput = '/profile_input';
+  static const String profileImage = '/profile_image';
   static const String profileWithdraw = '/profile_withdraw';
   static const String terms = '/terms';
 }

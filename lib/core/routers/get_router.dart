@@ -5,6 +5,11 @@ import 'package:debateseason_frontend_v1/features/chat/bindings/chat_binding.dar
 import 'package:debateseason_frontend_v1/features/chat/bindings/debate_binding.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/chat_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/views/debate_room_screen.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/views/inappropriate_chat_report_screen.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/media_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/bindings/recommend_binding.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/home_screen.dart';
+import 'package:debateseason_frontend_v1/features/home/presentation/views/live_all_page.dart';
 import 'package:debateseason_frontend_v1/features/issue/bindings/issue_binding.dart';
 import 'package:debateseason_frontend_v1/features/issue/presentation/views/issue_room_screen.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/bindings/issuemap_binding.dart';
@@ -12,12 +17,14 @@ import 'package:debateseason_frontend_v1/features/issuemap/presentation/views/is
 import 'package:debateseason_frontend_v1/features/main/main_binding.dart';
 import 'package:debateseason_frontend_v1/features/main/main_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_binding.dart';
+import 'package:debateseason_frontend_v1/features/profile/bindings/profile_image_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/profile_input_binding.dart';
 import 'package:debateseason_frontend_v1/features/profile/bindings/terms_binding.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_page.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/terms_page.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_image_screen.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
-import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_page.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_screen.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/terms_screen.dart';
 import 'package:debateseason_frontend_v1/features/splash/presentation/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -44,22 +51,32 @@ class GetRouter {
     ),
     GetPage(
       name: GetRouterName.terms,
-      page: () => TermsPage(),
+      page: () => TermsScreen(),
       binding: TermsBinding(),
     ),
     GetPage(
       name: GetRouterName.profileInput,
-      page: () => ProfileInputPage(),
+      page: () => ProfileInputScreen(),
       binding: ProfileInputBinding(),
     ),
     GetPage(
+      name: GetRouterName.profileImage,
+      page: () => ProfileImageScreen(),
+      binding: ProfileImageBinding(),
+    ),
+    GetPage(
       name: GetRouterName.profileWithdraw,
-      page: () => ProfileWithdrawPage(),
+      page: () => ProfileWithdrawScreen(),
     ),
     GetPage(
       name: GetRouterName.chat,
       page: () => ChatRoomScreen(),
       binding: ChatBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.reportMessage,
+      page: () => InappropriateChatReportScreen(),
+      binding: null,
     ),
     GetPage(
       name: GetRouterName.profile,
@@ -81,5 +98,20 @@ class GetRouter {
       page: () => DebateRoomScreen(),
       binding: DebateBinding(),
     ),
+    GetPage(
+      name: GetRouterName.recommend,
+      page: () => HomeScreen(),
+      binding: RecommendBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.media,
+      page: () => HomeScreen(),
+      binding: MediaBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.lives,
+      page: () => LiveAllPage(),
+      binding: MediaBinding(),
+    )
   ];
 }

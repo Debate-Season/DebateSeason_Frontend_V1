@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/features/issuemap/domain/entities/category_entity.dart';
 import 'package:debateseason_frontend_v1/features/issuemap/domain/repositories/users_home_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,7 @@ class IssuemapViewModel extends GetxController {
   void onInit() async {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'Issuemap');
     _usersHomeRepository = Get.find<UsersHomeRepository>();
     await getCategories();
   }

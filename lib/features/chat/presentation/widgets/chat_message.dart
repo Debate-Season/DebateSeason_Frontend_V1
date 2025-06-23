@@ -6,6 +6,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
+import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/reaction_picker.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -27,63 +28,71 @@ class ChatMessage extends StatefulWidget {
 }
 
 class _ChatMessageState extends State<ChatMessage> {
-  // void _showReactionModal(
-  //   BuildContext context,
-  //   GlobalKey messageKey,
-  //   Alignment aligntment,
-  //   String? link,
-  // ) {
-  //   final RenderBox renderBox =
-  //       messageKey.currentContext!.findRenderObject() as RenderBox;
-  //   final Offset position = renderBox.localToGlobal(Offset.zero);
-  //   final linkHeight = (link == null) ? 0 : 220; // 220 is Preview Size
-  //   final Size chatBubbleSize = Size(
-  //       renderBox.size.width, renderBox.size.height - linkHeight); // 메시지 크기
+  void _showReactionModal(
+    BuildContext context,
+    GlobalKey messageKey,
+    Alignment aligntment,
+    String? link,
+  ) {
+    final RenderBox renderBox = messageKey.currentContext!.findRenderObject()
+        as RenderBox; // messageKey로 지정된 위젯
+    final Offset position = renderBox
+        .localToGlobal(Offset.zero); // messageKey 로 지정된 위치가 현재 전체 화면상에서 어디인지 확인
+    final linkHeight = (link == null) ? 0 : 220; // 220 is Preview Size
+    final Size chatBubbleSize = Size(
+        renderBox.size.width, renderBox.size.height - linkHeight); // 메시지 크기
 
-  //   double pickerTop;
-  //   // bubble 하단에 이미지 픽커가 Default
-  //   // bubble 하단에서 시현해서 잘려질 경우, 위쪽에 표시
-  //   if (widget.parentHeight <
-  //       position.dy - kToolbarHeight + chatBubbleSize.height + 84) {
-  //     pickerTop = position.dy -
-  //         kToolbarHeight -
-  //         84 +
-  //         20 -
-  //         6; // 84 is reaction picker size 20 is chat header 6 is gap
-  //   } else {
-  //     pickerTop = position.dy - kToolbarHeight + chatBubbleSize.height;
-  //   }
+    double pickerTop;
+    // bubble 하단에 이미지 픽커가 Default
+    // bubble 하단에서 시현해서 잘려질 경우, 위쪽에 표시
+    double reactionPickerHeight = 40; // 픽커의 행이 2개일 때, 84(Gap 포함). 아니면 40
+    if (widget.parentHeight <
+        position.dy -
+            kToolbarHeight +
+            chatBubbleSize.height +
+            reactionPickerHeight) {
+      pickerTop = position.dy -
+          kToolbarHeight -
+          reactionPickerHeight +
+          20 -
+          6; // 84 is reaction picker size 20 is chat header 6 is gap
+    } else {
+      pickerTop = position.dy - kToolbarHeight + chatBubbleSize.height;
+    }
 
-  //   final right =
-  //       aligntment == Alignment.centerRight ? 20.0 : null; // 20 padding
-  //   final left = aligntment == Alignment.centerLeft ? 20.0 : null; // 20 padding
+    final right =
+        aligntment == Alignment.centerRight ? 20.0 : null; // 20 padding
+    final left = aligntment == Alignment.centerLeft ? 20.0 : null; // 20 padding
 
-  //   showDialog(
-  //     context: context,
-  //     barrierColor: Colors.transparent,
-  //     builder: (context) {
-  //       return Stack(
-  //         children: [
-  //           Positioned(
-  //             top: pickerTop,
-  //             right: right,
-  //             left: left,
-  //             child: Material(
-  //               color: Colors.transparent,
-  //               child: ReactionPicker(
-  //                 onReactionSelect: (emoji) {
-  //                   Navigator.pop(context);
-  //                 },
-  //                 onInappropriateChatReport: () => widget
-  //                     .onInappropriateChatReport(widget.chatMessageEntity.id),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent,
+      builder: (context) {
+        return Stack(
+          children: [
+            Positioned(
+              top: pickerTop,
+              right: right,
+              left: left,
+              child: Material(
+                color: Colors.transparent,
+                child: ReactionPicker(onReactionSelect: (emoji) {
+                  Navigator.pop(context);
+                }, onInappropriateChatReport: () {
+                  Navigator.pop(context);
+                  Future.microtask(() {
+                    // 팝업창 닫히는 것 보장.
+                    widget
+                        .onInappropriateChatReport(widget.chatMessageEntity.id);
+                  });
+                }),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +124,8 @@ class _ChatMessageState extends State<ChatMessage> {
       alignment: alignment,
       child: GestureDetector(
         key: messageKey,
-        // onLongPress: () =>
-        //     _showReactionModal(context, messageKey, alignment, link),
+        onLongPress: () =>
+            _showReactionModal(context, messageKey, alignment, link),
         child: Column(
           crossAxisAlignment: crossAxisAlignment,
           children: [

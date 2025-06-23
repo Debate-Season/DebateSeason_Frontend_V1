@@ -4,6 +4,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/entities/profil
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_logout_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_withdraw_repository.dart';
+import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,6 +25,7 @@ class ProfileViewModel extends GetxController {
   void onInit() {
     super.onInit();
 
+    AmplitudeUtil.trackEvent(eventName: 'Profile');
     _profileRepository = Get.find<ProfileRepository>();
     _usersLogoutRepository = Get.find<UsersLogoutRepository>();
     _usersWithdrawRepository = Get.find<UsersWithdrawRepository>();

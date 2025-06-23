@@ -241,7 +241,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           child: Row(
             children: [
               DeText(
-                ProfileConstants.profileSupportEmail,
+                ProfileConstants.PROFILE_SUPPORT_EMAIL,
                 style: DeFonts.body14M.copyWith(color: DeColors.grey50),
               ),
               DeGaps.h8,
