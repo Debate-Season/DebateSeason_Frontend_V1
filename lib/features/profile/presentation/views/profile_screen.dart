@@ -34,7 +34,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         '프로필',
         style: DeFonts.header20B,
       ),
-      isBack: true,
+      isBack: false,
     );
   }
 
