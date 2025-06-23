@@ -118,7 +118,7 @@ class IssueCard extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: DeText(
-        '참여 중',
+        IssueConstants.voted,
         style: DeFonts.caption12SB.copyWith(color: DeColors.grey10),
       ),
     );
