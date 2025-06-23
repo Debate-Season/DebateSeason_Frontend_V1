@@ -74,7 +74,7 @@ class IssueCard extends StatelessWidget {
 
   Widget _issueRecent() {
     return DeText(
-      '최근', //'3분 전 대화', todo: 대화 시간 표시
+      chatroom.time,
       style: DeFonts.caption12M.copyWith(color: DeColors.brand),
     );
   }
