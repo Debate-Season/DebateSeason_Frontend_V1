@@ -30,23 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   DeAppBar _appbar() {
     return DeAppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SvgPicture.asset(
-            'assets/icons/ic_logo.svg',
-            width: 24,
-            height: 24,
-          ),
-          DeGaps.h4,
-          SvgPicture.asset(
-            'assets/icons/ic_debateseason.svg',
-            width: 24,
-            height: 24,
-          ),
-        ],
-      ),
       isBack: false,
+      title: Image.asset(
+        'assets/images/img_debate_logo.png',
+        width: 84,
+        height: 24,
+      ),
     );
   }
 }
