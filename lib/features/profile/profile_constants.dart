@@ -3,8 +3,9 @@ class ProfileConstants {
   static const PROFILE_MODIFY_APPBAR_TEXT = '프로필 수정';
   static const VALID_NICKNAME = '유효하지 않은 닉네임입니다.';
   static const VALID_OVERLAP_NICKNAME = '중복된 닉네임입니다.';
+  static const PROFILE_NEXT_BTN_TEXT = '다음';
   static const PROFILE_CREATE_BTN_TEXT = '토론철 시작하기';
-  static const PROFILE_MODIFY_BTN_TEXT = '완료';
+  static const PROFILE_MODIFY_BTN_TEXT = '저장';
   static const PROFILE_SUPPORT_EMAIL = '카카오채널';
   static const PROFILE_WITHDRAW_POLICY_TITLE = '탈퇴 정책 안내';
   static const PROFILE_WITHDRAW_POLICY_DESCRIPTION = '탈퇴 정책 안내';
