@@ -104,39 +104,6 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
     );
   }
 
-  Widget _widgetBottomButton() {
-    return Obx(() {
-      String selectedProvince = ProvinceType.seoul.name;
-      String selectedDistrict = '';
-
-      if (title == ProfileConstants.PROFILE_RESIDENCE) {
-        selectedProvince = controller.selectedResidenceProvince.name;
-        selectedDistrict = controller.selectedResidenceDistrict?.name ?? '';
-      } else {
-        selectedProvince = controller.selectedHomeTownProvince.name;
-        selectedDistrict = controller.selectedHomeTownDistrict?.name ?? '';
-      }
-
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        child: DeButtonLarge(
-          ProfileConstants.PROFILE_CHOICE,
-          onPressed: () {
-            if (title == ProfileConstants.PROFILE_RESIDENCE) {
-              controller.residenceController.text =
-                  '$selectedProvince $selectedDistrict';
-            } else {
-              controller.homeTownController.text =
-                  '$selectedProvince $selectedDistrict';
-            }
-            Get.back();
-          },
-          enable: selectedDistrict.isNotEmpty,
-        ),
-      );
-    });
-  }
-
   Widget _widgetProvince({required BuildContext context}) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.7,
@@ -156,7 +123,11 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
 
             return DeGestureDetector(
               onTap: () {
-                controller.setSelectedResidenceProvince(province: province);
+                if (title == ProfileConstants.PROFILE_RESIDENCE) {
+                  controller.setSelectedResidenceProvince(province: province);
+                } else {
+                  controller.setSelectedHomeTownProvince(province: province);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -216,6 +187,39 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
               ),
             );
           },
+        ),
+      );
+    });
+  }
+
+  Widget _widgetBottomButton() {
+    return Obx(() {
+      String selectedProvince = ProvinceType.seoul.name;
+      String selectedDistrict = '';
+
+      if (title == ProfileConstants.PROFILE_RESIDENCE) {
+        selectedProvince = controller.selectedResidenceProvince.name;
+        selectedDistrict = controller.selectedResidenceDistrict?.name ?? '';
+      } else {
+        selectedProvince = controller.selectedHomeTownProvince.name;
+        selectedDistrict = controller.selectedHomeTownDistrict?.name ?? '';
+      }
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: DeButtonLarge(
+          ProfileConstants.PROFILE_CHOICE,
+          onPressed: () {
+            if (title == ProfileConstants.PROFILE_RESIDENCE) {
+              controller.residenceController.text =
+                  '$selectedProvince $selectedDistrict';
+            } else {
+              controller.homeTownController.text =
+                  '$selectedProvince $selectedDistrict';
+            }
+            Get.back();
+          },
+          enable: selectedDistrict.isNotEmpty,
         ),
       );
     });
