@@ -102,8 +102,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                     GetRouterName.profileImage,
                     arguments: {
                       'is_modify_screen': true,
-                      'profile_image':
-                          ImageType.fromEngName(profile.profileImage),
+                      'profile_image': ImageType.fromEngName(
+                        profile.profileImage,
+                      ),
                     },
                   );
                 },

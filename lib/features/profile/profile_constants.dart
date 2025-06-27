@@ -1,6 +1,8 @@
 class ProfileConstants {
   static const PROFILE_CREATE_APPBAR_TEXT = '프로필 입력';
   static const PROFILE_MODIFY_APPBAR_TEXT = '프로필 수정';
+  static const PROFILE_IMAGE_CREATE_APPBAR_TEXT = '프로필 사진 등록하기';
+  static const PROFILE_IMAGE_MODIFY_APPBAR_TEXT = '프로필 사진 편집하기';
   static const VALID_NICKNAME = '유효하지 않은 닉네임입니다.';
   static const VALID_OVERLAP_NICKNAME = '중복된 닉네임입니다.';
   static const PROFILE_NEXT_BTN_TEXT = '다음';
@@ -64,4 +66,5 @@ class ProfileConstants {
   static const PROFILE_CHOICE = '선택하기';
   static const PROFILE_REGISTER = '등록하기';
   static const PROFILE_EMPTY_HINT_TEXT = '내용을 입력해 주세요.';
+  static const PROFILE_IMAGE_COLOR = '색상';
 }

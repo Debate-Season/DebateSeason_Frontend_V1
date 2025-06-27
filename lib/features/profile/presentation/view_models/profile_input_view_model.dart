@@ -126,7 +126,10 @@ class ProfileInputViewModel extends GetxController {
             ProvinceType.fromCode(previousProfile.hometownProvince);
         _selectedHomeTownDistrict.value =
             DistrictType.fromCode(previousProfile.hometownDistrict);
-
+        residenceController.text =
+            '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
+        homeTownController.text =
+            '${_selectedHomeTownProvince.value.name} ${_selectedHomeTownDistrict.value?.name}';
         _isModifyScreen.value = true;
         _profile.refresh();
       });
@@ -320,12 +323,8 @@ class ProfileInputViewModel extends GetxController {
 
   void checkSameToResidence() {
     if (_selectedResidenceDistrict.value != null) {
-      log.d(_selectedResidenceProvince.value.name);
-      log.d(_selectedResidenceDistrict.value?.name);
       _selectedHomeTownProvince.value = _selectedResidenceProvince.value;
       _selectedHomeTownDistrict.value = _selectedResidenceDistrict.value;
-      log.d(_selectedHomeTownProvince.value.name);
-      log.d(_selectedHomeTownDistrict.value?.name);
 
       homeTownController.text =
           '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';

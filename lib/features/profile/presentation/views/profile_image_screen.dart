@@ -19,19 +19,23 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: _appBar(),
-      body: _body(),
-    );
+    return Obx(() {
+      return DeScaffold(
+        appBar: _appBar(isModifyScreen: controller.isModifyScreen),
+        body: _body(),
+      );
+    });
   }
 
-  DeAppBar _appBar() {
+  DeAppBar _appBar({required bool isModifyScreen}) {
     return DeAppBar(
-      title: Text(
-        '프로필 사진 등록하기',
+      title: DeText(
+        isModifyScreen
+            ? ProfileConstants.PROFILE_IMAGE_MODIFY_APPBAR_TEXT
+            : ProfileConstants.PROFILE_IMAGE_CREATE_APPBAR_TEXT,
         style: DeFonts.header20B,
       ),
-      isBack: false,
+      isBack: isModifyScreen,
     );
   }
 
@@ -71,7 +75,7 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: DeText(
-            '색상',
+            ProfileConstants.PROFILE_IMAGE_COLOR,
             style: DeFonts.caption12SB.copyWith(color: DeColors.grey50),
           ),
         ),
