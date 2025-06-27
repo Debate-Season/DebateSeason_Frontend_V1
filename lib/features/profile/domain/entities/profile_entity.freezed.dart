@@ -16,10 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ProfileEntity {
+  String get profileImage => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get gender => throw _privateConstructorUsedError;
   String get ageRange => throw _privateConstructorUsedError;
   CommunityEntity get community => throw _privateConstructorUsedError;
+  String get residenceProvince => throw _privateConstructorUsedError;
+  String get residenceDistrict => throw _privateConstructorUsedError;
+  String get hometownProvince => throw _privateConstructorUsedError;
+  String get hometownDistrict => throw _privateConstructorUsedError;
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -35,10 +40,15 @@ abstract class $ProfileEntityCopyWith<$Res> {
       _$ProfileEntityCopyWithImpl<$Res, ProfileEntity>;
   @useResult
   $Res call(
-      {String nickname,
+      {String profileImage,
+      String nickname,
       String gender,
       String ageRange,
-      CommunityEntity community});
+      CommunityEntity community,
+      String residenceProvince,
+      String residenceDistrict,
+      String hometownProvince,
+      String hometownDistrict});
 
   $CommunityEntityCopyWith<$Res> get community;
 }
@@ -58,12 +68,21 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? profileImage = null,
     Object? nickname = null,
     Object? gender = null,
     Object? ageRange = null,
     Object? community = null,
+    Object? residenceProvince = null,
+    Object? residenceDistrict = null,
+    Object? hometownProvince = null,
+    Object? hometownDistrict = null,
   }) {
     return _then(_value.copyWith(
+      profileImage: null == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -80,6 +99,22 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
           ? _value.community
           : community // ignore: cast_nullable_to_non_nullable
               as CommunityEntity,
+      residenceProvince: null == residenceProvince
+          ? _value.residenceProvince
+          : residenceProvince // ignore: cast_nullable_to_non_nullable
+              as String,
+      residenceDistrict: null == residenceDistrict
+          ? _value.residenceDistrict
+          : residenceDistrict // ignore: cast_nullable_to_non_nullable
+              as String,
+      hometownProvince: null == hometownProvince
+          ? _value.hometownProvince
+          : hometownProvince // ignore: cast_nullable_to_non_nullable
+              as String,
+      hometownDistrict: null == hometownDistrict
+          ? _value.hometownDistrict
+          : hometownDistrict // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -103,10 +138,15 @@ abstract class _$$ProfileEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String nickname,
+      {String profileImage,
+      String nickname,
       String gender,
       String ageRange,
-      CommunityEntity community});
+      CommunityEntity community,
+      String residenceProvince,
+      String residenceDistrict,
+      String hometownProvince,
+      String hometownDistrict});
 
   @override
   $CommunityEntityCopyWith<$Res> get community;
@@ -125,12 +165,21 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? profileImage = null,
     Object? nickname = null,
     Object? gender = null,
     Object? ageRange = null,
     Object? community = null,
+    Object? residenceProvince = null,
+    Object? residenceDistrict = null,
+    Object? hometownProvince = null,
+    Object? hometownDistrict = null,
   }) {
     return _then(_$ProfileEntityImpl(
+      profileImage: null == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -147,6 +196,22 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
           ? _value.community
           : community // ignore: cast_nullable_to_non_nullable
               as CommunityEntity,
+      residenceProvince: null == residenceProvince
+          ? _value.residenceProvince
+          : residenceProvince // ignore: cast_nullable_to_non_nullable
+              as String,
+      residenceDistrict: null == residenceDistrict
+          ? _value.residenceDistrict
+          : residenceDistrict // ignore: cast_nullable_to_non_nullable
+              as String,
+      hometownProvince: null == hometownProvince
+          ? _value.hometownProvince
+          : hometownProvince // ignore: cast_nullable_to_non_nullable
+              as String,
+      hometownDistrict: null == hometownDistrict
+          ? _value.hometownDistrict
+          : hometownDistrict // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -155,11 +220,19 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
 
 class _$ProfileEntityImpl implements _ProfileEntity {
   _$ProfileEntityImpl(
-      {required this.nickname,
+      {this.profileImage = '',
+      required this.nickname,
       required this.gender,
       required this.ageRange,
-      required this.community});
+      required this.community,
+      required this.residenceProvince,
+      required this.residenceDistrict,
+      required this.hometownProvince,
+      required this.hometownDistrict});
 
+  @override
+  @JsonKey()
+  final String profileImage;
   @override
   final String nickname;
   @override
@@ -168,10 +241,18 @@ class _$ProfileEntityImpl implements _ProfileEntity {
   final String ageRange;
   @override
   final CommunityEntity community;
+  @override
+  final String residenceProvince;
+  @override
+  final String residenceDistrict;
+  @override
+  final String hometownProvince;
+  @override
+  final String hometownDistrict;
 
   @override
   String toString() {
-    return 'ProfileEntity(nickname: $nickname, gender: $gender, ageRange: $ageRange, community: $community)';
+    return 'ProfileEntity(profileImage: $profileImage, nickname: $nickname, gender: $gender, ageRange: $ageRange, community: $community, residenceProvince: $residenceProvince, residenceDistrict: $residenceDistrict, hometownProvince: $hometownProvince, hometownDistrict: $hometownDistrict)';
   }
 
   @override
@@ -179,18 +260,37 @@ class _$ProfileEntityImpl implements _ProfileEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileEntityImpl &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.ageRange, ageRange) ||
                 other.ageRange == ageRange) &&
             (identical(other.community, community) ||
-                other.community == community));
+                other.community == community) &&
+            (identical(other.residenceProvince, residenceProvince) ||
+                other.residenceProvince == residenceProvince) &&
+            (identical(other.residenceDistrict, residenceDistrict) ||
+                other.residenceDistrict == residenceDistrict) &&
+            (identical(other.hometownProvince, hometownProvince) ||
+                other.hometownProvince == hometownProvince) &&
+            (identical(other.hometownDistrict, hometownDistrict) ||
+                other.hometownDistrict == hometownDistrict));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, nickname, gender, ageRange, community);
+  int get hashCode => Object.hash(
+      runtimeType,
+      profileImage,
+      nickname,
+      gender,
+      ageRange,
+      community,
+      residenceProvince,
+      residenceDistrict,
+      hometownProvince,
+      hometownDistrict);
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -203,11 +303,18 @@ class _$ProfileEntityImpl implements _ProfileEntity {
 
 abstract class _ProfileEntity implements ProfileEntity {
   factory _ProfileEntity(
-      {required final String nickname,
+      {final String profileImage,
+      required final String nickname,
       required final String gender,
       required final String ageRange,
-      required final CommunityEntity community}) = _$ProfileEntityImpl;
+      required final CommunityEntity community,
+      required final String residenceProvince,
+      required final String residenceDistrict,
+      required final String hometownProvince,
+      required final String hometownDistrict}) = _$ProfileEntityImpl;
 
+  @override
+  String get profileImage;
   @override
   String get nickname;
   @override
@@ -216,6 +323,14 @@ abstract class _ProfileEntity implements ProfileEntity {
   String get ageRange;
   @override
   CommunityEntity get community;
+  @override
+  String get residenceProvince;
+  @override
+  String get residenceDistrict;
+  @override
+  String get hometownProvince;
+  @override
+  String get hometownDistrict;
 
   /// Create a copy of ProfileEntity
   /// with the given fields replaced by the non-null parameter values.

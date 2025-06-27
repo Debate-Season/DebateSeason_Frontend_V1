@@ -7,16 +7,26 @@ part 'profile_res.g.dart';
 
 @JsonSerializable()
 class ProfileRes {
+  String profileImage;
   String nickname;
   String gender;
   String ageRange;
   CommunityRes community;
+  String residenceProvince;
+  String residenceDistrict;
+  String hometownProvince;
+  String hometownDistrict;
 
   ProfileRes({
+    required this.profileImage,
     required this.nickname,
     required this.gender,
     required this.ageRange,
     required this.community,
+    required this.residenceProvince,
+    required this.residenceDistrict,
+    required this.hometownProvince,
+    required this.hometownDistrict,
   });
 
   factory ProfileRes.fromJson(Map<String, dynamic> json) =>
@@ -25,9 +35,14 @@ class ProfileRes {
   Map<String, dynamic> toJson() => _$ProfileResToJson(this);
 
   toEntity() => ProfileEntity(
+        profileImage: profileImage,
         nickname: nickname,
         gender: gender,
         ageRange: ageRange,
         community: community.toEntity(),
+        residenceProvince: residenceProvince,
+        residenceDistrict: residenceDistrict,
+        hometownProvince: hometownProvince,
+        hometownDistrict: hometownDistrict,
       );
 }
