@@ -330,4 +330,6 @@ class DistrictType {
     DistrictType._("39010", "제주시", ProvinceType.jeju),
     DistrictType._("39020", "서귀포시", ProvinceType.jeju),
   ];
+
+  get address => null;
 }

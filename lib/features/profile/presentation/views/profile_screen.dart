@@ -233,7 +233,8 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
-            final Uri url = Uri.parse('https://pf.kakao.com/_SZNxln'); // 원하는 외부 링크
+            final Uri url =
+                Uri.parse('https://pf.kakao.com/_SZNxln'); // 원하는 외부 링크
             if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
               throw '카카오채널 연결 실패';
             }

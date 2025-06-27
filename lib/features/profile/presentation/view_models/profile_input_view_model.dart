@@ -30,10 +30,15 @@ class ProfileInputViewModel extends GetxController {
   Timer? _debounceNickname;
   Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(ProfileEntity(
+    profileImage: '',
     nickname: '',
     community: CommunityEntity(id: -1, name: '', iconUrl: ''),
     gender: '',
     ageRange: '',
+    hometownDistrict: '',
+    residenceProvince: '',
+    residenceDistrict: '',
+    hometownProvince: '',
   ));
 
   final _previousNickname = ''.obs;
@@ -169,11 +174,9 @@ class ProfileInputViewModel extends GetxController {
       );
 
   Future<UiState<void>> patchProfile() async {
-    _profileViewModel.updateProfile(profile: _profile.value);
+    _profileViewModel.updateProfile(updatedProfile: _profile.value);
 
-    return await _profileRepository.patchProfile(
-      entity: _profile.value,
-    );
+    return await _profileRepository.patchProfile(entity: _profile.value);
   }
 
   void onChangedNickname({required String nickname}) {
@@ -262,7 +265,11 @@ class ProfileInputViewModel extends GetxController {
         _nicknameErrorText.value.isEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
-        _profile.value.community.id != -1) {
+        _profile.value.community.id != -1 &&
+        _selectedResidenceProvince.value.code.isNotEmpty &&
+        _selectedResidenceDistrict.value != null &&
+        _selectedHomeTownProvince.value.code.isNotEmpty &&
+        _selectedHomeTownDistrict.value != null) {
       return true;
     } else {
       return false;
@@ -276,6 +283,11 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedResidenceDistrict(DistrictType district) {
     _selectedResidenceDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      residenceProvince: _selectedResidenceProvince.value.code,
+      residenceDistrict: _selectedResidenceDistrict.value!.code,
+    );
   }
 
   void setSelectedHomeTownProvince({required ProvinceType province}) {
@@ -285,6 +297,11 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedHomeTownDistrict(DistrictType district) {
     _selectedHomeTownDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      hometownProvince: _selectedHomeTownProvince.value.code,
+      hometownDistrict: _selectedHomeTownDistrict.value!.code,
+    );
   }
 
   void checkSameToResidence() {
@@ -298,6 +315,7 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void uncheckSameToResidence() {
+    homeTownController.text = '';
     _selectedHomeTownProvince.value = ProvinceType.seoul;
     _selectedHomeTownDistrict.value = null;
   }
