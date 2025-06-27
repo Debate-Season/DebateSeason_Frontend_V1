@@ -1,3 +1,5 @@
+import 'district_type.dart';
+
 enum ProvinceType {
   seoul('11', '서울특별시'),
   busan('21', '부산광역시'),
@@ -21,4 +23,50 @@ enum ProvinceType {
   final String name;
 
   const ProvinceType(this.code, this.name);
+
+  static ProvinceType fromCode(String code) {
+    for (final p in ProvinceType.values) {
+      if (p.code == code) return p;
+    }
+    return ProvinceType.seoul;
+  }
+
+  static List<DistrictType> getDistrictList(ProvinceType province) {
+    switch (province) {
+      case ProvinceType.seoul:
+        return DistrictType.seoul;
+      case ProvinceType.busan:
+        return DistrictType.busan;
+      case ProvinceType.daegu:
+        return DistrictType.daegu;
+      case ProvinceType.incheon:
+        return DistrictType.incheon;
+      case ProvinceType.gwangju:
+        return DistrictType.gwangju;
+      case ProvinceType.daejeon:
+        return DistrictType.daejeon;
+      case ProvinceType.ulsan:
+        return DistrictType.ulsan;
+      case ProvinceType.sejong:
+        return DistrictType.sejong;
+      case ProvinceType.gyeonggi:
+        return DistrictType.gyeonggi;
+      case ProvinceType.gangwon:
+        return DistrictType.gangwon;
+      case ProvinceType.chungbuk:
+        return DistrictType.chungbuk;
+      case ProvinceType.chungnam:
+        return DistrictType.chungnam;
+      case ProvinceType.jeonbuk:
+        return DistrictType.jeonbuk;
+      case ProvinceType.jeonnam:
+        return DistrictType.jeonnam;
+      case ProvinceType.gyeongbuk:
+        return DistrictType.gyeongbuk;
+      case ProvinceType.gyeongnam:
+        return DistrictType.gyeongnam;
+      case ProvinceType.jeju:
+        return DistrictType.jeju;
+    }
+  }
 }

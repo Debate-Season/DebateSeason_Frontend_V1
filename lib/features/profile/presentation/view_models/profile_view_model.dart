@@ -58,8 +58,37 @@ class ProfileViewModel extends GetxController {
     }
   }
 
-  void updateProfile({required ProfileEntity profile}) {
-    _profile.value = UiState.success(profile);
+  void updateProfile({required ProfileEntity updatedProfile}) {
+    _profile.value.when(
+      loading: () {},
+      success: (profile) {
+        final newProfile = profile.copyWith(
+          nickname: updatedProfile.nickname,
+          community: updatedProfile.community,
+          gender: updatedProfile.gender,
+          ageRange: updatedProfile.ageRange,
+          residenceProvince: updatedProfile.residenceProvince,
+          residenceDistrict: updatedProfile.residenceDistrict,
+          hometownProvince: updatedProfile.hometownProvince,
+          hometownDistrict: updatedProfile.hometownDistrict,
+        );
+        _profile.value = UiState.success(newProfile);
+      },
+      failure: (msg) {},
+    );
+    _profile.refresh();
+  }
+
+  void updateProfileImage({required String updatedProfileImage}) {
+    _profile.value.when(
+      loading: () {},
+      success: (profile) {
+        final newProfile = profile.copyWith(profileImage: updatedProfileImage);
+        _profile.value = UiState.success(newProfile);
+      },
+      failure: (msg) {},
+    );
+    _profile.refresh();
   }
 
   void _kakaoSdkInit() {

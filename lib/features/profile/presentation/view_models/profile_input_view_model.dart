@@ -30,10 +30,15 @@ class ProfileInputViewModel extends GetxController {
   Timer? _debounceNickname;
   Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(ProfileEntity(
+    profileImage: '',
     nickname: '',
     community: CommunityEntity(id: -1, name: '', iconUrl: ''),
     gender: '',
     ageRange: '',
+    hometownDistrict: '',
+    residenceProvince: '',
+    residenceDistrict: '',
+    hometownProvince: '',
   ));
 
   final _previousNickname = ''.obs;
@@ -113,6 +118,18 @@ class ProfileInputViewModel extends GetxController {
         _selectedCommunityId.value = previousProfile.community.id;
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
+        _selectedResidenceProvince.value =
+            ProvinceType.fromCode(previousProfile.residenceProvince);
+        _selectedResidenceDistrict.value =
+            DistrictType.fromCode(previousProfile.residenceDistrict);
+        _selectedHomeTownProvince.value =
+            ProvinceType.fromCode(previousProfile.hometownProvince);
+        _selectedHomeTownDistrict.value =
+            DistrictType.fromCode(previousProfile.hometownDistrict);
+        residenceController.text =
+            '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
+        homeTownController.text =
+            '${_selectedHomeTownProvince.value.name} ${_selectedHomeTownDistrict.value?.name}';
         _isModifyScreen.value = true;
         _profile.refresh();
       });
@@ -165,15 +182,18 @@ class ProfileInputViewModel extends GetxController {
 
   Future<UiState<void>> postProfile() async =>
       await _profileRepository.postProfile(
-        entity: _profile.value,
+        entity: _profile.value.copyWith(
+          residenceProvince: _selectedResidenceProvince.value.code,
+          residenceDistrict: _selectedResidenceDistrict.value!.code,
+          hometownProvince: _selectedHomeTownProvince.value.code,
+          hometownDistrict: _selectedHomeTownDistrict.value!.code,
+        ),
       );
 
   Future<UiState<void>> patchProfile() async {
-    _profileViewModel.updateProfile(profile: _profile.value);
+    _profileViewModel.updateProfile(updatedProfile: _profile.value);
 
-    return await _profileRepository.patchProfile(
-      entity: _profile.value,
-    );
+    return await _profileRepository.patchProfile(entity: _profile.value);
   }
 
   void onChangedNickname({required String nickname}) {
@@ -262,7 +282,11 @@ class ProfileInputViewModel extends GetxController {
         _nicknameErrorText.value.isEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
-        _profile.value.community.id != -1) {
+        _profile.value.community.id != -1 &&
+        _selectedResidenceProvince.value.code.isNotEmpty &&
+        _selectedResidenceDistrict.value != null &&
+        _selectedHomeTownProvince.value.code.isNotEmpty &&
+        _selectedHomeTownDistrict.value != null) {
       return true;
     } else {
       return false;
@@ -276,6 +300,11 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedResidenceDistrict(DistrictType district) {
     _selectedResidenceDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      residenceProvince: _selectedResidenceProvince.value.code,
+      residenceDistrict: _selectedResidenceDistrict.value!.code,
+    );
   }
 
   void setSelectedHomeTownProvince({required ProvinceType province}) {
@@ -285,6 +314,11 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedHomeTownDistrict(DistrictType district) {
     _selectedHomeTownDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      hometownProvince: _selectedHomeTownProvince.value.code,
+      hometownDistrict: _selectedHomeTownDistrict.value!.code,
+    );
   }
 
   void checkSameToResidence() {
@@ -298,46 +332,8 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void uncheckSameToResidence() {
+    homeTownController.text = '';
     _selectedHomeTownProvince.value = ProvinceType.seoul;
     _selectedHomeTownDistrict.value = null;
-  }
-
-  List<DistrictType> getDistrictList(ProvinceType province) {
-    switch (province) {
-      case ProvinceType.seoul:
-        return DistrictType.seoul;
-      case ProvinceType.busan:
-        return DistrictType.busan;
-      case ProvinceType.daegu:
-        return DistrictType.daegu;
-      case ProvinceType.incheon:
-        return DistrictType.incheon;
-      case ProvinceType.gwangju:
-        return DistrictType.gwangju;
-      case ProvinceType.daejeon:
-        return DistrictType.daejeon;
-      case ProvinceType.ulsan:
-        return DistrictType.ulsan;
-      case ProvinceType.sejong:
-        return DistrictType.sejong;
-      case ProvinceType.gyeonggi:
-        return DistrictType.gyeonggi;
-      case ProvinceType.gangwon:
-        return DistrictType.gangwon;
-      case ProvinceType.chungbuk:
-        return DistrictType.chungbuk;
-      case ProvinceType.chungnam:
-        return DistrictType.chungnam;
-      case ProvinceType.jeonbuk:
-        return DistrictType.jeonbuk;
-      case ProvinceType.jeonnam:
-        return DistrictType.jeonnam;
-      case ProvinceType.gyeongbuk:
-        return DistrictType.gyeongbuk;
-      case ProvinceType.gyeongnam:
-        return DistrictType.gyeongnam;
-      case ProvinceType.jeju:
-        return DistrictType.jeju;
-    }
   }
 }

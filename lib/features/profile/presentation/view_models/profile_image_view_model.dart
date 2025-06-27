@@ -1,24 +1,44 @@
 import 'dart:math';
 
+import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
 import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
+import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'profile_view_model.dart';
+
 class ProfileImageViewModel extends GetxController {
+  late ProfileViewModel _profileViewModel;
   late ScrollController scrollController;
+  late ProfileRepository _profileRepository;
+  final _isModifyScreen = false.obs;
+  final _isApiLoading = false.obs;
 
   final _selectedImage = Rx<ImageType>(ImageType.red);
 
+  bool get isModifyScreen => _isModifyScreen.value;
+
   ImageType get selectedImage => _selectedImage.value;
+
+  bool get isApiLoading => _isApiLoading.value;
 
   @override
   void onInit() {
     super.onInit();
 
     AmplitudeUtil.trackEvent(eventName: 'ProfileImage');
+    _profileRepository = Get.find<ProfileRepository>();
     scrollController = ScrollController();
-    _setRandomImage();
+    final arguments = Get.arguments as Map<String, dynamic>;
+    _isModifyScreen.value = arguments['is_modify_screen'];
+    if (_isModifyScreen.value) {
+      _profileViewModel = Get.find<ProfileViewModel>();
+      _selectedImage.value = arguments['profile_image'];
+    } else {
+      _setRandomImage();
+    }
   }
 
   @override
@@ -50,5 +70,21 @@ class ProfileImageViewModel extends GetxController {
         curve: Curves.easeInOut,
       );
     }
+  }
+
+  Future<UiState<void>> patchProfileImage() async {
+    if (_isModifyScreen.value) {
+      _profileViewModel.updateProfileImage(
+        updatedProfileImage: _selectedImage.value.engName,
+      );
+    }
+
+    return await _profileRepository.patchProfileImage(
+      profileImage: _selectedImage.value.engName,
+    );
+  }
+
+  void setApiLoading({required bool isApiLoading}) {
+    _isApiLoading.value = isApiLoading;
   }
 }

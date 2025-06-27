@@ -11,4 +11,8 @@ abstract class ProfileRepository {
   Future<UiState<void>> patchProfile({
     required ProfileEntity entity,
   });
+
+  Future<UiState<void>> patchProfileImage({
+    required String profileImage,
+  });
 }
