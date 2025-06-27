@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/features/profile/domain/type/district_t
 import 'package:debateseason_frontend_v1/features/profile/domain/type/province_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_input_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:debateseason_frontend_v1/widgets/import_de.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -161,15 +162,16 @@ class ProfileLocationBottomSheet extends GetView<ProfileInputViewModel> {
         height: MediaQuery.of(context).size.height * 0.7,
         color: DeColors.grey80,
         child: ListView.builder(
-          itemCount: controller.getDistrictList(selectedProvince).length,
+          itemCount: ProvinceType.getDistrictList(selectedProvince).length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final district =
-                controller.getDistrictList(selectedProvince)[index];
+                ProvinceType.getDistrictList(selectedProvince)[index];
             final isSelected = selectedDistrict == district;
 
             return DeGestureDetector(
               onTap: () {
+                log.d(district.name);
                 if (title == ProfileConstants.PROFILE_RESIDENCE) {
                   controller.setSelectedResidenceDistrict(district);
                 } else {

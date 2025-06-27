@@ -332,4 +332,29 @@ class DistrictType {
   ];
 
   get address => null;
+
+  static const List<DistrictType> _all = [
+    ...seoul,
+    ...busan,
+    ...daegu,
+    ...incheon,
+    ...gwangju,
+    ...daejeon,
+    ...ulsan,
+    ...sejong,
+    ...gyeonggi,
+    ...gangwon,
+    ...chungbuk,
+    ...chungnam,
+    ...jeonbuk,
+    ...jeonnam,
+    ...gyeongbuk,
+    ...gyeongnam,
+  ];
+
+  static final Map<String, DistrictType> _index = {
+    for (final d in _all) d.code: d,
+  };
+
+  static DistrictType fromCode(String code) => _index[code] ?? seoul.first;
 }

@@ -15,7 +15,7 @@ class ProfileImageReq {
 
   Map<String, dynamic> toJson() => _$ProfileImageReqToJson(this);
 
-  factory ProfileImageReq.fromEntity(entity) => ProfileImageReq(
-        profileImage: entity.nickname,
+  factory ProfileImageReq.fromEntity(profileImage) => ProfileImageReq(
+        profileImage: profileImage,
       );
 }

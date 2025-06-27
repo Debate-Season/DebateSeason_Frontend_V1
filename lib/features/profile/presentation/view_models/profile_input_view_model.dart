@@ -118,6 +118,15 @@ class ProfileInputViewModel extends GetxController {
         _selectedCommunityId.value = previousProfile.community.id;
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
+        _selectedResidenceProvince.value =
+            ProvinceType.fromCode(previousProfile.residenceProvince);
+        _selectedResidenceDistrict.value =
+            DistrictType.fromCode(previousProfile.residenceDistrict);
+        _selectedHomeTownProvince.value =
+            ProvinceType.fromCode(previousProfile.hometownProvince);
+        _selectedHomeTownDistrict.value =
+            DistrictType.fromCode(previousProfile.hometownDistrict);
+
         _isModifyScreen.value = true;
         _profile.refresh();
       });
@@ -170,7 +179,12 @@ class ProfileInputViewModel extends GetxController {
 
   Future<UiState<void>> postProfile() async =>
       await _profileRepository.postProfile(
-        entity: _profile.value,
+        entity: _profile.value.copyWith(
+          residenceProvince: _selectedResidenceProvince.value.code,
+          residenceDistrict: _selectedResidenceDistrict.value!.code,
+          hometownProvince: _selectedHomeTownProvince.value.code,
+          hometownDistrict: _selectedHomeTownDistrict.value!.code,
+        ),
       );
 
   Future<UiState<void>> patchProfile() async {
@@ -306,8 +320,12 @@ class ProfileInputViewModel extends GetxController {
 
   void checkSameToResidence() {
     if (_selectedResidenceDistrict.value != null) {
+      log.d(_selectedResidenceProvince.value.name);
+      log.d(_selectedResidenceDistrict.value?.name);
       _selectedHomeTownProvince.value = _selectedResidenceProvince.value;
       _selectedHomeTownDistrict.value = _selectedResidenceDistrict.value;
+      log.d(_selectedHomeTownProvince.value.name);
+      log.d(_selectedHomeTownDistrict.value?.name);
 
       homeTownController.text =
           '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
@@ -318,44 +336,5 @@ class ProfileInputViewModel extends GetxController {
     homeTownController.text = '';
     _selectedHomeTownProvince.value = ProvinceType.seoul;
     _selectedHomeTownDistrict.value = null;
-  }
-
-  List<DistrictType> getDistrictList(ProvinceType province) {
-    switch (province) {
-      case ProvinceType.seoul:
-        return DistrictType.seoul;
-      case ProvinceType.busan:
-        return DistrictType.busan;
-      case ProvinceType.daegu:
-        return DistrictType.daegu;
-      case ProvinceType.incheon:
-        return DistrictType.incheon;
-      case ProvinceType.gwangju:
-        return DistrictType.gwangju;
-      case ProvinceType.daejeon:
-        return DistrictType.daejeon;
-      case ProvinceType.ulsan:
-        return DistrictType.ulsan;
-      case ProvinceType.sejong:
-        return DistrictType.sejong;
-      case ProvinceType.gyeonggi:
-        return DistrictType.gyeonggi;
-      case ProvinceType.gangwon:
-        return DistrictType.gangwon;
-      case ProvinceType.chungbuk:
-        return DistrictType.chungbuk;
-      case ProvinceType.chungnam:
-        return DistrictType.chungnam;
-      case ProvinceType.jeonbuk:
-        return DistrictType.jeonbuk;
-      case ProvinceType.jeonnam:
-        return DistrictType.jeonnam;
-      case ProvinceType.gyeongbuk:
-        return DistrictType.gyeongbuk;
-      case ProvinceType.gyeongnam:
-        return DistrictType.gyeongnam;
-      case ProvinceType.jeju:
-        return DistrictType.jeju;
-    }
   }
 }

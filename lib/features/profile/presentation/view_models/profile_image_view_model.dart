@@ -29,12 +29,14 @@ class ProfileImageViewModel extends GetxController {
     super.onInit();
 
     AmplitudeUtil.trackEvent(eventName: 'ProfileImage');
-    _profileViewModel = Get.find<ProfileViewModel>();
     _profileRepository = Get.find<ProfileRepository>();
     scrollController = ScrollController();
     _setRandomImage();
     final arguments = Get.arguments as Map<String, dynamic>;
     _isModifyScreen.value = arguments['is_modify_screen'];
+    if (_isModifyScreen.value) {
+      _profileViewModel = Get.find<ProfileViewModel>();
+    }
   }
 
   @override
