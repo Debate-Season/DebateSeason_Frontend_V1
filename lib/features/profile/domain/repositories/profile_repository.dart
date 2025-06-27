@@ -12,7 +12,7 @@ abstract class ProfileRepository {
     required ProfileEntity entity,
   });
 
-  Future<UiState<void>> postProfileImage({
+  Future<UiState<void>> patchProfileImage({
     required String profileImage,
   });
 }

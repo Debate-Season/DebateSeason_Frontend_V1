@@ -25,8 +25,8 @@ abstract class ProfileDataSource {
   @GET('/api/v1/profiles/me')
   Future<BaseRes<ProfileRes>> getProfilesMe();
 
-  @POST('/api/v1/profiles/image')
-  Future<NullableBaseRes> postProfilesImage({
+  @PATCH('/api/v1/profiles/image')
+  Future<NullableBaseRes> patchProfilesImage({
     @Body() required ProfileImageReq body,
   });
 }

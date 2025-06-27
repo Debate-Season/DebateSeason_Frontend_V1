@@ -84,10 +84,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<UiState<void>> postProfileImage({
+  Future<UiState<void>> patchProfileImage({
     required String profileImage,
   }) async {
-    final response = await dataSource.postProfilesImage(
+    final response = await dataSource.patchProfilesImage(
       body: ProfileImageReq.fromEntity(profileImage),
     );
 

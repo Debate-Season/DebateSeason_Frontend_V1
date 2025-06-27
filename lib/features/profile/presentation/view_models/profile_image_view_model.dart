@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
-import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
 import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +75,7 @@ class ProfileImageViewModel extends GetxController {
       );
     }
 
-    return await _profileRepository.postProfileImage(
+    return await _profileRepository.patchProfileImage(
       profileImage: _selectedImage.value.engName,
     );
   }

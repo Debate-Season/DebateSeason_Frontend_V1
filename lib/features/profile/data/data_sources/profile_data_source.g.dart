@@ -104,7 +104,7 @@ class _ProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<NullableBaseRes> postProfilesImage({
+  Future<NullableBaseRes> patchProfilesImage({
     required ProfileImageReq body,
   }) async {
     final _extra = <String, dynamic>{};
@@ -113,7 +113,7 @@ class _ProfileDataSource implements ProfileDataSource {
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
     final _options = _setStreamType<NullableBaseRes>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/api/v1/profiles/image',
