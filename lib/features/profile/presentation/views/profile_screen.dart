@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/web_view_page.dart';
 import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
@@ -57,7 +58,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 success: (profile) {
                   return Column(
                     children: [
-                      _profile(profile: profile),
+                      _myProfile(profile: profile),
                       DeGaps.v40,
                       _myCommunity(profile: profile),
                     ],
@@ -85,42 +86,85 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     );
   }
 
-  Widget _profile({required ProfileEntity profile}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: DeColors.red,
-            borderRadius: BorderRadius.circular(50),
+  Widget _myProfile({required ProfileEntity profile}) {
+    return Obx(() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          controller.profile.when(
+            loading: () {
+              return SizedBox.shrink();
+            },
+            success: (profile) {
+              return DeGestureDetector(
+                onTap: () {
+                  Get.toNamed(
+                    GetRouterName.profileImage,
+                    arguments: {
+                      'is_modify_screen': true,
+                      'profile_image':
+                          ImageType.fromEngName(profile.profileImage),
+                    },
+                  );
+                },
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color:
+                            ImageType.fromEngName(profile.profileImage).color,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    Positioned(
+                      top: -2,
+                      right: -2,
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          color: DeColors.grey70,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child:
+                            SvgPicture.asset('assets/icons/ic_edit_grey10.svg'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            failure: (msg) {
+              return SizedBox.shrink();
+            },
           ),
-        ),
-        DeGaps.v8,
-        DeText(
-          profile.nickname,
-          style: DeFonts.header28Sb,
-        ),
-        DeGaps.v16,
-        DeGestureDetector(
-          onTap: () {
-            Get.toNamed(GetRouterName.profileInput, arguments: profile);
-          },
-          child: Container(
-            padding: DeDimensions.padding10x5,
-            decoration: BoxDecoration(
-              color: DeColors.grey80,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: DeText(
-              '프로필 수정',
-              style: DeFonts.caption12M,
-            ),
+          DeGaps.v8,
+          DeText(
+            profile.nickname,
+            style: DeFonts.header28Sb,
           ),
-        )
-      ],
-    );
+          DeGaps.v16,
+          DeGestureDetector(
+            onTap: () {
+              Get.toNamed(GetRouterName.profileInput, arguments: profile);
+            },
+            child: Container(
+              padding: DeDimensions.padding10x5,
+              decoration: BoxDecoration(
+                color: DeColors.grey80,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: DeText(
+                '프로필 수정',
+                style: DeFonts.caption12M,
+              ),
+            ),
+          )
+        ],
+      );
+    });
   }
 
   Widget _myCommunity({required ProfileEntity profile}) {

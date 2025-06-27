@@ -16,4 +16,9 @@ enum ImageType {
   final Color color;
 
   const ImageType(this.name, this.engName, this.color);
+
+  static ImageType fromEngName(String engName) => ImageType.values.firstWhere(
+        (e) => e.engName == engName.toUpperCase(),
+        orElse: () => ImageType.red,
+      );
 }

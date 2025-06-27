@@ -31,11 +31,13 @@ class ProfileImageViewModel extends GetxController {
     AmplitudeUtil.trackEvent(eventName: 'ProfileImage');
     _profileRepository = Get.find<ProfileRepository>();
     scrollController = ScrollController();
-    _setRandomImage();
     final arguments = Get.arguments as Map<String, dynamic>;
     _isModifyScreen.value = arguments['is_modify_screen'];
     if (_isModifyScreen.value) {
       _profileViewModel = Get.find<ProfileViewModel>();
+      _selectedImage.value = arguments['profile_image'];
+    } else {
+      _setRandomImage();
     }
   }
 
@@ -70,7 +72,7 @@ class ProfileImageViewModel extends GetxController {
     }
   }
 
-  Future<UiState<void>> postProfileImage() async {
+  Future<UiState<void>> patchProfileImage() async {
     if (_isModifyScreen.value) {
       _profileViewModel.updateProfileImage(
         updatedProfileImage: _selectedImage.value.engName,

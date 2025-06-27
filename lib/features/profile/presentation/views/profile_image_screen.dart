@@ -138,23 +138,21 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
           controller.isModifyScreen
               ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
               : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
-          onPressed: controller.isModifyScreen
-              ? () => Get.back()
-              : () => controller.postProfileImage().then((result) {
-                    result.when(loading: () {
-                      controller.setApiLoading(isApiLoading: true);
-                    }, success: (_) {
-                      controller.setApiLoading(isApiLoading: false);
-                      if (controller.isModifyScreen) {
-                        Get.back();
-                      } else {
-                        Get.offAllNamed(GetRouterName.main);
-                      }
-                    }, failure: (msg) {
-                      controller.setApiLoading(isApiLoading: false);
-                      deSnackBar(msg);
-                    });
-                  }),
+          onPressed: () => controller.patchProfileImage().then((result) {
+            result.when(loading: () {
+              controller.setApiLoading(isApiLoading: true);
+            }, success: (_) {
+              controller.setApiLoading(isApiLoading: false);
+              if (controller.isModifyScreen) {
+                Get.back();
+              } else {
+                Get.offAllNamed(GetRouterName.main);
+              }
+            }, failure: (msg) {
+              controller.setApiLoading(isApiLoading: false);
+              deSnackBar(msg);
+            });
+          }),
         ),
       );
     });
