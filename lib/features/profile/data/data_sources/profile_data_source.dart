@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_image_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/response/profile_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
@@ -23,4 +24,9 @@ abstract class ProfileDataSource {
 
   @GET('/api/v1/profiles/me')
   Future<BaseRes<ProfileRes>> getProfilesMe();
+
+  @PATCH('/api/v1/profiles/image')
+  Future<NullableBaseRes> patchProfilesImage({
+    @Body() required ProfileImageReq body,
+  });
 }

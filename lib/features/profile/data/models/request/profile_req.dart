@@ -8,12 +8,20 @@ class ProfileReq {
   int communityId;
   String gender;
   String ageRange;
+  String residenceProvince;
+  String residenceDistrict;
+  String hometownProvince;
+  String hometownDistrict;
 
   ProfileReq({
     required this.nickname,
     required this.communityId,
     required this.gender,
     required this.ageRange,
+    required this.residenceProvince,
+    required this.residenceDistrict,
+    required this.hometownProvince,
+    required this.hometownDistrict,
   });
 
   factory ProfileReq.fromJson(Map<String, dynamic> json) =>
@@ -26,5 +34,9 @@ class ProfileReq {
         communityId: entity.community.id,
         gender: entity.gender,
         ageRange: entity.ageRange,
+        residenceProvince: entity.residenceProvince,
+        residenceDistrict: entity.residenceDistrict,
+        hometownProvince: entity.hometownProvince,
+        hometownDistrict: entity.hometownDistrict,
       );
 }

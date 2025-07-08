@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/data_sources/profile_data_source.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_image_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
@@ -79,6 +80,27 @@ class ProfileRepositoryImpl implements ProfileRepository {
         }
 
         return UiState.failure(response.message);
+    }
+  }
+
+  @override
+  Future<UiState<void>> patchProfileImage({
+    required String profileImage,
+  }) async {
+    final response = await dataSource.patchProfilesImage(
+      body: ProfileImageReq.fromEntity(profileImage),
+    );
+
+    switch (response.status) {
+      case 200 || 201:
+
+        return (UiState.success(null));
+      default:
+        if (response.message.isEmpty) {
+          (UiState.failure('서버통신에 문제가 발생했습니다.'));
+        }
+
+        return (UiState.failure(response.message));
     }
   }
 }
