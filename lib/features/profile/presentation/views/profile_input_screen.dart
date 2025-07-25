@@ -433,7 +433,9 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
           controller.isModifyScreen
               ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
               : ProfileConstants.PROFILE_NEXT_BTN_TEXT,
-          onPressed: controller.isValidStartBtn()
+          onPressed: (controller.isModifyScreen
+                  ? controller.isValidStartBtn()
+                  : controller.isValidSignUpBtn())
               ? controller.isModifyScreen
                   ? () => controller.patchProfile().then((result) {
                         result.when(loading: () {

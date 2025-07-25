@@ -119,9 +119,9 @@ class ProfileInputViewModel extends GetxController {
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
         _selectedResidenceProvince.value =
-            ProvinceType.fromCode(previousProfile.residenceProvince);
+            ProvinceType.fromCode(previousProfile.residenceProvince!);
         _selectedResidenceDistrict.value =
-            DistrictType.fromCode(previousProfile.residenceDistrict);
+            DistrictType.fromCode(previousProfile.residenceDistrict!);
         _selectedHomeTownProvince.value =
             ProvinceType.fromCode(previousProfile.hometownProvince);
         _selectedHomeTownDistrict.value =
@@ -181,12 +181,17 @@ class ProfileInputViewModel extends GetxController {
   }
 
   Future<UiState<void>> postProfile() async =>
+      // 가입페이지에서는 거주지와 출신을 선택하지 않으므로 null 값일 수 있음.
       await _profileRepository.postProfile(
         entity: _profile.value.copyWith(
           residenceProvince: _selectedResidenceProvince.value.code,
-          residenceDistrict: _selectedResidenceDistrict.value!.code,
+          residenceDistrict: _selectedResidenceDistrict.value == null
+              ? ''
+              : _selectedResidenceDistrict.value!.code,
           hometownProvince: _selectedHomeTownProvince.value.code,
-          hometownDistrict: _selectedHomeTownDistrict.value!.code,
+          hometownDistrict: _selectedHomeTownDistrict.value == null
+              ? ''
+              : _selectedHomeTownDistrict.value!.code,
         ),
       );
 

@@ -21,8 +21,8 @@ mixin _$ProfileEntity {
   String get gender => throw _privateConstructorUsedError;
   String get ageRange => throw _privateConstructorUsedError;
   CommunityEntity get community => throw _privateConstructorUsedError;
-  String get residenceProvince => throw _privateConstructorUsedError;
-  String get residenceDistrict => throw _privateConstructorUsedError;
+  String? get residenceProvince => throw _privateConstructorUsedError;
+  String? get residenceDistrict => throw _privateConstructorUsedError;
   String get hometownProvince => throw _privateConstructorUsedError;
   String get hometownDistrict => throw _privateConstructorUsedError;
 
@@ -45,8 +45,8 @@ abstract class $ProfileEntityCopyWith<$Res> {
       String gender,
       String ageRange,
       CommunityEntity community,
-      String residenceProvince,
-      String residenceDistrict,
+      String? residenceProvince,
+      String? residenceDistrict,
       String hometownProvince,
       String hometownDistrict});
 
@@ -73,8 +73,8 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
     Object? gender = null,
     Object? ageRange = null,
     Object? community = null,
-    Object? residenceProvince = null,
-    Object? residenceDistrict = null,
+    Object? residenceProvince = freezed,
+    Object? residenceDistrict = freezed,
     Object? hometownProvince = null,
     Object? hometownDistrict = null,
   }) {
@@ -99,14 +99,14 @@ class _$ProfileEntityCopyWithImpl<$Res, $Val extends ProfileEntity>
           ? _value.community
           : community // ignore: cast_nullable_to_non_nullable
               as CommunityEntity,
-      residenceProvince: null == residenceProvince
+      residenceProvince: freezed == residenceProvince
           ? _value.residenceProvince
           : residenceProvince // ignore: cast_nullable_to_non_nullable
-              as String,
-      residenceDistrict: null == residenceDistrict
+              as String?,
+      residenceDistrict: freezed == residenceDistrict
           ? _value.residenceDistrict
           : residenceDistrict // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       hometownProvince: null == hometownProvince
           ? _value.hometownProvince
           : hometownProvince // ignore: cast_nullable_to_non_nullable
@@ -143,8 +143,8 @@ abstract class _$$ProfileEntityImplCopyWith<$Res>
       String gender,
       String ageRange,
       CommunityEntity community,
-      String residenceProvince,
-      String residenceDistrict,
+      String? residenceProvince,
+      String? residenceDistrict,
       String hometownProvince,
       String hometownDistrict});
 
@@ -170,8 +170,8 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
     Object? gender = null,
     Object? ageRange = null,
     Object? community = null,
-    Object? residenceProvince = null,
-    Object? residenceDistrict = null,
+    Object? residenceProvince = freezed,
+    Object? residenceDistrict = freezed,
     Object? hometownProvince = null,
     Object? hometownDistrict = null,
   }) {
@@ -196,14 +196,14 @@ class __$$ProfileEntityImplCopyWithImpl<$Res>
           ? _value.community
           : community // ignore: cast_nullable_to_non_nullable
               as CommunityEntity,
-      residenceProvince: null == residenceProvince
+      residenceProvince: freezed == residenceProvince
           ? _value.residenceProvince
           : residenceProvince // ignore: cast_nullable_to_non_nullable
-              as String,
-      residenceDistrict: null == residenceDistrict
+              as String?,
+      residenceDistrict: freezed == residenceDistrict
           ? _value.residenceDistrict
           : residenceDistrict // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       hometownProvince: null == hometownProvince
           ? _value.hometownProvince
           : hometownProvince // ignore: cast_nullable_to_non_nullable
@@ -225,8 +225,8 @@ class _$ProfileEntityImpl implements _ProfileEntity {
       required this.gender,
       required this.ageRange,
       required this.community,
-      this.residenceProvince = '',
-      this.residenceDistrict = '',
+      this.residenceProvince,
+      this.residenceDistrict,
       required this.hometownProvince,
       required this.hometownDistrict});
 
@@ -242,11 +242,9 @@ class _$ProfileEntityImpl implements _ProfileEntity {
   @override
   final CommunityEntity community;
   @override
-  @JsonKey()
-  final String residenceProvince;
+  final String? residenceProvince;
   @override
-  @JsonKey()
-  final String residenceDistrict;
+  final String? residenceDistrict;
   @override
   final String hometownProvince;
   @override
@@ -310,8 +308,8 @@ abstract class _ProfileEntity implements ProfileEntity {
       required final String gender,
       required final String ageRange,
       required final CommunityEntity community,
-      final String residenceProvince,
-      final String residenceDistrict,
+      final String? residenceProvince,
+      final String? residenceDistrict,
       required final String hometownProvince,
       required final String hometownDistrict}) = _$ProfileEntityImpl;
 
@@ -326,9 +324,9 @@ abstract class _ProfileEntity implements ProfileEntity {
   @override
   CommunityEntity get community;
   @override
-  String get residenceProvince;
+  String? get residenceProvince;
   @override
-  String get residenceDistrict;
+  String? get residenceDistrict;
   @override
   String get hometownProvince;
   @override
