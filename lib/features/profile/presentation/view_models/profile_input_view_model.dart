@@ -288,8 +288,6 @@ class ProfileInputViewModel extends GetxController {
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
         _profile.value.community.id != -1 &&
-        _selectedResidenceProvince.value.code.isNotEmpty &&
-        _selectedResidenceDistrict.value != null &&
         _selectedHomeTownProvince.value.code.isNotEmpty &&
         _selectedHomeTownDistrict.value != null) {
       return true;

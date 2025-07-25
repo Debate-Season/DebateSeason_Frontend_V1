@@ -312,10 +312,6 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
               ProfileConstants.PROFILE_RESIDENCE,
               style: DeFonts.body14Sb,
             ),
-            DeText(
-              ProfileConstants.PROFILE_ESSENTIAL_STAR,
-              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
-            )
           ],
         ),
         DeGaps.v4,
