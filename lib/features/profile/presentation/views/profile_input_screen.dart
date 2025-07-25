@@ -339,7 +339,7 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
             hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
             controller: controller.residenceController,
             enabled: false,
-            isCleanIcon: false,
+            isCleanIcon: true,
           ),
         ),
       ],
@@ -355,10 +355,6 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
             DeText(
               ProfileConstants.PROFILE_HOME_TOWN,
               style: DeFonts.body14Sb,
-            ),
-            DeText(
-              ProfileConstants.PROFILE_ESSENTIAL_STAR,
-              style: DeFonts.body14Sb.copyWith(color: DeColors.brand),
             )
           ],
         ),
@@ -387,7 +383,7 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
             hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
             controller: controller.homeTownController,
             enabled: false,
-            isCleanIcon: false,
+            isCleanIcon: true,
           ),
         ),
         DeGaps.v12,
