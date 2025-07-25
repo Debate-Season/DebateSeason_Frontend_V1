@@ -293,6 +293,19 @@ class ProfileInputViewModel extends GetxController {
     }
   }
 
+  bool isValidSignUpBtn() {
+    // 가입시에는 거주지와 도시가 없음.
+    if (_profile.value.nickname.isNotEmpty &&
+        _nicknameErrorText.value.isEmpty &&
+        _profile.value.gender.isNotEmpty &&
+        _profile.value.ageRange.isNotEmpty &&
+        _profile.value.community.id != -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void setSelectedResidenceProvince({required ProvinceType province}) {
     _selectedResidenceProvince.value = province;
     _selectedResidenceDistrict.value = null;

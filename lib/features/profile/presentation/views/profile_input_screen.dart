@@ -21,7 +21,8 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
     return Obx(() {
       return DeScaffold(
         appBar: _appBar(isModifyScreen: controller.isModifyScreen),
-        body: _body(context: context),
+        body:
+            _body(isModifyScreen: controller.isModifyScreen, context: context),
       );
     });
   }
@@ -38,7 +39,7 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
     );
   }
 
-  Widget _body({required BuildContext context}) {
+  Widget _body({required bool isModifyScreen, required BuildContext context}) {
     Obx(() {
       if (controller.isApiLoading) {
         return DeProgressIndicator();
@@ -62,10 +63,12 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
                 _widgetGender(),
                 DeGaps.v32,
                 _widgetAge(),
-                DeGaps.v32,
-                _widgetResidence(context: context),
-                DeGaps.v32,
-                _widgetHomeTown(context: context),
+                if (isModifyScreen) ...[
+                  DeGaps.v32,
+                  _widgetResidence(context: context),
+                  DeGaps.v32,
+                  _widgetHomeTown(context: context),
+                ],
                 DeGaps.v40,
                 _widgetBottomButton(),
                 DeGaps.v20,
@@ -427,38 +430,40 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
   Widget _widgetBottomButton() {
     return Obx(() {
       return DeButtonLarge(
-        controller.isModifyScreen
-            ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
-            : ProfileConstants.PROFILE_NEXT_BTN_TEXT,
-        onPressed: controller.isValidStartBtn()
-            ? controller.isModifyScreen
-                ? () => controller.patchProfile().then((result) {
-                      result.when(loading: () {
-                        controller.setApiLoading(isApiLoading: true);
-                      }, success: (_) {
-                        controller.setApiLoading(isApiLoading: false);
-                        Get.back();
-                      }, failure: (msg) {
-                        controller.setApiLoading(isApiLoading: false);
-                        deSnackBar(msg);
-                      });
-                    })
-                : () => controller.postProfile().then((result) {
-                      result.when(loading: () {
-                        controller.setApiLoading(isApiLoading: true);
-                      }, success: (_) {
-                        controller.setApiLoading(isApiLoading: false);
-                        Get.offAllNamed(GetRouterName.profileImage, arguments: {
-                          'is_modify_screen': controller.isModifyScreen,
+          controller.isModifyScreen
+              ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
+              : ProfileConstants.PROFILE_NEXT_BTN_TEXT,
+          onPressed: controller.isValidStartBtn()
+              ? controller.isModifyScreen
+                  ? () => controller.patchProfile().then((result) {
+                        result.when(loading: () {
+                          controller.setApiLoading(isApiLoading: true);
+                        }, success: (_) {
+                          controller.setApiLoading(isApiLoading: false);
+                          Get.back();
+                        }, failure: (msg) {
+                          controller.setApiLoading(isApiLoading: false);
+                          deSnackBar(msg);
                         });
-                      }, failure: (msg) {
-                        controller.setApiLoading(isApiLoading: false);
-                        deSnackBar(msg);
-                      });
-                    })
-            : () => {},
-        enable: controller.isValidStartBtn(),
-      );
+                      })
+                  : () => controller.postProfile().then((result) {
+                        result.when(loading: () {
+                          controller.setApiLoading(isApiLoading: true);
+                        }, success: (_) {
+                          controller.setApiLoading(isApiLoading: false);
+                          Get.offAllNamed(GetRouterName.profileImage,
+                              arguments: {
+                                'is_modify_screen': controller.isModifyScreen,
+                              });
+                        }, failure: (msg) {
+                          controller.setApiLoading(isApiLoading: false);
+                          deSnackBar(msg);
+                        });
+                      })
+              : () => {},
+          enable: controller.isModifyScreen
+              ? controller.isValidStartBtn()
+              : controller.isValidSignUpBtn());
     });
   }
 }

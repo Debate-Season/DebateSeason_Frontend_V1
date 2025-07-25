@@ -11,8 +11,8 @@ class ProfileEntity with _$ProfileEntity {
     required String gender,
     required String ageRange,
     required CommunityEntity community,
-    required String residenceProvince,
-    required String residenceDistrict,
+    @Default('') String residenceProvince,
+    @Default('') String residenceDistrict,
     required String hometownProvince,
     required String hometownDistrict,
   }) = _ProfileEntity;

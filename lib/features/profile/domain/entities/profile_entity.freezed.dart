@@ -225,8 +225,8 @@ class _$ProfileEntityImpl implements _ProfileEntity {
       required this.gender,
       required this.ageRange,
       required this.community,
-      required this.residenceProvince,
-      required this.residenceDistrict,
+      this.residenceProvince = '',
+      this.residenceDistrict = '',
       required this.hometownProvince,
       required this.hometownDistrict});
 
@@ -242,8 +242,10 @@ class _$ProfileEntityImpl implements _ProfileEntity {
   @override
   final CommunityEntity community;
   @override
+  @JsonKey()
   final String residenceProvince;
   @override
+  @JsonKey()
   final String residenceDistrict;
   @override
   final String hometownProvince;
@@ -308,8 +310,8 @@ abstract class _ProfileEntity implements ProfileEntity {
       required final String gender,
       required final String ageRange,
       required final CommunityEntity community,
-      required final String residenceProvince,
-      required final String residenceDistrict,
+      final String residenceProvince,
+      final String residenceDistrict,
       required final String hometownProvince,
       required final String hometownDistrict}) = _$ProfileEntityImpl;
 
