@@ -334,13 +334,16 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
               );
             }
           },
-          child: DeTextField(
-            style: DeFonts.body16M,
-            hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
-            controller: controller.residenceController,
-            enabled: false,
-            isCleanIcon: true,
-          ),
+          child: Obx(() {
+            // 선택한 사항이 없을 경우, isCleanItem 이 사라짐.
+            return DeTextField(
+              style: DeFonts.body16M,
+              hintText: ProfileConstants.PROFILE_RESIDENCE_HINT_TEXT,
+              controller: controller.residenceController,
+              enabled: false,
+              isCleanIcon: controller.residenceText.value != "",
+            );
+          }),
         ),
       ],
     );
@@ -378,12 +381,18 @@ class ProfileInputScreen extends GetView<ProfileInputViewModel> {
               );
             }
           },
-          child: DeTextField(
-            style: DeFonts.body16M,
-            hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
-            controller: controller.homeTownController,
-            enabled: false,
-            isCleanIcon: true,
+          child: Obx(
+            () {
+              // 선택한 사항이 없을 경우, isCleanItem 이 사라짐.
+
+              return DeTextField(
+                style: DeFonts.body16M,
+                hintText: ProfileConstants.PROFILE_HOME_TOWN_HINT_TEXT,
+                controller: controller.homeTownController,
+                enabled: false,
+                isCleanIcon: controller.homeTownText.value != "",
+              );
+            },
           ),
         ),
         DeGaps.v12,
