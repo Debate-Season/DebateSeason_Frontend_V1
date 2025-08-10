@@ -63,7 +63,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           //     onPressed: () {},
           //   ),
           // ),
-          DeGaps.h12,
+          DeGaps.h20,
           Expanded(
             child: DeTextField(
               controller: _textController,
@@ -86,7 +86,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
               _textController.clear();
             },
             child: Container(
-              padding: DeDimensions.all12,
+              margin: DeDimensions.all2,
+              padding: EdgeInsets.fromLTRB(14, 12, 10, 12),
               decoration: BoxDecoration(
                 color: _textController.text.isEmpty
                     ? DeColors.grey90
