@@ -126,7 +126,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       top: -2,
                       right: -2,
                       child: Container(
-                        padding: EdgeInsets.all(3),
+                        width: 24,
+                        height: 24,
+                        padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: DeColors.grey70,
                           borderRadius: BorderRadius.circular(6),
