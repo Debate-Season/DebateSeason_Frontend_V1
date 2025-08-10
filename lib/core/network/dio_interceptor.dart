@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
@@ -7,7 +5,6 @@ import 'package:debateseason_frontend_v1/features/auth/domain/repositories/auth_
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as getx;
 
 import 'dio_client.dart';
@@ -31,24 +28,6 @@ class DioInterceptor extends Interceptor {
         'State Code : ${response.statusCode}\n'
         'Request Data: ${response.requestOptions.data}\n'
         '${response.data}');
-
-    final logText = '${response.requestOptions.method} / ${response.requestOptions.uri}\n'
-        'Status Code: ${response.statusCode}\n'
-        'Request Data: ${response.requestOptions.data}\n'
-        'Response Data: ${response.data}';
-
-    log.d(logText); // 한 줄 요약
-
-    if (kDebugMode) {
-      const chunkSize = 800; // 800자가 안정적 (print에선 더 나눠야 함)
-      for (int i = 0; i < logText.length; i += chunkSize) {
-        final end = (i + chunkSize < logText.length) ? i + chunkSize : logText
-            .length;
-        final chunk = logText.substring(i, end);
-        // scheduleMicrotask를 써서 출력이 중간에 drop되지 않게 함
-        scheduleMicrotask(() => print(chunk));
-      }
-    }
     return super.onResponse(response, handler);
   }
 
