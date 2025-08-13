@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/features/profile/data/data_sources/prof
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_image_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_my_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
@@ -93,7 +94,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200 || 201:
-
         return (UiState.success(null));
       default:
         if (response.message.isEmpty) {
@@ -102,5 +102,21 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
         return (UiState.failure(response.message));
     }
+  }
+
+  @override
+  Future<UiState<List<TermsMyAgreeEntity>>> getTermsAgree() async {
+    final response = await dataSource.getTermsAgree();
+
+    switch (response.status) {
+      case 200:
+        return UiState.success(
+            response.data.map((e) => e.toEntity(e)).toList());
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('데이터 불러오기 실패');
+        }
+    }
+    return UiState.failure(response.message);
   }
 }

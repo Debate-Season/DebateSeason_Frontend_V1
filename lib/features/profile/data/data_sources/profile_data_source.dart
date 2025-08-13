@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_image_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/response/profile_res.dart';
+import 'package:debateseason_frontend_v1/features/profile/data/models/response/terms_my_agree_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/base_res.dart';
 import 'package:debateseason_frontend_v1/utils/base/nullable_base_res.dart';
 import 'package:dio/dio.dart';
@@ -29,4 +30,7 @@ abstract class ProfileDataSource {
   Future<NullableBaseRes> patchProfilesImage({
     @Body() required ProfileImageReq body,
   });
+
+  @GET('/api/v1/terms/agree')
+  Future<BaseRes<List<TermsMyAgreeRes>>> getTermsAgree();
 }
