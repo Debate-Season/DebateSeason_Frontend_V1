@@ -213,8 +213,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
-            final Uri url =
-                Uri.parse('https://pf.kakao.com/_SZNxln');
+            final Uri url = Uri.parse('https://pf.kakao.com/_SZNxln');
             if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
               throw '카카오채널 연결 실패';
             }
@@ -243,73 +242,87 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           style: DeFonts.header18Sb,
         ),
         DeGaps.v6,
-        DeGestureDetector(
-          onTap: () {
-            Get.to(() => WebViewPage(
-                  url:
-                      'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
-                  title: '서비스 이용 약관',
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              children: [
-                DeText(
-                  '서비스 이용 약관',
-                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-                ),
-                Spacer(),
-                SvgPicture.asset(DeIcons.icArrowRightGrey50),
-              ],
-            ),
-          ),
+        _termsItem(
+          termsType: 'SERVICE',
+          label: '서비스 이용 약관',
+          url:
+              'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
         ),
-        DeGestureDetector(
-          onTap: () {
-            Get.to(() => WebViewPage(
-                  url:
-                      'https://hurricane-ticket-d3c.notion.site/191034a1724480c291faf94db9e895ef',
-                  title: '아동 안전 표준 정책',
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              children: [
-                DeText(
-                  '아동 안전 표준 정책',
-                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-                ),
-                Spacer(),
-                SvgPicture.asset(DeIcons.icArrowRightGrey50),
-              ],
-            ),
-          ),
+        _termsItem(
+          termsType: 'PRIVACY',
+          label: '개인정보 수집/이용 약관',
+          url:
+              'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
         ),
-        DeGestureDetector(
-          onTap: () {
-            Get.to(() => WebViewPage(
-                  url:
-                      'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
-                  title: '개인정보 수집/이용 약관',
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              children: [
-                DeText(
-                  '개인정보 수집/이용 약관',
-                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-                ),
-                Spacer(),
-                SvgPicture.asset(DeIcons.icArrowRightGrey50),
-              ],
-            ),
-          ),
+        _termsItem(
+          termsType: 'CHILD_POLICY',
+          label: '아동 안전 표준 정책',
+          url:
+              'https://hurricane-ticket-d3c.notion.site/191034a1724480c291faf94db9e895ef',
         ),
       ],
+    );
+  }
+
+  Widget _termsItem({
+    required String termsType,
+    required String label,
+    required String url,
+  }) {
+    return DeGestureDetector(
+      onTap: () {
+        Get.to(() => WebViewPage(url: url, title: label));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Row(
+          children: [
+            DeText(
+              label,
+              style: DeFonts.body16M.copyWith(
+                color: DeColors.grey30,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Spacer(),
+            Obx(() {
+              final myTerms = controller.myTermsData;
+
+              return myTerms.when(
+                loading: () => const SizedBox(
+                  width: 60,
+                  child:
+                      Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                ),
+                success: (data) {
+                  final matches = data.where((e) => e.termsType == termsType);
+                  final agreedAt =
+                      matches.isEmpty ? null : matches.first.agreedAt;
+
+                  final text =
+                      (agreedAt is String && agreedAt.trim().isNotEmpty)
+                          ? agreedAt
+                          : '';
+
+                  return DeText(
+                    text,
+                    style: DeFonts.body14M.copyWith(color: DeColors.grey50),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                },
+                failure: (error) => DeText(
+                  '오류',
+                  style: DeFonts.body14M.copyWith(color: DeColors.red),
+                ),
+              );
+            }),
+            DeGaps.h8,
+            SvgPicture.asset(DeIcons.icArrowRightGrey50),
+          ],
+        ),
+      ),
     );
   }
 
