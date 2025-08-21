@@ -320,38 +320,6 @@ class ProfileScreen extends GetView<ProfileViewModel> {
     );
   }
 
-  Widget _policy() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DeText(
-          '정책',
-          style: DeFonts.header18Sb,
-        ),
-        DeGaps.v16,
-        DeGestureDetector(
-          onTap: () async {
-            final Uri url = Uri.parse(
-                'https://hurricane-ticket-d3c.notion.site/215034a1724480c9ab1bd9f8f691b408?source=copy_link');
-            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-              throw '커뮤니티 이용가이드 연결 실패';
-            }
-          },
-          child: Row(
-            children: [
-              DeText(
-                '커뮤니티 이용가이드',
-                style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-              ),
-              Spacer(),
-              SvgPicture.asset(DeIcons.icArrowRightGrey50),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _account() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
