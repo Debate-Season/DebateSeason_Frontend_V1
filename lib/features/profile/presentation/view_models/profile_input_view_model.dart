@@ -15,6 +15,7 @@ import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+//TODO: 거주지를 선택하지 않을 때, 거주지와 동일 체크박스 상태변경 필요함. 현재는 체크박스 상태를 관리없어서 추후 구현.
 class ProfileInputViewModel extends GetxController {
   late ProfileViewModel _profileViewModel;
   late ProfileRepository _profileRepository;
@@ -50,10 +51,15 @@ class ProfileInputViewModel extends GetxController {
   final _selectedAge = ''.obs;
   final _isModifyScreen = false.obs;
   final _isApiLoading = false.obs;
+  final residenceText = ''.obs;
+  final homeTownText = ''.obs;
   final _selectedResidenceProvince = Rx<ProvinceType>(ProvinceType.seoul);
   final _selectedResidenceDistrict = Rx<DistrictType?>(null);
   final _selectedHomeTownProvince = Rx<ProvinceType>(ProvinceType.seoul);
   final _selectedHomeTownDistrict = Rx<DistrictType?>(null);
+
+  late final VoidCallback _residenceControllerListener;
+  late final VoidCallback _homeTownControllerListener;
 
   ProfileEntity get profile => _profile.value;
 
@@ -95,7 +101,22 @@ class ProfileInputViewModel extends GetxController {
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
     residenceController = TextEditingController();
+    _residenceControllerListener = () {
+      residenceText.value = residenceController.text;
+      if (residenceText.value == "") {
+        _setResidenceNoResponse();
+      }
+    };
+    residenceController.addListener(_residenceControllerListener);
     homeTownController = TextEditingController();
+    _homeTownControllerListener = () {
+      homeTownText.value = homeTownController.text;
+      if (homeTownText.value == "") {
+        _setHomeTownNoResponse();
+      }
+    };
+    homeTownController.addListener(_homeTownControllerListener);
+
     _debounceNickname?.cancel();
     _debounceCommunity?.cancel();
     _profileRepository = Get.find<ProfileRepository>();
@@ -118,18 +139,27 @@ class ProfileInputViewModel extends GetxController {
         _selectedCommunityId.value = previousProfile.community.id;
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
-        _selectedResidenceProvince.value =
-            ProvinceType.fromCode(previousProfile.residenceProvince);
-        _selectedResidenceDistrict.value =
-            DistrictType.fromCode(previousProfile.residenceDistrict);
-        _selectedHomeTownProvince.value =
-            ProvinceType.fromCode(previousProfile.hometownProvince);
-        _selectedHomeTownDistrict.value =
-            DistrictType.fromCode(previousProfile.hometownDistrict);
-        residenceController.text =
-            '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
-        homeTownController.text =
-            '${_selectedHomeTownProvince.value.name} ${_selectedHomeTownDistrict.value?.name}';
+
+        if (previousProfile.residenceDistrict != '') {
+          _selectedResidenceProvince.value =
+              ProvinceType.fromCode(previousProfile.residenceProvince!);
+          _selectedResidenceDistrict.value =
+              DistrictType.fromCode(previousProfile.residenceDistrict!);
+          residenceController.text =
+              '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
+        } else {
+          residenceController.text = '';
+        }
+        if (previousProfile.hometownDistrict != '') {
+          _selectedHomeTownProvince.value =
+              ProvinceType.fromCode(previousProfile.hometownProvince);
+          _selectedHomeTownDistrict.value =
+              DistrictType.fromCode(previousProfile.hometownDistrict);
+          homeTownController.text =
+              '${_selectedHomeTownProvince.value.name} ${_selectedHomeTownDistrict.value?.name}';
+        } else {
+          homeTownController.text = '';
+        }
         _isModifyScreen.value = true;
         _profile.refresh();
       });
@@ -143,7 +173,9 @@ class ProfileInputViewModel extends GetxController {
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
+    residenceController.removeListener(_residenceControllerListener);
     residenceController.dispose();
+    homeTownController.removeListener(_homeTownControllerListener);
     homeTownController.dispose();
 
     super.dispose();
@@ -181,16 +213,18 @@ class ProfileInputViewModel extends GetxController {
   }
 
   Future<UiState<void>> postProfile() async =>
+      // 가입페이지에서는 거주지와 출신을 선택하지 않으므로 null 값일 수 있음.
       await _profileRepository.postProfile(
         entity: _profile.value.copyWith(
-          residenceProvince: _selectedResidenceProvince.value.code,
-          residenceDistrict: _selectedResidenceDistrict.value!.code,
-          hometownProvince: _selectedHomeTownProvince.value.code,
-          hometownDistrict: _selectedHomeTownDistrict.value!.code,
+          residenceProvince: null,
+          residenceDistrict: null,
+          hometownProvince: '',
+          hometownDistrict: '',
         ),
       );
 
   Future<UiState<void>> patchProfile() async {
+    // profile 수정 페이지
     _profileViewModel.updateProfile(updatedProfile: _profile.value);
 
     return await _profileRepository.patchProfile(entity: _profile.value);
@@ -283,10 +317,25 @@ class ProfileInputViewModel extends GetxController {
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
         _profile.value.community.id != -1 &&
-        _selectedResidenceProvince.value.code.isNotEmpty &&
-        _selectedResidenceDistrict.value != null &&
-        _selectedHomeTownProvince.value.code.isNotEmpty &&
-        _selectedHomeTownDistrict.value != null) {
+        (residenceText.value == '' ||
+            (_selectedResidenceProvince.value.code.isNotEmpty &&
+                _selectedResidenceDistrict.value != null)) &&
+        (homeTownText.value == '' ||
+            (_selectedHomeTownProvince.value.code.isNotEmpty &&
+                _selectedHomeTownDistrict.value != null))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isValidSignUpBtn() {
+    // 가입시에는 거주지와 도시가 없음.
+    if (_profile.value.nickname.isNotEmpty &&
+        _nicknameErrorText.value.isEmpty &&
+        _profile.value.gender.isNotEmpty &&
+        _profile.value.ageRange.isNotEmpty &&
+        _profile.value.community.id != -1) {
       return true;
     } else {
       return false;
@@ -321,7 +370,26 @@ class ProfileInputViewModel extends GetxController {
     );
   }
 
+  void _setResidenceNoResponse() {
+    _profile.value = _profile.value.copyWith(
+      residenceProvince: '',
+      residenceDistrict: '',
+    );
+  }
+
+  void _setHomeTownNoResponse() {
+    _profile.value = _profile.value.copyWith(
+      hometownProvince: '',
+      hometownDistrict: '',
+    );
+  }
+
   void checkSameToResidence() {
+    if (residenceText.value == '') {
+      homeTownController.text = '';
+      return;
+    }
+
     if (_selectedResidenceDistrict.value != null) {
       _selectedHomeTownProvince.value = _selectedResidenceProvince.value;
       _selectedHomeTownDistrict.value = _selectedResidenceDistrict.value;
