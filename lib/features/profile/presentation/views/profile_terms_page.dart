@@ -11,7 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-class ProfileTermsPage extends GetView<ProfileViewModel>{
+class ProfileTermsPage extends GetView<ProfileViewModel> {
   const ProfileTermsPage({super.key});
 
   @override
@@ -57,19 +57,19 @@ class ProfileTermsPage extends GetView<ProfileViewModel>{
           termsType: 'SERVICE',
           label: '서비스 이용약관 동의',
           url:
-          'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
+              'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
         ),
         _termsItem(
           termsType: 'PRIVACY',
           label: '개인정보 수집/이용 동의',
           url:
-          'https://hurricane-ticket-d3c.notion.site/24f034a172448015bcc9dc08af777c3e',
+              'https://hurricane-ticket-d3c.notion.site/24f034a172448015bcc9dc08af777c3e',
         ),
         _termsItem(
           termsType: 'THIRD_PARTY',
           label: '개인정보 제3자 제공 동의',
           url:
-          'http://hurricane-ticket-d3c.notion.site/3-24f034a1724480848cbfe32283e0ea95',
+              'http://hurricane-ticket-d3c.notion.site/3-24f034a1724480848cbfe32283e0ea95',
         ),
       ],
     );
@@ -104,17 +104,17 @@ class ProfileTermsPage extends GetView<ProfileViewModel>{
                 loading: () => const SizedBox(
                   width: 60,
                   child:
-                  Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      Center(child: CircularProgressIndicator(strokeWidth: 2)),
                 ),
                 success: (data) {
                   final matches = data.where((e) => e.termsType == termsType);
                   final agreedAt =
-                  matches.isEmpty ? null : matches.first.agreedAt;
+                      matches.isEmpty ? null : matches.first.agreedAt;
 
                   final text =
-                  (agreedAt is String && agreedAt.trim().isNotEmpty)
-                      ? agreedAt
-                      : '';
+                      (agreedAt is String && agreedAt.trim().isNotEmpty)
+                          ? agreedAt
+                          : '';
 
                   return DeText(
                     text,
