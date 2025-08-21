@@ -2,7 +2,6 @@ import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_dimensions.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
-import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,67 +58,86 @@ class DeTextField extends StatelessWidget {
       data: MediaQuery.of(context).copyWith(
         textScaler: const TextScaler.linear(1),
       ),
-      child: TextField(
-        controller: controller,
-        focusNode: focusNode,
-        decoration: decoration ??
-            InputDecoration(
-              border: InputBorder.none,
-              hintStyle: style?.copyWith(color: DeColors.grey50),
-              hintText: hintText ?? '내용을 입력해 주세요.',
-              contentPadding: DeDimensions.all12,
-              isDense: true,
-              counterText: "",
-              filled: true,
-              fillColor: fillColor ?? DeColors.grey80,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
+      child: Stack(
+        children: [
+          TextField(
+            controller: controller,
+            focusNode: focusNode,
+            decoration: decoration ??
+                InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: style?.copyWith(color: DeColors.grey50),
+                  hintText: hintText ?? '내용을 입력해 주세요.',
+                  contentPadding: DeDimensions.all12,
+                  isDense: true,
+                  counterText: "",
+                  filled: true,
+                  fillColor: fillColor ?? DeColors.grey80,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: DeColors.brand, width: 1),
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  // suffixIcon: isCleanIcon
+                  //     ? (controller.text.isNotEmpty
+                  //         ? DeGestureDetector(
+                  //             onTap: () {
+                  //               controller.clear();
+                  //             },
+                  //             child: Padding(
+                  //               padding: DeDimensions.all10,
+                  //               child: SvgPicture.asset(DeIcons.icXGrey50),
+                  //             ),
+                  //           )
+                  //         : null)
+                  //     : SizedBox.shrink(),
+                ),
+            keyboardType: keyboardType,
+            textInputAction: textInputAction,
+            autofocus: autofocus,
+            maxLines: maxLines,
+            minLines: minLines,
+            expands: expands,
+            maxLength: maxLength,
+            // 색상 변경 여부 확인
+            cursorColor: DeColors.grey10,
+            style: style ?? DeFonts.body14R,
+            textAlign: textAlign ?? TextAlign.start,
+            onChanged: (value) {
+              if (onChanged != null) {
+                onChanged!(value);
+              }
+            },
+            onSubmitted: (value) {
+              if (onSubmitted != null) {
+                onSubmitted!(value);
+              }
+            },
+            inputFormatters: inputFormatters,
+
+            enabled: enabled,
+            textAlignVertical: textAlignVertical,
+          ),
+          if (isCleanIcon)
+            Positioned(
+              right: 4,
+              top: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: () => controller.clear(),
+                child: Padding(
+                    padding: DeDimensions.all10,
+                    child: SvgPicture.asset(DeIcons.icXGrey50)),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: DeColors.brand, width: 1),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              suffixIcon: isCleanIcon
-                  ? (controller.text.isNotEmpty
-                      ? DeGestureDetector(
-                          onTap: () => controller.clear(),
-                          child: Padding(
-                            padding: DeDimensions.all10,
-                            child: SvgPicture.asset(DeIcons.icXGrey50),
-                          ),
-                        )
-                      : null)
-                  : SizedBox.shrink(),
-            ),
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        autofocus: autofocus,
-        maxLines: maxLines,
-        minLines: minLines,
-        expands: expands,
-        maxLength: maxLength,
-        // 색상 변경 여부 확인
-        cursorColor: DeColors.grey10,
-        style: style ?? DeFonts.body14R,
-        textAlign: textAlign ?? TextAlign.start,
-        onChanged: (value) {
-          if (onChanged != null) {
-            onChanged!(value);
-          }
-        },
-        onSubmitted: (value) {
-          if (onSubmitted != null) {
-            onSubmitted!(value);
-          }
-        },
-        inputFormatters: inputFormatters,
-        enabled: enabled,
-        textAlignVertical: textAlignVertical,
+            )
+        ],
       ),
     );
   }
