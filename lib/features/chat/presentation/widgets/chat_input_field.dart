@@ -75,6 +75,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                 border: InputBorder.none,
                 hintText: ChatConstants.chatInputHintText,
               ),
+              isCleanIcon: false,
             ),
           ),
           DeGaps.h12,
