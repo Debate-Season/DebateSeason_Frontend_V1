@@ -23,6 +23,7 @@ import 'package:debateseason_frontend_v1/features/profile/bindings/terms_binding
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_image_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_input_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_screen.dart';
+import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_terms_page.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/profile_withdraw_screen.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/views/terms_screen.dart';
 import 'package:debateseason_frontend_v1/features/splash/presentation/splash_screen.dart';
@@ -112,6 +113,11 @@ class GetRouter {
       name: GetRouterName.lives,
       page: () => LiveAllPage(),
       binding: MediaBinding(),
+    ),
+    GetPage(
+      name: GetRouterName.profileTerms,
+      page: () => ProfileTermsPage(),
+      binding: ProfileBinding(),
     )
   ];
 }
