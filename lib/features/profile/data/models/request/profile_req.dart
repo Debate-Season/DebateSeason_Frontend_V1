@@ -8,26 +8,44 @@ class ProfileReq {
   int communityId;
   String gender;
   String ageRange;
-  String residenceProvince;
-  String residenceDistrict;
-  String hometownProvince;
-  String hometownDistrict;
+  String? residenceProvince;
+  String? residenceDistrict;
+  String? hometownProvince;
+  String? hometownDistrict;
 
   ProfileReq({
     required this.nickname,
     required this.communityId,
     required this.gender,
     required this.ageRange,
-    required this.residenceProvince,
-    required this.residenceDistrict,
-    required this.hometownProvince,
-    required this.hometownDistrict,
+    this.residenceProvince,
+    this.residenceDistrict,
+    this.hometownProvince,
+    this.hometownDistrict,
   });
 
   factory ProfileReq.fromJson(Map<String, dynamic> json) =>
       _$ProfileReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileReqToJson(this);
+
+  /// POST /profiles - only sends required parameters (excludes nulls)
+  Map<String, dynamic> toJsonForPost() {
+    final json = _$ProfileReqToJson(this);
+    json.removeWhere((key, value) => value == null);
+    return json;
+  }
+
+  /// PATCH /profiles - sends all parameters with empty strings instead of nulls
+  Map<String, dynamic> toJsonForPatch() {
+    final json = _$ProfileReqToJson(this);
+    json.forEach((key, value) {
+      if (value == null) {
+        json[key] = '';
+      }
+    });
+    return json;
+  }
 
   factory ProfileReq.fromEntity(entity) => ProfileReq(
         nickname: entity.nickname,

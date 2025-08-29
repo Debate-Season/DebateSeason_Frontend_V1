@@ -18,12 +18,14 @@ class _ProfileDataSource implements ProfileDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NullableBaseRes> postProfiles({required ProfileReq body}) async {
+  Future<NullableBaseRes> postProfiles({
+    required Map<String, dynamic> body,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    _data.addAll(body);
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -46,12 +48,14 @@ class _ProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<NullableBaseRes> patchProfiles({required ProfileReq body}) async {
+  Future<NullableBaseRes> patchProfiles({
+    required Map<String, dynamic> body,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    _data.addAll(body);
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(

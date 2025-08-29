@@ -37,8 +37,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<UiState<void>> postProfile({
     required ProfileEntity entity,
   }) async {
+    final profileReq = ProfileReq.fromEntity(entity);
     final response = await dataSource.postProfiles(
-      body: ProfileReq.fromEntity(entity),
+      body: profileReq.toJsonForPost(), // Only sends required parameters
     );
 
     switch (response.status) {
@@ -62,8 +63,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<UiState<void>> patchProfile({required ProfileEntity entity}) async {
+    final profileReq = ProfileReq.fromEntity(entity);
     final response = await dataSource.patchProfiles(
-      body: ProfileReq.fromEntity(entity),
+      body: profileReq
+          .toJsonForPatch(), // Send all parameters with empty strings for nulls
     );
 
     switch (response.status) {
