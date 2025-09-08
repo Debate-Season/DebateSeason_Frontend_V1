@@ -29,10 +29,10 @@ class ProfileReq {
 
   Map<String, dynamic> toJson() => _$ProfileReqToJson(this);
 
-  /// POST /profiles - only sends required parameters (excludes nulls)
+  /// POST /profiles - only sends required parameters (excludes nulls and empty strings)
   Map<String, dynamic> toJsonForPost() {
     final json = _$ProfileReqToJson(this);
-    json.removeWhere((key, value) => value == null);
+    json.removeWhere((key, value) => value == null || value == '');
     return json;
   }
 
