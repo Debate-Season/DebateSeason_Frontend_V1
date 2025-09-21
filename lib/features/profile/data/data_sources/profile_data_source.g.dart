@@ -18,12 +18,14 @@ class _ProfileDataSource implements ProfileDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<NullableBaseRes> postProfiles({required ProfileReq body}) async {
+  Future<NullableBaseRes> postProfiles({
+    required Map<String, dynamic> body,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    _data.addAll(body);
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -46,12 +48,14 @@ class _ProfileDataSource implements ProfileDataSource {
   }
 
   @override
-  Future<NullableBaseRes> patchProfiles({required ProfileReq body}) async {
+  Future<NullableBaseRes> patchProfiles({
+    required Map<String, dynamic> body,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    _data.addAll(body);
     final _options = _setStreamType<NullableBaseRes>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
@@ -126,6 +130,42 @@ class _ProfileDataSource implements ProfileDataSource {
     late NullableBaseRes _value;
     try {
       _value = NullableBaseRes.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<BaseRes<List<TermsMyAgreeRes>>> getTermsAgree() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<BaseRes<List<TermsMyAgreeRes>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/api/v1/terms/agree',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseRes<List<TermsMyAgreeRes>> _value;
+    try {
+      _value = BaseRes<List<TermsMyAgreeRes>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<TermsMyAgreeRes>(
+                  (i) => TermsMyAgreeRes.fromJson(i as Map<String, dynamic>),
+                )
+                .toList()
+            : List.empty(),
+      );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

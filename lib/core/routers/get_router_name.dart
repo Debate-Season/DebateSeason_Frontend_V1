@@ -19,4 +19,5 @@ class GetRouterName {
   static const String profileImage = '/profile_image';
   static const String profileWithdraw = '/profile_withdraw';
   static const String terms = '/terms';
+  static const String profileTerms = '/profile_terms';
 }

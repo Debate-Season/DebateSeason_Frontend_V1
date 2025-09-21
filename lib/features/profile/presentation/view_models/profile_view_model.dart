@@ -1,6 +1,7 @@
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_my_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_logout_repository.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/users_withdraw_repository.dart';
@@ -18,8 +19,12 @@ class ProfileViewModel extends GetxController {
   late final UsersLogoutRepository _usersLogoutRepository;
   late final UsersWithdrawRepository _usersWithdrawRepository;
   final _profile = Rx<UiState<ProfileEntity>>(const UiState.loading());
+  final _myTermsData =
+      Rx<UiState<List<TermsMyAgreeEntity>>>(const UiState.loading());
 
   UiState<ProfileEntity> get profile => _profile.value;
+
+  UiState<List<TermsMyAgreeEntity>> get myTermsData => _myTermsData.value;
 
   @override
   void onInit() {
@@ -30,6 +35,7 @@ class ProfileViewModel extends GetxController {
     _usersLogoutRepository = Get.find<UsersLogoutRepository>();
     _usersWithdrawRepository = Get.find<UsersWithdrawRepository>();
     getProfile();
+    getTermsAgree();
   }
 
   Future<void> getProfile() async {
@@ -102,4 +108,13 @@ class ProfileViewModel extends GetxController {
         _storage.clear(),
         _pref.clear(),
       ]);
+
+  Future<void> getTermsAgree() async {
+    try {
+      final response = await _profileRepository.getTermsAgree();
+      _myTermsData.value = response;
+    } catch (e) {
+      log.d(e);
+    }
+  }
 }
