@@ -70,6 +70,15 @@ class SplashViewModel extends GetxController {
       'TermsStatus : $termsStatus',
     );
 
+    // Handle case where tokens exist but local preferences were reset (app reinstall)
+    if (accessToken.isNotEmpty && !termsStatus && !profileStatus) {
+      log.d('Detected potential app reinstall scenario - clearing stale tokens');
+      await storage.clear();
+      await pref.clear();
+      nextRoute.value = GetRouterName.auth;
+      return;
+    }
+
     if (accessToken.isNotEmpty) {
       if (termsStatus) {
         if (profileStatus) {
