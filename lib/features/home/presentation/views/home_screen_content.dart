@@ -24,9 +24,7 @@ class _HomeScreenContentState extends State<HomeScreenContent>
   @override
   void initState() {
     super.initState();
-    AmplitudeUtil.trackEvent(eventName: 'Home').then((_) {
-      log.d('home');
-    });
+    AmplitudeUtil.trackEvent(eventName: 'Home');
     _tabController = TabController(length: tabs.length, vsync: this);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) return;

@@ -43,12 +43,15 @@ class MyApp extends StatelessWidget {
       initialBinding: SplashBinding(),
       initialRoute: GetRouterName.splash,
       getPages: GetRouter.getPages,
-      theme: ThemeData.light().copyWith(
-        textTheme: ThemeData.light().textTheme.apply(
-              fontSizeFactor: 1.0,
-            ),
-      ),
-      builder: (context, child) => child!,
+      theme: ThemeData.light(),
+      builder: (context, child) {
+        final mq = MediaQuery.of(context);
+        return MediaQuery(
+          data: mq.copyWith(textScaler: TextScaler.linear(1.0)),
+          child: child!,
+        );
+
+      },
     );
   }
 }

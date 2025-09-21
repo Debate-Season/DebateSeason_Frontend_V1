@@ -1,9 +1,13 @@
 import 'package:debateseason_frontend_v1/core/constants/de_colors.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_fonts.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
+import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
 import 'package:debateseason_frontend_v1/features/profile/presentation/view_models/profile_image_view_model.dart';
+import 'package:debateseason_frontend_v1/features/profile/profile_constants.dart';
+import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/widgets/de_app_bar.dart';
+import 'package:debateseason_frontend_v1/widgets/de_button_large.dart';
 import 'package:debateseason_frontend_v1/widgets/de_gesture_detector.dart';
 import 'package:debateseason_frontend_v1/widgets/de_scaffold.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
@@ -15,19 +19,23 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return DeScaffold(
-      appBar: _appBar(),
-      body: _body(),
-    );
+    return Obx(() {
+      return DeScaffold(
+        appBar: _appBar(isModifyScreen: controller.isModifyScreen),
+        body: _body(),
+      );
+    });
   }
 
-  DeAppBar _appBar() {
+  DeAppBar _appBar({required bool isModifyScreen}) {
     return DeAppBar(
-      title: Text(
-        '프로필 사진 등록하기',
+      title: DeText(
+        isModifyScreen
+            ? ProfileConstants.PROFILE_IMAGE_MODIFY_APPBAR_TEXT
+            : ProfileConstants.PROFILE_IMAGE_CREATE_APPBAR_TEXT,
         style: DeFonts.header20B,
       ),
-      isBack: false,
+      isBack: isModifyScreen,
     );
   }
 
@@ -38,6 +46,8 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
         _widgetMainImage(),
         DeGaps.v32,
         _widgetImages(),
+        Spacer(),
+        _widgetBottomButton(),
       ],
     );
   }
@@ -65,7 +75,7 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: DeText(
-            '색상',
+            ProfileConstants.PROFILE_IMAGE_COLOR,
             style: DeFonts.caption12SB.copyWith(color: DeColors.grey50),
           ),
         ),
@@ -122,5 +132,33 @@ class ProfileImageScreen extends GetView<ProfileImageViewModel> {
         );
       }),
     );
+  }
+
+  Widget _widgetBottomButton() {
+    return Obx(() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: DeButtonLarge(
+          controller.isModifyScreen
+              ? ProfileConstants.PROFILE_MODIFY_BTN_TEXT
+              : ProfileConstants.PROFILE_CREATE_BTN_TEXT,
+          onPressed: () => controller.patchProfileImage().then((result) {
+            result.when(loading: () {
+              controller.setApiLoading(isApiLoading: true);
+            }, success: (_) {
+              controller.setApiLoading(isApiLoading: false);
+              if (controller.isModifyScreen) {
+                Get.back();
+              } else {
+                Get.offAllNamed(GetRouterName.main);
+              }
+            }, failure: (msg) {
+              controller.setApiLoading(isApiLoading: false);
+              deSnackBar(msg);
+            });
+          }),
+        ),
+      );
+    });
   }
 }

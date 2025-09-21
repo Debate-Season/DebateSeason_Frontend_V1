@@ -34,10 +34,9 @@ class IssuemapScreen extends GetView<IssuemapViewModel> {
   DeAppBar _appBar() {
     return DeAppBar(
       isBack: false,
-      title: Image.asset(
-        'assets/images/img_debate_logo.png',
-        width: 84,
-        height: 24,
+      title: DeText(
+        '이슈맵',
+        style: DeFonts.header20B,
       ),
     );
   }

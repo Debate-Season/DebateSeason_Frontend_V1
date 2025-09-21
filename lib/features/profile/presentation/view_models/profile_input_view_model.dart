@@ -15,6 +15,7 @@ import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+//TODO: 거주지를 선택하지 않을 때, 거주지와 동일 체크박스 상태변경 필요함. 현재는 체크박스 상태를 관리없어서 추후 구현.
 class ProfileInputViewModel extends GetxController {
   late ProfileViewModel _profileViewModel;
   late ProfileRepository _profileRepository;
@@ -30,10 +31,15 @@ class ProfileInputViewModel extends GetxController {
   Timer? _debounceNickname;
   Timer? _debounceCommunity;
   final _profile = Rx<ProfileEntity>(ProfileEntity(
+    profileImage: '',
     nickname: '',
     community: CommunityEntity(id: -1, name: '', iconUrl: ''),
     gender: '',
     ageRange: '',
+    hometownDistrict: '',
+    residenceProvince: '',
+    residenceDistrict: '',
+    hometownProvince: '',
   ));
 
   final _previousNickname = ''.obs;
@@ -45,10 +51,15 @@ class ProfileInputViewModel extends GetxController {
   final _selectedAge = ''.obs;
   final _isModifyScreen = false.obs;
   final _isApiLoading = false.obs;
+  final residenceText = ''.obs;
+  final homeTownText = ''.obs;
   final _selectedResidenceProvince = Rx<ProvinceType>(ProvinceType.seoul);
   final _selectedResidenceDistrict = Rx<DistrictType?>(null);
   final _selectedHomeTownProvince = Rx<ProvinceType>(ProvinceType.seoul);
   final _selectedHomeTownDistrict = Rx<DistrictType?>(null);
+
+  late final VoidCallback _residenceControllerListener;
+  late final VoidCallback _homeTownControllerListener;
 
   ProfileEntity get profile => _profile.value;
 
@@ -90,7 +101,22 @@ class ProfileInputViewModel extends GetxController {
     communitySearchController = TextEditingController();
     ageController = TextEditingController();
     residenceController = TextEditingController();
+    _residenceControllerListener = () {
+      residenceText.value = residenceController.text;
+      if (residenceText.value == "") {
+        _setResidenceNoResponse();
+      }
+    };
+    residenceController.addListener(_residenceControllerListener);
     homeTownController = TextEditingController();
+    _homeTownControllerListener = () {
+      homeTownText.value = homeTownController.text;
+      if (homeTownText.value == "") {
+        _setHomeTownNoResponse();
+      }
+    };
+    homeTownController.addListener(_homeTownControllerListener);
+
     _debounceNickname?.cancel();
     _debounceCommunity?.cancel();
     _profileRepository = Get.find<ProfileRepository>();
@@ -113,6 +139,27 @@ class ProfileInputViewModel extends GetxController {
         _selectedCommunityId.value = previousProfile.community.id;
         ageController.text = previousProfile.ageRange;
         _selectedAge.value = previousProfile.ageRange;
+
+        if (previousProfile.residenceDistrict != '') {
+          _selectedResidenceProvince.value =
+              ProvinceType.fromCode(previousProfile.residenceProvince!);
+          _selectedResidenceDistrict.value =
+              DistrictType.fromCode(previousProfile.residenceDistrict!);
+          residenceController.text =
+              '${_selectedResidenceProvince.value.name} ${_selectedResidenceDistrict.value?.name}';
+        } else {
+          residenceController.text = '';
+        }
+        if (previousProfile.hometownDistrict != '') {
+          _selectedHomeTownProvince.value =
+              ProvinceType.fromCode(previousProfile.hometownProvince);
+          _selectedHomeTownDistrict.value =
+              DistrictType.fromCode(previousProfile.hometownDistrict);
+          homeTownController.text =
+              '${_selectedHomeTownProvince.value.name} ${_selectedHomeTownDistrict.value?.name}';
+        } else {
+          homeTownController.text = '';
+        }
         _isModifyScreen.value = true;
         _profile.refresh();
       });
@@ -126,7 +173,9 @@ class ProfileInputViewModel extends GetxController {
     communityController.dispose();
     communitySearchController.dispose();
     ageController.dispose();
+    residenceController.removeListener(_residenceControllerListener);
     residenceController.dispose();
+    homeTownController.removeListener(_homeTownControllerListener);
     homeTownController.dispose();
 
     super.dispose();
@@ -164,16 +213,21 @@ class ProfileInputViewModel extends GetxController {
   }
 
   Future<UiState<void>> postProfile() async =>
+      // 가입페이지에서는 거주지와 출신을 선택하지 않으므로 null 값일 수 있음.
       await _profileRepository.postProfile(
-        entity: _profile.value,
+        entity: _profile.value.copyWith(
+          residenceProvince: null,
+          residenceDistrict: null,
+          hometownProvince: '',
+          hometownDistrict: '',
+        ),
       );
 
   Future<UiState<void>> patchProfile() async {
-    _profileViewModel.updateProfile(profile: _profile.value);
+    // profile 수정 페이지
+    _profileViewModel.updateProfile(updatedProfile: _profile.value);
 
-    return await _profileRepository.patchProfile(
-      entity: _profile.value,
-    );
+    return await _profileRepository.patchProfile(entity: _profile.value);
   }
 
   void onChangedNickname({required String nickname}) {
@@ -262,6 +316,25 @@ class ProfileInputViewModel extends GetxController {
         _nicknameErrorText.value.isEmpty &&
         _profile.value.gender.isNotEmpty &&
         _profile.value.ageRange.isNotEmpty &&
+        _profile.value.community.id != -1 &&
+        (residenceText.value == '' ||
+            (_selectedResidenceProvince.value.code.isNotEmpty &&
+                _selectedResidenceDistrict.value != null)) &&
+        (homeTownText.value == '' ||
+            (_selectedHomeTownProvince.value.code.isNotEmpty &&
+                _selectedHomeTownDistrict.value != null))) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isValidSignUpBtn() {
+    // 가입시에는 거주지와 도시가 없음.
+    if (_profile.value.nickname.isNotEmpty &&
+        _nicknameErrorText.value.isEmpty &&
+        _profile.value.gender.isNotEmpty &&
+        _profile.value.ageRange.isNotEmpty &&
         _profile.value.community.id != -1) {
       return true;
     } else {
@@ -276,6 +349,11 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedResidenceDistrict(DistrictType district) {
     _selectedResidenceDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      residenceProvince: _selectedResidenceProvince.value.code,
+      residenceDistrict: _selectedResidenceDistrict.value!.code,
+    );
   }
 
   void setSelectedHomeTownProvince({required ProvinceType province}) {
@@ -285,9 +363,33 @@ class ProfileInputViewModel extends GetxController {
 
   void setSelectedHomeTownDistrict(DistrictType district) {
     _selectedHomeTownDistrict.value = district;
+
+    _profile.value = _profile.value.copyWith(
+      hometownProvince: _selectedHomeTownProvince.value.code,
+      hometownDistrict: _selectedHomeTownDistrict.value!.code,
+    );
+  }
+
+  void _setResidenceNoResponse() {
+    _profile.value = _profile.value.copyWith(
+      residenceProvince: '',
+      residenceDistrict: '',
+    );
+  }
+
+  void _setHomeTownNoResponse() {
+    _profile.value = _profile.value.copyWith(
+      hometownProvince: '',
+      hometownDistrict: '',
+    );
   }
 
   void checkSameToResidence() {
+    if (residenceText.value == '') {
+      homeTownController.text = '';
+      return;
+    }
+
     if (_selectedResidenceDistrict.value != null) {
       _selectedHomeTownProvince.value = _selectedResidenceProvince.value;
       _selectedHomeTownDistrict.value = _selectedResidenceDistrict.value;
@@ -298,46 +400,8 @@ class ProfileInputViewModel extends GetxController {
   }
 
   void uncheckSameToResidence() {
+    homeTownController.text = '';
     _selectedHomeTownProvince.value = ProvinceType.seoul;
     _selectedHomeTownDistrict.value = null;
-  }
-
-  List<DistrictType> getDistrictList(ProvinceType province) {
-    switch (province) {
-      case ProvinceType.seoul:
-        return DistrictType.seoul;
-      case ProvinceType.busan:
-        return DistrictType.busan;
-      case ProvinceType.daegu:
-        return DistrictType.daegu;
-      case ProvinceType.incheon:
-        return DistrictType.incheon;
-      case ProvinceType.gwangju:
-        return DistrictType.gwangju;
-      case ProvinceType.daejeon:
-        return DistrictType.daejeon;
-      case ProvinceType.ulsan:
-        return DistrictType.ulsan;
-      case ProvinceType.sejong:
-        return DistrictType.sejong;
-      case ProvinceType.gyeonggi:
-        return DistrictType.gyeonggi;
-      case ProvinceType.gangwon:
-        return DistrictType.gangwon;
-      case ProvinceType.chungbuk:
-        return DistrictType.chungbuk;
-      case ProvinceType.chungnam:
-        return DistrictType.chungnam;
-      case ProvinceType.jeonbuk:
-        return DistrictType.jeonbuk;
-      case ProvinceType.jeonnam:
-        return DistrictType.jeonnam;
-      case ProvinceType.gyeongbuk:
-        return DistrictType.gyeongbuk;
-      case ProvinceType.gyeongnam:
-        return DistrictType.gyeongnam;
-      case ProvinceType.jeju:
-        return DistrictType.jeju;
-    }
   }
 }

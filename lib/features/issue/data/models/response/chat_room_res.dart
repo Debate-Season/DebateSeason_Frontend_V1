@@ -13,6 +13,7 @@ class ChatRoomRes {
   int disagree;
   String createdAt;
   String opinion;
+  String time;
 
   ChatRoomRes({
     required this.chatRoomId,
@@ -22,6 +23,7 @@ class ChatRoomRes {
     required this.disagree,
     required this.createdAt,
     required this.opinion,
+    required this.time,
   });
 
   factory ChatRoomRes.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +39,7 @@ class ChatRoomRes {
         disagree: disagree,
         createdAt: DateTime.parse(createdAt),
         opinion: _getOpinion(opinion),
+        time: time,
       );
 
   OpinionType _getOpinion(String opn) {
