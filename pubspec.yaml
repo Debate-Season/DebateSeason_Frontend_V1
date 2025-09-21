@@ -1,7 +1,7 @@
 name: debateseason_frontend_v1
 description: "It's Time to Debate"
 
-version: 1.1.1+37
+version: 1.2.1+37
 
 environment:
   sdk: '>=3.5.3 <3.7.0'
