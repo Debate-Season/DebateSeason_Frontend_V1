@@ -1,3 +1,5 @@
+// import 'dart:convert';
+
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
 import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
@@ -90,3 +92,47 @@ class DioInterceptor extends Interceptor {
     }
   }
 }
+
+// 디버그 용도로 필요할 때 호출해서 쓰면 됨. 개발시 활용 가능.
+// void _decodeAndPrintJWT(String token) {
+//   try {
+//     // Bearer 제거
+//     if (token.startsWith('Bearer ')) {
+//       token = token.substring(7);
+//     }
+//
+//     final parts = token.split('.');
+//     if (parts.length != 3) {
+//       log.d('🔑 Invalid JWT format');
+//       return;
+//     }
+//
+//     final payload = parts[1];
+//     // Base64 패딩 추가
+//     String normalized = payload;
+//     switch (payload.length % 4) {
+//       case 2:
+//         normalized += '==';
+//         break;
+//       case 3:
+//         normalized += '=';
+//         break;
+//     }
+//
+//     final decoded = utf8.decode(base64.decode(normalized));
+//     log.d('🔑 JWT Payload: $decoded');
+//
+//     // JSON 파싱해서 만료시간 확인
+//     final Map<String, dynamic> payloadJson = jsonDecode(decoded);
+//     if (payloadJson.containsKey('exp')) {
+//       final exp = payloadJson['exp'] as int;
+//       final expDate = DateTime.fromMillisecondsSinceEpoch(exp * 1000);
+//       final now = DateTime.now();
+//       log.d('🕒 Token expires at: $expDate');
+//       log.d('🕒 Current time: $now');
+//       log.d('🕒 Token is ${expDate.isAfter(now) ? 'VALID' : 'EXPIRED'}');
+//     }
+//   } catch (e) {
+//     log.d('❌ JWT decode error: $e');
+//   }
+// }
