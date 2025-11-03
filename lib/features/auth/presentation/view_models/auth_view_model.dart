@@ -1,3 +1,4 @@
+import 'package:debateseason_frontend_v1/core/services/fcm_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/auth/auth_constants.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/entities/users_login_entity.dart';
@@ -55,6 +56,7 @@ class AuthViewModel extends GetxController {
 
       if (loginStatus.$1 && loginStatus.$2) {
         await _getProfile();
+        await _initializeAndRegisterFcm();
       }
 
       return UiState.success(loginStatus);
@@ -81,6 +83,7 @@ class AuthViewModel extends GetxController {
       );
 
       await _getProfile();
+      await _initializeAndRegisterFcm();
 
       return UiState.success(loginStatus);
     } catch (e, stack) {
@@ -116,5 +119,18 @@ class AuthViewModel extends GetxController {
         socialType: socialType,
       ),
     );
+  }
+
+  Future<void> _initializeAndRegisterFcm() async {
+    try {
+      final fcmService = FcmService();
+      await fcmService.initialize();
+      await fcmService.registerFcmToken();
+      fcmService.setupForegroundMessageHandler();
+      fcmService.setupBackgroundMessageHandler();
+      log.d('FCM initialized and token registered successfully');
+    } catch (e, stack) {
+      log.e('FCM initialization failed: $e\n$stack');
+    }
   }
 }
