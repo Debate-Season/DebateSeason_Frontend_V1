@@ -2,6 +2,9 @@ import 'package:debateseason_frontend_v1/core/network/dio_client.dart';
 import 'package:debateseason_frontend_v1/features/auth/data/data_sources/auth_reissue_data_source.dart';
 import 'package:debateseason_frontend_v1/features/auth/data/repository_impls/auth_reissue_repository_impl.dart';
 import 'package:debateseason_frontend_v1/features/auth/domain/repositories/auth_reissue_repository.dart';
+import 'package:debateseason_frontend_v1/features/notification/data/data_sources/fcm_token_data_source.dart';
+import 'package:debateseason_frontend_v1/features/notification/data/repository_impls/fcm_token_repository_impl.dart';
+import 'package:debateseason_frontend_v1/features/notification/domain/repositories/fcm_token_repository.dart';
 import 'package:debateseason_frontend_v1/features/splash/data/app_version_data_source.dart';
 import 'package:debateseason_frontend_v1/features/splash/data/app_version_repository_impl.dart';
 import 'package:debateseason_frontend_v1/features/splash/domain/app_version_repository.dart';
@@ -26,6 +29,14 @@ class SplashBinding extends Bindings {
     );
     Get.lazyPut<AuthReissueRepository>(
       () => AuthReissueRepositoryImpl(Get.find<AuthReissueDataSource>()),
+    );
+
+    // FCM 관련 의존성
+    Get.lazyPut<FcmTokenDataSource>(
+      () => FcmTokenDataSource(DioClient().dio),
+    );
+    Get.lazyPut<FcmTokenRepository>(
+      () => FcmTokenRepositoryImpl(Get.find<FcmTokenDataSource>()),
     );
 
     Get.lazyPut(() => SplashViewModel());
