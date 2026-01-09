@@ -60,6 +60,10 @@ class AuthViewModel extends GetxController {
       return UiState.success(loginStatus);
     } catch (e, stack) {
       log.d('카카오 로그인 실패\n $e \n $stack');
+      print('================= 카카오 로그인 에러 시작 =================');
+      print('에러 내용: $e');
+      print('스택 트레이스: $stack');
+      print('================= 카카오 로그인 에러 끝 =================');
       return UiState.failure('카카오 로그인에 실패했습니다.');
     }
   }
