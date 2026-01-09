@@ -11,10 +11,10 @@ ProfileReq _$ProfileReqFromJson(Map<String, dynamic> json) => ProfileReq(
       communityId: (json['communityId'] as num).toInt(),
       gender: json['gender'] as String,
       ageRange: json['ageRange'] as String,
-      residenceProvince: json['residenceProvince'] as String,
-      residenceDistrict: json['residenceDistrict'] as String,
-      hometownProvince: json['hometownProvince'] as String,
-      hometownDistrict: json['hometownDistrict'] as String,
+      residenceProvince: json['residenceProvince'] as String?,
+      residenceDistrict: json['residenceDistrict'] as String?,
+      hometownProvince: json['hometownProvince'] as String?,
+      hometownDistrict: json['hometownDistrict'] as String?,
     );
 
 Map<String, dynamic> _$ProfileReqToJson(ProfileReq instance) =>

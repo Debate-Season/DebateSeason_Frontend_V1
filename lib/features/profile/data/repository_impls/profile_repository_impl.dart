@@ -3,6 +3,7 @@ import 'package:debateseason_frontend_v1/features/profile/data/data_sources/prof
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_image_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/data/models/request/profile_req.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/entities/profile_entity.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/entities/terms_my_agree_entity.dart';
 import 'package:debateseason_frontend_v1/features/profile/domain/repositories/profile_repository.dart';
 import 'package:debateseason_frontend_v1/utils/base/ui_state.dart';
 
@@ -36,8 +37,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<UiState<void>> postProfile({
     required ProfileEntity entity,
   }) async {
+    final profileReq = ProfileReq.fromEntity(entity);
     final response = await dataSource.postProfiles(
-      body: ProfileReq.fromEntity(entity),
+      body: profileReq.toJsonForPost(), // Only sends required parameters
     );
 
     switch (response.status) {
@@ -61,8 +63,10 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<UiState<void>> patchProfile({required ProfileEntity entity}) async {
+    final profileReq = ProfileReq.fromEntity(entity);
     final response = await dataSource.patchProfiles(
-      body: ProfileReq.fromEntity(entity),
+      body: profileReq
+          .toJsonForPatch(), // Send all parameters with empty strings for nulls
     );
 
     switch (response.status) {
@@ -93,7 +97,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
     switch (response.status) {
       case 200 || 201:
-
         return (UiState.success(null));
       default:
         if (response.message.isEmpty) {
@@ -102,5 +105,21 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
         return (UiState.failure(response.message));
     }
+  }
+
+  @override
+  Future<UiState<List<TermsMyAgreeEntity>>> getTermsAgree() async {
+    final response = await dataSource.getTermsAgree();
+
+    switch (response.status) {
+      case 200:
+        return UiState.success(
+            response.data.map((e) => e.toEntity(e)).toList());
+      default:
+        if (response.message.isEmpty) {
+          UiState.failure('데이터 불러오기 실패');
+        }
+    }
+    return UiState.failure(response.message);
   }
 }

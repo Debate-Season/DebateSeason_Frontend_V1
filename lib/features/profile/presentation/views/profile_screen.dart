@@ -79,8 +79,6 @@ class ProfileScreen extends GetView<ProfileViewModel> {
             DeGaps.v40,
             _terms(),
             DeGaps.v40,
-            _policy(),
-            DeGaps.v40,
             _account(),
           ],
         ),
@@ -126,7 +124,9 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                       top: -2,
                       right: -2,
                       child: Container(
-                        padding: EdgeInsets.all(3),
+                        width: 24,
+                        height: 24,
+                        padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: DeColors.grey70,
                           borderRadius: BorderRadius.circular(6),
@@ -161,7 +161,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
               ),
               child: DeText(
                 '프로필 수정',
-                style: DeFonts.caption12M,
+                style: DeFonts.body14M,
               ),
             ),
           )
@@ -211,8 +211,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
         DeGaps.v16,
         DeGestureDetector(
           onTap: () async {
-            final Uri url =
-                Uri.parse('https://pf.kakao.com/_SZNxln');
+            final Uri url = Uri.parse('https://pf.kakao.com/_SZNxln');
             if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
               throw '카카오채널 연결 실패';
             }
@@ -237,24 +236,66 @@ class ProfileScreen extends GetView<ProfileViewModel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DeText(
-          '약관 및 개인정보 처리',
+          '법적 정보 및 정책',
           style: DeFonts.header18Sb,
         ),
         DeGaps.v6,
         DeGestureDetector(
           onTap: () {
-            Get.to(() => WebViewPage(
-                  url:
-                      'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
-                  title: '서비스 이용 약관',
-                ));
+            Get.toNamed(
+              GetRouterName.profileTerms,
+            );
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: DeDimensions.vertical12,
             child: Row(
               children: [
                 DeText(
-                  '서비스 이용 약관',
+                  '약관 및 개인정보 처리 동의',
+                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
+                ),
+                Spacer(),
+                SvgPicture.asset(DeIcons.icArrowRightGrey50),
+              ],
+            ),
+          ),
+        ),
+        DeGestureDetector(
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url:
+                      'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
+                  title: '개인정보 처리방침',
+                ));
+          },
+          child: Padding(
+            padding: DeDimensions.vertical12,
+            child: Row(
+              children: [
+                DeText(
+                  '개인정보 처리방침',
+                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
+                ),
+                Spacer(),
+                SvgPicture.asset(DeIcons.icArrowRightGrey50),
+              ],
+            ),
+          ),
+        ),
+        DeGestureDetector(
+          onTap: () {
+            Get.to(() => WebViewPage(
+                  url:
+                      'https://hurricane-ticket-d3c.notion.site/215034a1724480c9ab1bd9f8f691b408',
+                  title: '커뮤니티 이용가이드',
+                ));
+          },
+          child: Padding(
+            padding: DeDimensions.vertical12,
+            child: Row(
+              children: [
+                DeText(
+                  '커뮤니티 이용가이드',
                   style: DeFonts.body16M.copyWith(color: DeColors.grey30),
                 ),
                 Spacer(),
@@ -272,7 +313,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 ));
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
+            padding: DeDimensions.vertical12,
             child: Row(
               children: [
                 DeText(
@@ -283,60 +324,6 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                 SvgPicture.asset(DeIcons.icArrowRightGrey50),
               ],
             ),
-          ),
-        ),
-        DeGestureDetector(
-          onTap: () {
-            Get.to(() => WebViewPage(
-                  url:
-                      'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
-                  title: '개인정보 수집/이용 약관',
-                ));
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              children: [
-                DeText(
-                  '개인정보 수집/이용 약관',
-                  style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-                ),
-                Spacer(),
-                SvgPicture.asset(DeIcons.icArrowRightGrey50),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _policy() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        DeText(
-          '정책',
-          style: DeFonts.header18Sb,
-        ),
-        DeGaps.v16,
-        DeGestureDetector(
-          onTap: () async {
-            final Uri url = Uri.parse(
-                'https://hurricane-ticket-d3c.notion.site/215034a1724480c9ab1bd9f8f691b408?source=copy_link');
-            if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-              throw '커뮤니티 이용가이드 연결 실패';
-            }
-          },
-          child: Row(
-            children: [
-              DeText(
-                '커뮤니티 이용가이드',
-                style: DeFonts.body16M.copyWith(color: DeColors.grey30),
-              ),
-              Spacer(),
-              SvgPicture.asset(DeIcons.icArrowRightGrey50),
-            ],
           ),
         ),
       ],
@@ -390,7 +377,11 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   style: DeFonts.body16M.copyWith(color: DeColors.grey30),
                 ),
                 Spacer(),
-                SvgPicture.asset(DeIcons.icSignOutGrey50),
+                SvgPicture.asset(
+                  DeIcons.icSignOutGrey50,
+                  width: 20,
+                  height: 20,
+                ),
               ],
             ),
           ),
@@ -408,7 +399,11 @@ class ProfileScreen extends GetView<ProfileViewModel> {
                   style: DeFonts.body16M.copyWith(color: DeColors.grey30),
                 ),
                 Spacer(),
-                SvgPicture.asset(DeIcons.icSignOutGrey50),
+                SvgPicture.asset(
+                  DeIcons.icSignOutGrey50,
+                  width: 20,
+                  height: 20,
+                ),
               ],
             ),
           ),

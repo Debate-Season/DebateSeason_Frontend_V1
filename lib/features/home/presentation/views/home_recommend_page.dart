@@ -222,9 +222,11 @@ class HomeRecommendPage extends GetView<RecommendViewModel> {
           final mydebates = mydebateData.chatRoomResponse;
           final int len = mydebates?.length ?? 0;
           if (len == 0) {
-            return DeText(
-              '참여 중인 토론이 없습니다. 지금 바로 토론에 참여해보세요.',
-              style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+            return Center(
+              child: DeText(
+                '참여 중인 토론이 없습니다. \n지금 바로 토론에 참여해보세요.',
+                style: DeFonts.body16Sb.copyWith(color: DeColors.grey10),
+              ),
             );
           }
           return Padding(
