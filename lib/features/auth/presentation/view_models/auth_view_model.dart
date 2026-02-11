@@ -84,7 +84,9 @@ class AuthViewModel extends GetxController {
         socialType: AuthConstants.appleLoginType,
       );
 
-      await _getProfile();
+      if (loginStatus.$1 && loginStatus.$2) {
+        await _getProfile();
+      }
 
       return UiState.success(loginStatus);
     } catch (e, stack) {
@@ -102,6 +104,7 @@ class AuthViewModel extends GetxController {
         success: (profile) {
           _pref.setNickname(nickname: profile.nickname);
           _pref.setCommunity(community: profile.community.name);
+          _pref.setProfileStatus(profileStatus: true);
         },
         failure: (msg) {},
       );
