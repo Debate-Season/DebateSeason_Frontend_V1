@@ -3,12 +3,13 @@ import 'package:debateseason_frontend_v1/core/services/pip_controller.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/features/splash/bindings/splash_binding.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 
 import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
