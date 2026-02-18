@@ -25,16 +25,48 @@
 
 실제 프로젝트 구조(`snake_case` 폴더명)를 엄격히 따릅니다. 새로운 기능은 `lib/features/<feature_name>/` 하위에 위치합니다.
 
-- `data/data_sources/`: Retrofit API 인터페이스 (`.g.dart` 포함)
-- `data/models/request/` & `data/models/response/`: API DTO (`SomethingResponse`, `SomethingRequest`)
-- `data/repository_impls/`: Repository 구현체 (`~RepositoryImpl`)
-- `data/mappers/`: DTO ↔ Entity 변환 로직 (또는 `mapper/`)
-- `domain/entities/`: UI 로직에서 사용하는 순수 객체 (`~Entity`)
-- `domain/repositories/`: Repository 인터페이스 (`abstract class ~Repository`)
-- `presentation/views/`: UI 스크린 및 페이지 (`~Screen`, `~Page`)
-- `presentation/view_models/`: GetX Controller (`~ViewModel`)
-- `presentation/widgets/`: 해당 기능 전용 위젯
-- `bindings/`: GetX Binding 클래스
+```
+lib/
+├── core/                     # 핵심 인프라 (네트워크, 라우팅, 상수, 서비스)
+│   ├── constants/           # DeColors, DeFonts, DeGaps, DeIcons, DeDimensions
+│   ├── errors/              # 예외 처리
+│   ├── model/               # 공유 모델 (CursorPaginationModel 등)
+│   ├── network/             # DioClient(싱글턴), DioInterceptor
+│   ├── routers/             # GetRouter, GetRouterName
+│   └── services/            # StompService, SecureStorageService, PipController
+├── features/<feature>/       # 기능 모듈
+│   ├── domain/entities/     # Freezed Entity (~Entity)
+│   ├── domain/repositories/ # abstract class (~Repository)
+│   ├── data/models/         # Request DTO (~Req), Response DTO (~Res)
+│   ├── data/data_sources/   # Retrofit API 인터페이스 (~DataSource, .g.dart)
+│   ├── data/mappers/        # DTO ↔ Entity 변환 (또는 모델 내 toEntity())
+│   ├── data/repository_impls/ # Repository 구현체 (~RepositoryImpl)
+│   ├── bindings/            # GetX Binding 클래스
+│   └── presentation/
+│       ├── view_models/     # GetxController (~ViewModel)
+│       ├── views/           # UI 스크린 (~Screen)
+│       └── widgets/         # 기능 전용 위젯
+├── common/                  # 공유 상수, Enum (OpinionType 등)
+├── utils/                   # 유틸리티
+│   └── base/               # BaseRes<T>, NullableBaseRes<T>, UiState<T>
+└── widgets/                 # 공용 위젯 (De* 접두사)
+```
+
+### 네이밍 규칙
+
+| 대상 | 규칙 | 예시 |
+|------|------|------|
+| 파일명 | snake_case | `auth_view_model.dart` |
+| ViewModel | `*ViewModel` (extends GetxController) | `ChatViewModel` |
+| Screen | `*Screen` (extends GetView / StatelessWidget) | `ChatRoomScreen` |
+| Repository (인터페이스) | `*Repository` (abstract) | `UsersLoginRepository` |
+| Repository (구현체) | `*RepositoryImpl` | `UsersLoginRepositoryImpl` |
+| DataSource | `*DataSource` (Retrofit) | `UsersLoginDataSource` |
+| Entity | `*Entity` (Freezed) | `ChatMessageEntity` |
+| Request DTO | `*Req` | `LoginReq` |
+| Response DTO | `*Res` | `LoginRes` |
+| 공용 위젯 | `De*` 접두사 | `DeScaffold`, `DeButton`, `DeCachedImage` |
+| 디자인 상수 | `De*` 접두사 | `DeColors`, `DeFonts`, `DeGaps` |
 
 ## 3) 비즈니스 규칙 및 용어
 
@@ -47,7 +79,7 @@
 ## 4) 코드 스타일 및 유틸리티
 
 - **Base Classes 활용:**
-    - 상태 관리: `lib/utils/base/ui_state.dart`의 `UIState<T>`를 적극 활용합니다.
+    - 상태 관리: `lib/utils/base/ui_state.dart`의 `UiState<T>`를 적극 활용합니다.
     - API 응답: `BaseRes<T>` 또는 `NullableBaseRes<T>` 래퍼를 사용합니다.
 - **Immutability:** 변수는 `final`, 생성자는 가능한 `const`를 사용합니다.
 - **Null-safety:** `!` 연산자 사용을 엄격히 금지합니다. `?.` 및 `??` 연산자를 활용하십시오.
@@ -55,12 +87,51 @@
 - **Constraints:**
     - 파일당 100줄 이내 유지 (초과 시 파일 분리).
     - 함수는 30라인 이내 유지 (단일 책임 원칙).
-    - `print`, `debugPrint` 사용 금지 (필요 시 `lib/utils/logger.dart` 활용).
+    - `print`, `debugPrint` 사용 금지 → `lib/utils/logger.dart`의 `log` 인스턴스 사용 (`log.d()`, `log.e()`).
 
 ## 5) 멀티 파일 출력 순서
 
 파일 생성 시 의존성이 낮은 순서대로 출력하십시오:
-1) `domain/` (entities -> repositories)
-2) `data/` (models -> data_sources -> mappers -> repository_impls)
+1) `domain/` (entities → repositories)
+2) `data/` (models → data_sources → mappers → repository_impls)
 3) `bindings/`
-4) `presentation/` (view_models -> views -> widgets)
+4) `presentation/` (view_models → views → widgets)
+
+## 6) 네트워크 레이어
+
+- **DioClient:** 싱글턴. Base URL은 `.env.dev` / `.env.prod`에서 로드 (`flutter_dotenv`).
+- **DioInterceptor:** Access Token 자동 주입, 응답/에러 로깅, 401 시 토큰 갱신 후 요청 재시도 (실패 시 로그아웃).
+- **Retrofit DataSource:** `@RestApi`, `@GET`, `@POST` 등. 반환 타입은 `Future<BaseRes<T>>`.
+- **WebSocket:** `StompService` (STOMP 프로토콜). 구독: `/topic/room{roomId}`, 발행: `/stomp/chat.room.{roomId}`.
+- **환경변수:** `BASE_URL`, `WEB_SOCKET_BASE_URL`, `KAKAO_APP_KEY`, `AMPLITUDE_API_KEY`.
+
+## 7) 라우팅
+
+- GetX Named Routes 사용.
+- 라우트 이름: `GetRouterName` 상수 클래스에 정의.
+- 라우트 목록: `GetRouter.getPages`에 등록. 각 라우트에 Binding 연결.
+- 네비게이션: `Get.toNamed()`, `Get.offNamed()`, `Get.offAllNamed()`.
+
+## 8) 인증 흐름
+
+- Kakao(Android) / Apple(iOS) 소셜 로그인.
+- JWT: AccessToken + RefreshToken → `flutter_secure_storage`에 저장.
+- 401 → DioInterceptor에서 자동 토큰 갱신 → 갱신 실패 시 SecureStorage 초기화 후 로그인 화면 이동.
+
+## 9) 코드 생성
+
+Freezed Entity, Retrofit DataSource, JsonSerializable Model 수정 후 반드시 실행:
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+생성 파일: `*.freezed.dart`, `*.g.dart` — 이 파일들은 직접 수정하지 마십시오.
+
+## 10) 금지 사항
+
+- `print()` / `debugPrint()` 사용 금지.
+- 하드코딩된 색상/폰트/간격 사용 금지 → `DeColors`, `DeFonts`, `DeGaps`, `DeDimensions` 사용.
+- ViewModel에서 직접 UI 위젯(BuildContext) 참조 금지.
+- Data 레이어에서 Domain 레이어 구현체 참조 금지 (의존성 역전 원칙).
+- `Get.put()` 남용 금지 → `Get.lazyPut()` 우선 사용.
+- `!` (bang operator) 사용 금지 → `?.`, `??` 사용.
+- 새로운 패키지 임의 추가 금지.
