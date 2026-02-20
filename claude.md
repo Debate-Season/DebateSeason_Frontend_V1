@@ -100,11 +100,11 @@ lib/
 
 ## 6) 네트워크 레이어
 
-- **DioClient:** 싱글턴. Base URL은 `.env.dev` / `.env.prod`에서 로드 (`flutter_dotenv`).
+- **DioClient:** 싱글턴. Base URL은 플랫폼별 환경 파일(`.env.dev.android` / `.env.dev.ios` / `.env.prod`)에서 로드 (`flutter_dotenv`).
 - **DioInterceptor:** Access Token 자동 주입, 응답/에러 로깅, 401 시 토큰 갱신 후 요청 재시도 (실패 시 로그아웃).
 - **Retrofit DataSource:** `@RestApi`, `@GET`, `@POST` 등. 반환 타입은 `Future<BaseRes<T>>`.
 - **WebSocket:** `StompService` (STOMP 프로토콜). 구독: `/topic/room{roomId}`, 발행: `/stomp/chat.room.{roomId}`.
-- **환경변수:** `BASE_URL`, `WEB_SOCKET_BASE_URL`, `KAKAO_APP_KEY`, `AMPLITUDE_API_KEY`.
+- **환경변수:** 환경 파일을 직접 참조. 변수 키 이름은 코드베이스에서 확인.
 
 ## 7) 라우팅
 
