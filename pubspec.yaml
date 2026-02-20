@@ -90,7 +90,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - .env.dev
+    - .env.dev.android
+    - .env.dev.ios
     - .env.prod
     - assets/fonts/
     - assets/icons/
