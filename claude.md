@@ -45,7 +45,8 @@ lib/
 │   └── presentation/
 │       ├── view_models/     # GetxController (~ViewModel)
 │       ├── views/           # UI 스크린 (~Screen)
-│       └── widgets/         # 기능 전용 위젯
+│       ├── widgets/         # 기능 전용 위젯
+│       └── <feature>_constants.dart  # 해당 기능 전용 문자열 상수
 ├── common/                  # 공유 상수, Enum (OpinionType 등)
 ├── utils/                   # 유틸리티
 │   └── base/               # BaseRes<T>, NullableBaseRes<T>, UiState<T>
@@ -67,14 +68,14 @@ lib/
 | Response DTO | `*Res` | `LoginRes` |
 | 공용 위젯 | `De*` 접두사 | `DeScaffold`, `DeButton`, `DeCachedImage` |
 | 디자인 상수 | `De*` 접두사 | `DeColors`, `DeFonts`, `DeGaps` |
+| 기능별 문자열 상수 | `<feature>_constants.dart` | `home_constants.dart` |
 
 ## 3) 비즈니스 규칙 및 용어
 
-- **Prohibited Terms (Legacy Fix):**
-    - `homeData` (사용 금지) → **`recommend`** 사용
-    - `news` (사용 금지) → **`youtubeLive`** 사용
 - **Classes:** PascalCase / **Files:** snake_case
-- **Constants:** 모든 문자열/스타일 상수는 `lib/core/constants/`를 참조하며 하드코딩을 금지합니다.
+- **Constants:**
+    - 디자인 시스템 상수(색상·폰트·간격)는 `lib/core/constants/`에 정의합니다.
+    - 각 화면에서만 사용하는 문자열 상수는 해당 기능의 `presentation/constants/` 내에서 정의합니다. `lib/core/constants/`에 혼용 금지.
 
 ## 4) 코드 스타일 및 유틸리티
 
