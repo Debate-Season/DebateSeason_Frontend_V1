@@ -24,30 +24,13 @@ jobs:
           DATA_ANDROID: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo "$DATA_ANDROID" > android/app/google-services.json
 
-      # 🔥 .env.dev 파일 생성
-      - name: Create .env.dev file
-        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+      # 🔥 .env.dev.android 파일 생성
+      - name: Create .env.dev.android file
+        run: echo "${{ secrets.ENV_DEV_ANDROID }}" > .env.dev.android
 
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
-
-      # 🔥 브랜치 조건에 따라 .env 선택
-      - name: Select .env file based on branch
-        run: |
-          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
-          echo "Target branch: $TARGET_BRANCH"
-
-          if [[ "$TARGET_BRANCH" == "develop" ]]; then
-            echo "Using .env.dev"
-            cp .env.dev .env
-          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
-            echo "Using .env.prod"
-            cp .env.prod .env
-          else
-            echo "No environment matched for this branch ($TARGET_BRANCH)"
-            exit 1
-          fi
 
       # 🔥 Flutter SDK 설치 및 캐시 활성화
       - name: Install Flutter SDK
@@ -97,30 +80,13 @@ jobs:
           DATA_IOS: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
         run: echo "$DATA_IOS" > ios/Runner/GoogleService-Info.plist
 
-      # 🔥 .env.dev 파일 생성
-      - name: Create .env.dev file
-        run: echo "${{ secrets.ENV_DEV }}" > .env.dev
+      # 🔥 .env.dev.ios 파일 생성
+      - name: Create .env.dev.ios file
+        run: echo "${{ secrets.ENV_DEV_IOS }}" > .env.dev.ios
 
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
-
-      # 🔥 브랜치 조건에 따라 .env 선택
-      - name: Select .env file based on branch
-        run: |
-          TARGET_BRANCH="${{ github.event_name == 'pull_request' && github.base_ref || github.ref_name }}"
-          echo "Target branch: $TARGET_BRANCH"
-
-          if [[ "$TARGET_BRANCH" == "develop" ]]; then
-            echo "Using .env.dev"
-            cp .env.dev .env
-          elif [[ "$TARGET_BRANCH" == "main" || "$TARGET_BRANCH" == release/* ]]; then
-            echo "Using .env.prod"
-            cp .env.prod .env
-          else
-            echo "No environment matched for this branch ($TARGET_BRANCH)"
-            exit 1
-          fi
 
       # 🔥 Flutter 클린 및 의존성 설치
       - name: Clean and Install Flutter dependencies
