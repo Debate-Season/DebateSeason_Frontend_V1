@@ -28,6 +28,10 @@ jobs:
       - name: Create .env.dev.android file
         run: echo "${{ secrets.ENV_DEV_ANDROID }}" > .env.dev.android
 
+      # 🔥 .env.dev.ios 파일 생성
+      - name: Create .env.dev.ios file
+        run: echo "${{ secrets.ENV_DEV_IOS }}" > .env.dev.ios
+
       # 🔥 .env.prod 파일 생성
       - name: Create .env.prod file
         run: echo "${{ secrets.ENV_PROD }}" > .env.prod
