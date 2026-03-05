@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 
 import 'core/constants/de_colors.dart';
 import 'core/routers/get_router.dart';
@@ -20,7 +21,8 @@ void main() async {
   final prefsService = SharedPreferencesService();
   await prefsService.init();
   if (kDebugMode) {
-    await dotenv.load(fileName: '.env.dev');
+    final envFile = Platform.isAndroid ? '.env.dev.android' : '.env.dev.ios';
+    await dotenv.load(fileName: envFile);
   } else {
     await dotenv.load(fileName: '.env.prod');
     AmplitudeUtil.init();
