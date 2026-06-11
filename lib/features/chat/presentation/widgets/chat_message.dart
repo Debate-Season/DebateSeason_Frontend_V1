@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/core/constants/de_gaps.dart';
 import 'package:debateseason_frontend_v1/core/constants/de_icons.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/features/chat/presentation/widgets/reaction_picker.dart';
+import 'package:debateseason_frontend_v1/features/profile/domain/type/image_type.dart';
 import 'package:debateseason_frontend_v1/widgets/de_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -133,6 +134,7 @@ class _ChatMessageState extends State<ChatMessage> {
               sender: widget.chatMessageEntity.sender,
               userCommunity: widget.chatMessageEntity.userCommunity,
               timeStamp: widget.chatMessageEntity.timeStamp,
+              profileColor: widget.chatMessageEntity.profileColor,
             ),
             DeGaps.v4,
             _chatMessageBody(
@@ -150,7 +152,12 @@ class _ChatMessageState extends State<ChatMessage> {
   Widget _chatMessageHeader(
       {required String sender,
       required String userCommunity,
-      required DateTime timeStamp}) {
+      required DateTime timeStamp,
+      String? profileColor}) {
+    // profileColor 가 null(과거/익명 메시지)이면 중립 회색으로 표시.
+    final avatarColor = profileColor == null
+        ? DeColors.grey50
+        : ImageType.fromEngName(profileColor).color;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -158,7 +165,7 @@ class _ChatMessageState extends State<ChatMessage> {
           width: 20,
           height: 20,
           decoration: BoxDecoration(
-            color: Color(0xFFE2B84C),
+            color: avatarColor,
             borderRadius: BorderRadius.circular(50),
           ),
         ),

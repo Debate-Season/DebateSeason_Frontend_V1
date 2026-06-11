@@ -15,6 +15,7 @@ ChatMessageEntity _$ChatMessageEntityFromJson(Map<String, dynamic> json) =>
       opinionType: OpinionType.fromJson(json['opinionType'] as String),
       userCommunity: json['userCommunity'] as String,
       timeStamp: DateTime.parse(json['timeStamp'] as String),
+      profileColor: json['profileColor'] as String?,
     );
 
 Map<String, dynamic> _$ChatMessageEntityToJson(ChatMessageEntity instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$ChatMessageEntityToJson(ChatMessageEntity instance) =>
       'opinionType': OpinionType.toJsonUpper(instance.opinionType),
       'userCommunity': instance.userCommunity,
       'timeStamp': instance.timeStamp.toIso8601String(),
+      'profileColor': instance.profileColor,
     };

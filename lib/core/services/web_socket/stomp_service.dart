@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
+import 'package:debateseason_frontend_v1/features/auth/domain/repositories/auth_reissue_repository.dart';
 import 'package:debateseason_frontend_v1/features/chat/domain/entities/chat_message_entity.dart';
 import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 class StompService {
@@ -16,14 +19,22 @@ class StompService {
   late StompClient stompClient;
   final _chatStream = StreamController<ChatMessageEntity>.broadcast();
 
+  int? _chatRoomId;
+  bool _hasRetriedAuth = false;
+
   Stream<ChatMessageEntity> get chatStream => _chatStream.stream;
 
-  void connectStomp({required int chatRoomId}) {
+  void connectStomp({
+    required int chatRoomId,
+    required String accessToken,
+  }) {
+    _chatRoomId = chatRoomId;
     stompClient = StompClient(
       config: StompConfig(
         url: dotenv.get("WEB_SOCKET_BASE_URL"),
         onConnect: (frame) {
           log.d("STOMP 연결 성공");
+          _hasRetriedAuth = false;
           _subscribeStomp(chatRoomId: chatRoomId);
         },
         onWebSocketError: (error) {
@@ -31,6 +42,7 @@ class StompService {
         },
         onStompError: (frame) {
           log.d("STOMP 프로토콜 에러: ${frame.body}");
+          _handleStompError(frame);
         },
         onDisconnect: (frame) {
           log.d('STOMP 연결 해제');
@@ -40,10 +52,42 @@ class StompService {
         },
         stompConnectHeaders: {
           'heart-beat': '5000,5000',
+          'Authorization': accessToken,
         },
       ),
     );
     stompClient.activate();
+  }
+
+  // 인증 토큰 만료/무효 ERROR 프레임 수신 시 1회만 갱신 후 재연결.
+  Future<void> _handleStompError(StompFrame frame) async {
+    final body = frame.body ?? '';
+    final isAuthError = body.contains('인증') || body.contains('토큰');
+    if (!isAuthError || _hasRetriedAuth) return;
+
+    _hasRetriedAuth = true;
+    await _reissueAndReconnect();
+  }
+
+  Future<void> _reissueAndReconnect() async {
+    final roomId = _chatRoomId;
+    if (roomId == null) return;
+
+    try {
+      final storage = SecureStorageService();
+      final refreshToken = await storage.getRefreshToken();
+      final status = await Get.find<AuthReissueRepository>()
+          .postAuthReissue(refreshToken: refreshToken);
+      if (status != 200) return;
+
+      final newToken = await storage.getAccessToken();
+      if (newToken.isEmpty) return;
+
+      disconnect();
+      connectStomp(chatRoomId: roomId, accessToken: newToken);
+    } catch (e, stack) {
+      log.d('$e \n $stack');
+    }
   }
 
   void _subscribeStomp({required int chatRoomId}) {

@@ -16,6 +16,7 @@ class ChatMessageEntity {
   OpinionType opinionType;
   String userCommunity;
   DateTime timeStamp;
+  String? profileColor;
 
   ChatMessageEntity({
     required this.id,
@@ -25,6 +26,7 @@ class ChatMessageEntity {
     required this.opinionType,
     required this.userCommunity,
     required this.timeStamp,
+    this.profileColor,
   });
 
   factory ChatMessageEntity.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +37,7 @@ class ChatMessageEntity {
   Map<String, dynamic> toStompMessage() {
     final Map<String, dynamic> json = toJson();
     json.remove('id');
+    json.remove('profileColor');
     json['timeStamp'] = null;
     return json;
   }

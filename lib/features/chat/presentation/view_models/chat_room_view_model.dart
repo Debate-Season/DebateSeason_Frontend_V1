@@ -1,5 +1,6 @@
 import 'package:debateseason_frontend_v1/core/model/cursor_pagination_model.dart';
 import 'package:debateseason_frontend_v1/core/routers/get_router_name.dart';
+import 'package:debateseason_frontend_v1/core/services/secure_storage_service.dart';
 import 'package:debateseason_frontend_v1/core/services/shared_preferences_service.dart';
 import 'package:debateseason_frontend_v1/core/services/web_socket/stomp_service.dart';
 import 'package:debateseason_frontend_v1/features/chat/data/models/room_res.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 class ChatRoomViewModel extends GetxController {
   final StompService _stompService = StompService();
   final SharedPreferencesService _pref = SharedPreferencesService();
+  final SecureStorageService _secureStorage = SecureStorageService();
   final ChatRoomsMessagesRepository _chatRoomsMessagesRepository =
       Get.find<ChatRoomsMessagesRepository>();
 
@@ -48,9 +50,17 @@ class ChatRoomViewModel extends GetxController {
     super.onClose();
   }
 
-  void initializeStomp() {
+  Future<void> initializeStomp() async {
     // connect
-    _stompService.connectStomp(chatRoomId: _room.value.chatRoomId);
+    final accessToken = await _secureStorage.getAccessToken();
+    if (accessToken.isEmpty) {
+      log.d('AccessToken 이 없어 STOMP 연결을 시도하지 않습니다.');
+      return;
+    }
+    _stompService.connectStomp(
+      chatRoomId: _room.value.chatRoomId,
+      accessToken: accessToken,
+    );
     _stompService.chatStream.listen(
       (chatMessage) {
         // TODO:
@@ -71,6 +81,7 @@ class ChatRoomViewModel extends GetxController {
               opinionType: chatMessage.opinionType,
               userCommunity: chatMessage.userCommunity,
               timeStamp: chatMessage.timeStamp,
+              profileColor: chatMessage.profileColor,
             ),
             ...(state.value as CursorPagination).data,
           ]);
