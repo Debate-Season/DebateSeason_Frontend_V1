@@ -57,19 +57,19 @@ class ProfileTermsPage extends GetView<ProfileViewModel> {
           termsType: 'SERVICE',
           label: '서비스 이용약관 동의',
           url:
-              'https://hurricane-ticket-d3c.notion.site/18d034a172448095aa0ecc41849e9508',
+              'https://rosy-ocean.notion.site/18d034a172448095aa0ecc41849e9508',
         ),
         _termsItem(
           termsType: 'PRIVACY',
           label: '개인정보 수집/이용 동의',
           url:
-              'https://hurricane-ticket-d3c.notion.site/24f034a172448015bcc9dc08af777c3e',
+              'https://rosy-ocean.notion.site/24f034a172448015bcc9dc08af777c3e',
         ),
         _termsItem(
           termsType: 'THIRD_PARTY',
           label: '개인정보 제3자 제공 동의',
           url:
-              'http://hurricane-ticket-d3c.notion.site/3-24f034a1724480848cbfe32283e0ea95',
+              'https://rosy-ocean.notion.site/3-24f034a1724480848cbfe32283e0ea95',
         ),
       ],
     );

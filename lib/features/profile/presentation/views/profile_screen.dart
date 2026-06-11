@@ -264,7 +264,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           onTap: () {
             Get.to(() => WebViewPage(
                   url:
-                      'https://hurricane-ticket-d3c.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
+                      'https://rosy-ocean.notion.site/1a9034a1724480dba1c3d5a0ce6b696e',
                   title: '개인정보 처리방침',
                 ));
           },
@@ -286,7 +286,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           onTap: () {
             Get.to(() => WebViewPage(
                   url:
-                      'https://hurricane-ticket-d3c.notion.site/215034a1724480c9ab1bd9f8f691b408',
+                      'https://rosy-ocean.notion.site/215034a1724480c9ab1bd9f8f691b408',
                   title: '커뮤니티 이용가이드',
                 ));
           },
@@ -308,7 +308,7 @@ class ProfileScreen extends GetView<ProfileViewModel> {
           onTap: () {
             Get.to(() => WebViewPage(
                   url:
-                      'https://hurricane-ticket-d3c.notion.site/191034a1724480c291faf94db9e895ef',
+                      'https://rosy-ocean.notion.site/191034a1724480c291faf94db9e895ef',
                   title: '아동 안전 표준 정책',
                 ));
           },
