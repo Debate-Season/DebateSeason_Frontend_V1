@@ -40,5 +40,10 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      # 일부 Pod이 자체적으로 9.0/10.0/11.0을 들고 있어 발생하는
+      # 'IPHONEOS_DEPLOYMENT_TARGET' 경고를 앱 최소 타깃(13.0)으로 정렬해 제거
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
   end
 end
