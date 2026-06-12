@@ -7,10 +7,10 @@ part of 'community_res.dart';
 // **************************************************************************
 
 CommunityRes _$CommunityResFromJson(Map<String, dynamic> json) => CommunityRes(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      iconUrl: json['iconUrl'] as String,
-    );
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  iconUrl: json['iconUrl'] as String,
+);
 
 Map<String, dynamic> _$CommunityResToJson(CommunityRes instance) =>
     <String, dynamic>{

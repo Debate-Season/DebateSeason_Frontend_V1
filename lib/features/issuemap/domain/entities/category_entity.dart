@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'category_entity.freezed.dart';
 
 @freezed
-class CategoryEntity with _$CategoryEntity {
+abstract class CategoryEntity with _$CategoryEntity {
   factory CategoryEntity({
     required int issueId,
     required String title,

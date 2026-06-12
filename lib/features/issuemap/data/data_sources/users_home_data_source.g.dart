@@ -2,11 +2,13 @@
 
 part of 'users_home_data_source.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _UsersHomeDataSource implements UsersHomeDataSource {
   _UsersHomeDataSource(this._dio, {this.baseUrl, this.errorLogger});
@@ -40,14 +42,14 @@ class _UsersHomeDataSource implements UsersHomeDataSource {
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<UsersHomeRes>(
-                  (i) => UsersHomeRes.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
+                  .map<UsersHomeRes>(
+                    (i) => UsersHomeRes.fromJson(i as Map<String, dynamic>),
+                  )
+                  .toList()
             : List.empty(),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -80,3 +82,5 @@ class _UsersHomeDataSource implements UsersHomeDataSource {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

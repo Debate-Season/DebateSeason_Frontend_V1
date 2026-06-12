@@ -7,11 +7,11 @@ part of 'users_home_res.dart';
 // **************************************************************************
 
 UsersHomeRes _$UsersHomeResFromJson(Map<String, dynamic> json) => UsersHomeRes(
-      issueId: (json['issueId'] as num).toInt(),
-      title: json['title'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      countChatRoom: (json['countChatRoom'] as num).toInt(),
-    );
+  issueId: (json['issueId'] as num).toInt(),
+  title: json['title'] as String,
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  countChatRoom: (json['countChatRoom'] as num).toInt(),
+);
 
 Map<String, dynamic> _$UsersHomeResToJson(UsersHomeRes instance) =>
     <String, dynamic>{

@@ -7,13 +7,13 @@ part of 'media_item_res.dart';
 // **************************************************************************
 
 MediaItemRes _$MediaItemResFromJson(Map<String, dynamic> json) => MediaItemRes(
-      id: (json['id'] as num).toInt(),
-      title: json['title'] as String,
-      supplier: json['supplier'] as String,
-      outdated: DateTime.parse(json['outdated'] as String),
-      url: json['url'] as String,
-      src: json['src'] as String?,
-    );
+  id: (json['id'] as num).toInt(),
+  title: json['title'] as String,
+  supplier: json['supplier'] as String,
+  outdated: DateTime.parse(json['outdated'] as String),
+  url: json['url'] as String,
+  src: json['src'] as String?,
+);
 
 Map<String, dynamic> _$MediaItemResToJson(MediaItemRes instance) =>
     <String, dynamic>{

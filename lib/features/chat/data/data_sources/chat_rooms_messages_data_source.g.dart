@@ -7,30 +7,32 @@ part of 'chat_rooms_messages_data_source.dart';
 // **************************************************************************
 
 ChatRoomsMessagesRes _$ChatRoomsMessagesResFromJson(
-        Map<String, dynamic> json) =>
-    ChatRoomsMessagesRes(
-      items: (json['items'] as List<dynamic>)
-          .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      nextCursor: ChatRoomsMessagesRes._stringToInt(json['nextCursor']),
-      hasMore: json['hasMore'] as bool,
-      totalCount: (json['totalCount'] as num).toInt(),
-    );
+  Map<String, dynamic> json,
+) => ChatRoomsMessagesRes(
+  items: (json['items'] as List<dynamic>)
+      .map((e) => ChatMessageEntity.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  nextCursor: ChatRoomsMessagesRes._stringToInt(json['nextCursor']),
+  hasMore: json['hasMore'] as bool,
+  totalCount: (json['totalCount'] as num).toInt(),
+);
 
 Map<String, dynamic> _$ChatRoomsMessagesResToJson(
-        ChatRoomsMessagesRes instance) =>
-    <String, dynamic>{
-      'items': instance.items,
-      'nextCursor': instance.nextCursor,
-      'hasMore': instance.hasMore,
-      'totalCount': instance.totalCount,
-    };
+  ChatRoomsMessagesRes instance,
+) => <String, dynamic>{
+  'items': instance.items,
+  'nextCursor': instance.nextCursor,
+  'hasMore': instance.hasMore,
+  'totalCount': instance.totalCount,
+};
+
+// dart format off
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _ChatRoomsMessagesDataSource implements ChatRoomsMessagesDataSource {
   _ChatRoomsMessagesDataSource(this._dio, {this.baseUrl, this.errorLogger});
@@ -69,7 +71,7 @@ class _ChatRoomsMessagesDataSource implements ChatRoomsMessagesDataSource {
         (json) => ChatRoomsMessagesRes.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -103,7 +105,7 @@ class _ChatRoomsMessagesDataSource implements ChatRoomsMessagesDataSource {
         (json) => json as dynamic,
       );
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     return _value;
@@ -136,3 +138,5 @@ class _ChatRoomsMessagesDataSource implements ChatRoomsMessagesDataSource {
     return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }
+
+// dart format on

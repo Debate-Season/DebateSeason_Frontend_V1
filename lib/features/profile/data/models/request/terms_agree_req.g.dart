@@ -14,9 +14,7 @@ TermsAgreeReq _$TermsAgreeReqFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$TermsAgreeReqToJson(TermsAgreeReq instance) =>
-    <String, dynamic>{
-      'agreements': instance.agreements,
-    };
+    <String, dynamic>{'agreements': instance.agreements};
 
 AgreementsReq _$AgreementsReqFromJson(Map<String, dynamic> json) =>
     AgreementsReq(
@@ -25,7 +23,4 @@ AgreementsReq _$AgreementsReqFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AgreementsReqToJson(AgreementsReq instance) =>
-    <String, dynamic>{
-      'termsId': instance.termsId,
-      'agreed': instance.agreed,
-    };
+    <String, dynamic>{'termsId': instance.termsId, 'agreed': instance.agreed};

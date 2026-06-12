@@ -7,15 +7,15 @@ part of 'chat_room_res.dart';
 // **************************************************************************
 
 ChatRoomRes _$ChatRoomResFromJson(Map<String, dynamic> json) => ChatRoomRes(
-      chatRoomId: (json['chatRoomId'] as num).toInt(),
-      title: json['title'] as String,
-      content: json['content'] as String,
-      agree: (json['agree'] as num).toInt(),
-      disagree: (json['disagree'] as num).toInt(),
-      createdAt: json['createdAt'] as String,
-      opinion: json['opinion'] as String,
-      time: json['time'] as String,
-    );
+  chatRoomId: (json['chatRoomId'] as num).toInt(),
+  title: json['title'] as String,
+  content: json['content'] as String,
+  agree: (json['agree'] as num).toInt(),
+  disagree: (json['disagree'] as num).toInt(),
+  createdAt: json['createdAt'] as String,
+  opinion: json['opinion'] as String,
+  time: json['time'] as String,
+);
 
 Map<String, dynamic> _$ChatRoomResToJson(ChatRoomRes instance) =>
     <String, dynamic>{

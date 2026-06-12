@@ -7,7 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'recommend_entity.freezed.dart';
 
 @freezed
-class RecommendEntity with _$RecommendEntity {
+abstract class RecommendEntity with _$RecommendEntity {
   factory RecommendEntity({
     required List<BreakingNewsEntity> breakingNews,
     required List<BestChatRoomEntity> top5BestChatRooms,

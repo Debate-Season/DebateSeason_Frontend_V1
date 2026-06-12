@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'report_reason_selection.freezed.dart';
 
 @freezed
-class ReportReasonSelection with _$ReportReasonSelection {
+abstract class ReportReasonSelection with _$ReportReasonSelection {
   const factory ReportReasonSelection({
     @Default(false) bool isAbusive, // 욕설
     @Default(false) bool isSexual, // 음란

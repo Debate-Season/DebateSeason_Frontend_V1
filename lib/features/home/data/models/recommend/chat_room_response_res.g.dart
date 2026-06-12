@@ -19,14 +19,14 @@ ChatRoomResponseRes _$ChatRoomResponseResFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ChatRoomResponseResToJson(
-        ChatRoomResponseRes instance) =>
-    <String, dynamic>{
-      'chatRoomId': instance.chatRoomId,
-      'title': instance.title,
-      'content': instance.content,
-      'agree': instance.agree,
-      'disagree': instance.disagree,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'opinion': OpinionType.toJsonUpper(instance.opinion),
-      'time': instance.time,
-    };
+  ChatRoomResponseRes instance,
+) => <String, dynamic>{
+  'chatRoomId': instance.chatRoomId,
+  'title': instance.title,
+  'content': instance.content,
+  'agree': instance.agree,
+  'disagree': instance.disagree,
+  'createdAt': instance.createdAt.toIso8601String(),
+  'opinion': OpinionType.toJsonUpper(instance.opinion),
+  'time': instance.time,
+};

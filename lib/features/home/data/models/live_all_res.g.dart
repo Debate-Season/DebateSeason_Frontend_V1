@@ -7,12 +7,10 @@ part of 'live_all_res.dart';
 // **************************************************************************
 
 LiveAllRes _$LiveAllResFromJson(Map<String, dynamic> json) => LiveAllRes(
-      youtubeLives: (json['youtubeLives'] as List<dynamic>)
-          .map((e) => YoutubeLiveRes.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  youtubeLives: (json['youtubeLives'] as List<dynamic>)
+      .map((e) => YoutubeLiveRes.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$LiveAllResToJson(LiveAllRes instance) =>
-    <String, dynamic>{
-      'youtubeLives': instance.youtubeLives,
-    };
+    <String, dynamic>{'youtubeLives': instance.youtubeLives};

@@ -7,11 +7,7 @@ part of 'auth_reissue_req.dart';
 // **************************************************************************
 
 AuthReissueReq _$AuthReissueReqFromJson(Map<String, dynamic> json) =>
-    AuthReissueReq(
-      refreshToken: json['refreshToken'] as String,
-    );
+    AuthReissueReq(refreshToken: json['refreshToken'] as String);
 
 Map<String, dynamic> _$AuthReissueReqToJson(AuthReissueReq instance) =>
-    <String, dynamic>{
-      'refreshToken': instance.refreshToken,
-    };
+    <String, dynamic>{'refreshToken': instance.refreshToken};

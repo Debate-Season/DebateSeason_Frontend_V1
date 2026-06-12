@@ -5,7 +5,7 @@ part 'room_res.freezed.dart';
 part 'room_res.g.dart';
 
 @freezed
-class RoomRes with _$RoomRes {
+abstract class RoomRes with _$RoomRes {
   const factory RoomRes({
     required int chatRoomId,
     required String title,

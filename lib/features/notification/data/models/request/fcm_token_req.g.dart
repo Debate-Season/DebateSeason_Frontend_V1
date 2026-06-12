@@ -7,10 +7,10 @@ part of 'fcm_token_req.dart';
 // **************************************************************************
 
 FcmTokenReq _$FcmTokenReqFromJson(Map<String, dynamic> json) => FcmTokenReq(
-      fcmToken: json['fcmToken'] as String,
-      deviceId: json['deviceId'] as String,
-      deviceType: json['deviceType'] as String,
-    );
+  fcmToken: json['fcmToken'] as String,
+  deviceId: json['deviceId'] as String,
+  deviceType: json['deviceType'] as String,
+);
 
 Map<String, dynamic> _$FcmTokenReqToJson(FcmTokenReq instance) =>
     <String, dynamic>{

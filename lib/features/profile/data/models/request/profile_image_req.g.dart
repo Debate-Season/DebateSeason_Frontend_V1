@@ -7,11 +7,7 @@ part of 'profile_image_req.dart';
 // **************************************************************************
 
 ProfileImageReq _$ProfileImageReqFromJson(Map<String, dynamic> json) =>
-    ProfileImageReq(
-      profileImage: json['profileImage'] as String,
-    );
+    ProfileImageReq(profileImage: json['profileImage'] as String);
 
 Map<String, dynamic> _$ProfileImageReqToJson(ProfileImageReq instance) =>
-    <String, dynamic>{
-      'profileImage': instance.profileImage,
-    };
+    <String, dynamic>{'profileImage': instance.profileImage};

@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'chat_room_message_entity.freezed.dart';
 
 @freezed
-class ChatRoomMessageEntity with _$ChatRoomMessageEntity {
+abstract class ChatRoomMessageEntity with _$ChatRoomMessageEntity {
   factory ChatRoomMessageEntity({
     required String nextCursor,
     required List<ChatMessageEntity> items,

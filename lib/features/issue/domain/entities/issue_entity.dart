@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'issue_entity.freezed.dart';
 
 @freezed
-class IssueEntity with _$IssueEntity {
+abstract class IssueEntity with _$IssueEntity {
   factory IssueEntity({
     required String title,
     required Map<String, int> map,
