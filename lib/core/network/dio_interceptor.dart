@@ -76,17 +76,19 @@ class DioInterceptor extends Interceptor {
 
         return handler.resolve(newResponse);
       }
-    } catch (e) {
-      if (e is DioException) {
-        if (e.response?.statusCode == 401) {
-          deSnackBar('인증정보가 만료되었습니다. 다시 로그인해주세요.');
 
-          await Future.wait([
-            storage.clear(),
-            prefs.clear(),
-          ]);
-          getx.Get.offAllNamed(GetRouterName.auth);
-        }
+      // 재발급이 예외 없이 실패(non-200)한 경우에도 요청이 영구 대기하지 않도록
+      // 반드시 종료시킨다. (resolve/reject 누락 시 호출부의 then이 발화되지 않음)
+      return handler.reject(err);
+    } catch (e) {
+      if (e is DioException && e.response?.statusCode == 401) {
+        deSnackBar('인증정보가 만료되었습니다. 다시 로그인해주세요.');
+
+        await Future.wait([
+          storage.clear(),
+          prefs.clear(),
+        ]);
+        getx.Get.offAllNamed(GetRouterName.auth);
       }
       return handler.reject(err);
     }

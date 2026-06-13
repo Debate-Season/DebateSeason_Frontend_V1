@@ -45,5 +45,11 @@ class SharedPreferencesService {
 
   String getString(String key) => _prefs.getString(key) ?? '';
 
+  // 범용 bool 메서드들
+  Future<void> setBool(String key, bool value) async =>
+      await _prefs.setBool(key, value);
+
+  bool getBool(String key) => _prefs.getBool(key) ?? false;
+
   Future<void> clear() async => await _prefs.clear();
 }
