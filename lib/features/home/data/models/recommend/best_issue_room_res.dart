@@ -8,13 +8,11 @@ class BestIssueRoomRes {
   final int issueId;
   final String title;
   final int countChatRoom;
-  final int bookMarks;
 
   BestIssueRoomRes({
     required this.issueId,
     required this.title,
     required this.countChatRoom,
-    required this.bookMarks,
   });
 
   factory BestIssueRoomRes.fromJson(Map<String, dynamic> json) =>
@@ -23,8 +21,5 @@ class BestIssueRoomRes {
   Map<String, dynamic> toJson() => _$BestIssueRoomResToJson(this);
 
   BestIssueRoomEntity toEntity() => BestIssueRoomEntity(
-      issueId: issueId,
-      title: title,
-      countChatRoom: countChatRoom,
-      bookMarks: bookMarks);
+      issueId: issueId, title: title, countChatRoom: countChatRoom);
 }

@@ -11,7 +11,6 @@ BestIssueRoomRes _$BestIssueRoomResFromJson(Map<String, dynamic> json) =>
       issueId: (json['issueId'] as num).toInt(),
       title: json['title'] as String,
       countChatRoom: (json['countChatRoom'] as num).toInt(),
-      bookMarks: (json['bookMarks'] as num).toInt(),
     );
 
 Map<String, dynamic> _$BestIssueRoomResToJson(BestIssueRoomRes instance) =>
@@ -19,5 +18,4 @@ Map<String, dynamic> _$BestIssueRoomResToJson(BestIssueRoomRes instance) =>
       'issueId': instance.issueId,
       'title': instance.title,
       'countChatRoom': instance.countChatRoom,
-      'bookMarks': instance.bookMarks,
     };
