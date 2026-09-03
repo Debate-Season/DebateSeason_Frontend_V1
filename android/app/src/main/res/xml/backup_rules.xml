@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 이하. secure storage는 암호문만 백업되고 이를 복호화하는
+     AndroidKeyStore 키는 기기에 묶여 백업되지 않는다. 복원 시 키 없는
+     암호문만 남아 read가 예외를 던지므로 SharedPreferences 전체를 제외한다.
+     여기 저장되는 값은 모두 로그인 후 서버에서 다시 받으므로 손실이 없다. -->
+<full-backup-content>
+    <exclude domain="sharedpref" />
+</full-backup-content>

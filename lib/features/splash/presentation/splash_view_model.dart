@@ -7,6 +7,7 @@ import 'package:debateseason_frontend_v1/features/splash/domain/app_version_repo
 import 'package:debateseason_frontend_v1/utils/amplitude_util.dart';
 import 'package:debateseason_frontend_v1/utils/de_snack_bar.dart';
 import 'package:debateseason_frontend_v1/utils/jwt_util.dart';
+import 'package:debateseason_frontend_v1/utils/logger.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -29,10 +30,18 @@ class SplashViewModel extends GetxController {
     _startSplash();
   }
 
-  void _startSplash() async {
-    await Future.delayed(const Duration(seconds: 1));
-
-    await getAppVersions();
+  // 어떤 단계가 실패해도 스플래시에 갇히지 않도록 마지막에 경로를 확정한다.
+  Future<void> _startSplash() async {
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      await getAppVersions();
+    } catch (e, s) {
+      log.e('스플래시 초기화 실패: $e\n$s');
+    } finally {
+      if (nextRoute.value.isEmpty && appVersion.value == null) {
+        nextRoute.value = GetRouterName.auth;
+      }
+    }
   }
 
   Future<void> getAppVersions() async {
@@ -43,17 +52,19 @@ class SplashViewModel extends GetxController {
       versionCode: versionCode,
     );
 
-    appVersionRes.when(
-      loading: () {},
-      success: (appVersionRes) {
-        if (appVersionRes.versionCode > versionCode) {
-          appVersion.value = appVersionRes;
-        } else {
-          determineNextRoute();
+    await appVersionRes.when(
+      loading: () async => determineNextRoute(),
+      success: (data) async {
+        if (data.versionCode > versionCode) {
+          appVersion.value = data;
+          return;
         }
+        await determineNextRoute();
       },
-      failure: (msg) {
+      // 버전 확인은 필수 단계가 아니다. 실패해도 로컬 상태로 진행시킨다.
+      failure: (msg) async {
         deSnackBar(ErrorConstants.SERVER_ERROR);
+        await determineNextRoute();
       },
     );
   }
@@ -61,27 +72,24 @@ class SplashViewModel extends GetxController {
   Future<void> determineNextRoute() async {
     final String accessToken = await storage.getAccessToken();
     final String refreshToken = await storage.getRefreshToken();
-    final bool profileStatus = pref.getProfileStatus();
-    final bool termsStatus = pref.getTermsStatus();
 
-    // 토큰 문자열 존재만으로 세션을 신뢰하지 않는다. access·refresh가 모두
-    // 만료된 경우(또는 토큰 없음)에는 재로그인을 강제해 stale 토큰 요청을 막는다.
+    // access·refresh가 모두 만료(또는 부재)면 재로그인을 강제한다.
     final bool sessionAlive = accessToken.isNotEmpty &&
         !(JwtUtil.isExpired(accessToken) && JwtUtil.isExpired(refreshToken));
 
-    if (sessionAlive) {
-      if (termsStatus) {
-        if (profileStatus) {
-          nextRoute.value = GetRouterName.main;
-        } else {
-          nextRoute.value = GetRouterName.profileInput;
-        }
-      } else {
-        _profileStatus.value = profileStatus;
-        nextRoute.value = GetRouterName.terms;
-      }
-    } else {
+    if (!sessionAlive) {
       nextRoute.value = GetRouterName.auth;
+      return;
     }
+
+    if (!pref.getTermsStatus()) {
+      _profileStatus.value = pref.getProfileStatus();
+      nextRoute.value = GetRouterName.terms;
+      return;
+    }
+
+    nextRoute.value = pref.getProfileStatus()
+        ? GetRouterName.main
+        : GetRouterName.profileInput;
   }
 }
